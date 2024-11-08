@@ -6,7 +6,9 @@ categories: [news, code, analysis]
 image: "image.jpg"
 ---
 
-This is a post with executable code.
+Second entry for the fun of testing, this might disappear soon.
+
+This is a post with executable R code. Post-rendering, I believe. Still!
 
 ```{r}
 1 + 1
