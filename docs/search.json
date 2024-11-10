@@ -18,7 +18,7 @@
     "href": "posts/2024-11-08_welcome/index.html#references-for-future-use",
     "title": "Welcome To My Blog",
     "section": "References for future use",
-    "text": "References for future use\nFor now, I need to keep references of what allowed me to get here:\n\nManage GitHub access\nhttps://usethis.r-lib.org/articles/git-credentials.html\n\n\nSet things up\nhttps://ucsb-meds.github.io/creating-quarto-websites/"
+    "text": "References for future use\nFor now, I need to keep references of what allowed me to get here:\n\nManage GitHub access\nhttps://usethis.r-lib.org/articles/git-credentials.html\n\n\nSet things up\nhttps://sites.northwestern.edu/researchcomputing/2022/05/11/git-with-rstudio-order-matters/\nhttps://sites.northwestern.edu/researchcomputing/resources/using-git-and-github-with-r-rstudio/\nhttps://ucsb-meds.github.io/creating-quarto-websites/"
   },
   {
     "objectID": "posts/2024_11_08_FirstPostWithCode/index.html",
@@ -28,10 +28,45 @@
     "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2"
   },
   {
+    "objectID": "posts/2024-11-10_entropy_of_zip/index.html",
+    "href": "posts/2024-11-10_entropy_of_zip/index.html",
+    "title": "Entropy - Identifying compressed files",
+    "section": "",
+    "text": "About Shannon’s Information Entropy, applied to potentially detecting ciphered or compressed text compared to plain text.\n(First entry of the new platform, let’s see how it goes.)"
+  },
+  {
+    "objectID": "posts/2024-11-10_entropy_of_zip/index.html#shannons-information-entropy",
+    "href": "posts/2024-11-10_entropy_of_zip/index.html#shannons-information-entropy",
+    "title": "Entropy - Identifying compressed files",
+    "section": "Shannon’s Information Entropy",
+    "text": "Shannon’s Information Entropy\n\nWhy try to understand that?\nLong story short, Information Entropy is useful in quite a few Machine learning algorithms, and to name only a few, the following two use it directly:\n\nPartitioning Trees (for nodes selection)\nLogistic Regression (through log loss)\n\nDoesn’t seem like much, said like that, but the Logistic Regression in turn can be used for… Neural Networks :)\n\n\nHow it is defined?\nThe best way I personally managed to try and understand information entropy is through the concept of compression and surprise.\nA few helpful descriptions:\n“[…] the expected amount of information needed to describe the state of the variable […]”\n“Entropy is the measure of uncertainty of a variable. The more uncertain it is, the higher the entropy is.”\nHere is the mathematical expression of it:\n\\[\nH(X) = - \\sum_{x \\in X} p(x) log(p(x))\n\\]\nFrom the Wikipedia (I mean, why not?), this is the part that somehow can make sense for an intuitive understanding of the concept:\n“The information content, also called the surprisal or self-information, of an event \\(E\\) is a function which increases as the probability \\(p(E)\\) of an event decreases. When \\(p(E)\\) is close to 1, the surprisal of the event is low, but if \\(p(E)\\) is close to 0, the surprisal of the event is high. This relationship is described by the function\n\\[\nlog({1 \\over p(E)})\n\\]\nwhere \\(log()\\) is the logarithm, which gives 0 surprise when the probability of the event is 1. In fact, log is the only function that satisfies а specific set of conditions […]”"
+  },
+  {
+    "objectID": "posts/2024-11-10_entropy_of_zip/index.html#application-detecting-cipherzip-on-data-streams",
+    "href": "posts/2024-11-10_entropy_of_zip/index.html#application-detecting-cipherzip-on-data-streams",
+    "title": "Entropy - Identifying compressed files",
+    "section": "Application: Detecting cipher/zip on data streams",
+    "text": "Application: Detecting cipher/zip on data streams\nWe’re aiming for this today:\n\n\n\nCharacters distribution in Plain/Zip text for some Wiki entries\n\n\n\nThe code\nThe code will be on my Github soon enough (if not already).\nBut for now, a few blocks of it:\n\nmake_freq_df &lt;- function(filename) {\n    test1 &lt;- file(filename, open=\"rb\", raw = TRUE)\n    t1_bytes &lt;- t1_chars &lt;- c()\n    while(TRUE) {\n        temp &lt;- readBin(test1, what = \"raw\")\n        if(length(temp) == 0) break;\n        t1_bytes &lt;- c(t1_bytes, temp)\n        t1_chars &lt;- c(t1_chars, rawToChar(temp))\n    }\n    \n    t1_df &lt;- data.frame(sort(table(as.character.hexmode(t1_bytes)), decreasing = TRUE))\n    t1_df$char &lt;- names(sort(table(t1_chars), decreasing = TRUE))\n    t1_df$probs &lt;- as.numeric(prop.table(sort(table(t1_chars), decreasing = TRUE)))\n    names(t1_df) &lt;- c(\"x\", \"y\", \"char\", \"probs\")\n    # print(sum(t1_df$y))\n    t1_df$y &lt;- t1_df$y/sum(t1_df$y) \n    t1_df\n}\n\nThe above function is a (bad, but functional) way of taking a file, reading it in “raw” format, and output byte-by-byte into a dataframe.\n\nThe first output column will be the “raw byte” (for text, the ASCII code, say “20” for space character).\nThe second column contains the Probability of appearance of a character, compared to the whole text being analysed (so, the frequency of it’s appearance).\nThe third column is for reference only, to “see” what the character would look like in plain text. Note that ” ” (space) and null would look similar… And so would other encoded bytes, but that’s not to worry for today.\n\nWith the above in mind, here is an output of plain and zip’ed text, along with the Shannon’s Entropy of it, correspondingly:\n&gt; firewall_wiki &lt;- compare_clear_zip(1, wiki_pages_df)\n   x          y char      probs\n1 20 0.14766670      0.14766670\n2 65 0.09267745    e 0.09267745\n3 69 0.07790143    i 0.07790143\n4 74 0.06658562    t 0.06658562\n5 6e 0.06621154    n 0.06621154\n6 61 0.06050687    a 0.06050687\n   x           y char       probs\n1  0 0.012244898      0.012244898\n2 39 0.006722689    9 0.006722689\n3 72 0.006722689    r 0.006722689\n4 5f 0.006482593    _ 0.006482593\n5 34 0.006242497    4 0.006242497\n6 e4 0.006242497 \\xe4 0.006242497\n[1] \"Entropy Plain text: 4.38674335811205\"\n[1] \"Entropy Zip text: 7.9669387921095\"\n\nIn Plain text, the space character appears quite a bit. So do the letters e, i, t, n, a… (That’s for English, and remember these are small sample texts extracted from some Wikipedia pages…). Plain text has repetition on some characters (higher probability of appearance), with varying distributions (and uses fewer different bytes).\nIn Zip, the probabilities are each MUCH lower, and more even across all possible bytes. And that’s our KEY concept for today. Zip is compression, so all its characters have as few repetition as possible (i.e. low probability).\nInterestingly, with the above approache, ciphered data would look like zip data.\n\nOK, so let’s go back to our definitions of the first part:\n“[…] When \\(p(E)\\) is close to 1, the surprisal of the event is low, but if \\(p(E)\\) is close to 0, the surprisal of the event is high[…]”\nHopefully we’re getting somewhere with understanding the concept. Uncommon characters will have higher “surprisal”, and lower probability of appearing.\nOh: And we should not be afraid of the math, it wasn’t that bad.\n\n\nWhat does it mean in practice?\nWell, it means that if you sample some bytes sniffed on a network, if you see seemingly random characters with no prevalence of a few ones, you know it’s not clear-text.\nAnd yes, if you have the file extension, maybe this is all useless.\nSo why you would care? First, this is pretty cool. If you sample data (from a network stream, or bytes on a disk…), you can distinguish “automagically” what’s plain text and what’s ciphered/zip.\nMaybe you can use that to detect covert channels out of packet capture?\nOr maybe let your computer on its own decide to use one set of algorithm to analyse things when there is plain text, and use another set of characters when there is ciphered/compressed text (or images, etc.)."
+  },
+  {
+    "objectID": "posts/2024-11-10_entropy_of_zip/index.html#conclusions",
+    "href": "posts/2024-11-10_entropy_of_zip/index.html#conclusions",
+    "title": "Entropy - Identifying compressed files",
+    "section": "Conclusions",
+    "text": "Conclusions\nAll this took me quite a while to really understand it. Or think I do, anyway :D\nToday we’ve tried to explain the concept of information entropy through a simple application. If at this point my readers have gotten somewhat of an intuition about the concept, I’ll be very happy.\nAnd the concept is quite relevant for Machine Learning, as we shall see in future posts."
+  },
+  {
+    "objectID": "posts/2024-11-10_entropy_of_zip/index.html#references",
+    "href": "posts/2024-11-10_entropy_of_zip/index.html#references",
+    "title": "Entropy - Identifying compressed files",
+    "section": "References",
+    "text": "References\nhttps://en.wikipedia.org/wiki/Entropy_(information_theory)"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Kaizen-R.com new home",
     "section": "",
-    "text": "Post With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nNov 8, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nNov 8, 2024\n\n\nNico\n\n\n\n\n\n\nNo matching items"
+    "text": "Entropy - Identifying compressed files\n\n\n\n\n\n\nmath\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 10, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nNov 8, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nNov 8, 2024\n\n\nNico\n\n\n\n\n\n\nNo matching items"
   }
 ]

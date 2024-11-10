@@ -23,4 +23,8 @@ For now, I need to keep references of what allowed me to get here:
 
 ### Set things up
 
+<https://sites.northwestern.edu/researchcomputing/2022/05/11/git-with-rstudio-order-matters/>
+
+<https://sites.northwestern.edu/researchcomputing/resources/using-git-and-github-with-r-rstudio/>
+
 <https://ucsb-meds.github.io/creating-quarto-websites/>

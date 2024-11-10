@@ -1,0 +1,96 @@
+   border px solid a2a9b1 border-left px solid c background-color fbfbfb box-sizing border-box  +link+ ,  +link+style+ ,  +link+link+ ,  + +link+ ,  + +link+style+ ,  + +link+link+ margin-top -1px html body    margin px em px overflow hidden width px border-collapse collapse font-size % line-height    border-left px solid b32424 background-color fee7e6   border-left px solid b32424   border-left px solid f28500   border-left px solid fc3   border-left px solid cc   border-left px solid a2a9b1    border none padding   width %    border none padding px px  text-align center    border none padding px  px text-align center    border none padding width px    width px @media(min-width px)   margin % @media print body   display none!important         article lead section may technical readers understand . please help improve  make understandable non-experts , without removing technical details.   ( may )   ( learn remove message )   
+ networking hardware forwards packets based hardware address
+   avaya  ers t-pwr , -port ethernet switch
+ network switch (also called switching hub , bridging hub , ethernet switch , and, ieee , mac bridge        ) networking hardware connects devices computer network using packet switching receive forward data destination device.
+ network switch multiport network bridge uses mac addresses forward data data link layer (layer ) osi model . switches can also forward data network layer (layer ) additionally incorporating routing functionality. switches commonly known layer-3 switches multilayer switches .      
+ switches ethernet common form network switch. first mac bridge                      invented        mark kempf, engineer networking advanced development group digital equipment corporation . first port bridge product (lanbridge ) introduced company shortly after. company subsequently produced multi-port switches ethernet fddi gigaswitch. digital decided license mac bridge patent royalty-free, non-discriminatory basis allowed ieee standardization. permitted number companies produce multi-port switches, including kalpana .        ethernet initially shared-access medium , introduction mac bridge began transformation most-common point-to-point form without collision domain . switches also exist types networks including fibre channel , asynchronous transfer mode , infiniband .
+ unlike repeater hubs , broadcast data port let devices pick data addressed them, network switch learns ethernet addresses connected devices forwards data port connected device addressed.      
+ overview    edit   
+    display flex flex-direction column    display flex flex-direction row clear left flex-wrap wrap width % box-sizing border-box    margin px float left    clear font-weight bold text-align center align-self center background-color transparent width %    background-color transparent    text-align left    text-align right    text-align center @media (max-width px)    width %!important box-sizing border-box max-width none!important align-items center    justify-content center    float none!important max-width %!important box-sizing border-box text-align center     text-align left   > text-align center @media screen html    img background-color white @media screen (prefers-color-scheme dark) html    img background-color white               cisco small business sg300-28 -port gigabit ethernet rackmount switch internals 
+ switch device computer network connects devices together. multiple data cables plugged switch enable communication different networked devices. switches manage flow data across network transmitting received network packet one devices packet intended. networked device connected switch can identified network address , allowing switch direct flow traffic maximizing security efficiency network.
+ switch intelligent ethernet hub , simply retransmits packets every port hub except port packet received, unable distinguish different recipients, achieving overall lower network efficiency.
+ ethernet switch operates data link layer (layer  ) osi model create separate collision domain switch port. device connected switch port can transfer data ports time transmissions will interfere.       broadcasts still forwarded connected devices switch, newly formed network segment continues broadcast domain . switches may also operate higher layers osi model, including network layer above. switch also operates higher layers known multilayer switch .
+ segmentation involves use switch split larger collision domain smaller ones order reduce collision probability improve overall network throughput. extreme case (i . micro-segmentation), device directly connected switch port dedicated device. contrast ethernet hub, separate collision domain switch port. allows computers dedicated bandwidth point-to-point connections network also run full-duplex mode. full-duplex mode one transmitter one receiver per collision domain, making collisions impossible.
+ network switch plays integral role modern ethernet local area networks (lans). mid-to-large-sized lans contain number linked managed switches. small office/home office (soho) applications typically use single switch, all-purpose device residential gateway access small office/home broadband services dsl  cable internet . cases, end-user device contains router components interface particular physical broadband technology.
+ many switches pluggable modules, small form-factor pluggable (sfp) modules. modules often contain transceiver connects switch physical medium, fiber optic cable.               modules preceded medium attachment units connected via attachment unit interfaces switches               evolved time first modules gigabit interface converters , followed xenpak modules, sfp modules, xfp transceivers ,
+sfp+ modules, qsfp,        qsfp-dd,        osfp        modules. pluggable modules also used transmitting video broadcast applications.             
+ role network    edit   
+ switches commonly used network connection point hosts edge network. hierarchical internetworking model similar network architectures, switches also used deeper network provide connections switches edge.
+ switches intended commercial use, built-in modular interfaces make possible connect different types networks, including ethernet, fibre channel , rapidio , atm , itu-t    . connectivity can layers mentioned. layer-2 functionality adequate bandwidth-shifting within one technology, interconnecting technologies ethernet token ring performed easily layer via routing.        devices interconnect layer  traditionally called routers .      
+ need great deal analysis network performance security, switches may connected wan routers places analytic modules. vendors provide firewall ,               network intrusion detection ,        performance analysis modules can plug switch ports. functions may combined modules.      
+ port mirroring , switch can create mirror image data can external device, intrusion detection systems packet sniffers .
+ modern switch may implement power ethernet (poe), avoids need attached devices, voip phone  wireless access point , separate power supply. since switches can redundant power circuits connected uninterruptible power supplies , connected device can continue operating even regular office power fails.
+  , kalpana introduced first multiport ethernet switch, seven-port etherswitch.      
+ bridging    edit   
+   modular network switch three network modules (a total ethernet ports) one power supply
+   five-port layer-2 switch without management functionality
+ modern commercial switches primarily use ethernet interfaces. core function ethernet switch provide multiple ports layer-2 bridging. layer-1 functionality required switches support higher layers. many switches also perform operations layers. device capable bridging known multilayer switch.
+ layer network device multiport device uses hardware addresses ( mac addresses ) process forward data data link layer (layer ).
+ switch operating network bridge may interconnect otherwise separate layer networks. bridge learns mac address connected device, storing data table maps mac addresses ports. table often implemented using high-speed content-addressable memory (cam), vendors refer mac address table cam table.
+ bridges also buffer incoming packet adapt transmission speed outgoing port. specialized applications, storage area networks, input output interfaces bandwidth, always case general lan applications. lans, switch used end-user access typically concentrates lower bandwidth uplinks higher bandwidth.
+ ethernet header start frame contains information required make forwarding decision, high-performance switches can begin forwarding frame destination whilst still receiving frame payload sender. cut-through switching can significantly reduce latency switch.
+ interconnects switches may regulated using spanning tree protocol (stp) disables forwarding links resulting local area network tree without switching loops . contrast routers, spanning tree bridges must topologies one active path two points. shortest path bridging trill (transparent interconnection lots links) layer alternatives stp allow paths active multiple equal cost paths.             
+ types    edit   
+   rack-mounted -port com switch
+ form factors    edit   
+   zyxel es-105a -port desktop ethernet switch. metal casing switch opened, revealing internal electronic components.
+ switches available many form factors, including stand-alone, desktop units typically intended used home office environment outside wiring closet  rack-mounted switches use equipment rack enclosure  din rail mounted use industrial environments  small installation switches, mounted cable duct, floor box communications tower, found, example, fiber office infrastructures.
+ rack-mounted switches may stand-alone units, stackable switches large chassis units swappable line cards.
+ configuration options    edit   
+  unmanaged switches configuration interface options. plug play . typically least expensive switches, therefore often used small office/home office environment. unmanaged switches can desktop rack mounted.       
+ managed switches one methods modify operation switch. common management methods include  command-line interface (cli) accessed via serial console , telnet  secure shell , embedded simple network management protocol (snmp) agent allowing management remote console management station, web interface management web browser . two sub-classes managed switches smart enterprise-managed switches.       
+ smart switches (aka intelligent switches) managed switches limited set management features. likewise, web-managed switches switches fall market niche unmanaged managed. price much lower fully managed switch provide web interface (and usually cli access) allow configuration basic settings, vlans, port-bandwidth duplex.              
+ enterprise managed switches (aka managed switches) full set management features, including cli, snmp agent, web interface. may additional features manipulate configurations, ability display, modify, backup restore configurations. compared smart switches, enterprise switches features can customized optimized generally expensive smart switches. enterprise switches typically found networks larger number switches connections, centralized management significant savings administrative time effort. stackable switch type enterprise-managed switch.
+ typical management features    edit   
+   couple managed d-link gigabit ethernet rackmount switches, connected ethernet ports patch panels using category   patch cables (all installed standard -inch rack)
+ centralized configuration management configuration distribution
+ enable disable ports
+ link bandwidth duplex settings
+ quality service configuration monitoring
+ mac filtering access control list features
+ configuration spanning tree protocol (stp) shortest path bridging (spb) features
+ simple network management protocol (snmp) monitoring device link health
+ port mirroring monitoring traffic troubleshooting
+ link aggregation configuration set multiple ports connection achieve higher data transfer rates reliability
+ vlan configuration port assignments including ieee  tagging
+ ntp ( network time protocol ) synchronization
+ network access control features ieee 
+ lldp ( link layer discovery protocol )
+ igmp snooping control multicast traffic
+ traffic monitoring    edit   
+ difficult monitor traffic bridged using switch sending receiving ports can see traffic.
+ methods specifically designed allow network analyst monitor traffic include
+  port mirroring      purpose switch forward traffic network segments superfluous, node attached switch monitor traffic segments. port mirroring problem addressed switched networks addition usual behavior forwarding frames ports might reach addressees, switch forwards frames received given monitored port designated monitoring port, allowing analysis traffic otherwise visible switch.
+ switch monitoring (smon) described rfc provision controlling facilities port mirroring.       
+ rmon       
+ sflow 
+ monitoring features rarely present consumer-grade switches. monitoring methods include connecting layer-1 hub network tap monitored device switch port.      
+ see also    edit   
+   margin-top  column-width em   font-size %   column-rule px solid aaa      margin-top     page-break-inside avoid break-inside avoid-column 
+  console server
+ energy-efficient ethernet
+ fibre channel switch
+ fully switched network
+ load-balanced switch
+ modular computer network switch
+ packet switch
+ router (computing)
+ stackable switch
+ telephone exchange
+ wide area network 
+ notes    edit   
+   margin-bottom  list-style-type decimal @media screen   font-size %    font-size % margin-bottom list-style-type inherit   column-width em   column-width em   margin-top    margin-top   page-break-inside avoid break-inside avoid-column   list-style-type upper-alpha   list-style-type upper-roman   list-style-type lower-alpha   list-style-type lower-greek   list-style-type lower-roman 
+  ^   half duplex mode, switch port can either receive  transmit connected device certain time. full duplex mode, switch port can simultaneously transmit receive, assuming connected device also supports full-duplex mode.       
+ references    edit   
+  ^   ieee 
+  ^    cite font-style inherit word-wrap break-word   quotes "\"""\""" "" "   target background-color rgba(0,127,255,0 )   background url("//upload /wikipedia/commons/6/65/lock-green ")right  center/9px no-repeat     background url("//upload /wikipedia/commons/d/d6/lock-gray-alt-2 ")right  center/9px no-repeat   background url("//upload /wikipedia/commons/a/aa/lock-red-alt-2 ")right  center/9px no-repeat   background url("//upload /wikipedia/commons/4/4c/wikisource-logo ")right  center/12px no-repeat body not( ) not( )   a,body not( ) not( )   a,body not( ) not( )   a,body not( ) not( )   a,body not( ) not( )   background-size contain padding em    color inherit background inherit border none padding inherit   display none color var(--color-error, d33)   color var(--color-error, d33)   display none color  margin-left    padding-left    padding-right     font-weight inherit @media screen   font-size % html   color f @media screen (prefers-color-scheme dark) html   color f  thayumanavan sridhar (september ). "layer layer switch evolution" . cisco . internet protocol journal. cisco systems . retrieved -08-05 . 
+  ^    stewart, robert hawe, william kirby, alan (april ). "local area network connection". telecommunications . 
+  ^   w. hawe, a. kirby, a. lauck, "an architecture transparently interconnecting ieee local area networks", technical paper submitted ieee committee, document ieee-802 *1 , san diego october .
+  ^    hawe, william kirby, alan stewart, robert (1987). advances local area networks . ieee press. pp.  chapter . isbn   -87942-217-3 . 
+  ^     word-wrap break-word   target background-color rgba(0,127,255,0 )   ,  "bridge circuit interconnecting networks"    
+  ^    robert j. kohlhepp (2000-10-02). "the important products decade" . network computing. archived original -01-05 . retrieved -02-25 . 
+  ^    "hubs versus switches – understand tradeoffs"  (pdf) . ccontrols . . retrieved -12-10 . 
+  ^    "cisco networking academy introduction basic switching concepts configuration" . cisco systems . -03-31 . retrieved -08-17 . 
+  ^    "evolutionary trends pluggable optical modules" . january . 
+  ^    "pluggable transceivers, module connectors"  (pdf) . cisco . retrieved -08-19 . 
+  ^    minoli, daniel (2003).  telecommunications technology handbook . artech house. isbn   -1-58053-708-7 . 

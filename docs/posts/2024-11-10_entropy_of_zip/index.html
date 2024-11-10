@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2024-11-08">
+<meta name="dcterms.date" content="2024-11-10">
 
-<title>Welcome To My Blog – Kaizen-R.com new home</title>
+<title>Entropy - Identifying compressed files – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -69,6 +103,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -115,9 +178,10 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Welcome To My Blog</h1>
+      <h1 class="title">Entropy - Identifying compressed files</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">news</div>
+                <div class="quarto-category">math</div>
+                <div class="quarto-category">code</div>
               </div>
                   </div>
   </div>
@@ -135,7 +199,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 8, 2024</p>
+        <p class="date">November 10, 2024</p>
       </div>
     </div>
     
@@ -154,25 +218,124 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>This is the first post in this future Blog. Currently testing all kinds of things, will updated hopefully shortly!</p>
-<p>Seems like it will nicely manage some defaults.</p>
-<p><img src="thumbnail.jpg" class="img-fluid"></p>
-<p>Since this post doesn’t specify an explicit <code>image</code>, the first image in the post will be used in the listing page of posts.</p>
-<section id="references-for-future-use" class="level2">
-<h2 class="anchored" data-anchor-id="references-for-future-use">References for future use</h2>
-<p>For now, I need to keep references of what allowed me to get here:</p>
-<section id="manage-github-access" class="level3">
-<h3 class="anchored" data-anchor-id="manage-github-access">Manage GitHub access</h3>
-<p><a href="https://usethis.r-lib.org/articles/git-credentials.html" class="uri">https://usethis.r-lib.org/articles/git-credentials.html</a></p>
+<p>About Shannon’s Information Entropy, applied to potentially detecting ciphered or compressed text compared to plain text.</p>
+<p>(First entry of the new platform, let’s see how it goes.)</p>
+<section id="shannons-information-entropy" class="level2">
+<h2 class="anchored" data-anchor-id="shannons-information-entropy">Shannon’s Information Entropy</h2>
+<section id="why-try-to-understand-that" class="level3">
+<h3 class="anchored" data-anchor-id="why-try-to-understand-that">Why try to understand that?</h3>
+<p>Long story short, Information Entropy is useful in quite a few Machine learning algorithms, and to name only a few, the following two use it directly:</p>
+<ul>
+<li><p>Partitioning Trees (for nodes selection)</p></li>
+<li><p>Logistic Regression (through log loss)</p></li>
+</ul>
+<p>Doesn’t seem like much, said like that, but the Logistic Regression in turn can be used for… Neural Networks :)</p>
 </section>
-<section id="set-things-up" class="level3">
-<h3 class="anchored" data-anchor-id="set-things-up">Set things up</h3>
-<p><a href="https://sites.northwestern.edu/researchcomputing/2022/05/11/git-with-rstudio-order-matters/" class="uri">https://sites.northwestern.edu/researchcomputing/2022/05/11/git-with-rstudio-order-matters/</a></p>
-<p><a href="https://sites.northwestern.edu/researchcomputing/resources/using-git-and-github-with-r-rstudio/" class="uri">https://sites.northwestern.edu/researchcomputing/resources/using-git-and-github-with-r-rstudio/</a></p>
-<p><a href="https://ucsb-meds.github.io/creating-quarto-websites/" class="uri">https://ucsb-meds.github.io/creating-quarto-websites/</a></p>
+<section id="how-it-is-defined" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-is-defined">How it is defined?</h3>
+<p>The best way I personally managed to try and understand information entropy is through the concept of compression and surprise.</p>
+<p>A few helpful descriptions:</p>
+<p>“[…] the expected amount of information needed to describe the state of the variable […]”</p>
+<p>“Entropy is the measure of uncertainty of a variable. The more uncertain it is, the higher the entropy is.”</p>
+<p>Here is the mathematical expression of it:</p>
+<p><span class="math display">\[
+H(X) = - \sum_{x \in X} p(x) log(p(x))
+\]</span></p>
+<p>From the Wikipedia (I mean, why not?), this is the part that somehow can make sense for an intuitive understanding of the concept:</p>
+<p>“The <em>information content,</em> also called the <em>surprisal</em> or <em>self-information,</em> of an event <span class="math inline">\(E\)</span> is a function which increases as the probability <span class="math inline">\(p(E)\)</span> of an event decreases. When <span class="math inline">\(p(E)\)</span> is close to 1, the surprisal of the event is low, but if <span class="math inline">\(p(E)\)</span> is close to 0, the surprisal of the event is high. This relationship is described by the function</p>
+<p><span class="math display">\[
+log({1 \over p(E)})
+\]</span></p>
+<p>where <span class="math inline">\(log()\)</span> is the logarithm, which gives 0 surprise when the probability of the event is 1. In fact, log is the only function that satisfies а specific set of conditions […]”</p>
+</section>
+</section>
+<section id="application-detecting-cipherzip-on-data-streams" class="level2">
+<h2 class="anchored" data-anchor-id="application-detecting-cipherzip-on-data-streams">Application: Detecting cipher/zip on data streams</h2>
+<p>We’re aiming for this today:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="sample_characters_prevalence_visu.png" class="img-fluid figure-img"></p>
+<figcaption>Characters distribution in Plain/Zip text for some Wiki entries</figcaption>
+</figure>
+</div>
+<section id="the-code" class="level3">
+<h3 class="anchored" data-anchor-id="the-code">The code</h3>
+<p>The code will be on my Github soon enough (if not already).</p>
+<p>But for now, a few blocks of it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>make_freq_df <span class="ot">&lt;-</span> <span class="cf">function</span>(filename) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    test1 <span class="ot">&lt;-</span> <span class="fu">file</span>(filename, <span class="at">open=</span><span class="st">"rb"</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    t1_bytes <span class="ot">&lt;-</span> t1_chars <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span>(<span class="cn">TRUE</span>) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        temp <span class="ot">&lt;-</span> <span class="fu">readBin</span>(test1, <span class="at">what =</span> <span class="st">"raw"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">length</span>(temp) <span class="sc">==</span> <span class="dv">0</span>) <span class="cf">break</span>;</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        t1_bytes <span class="ot">&lt;-</span> <span class="fu">c</span>(t1_bytes, temp)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        t1_chars <span class="ot">&lt;-</span> <span class="fu">c</span>(t1_chars, <span class="fu">rawToChar</span>(temp))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    t1_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">sort</span>(<span class="fu">table</span>(<span class="fu">as.character.hexmode</span>(t1_bytes)), <span class="at">decreasing =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    t1_df<span class="sc">$</span>char <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">table</span>(t1_chars), <span class="at">decreasing =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    t1_df<span class="sc">$</span>probs <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">prop.table</span>(<span class="fu">sort</span>(<span class="fu">table</span>(t1_chars), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(t1_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"char"</span>, <span class="st">"probs"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(sum(t1_df$y))</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    t1_df<span class="sc">$</span>y <span class="ot">&lt;-</span> t1_df<span class="sc">$</span>y<span class="sc">/</span><span class="fu">sum</span>(t1_df<span class="sc">$</span>y) </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    t1_df</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The above function is a (bad, but functional) way of taking a file, reading it in “raw” format, and output byte-by-byte into a dataframe.</p>
+<ul>
+<li><p>The first output column will be the “raw byte” (for text, the ASCII code, say “20” for space character).</p></li>
+<li><p>The second column contains the Probability of appearance of a character, compared to the whole text being analysed (so, the frequency of it’s appearance).</p></li>
+<li><p>The third column is for reference only, to “see” what the character would look like in plain text. Note that ” ” (space) and null would look similar… And so would other encoded bytes, but that’s not to worry for today.</p></li>
+</ul>
+<p>With the above in mind, here is an output of plain and zip’ed text, along with the Shannon’s Entropy of it, correspondingly:</p>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> firewall_wiki <span class="ot">&lt;-</span> <span class="fu">compare_clear_zip</span>(<span class="dv">1</span>, wiki_pages_df)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>   x          y char      probs</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">20</span> <span class="fl">0.14766670</span>      <span class="fl">0.14766670</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">65</span> <span class="fl">0.09267745</span>    e <span class="fl">0.09267745</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">69</span> <span class="fl">0.07790143</span>    i <span class="fl">0.07790143</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="dv">74</span> <span class="fl">0.06658562</span>    t <span class="fl">0.06658562</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="dv">6</span>e <span class="fl">0.06621154</span>    n <span class="fl">0.06621154</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="dv">61</span> <span class="fl">0.06050687</span>    a <span class="fl">0.06050687</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>   x           y char       probs</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">0</span> <span class="fl">0.012244898</span>      <span class="fl">0.012244898</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">39</span> <span class="fl">0.006722689</span>    <span class="dv">9</span> <span class="fl">0.006722689</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">72</span> <span class="fl">0.006722689</span>    r <span class="fl">0.006722689</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="dv">5</span>f <span class="fl">0.006482593</span>    _ <span class="fl">0.006482593</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="dv">34</span> <span class="fl">0.006242497</span>    <span class="dv">4</span> <span class="fl">0.006242497</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> e4 <span class="fl">0.006242497</span> \xe4 <span class="fl">0.006242497</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Entropy Plain text: 4.38674335811205"</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Entropy Zip text: 7.9669387921095"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><p>In Plain text, the space character appears quite a bit. So do the letters e, i, t, n, a… (That’s for English, and remember these are small sample texts extracted from some Wikipedia pages…). Plain text has repetition on some characters (higher probability of appearance), with varying distributions (and uses fewer different bytes).</p></li>
+<li><p>In Zip, the probabilities are each MUCH lower, and more even across all possible bytes. And that’s our KEY concept for today. Zip is <strong>compression</strong>, so <strong>all</strong> its characters have as few repetition as possible (i.e.&nbsp;low probability).</p></li>
+<li><p>Interestingly, with the above approache, <strong>ciphered data would look like zip data</strong>.</p></li>
+</ul>
+<p>OK, so let’s go back to our definitions of the first part:</p>
+<p>“[…] When <span class="math inline">\(p(E)\)</span> is close to 1, the surprisal of the event is low, but if <span class="math inline">\(p(E)\)</span> is close to 0, the surprisal of the event is high[…]”</p>
+<p>Hopefully we’re getting somewhere with understanding the concept. Uncommon characters will have higher “surprisal”, and lower probability of appearing.</p>
+<p>Oh: And we should not be afraid of the math, it wasn’t that bad.</p>
+</section>
+<section id="what-does-it-mean-in-practice" class="level3">
+<h3 class="anchored" data-anchor-id="what-does-it-mean-in-practice">What does it mean in practice?</h3>
+<p>Well, it means that if you <strong>sample some</strong> bytes sniffed on a network, if you see seemingly random characters with no prevalence of a few ones, you know it’s not clear-text.</p>
+<p>And yes, if you have the file extension, maybe this is all useless.</p>
+<p>So why you would care? First, this is pretty cool. If you sample data (from a network stream, or bytes on a disk…), you can distinguish “automagically” what’s plain text and what’s ciphered/zip.</p>
+<p>Maybe you can use that to detect covert channels out of packet capture?</p>
+<p>Or maybe let your computer on its own decide to use one set of algorithm to analyse things when there is plain text, and use <strong>another</strong> set of characters when there is ciphered/compressed text (or images, etc.).</p>
+</section>
+</section>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>All this took me quite a while to really understand it. Or think I do, anyway :D</p>
+<p>Today we’ve tried to explain the concept of information entropy through a simple application. If at this point my readers have gotten somewhat of an intuition about the concept, I’ll be very happy.</p>
+<p>And the concept is quite relevant for Machine Learning, as we shall see in future posts.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p><a href="https://en.wikipedia.org/wiki/Entropy_(information_theory)" class="uri">https://en.wikipedia.org/wiki/Entropy_(information_theory)</a></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

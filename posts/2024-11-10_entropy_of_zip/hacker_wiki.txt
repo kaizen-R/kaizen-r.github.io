@@ -1,0 +1,116 @@
+ person skilled information technology
+   font-style italic  padding-left  margin-bottom    font-style normal  +link+ margin-top -0 @media print body   display none!important  uses, see hacker (disambiguation) .
+   participants coding vinci hackathon , berlin, germany , april –27, 
+      margin padding      margin display inline   ,        dl,  ol,  ul,  dl,  ol,  ul,  dl,  ol,  ul display inline    display none   content " "   after,   content " · " font-weight bold   last-child after,  last-child after,  last-child content none   dd first-child before,   first-child before,  li first-child before,  dd first-child before,   first-child before,  li first-child before,  dd first-child before,   first-child before,  li first-child content " (" font-weight normal   dd last-child after,   last-child after,  li last-child after,  dd last-child after,   last-child after,  li last-child after,  dd last-child after,   last-child after,  li last-child content ")" font-weight normal   counter-reset listitem   ol>li counter-increment listitem   ol>li content " "counter(listitem)"\a0 "   ol>li first-child before,  ol>li first-child before,  ol>li first-child content " ("counter(listitem)"\a0 "    width em float right clear right margin  em em background var(--background-color-neutral-subtle, f8f9fa) border px solid var(--border-color-base, a2a9b1) padding  text-align center line-height  font-size % border-collapse collapse display table body   display table!important float right!important margin  em em!important   width % margin border-spacing   float left clear left margin  em em   float none clear margin  em em   padding   font-size % line-height  font-weight bold   padding   ,  ,  padding   line-height    padding   line-height   ,  padding   font-size % line-height    padding     padding      padding     padding     padding     ,  padding   font-weight bold   ,   border-top px solid aaa border-bottom px solid aaa   text-align right font-size % padding     padding  text-align left font-weight bold line-height  font-size %   padding  text-align center margin  @media(max-width px) body   width %!important clear float none!important margin-left !important margin-right !important body   a>img max-width none!important @media screen html   not( ) ,html   not( )  background transparent!important html   not( )  color var(--color-progressive)!important @media screen (prefers-color-scheme dark) html   not( ) ,html   not( )  background transparent!important html   not( )  color var(--color-progressive)!important @media print body   display none!important    part series   computer hacking  
+  history 
+  phreaking
+ cryptovirology
+ hacking consumer electronics
+ list hackers  
+  hacker culture ethic 
+  hackathon
+  hacker manifesto 
+ hackerspace
+ hacktivism
+ maker culture
+ types hackers
+  black hat
+ grey hat
+ white hat   
+  conferences 
+  black hat briefings
+ chaos communication congress
+ def con
+ hackers planet earth
+ security bsides
+ shmoocon
+ summercon  
+  computer crime 
+  crimeware
+ list computer criminals
+ script kiddie  
+  hacking tools 
+  exploit
+ forensics-focused operating systems
+ payload
+ social engineering
+ vulnerability  
+  practice sites 
+  hackthissite
+ zone-h  
+  malware 
+  rootkit
+ backdoor
+ trojan horse
+ virus
+ worm
+ spyware
+ ransomware
+ logic bomb
+ botnet
+ keystroke logging
+ hids
+ web shell
+ infostealer  
+  computer security 
+  application security
+ cloud computing security
+ network security  
+  groups 
+  anonymous
+ chaos computer club
+ homebrew computer club (defunct)
+ legion doom (defunct)
+ lulzsec (defunct)
+ masters deception (defunct)
+ red team / blue team  
+ publications
+   hacker quarterly 
+ hacker news
+  nuts volts 
+  phrack   
+     display inline font-size % font-weight normal   float left text-align left   word-spacing   display inline-block white-space nowrap line-height inherit   margin-right -0 content " "   margin-left -0 content " "   word-spacing -0   a>span,  a>abbr text-decoration inherit   abbr font-variant small-caps border-bottom none text-decoration none cursor inherit   font-size % margin em   font-size % margin em html   abbr color var(--color-base)!important @media(prefers-color-scheme dark) html   abbr color var(--color-base)!important @media print   display none!important            
+ hacker person skilled information technology achieves goals non-standard means. term become associated popular culture security hacker     someone knowledge bugs  exploits break computer systems access data otherwise inaccessible them. positive connotation, though, hacking can also utilized legitimate figures legal situations. example, law enforcement agencies sometimes use hacking techniques collect evidence criminals malicious actors. include using anonymity tools (such vpn dark web ) mask identities online pose criminals.             
+ hacking can also broader sense roundabout solution problem, programming hardware development general, hacker culture spread term broader usage general public even outside profession hobby electronics (see life hack ).
+ definitions    edit   
+ information  security hacker , white hat (computer security) , black hat (computer security) , grey hat
+ reflecting two types hackers, two definitions word "hacker"
+ originally, hacker simply meant advanced computer technology enthusiast (both hardware software) adherent programming subculture see hacker culture .       
+ someone able subvert computer security . malicious purposes, person can also called cracker .       
+ mainstream usage "hacker" mostly refers computer criminals, due mass media usage word since s.        includes hacker jargon calls script kiddies , less skilled criminals rely tools written others little knowledge way work.        usage become predominant general public largely unaware different meanings exist.        though self-designation hobbyists hackers generally acknowledged accepted computer security hackers, people programming subculture consider computer intrusion related usage incorrect, emphasize difference two calling security breakers "crackers" (analogous safecracker ).
+ controversy usually based assertion term originally meant someone messing something positive sense, using playful cleverness achieve goal. then, supposed, meaning term shifted decades came refer computer criminals.      
+ security-related usage spread widely, original meaning become less known. popular usage media, "computer intruders" "computer criminals" exclusive meaning word. computer enthusiast hacker culture, primary meaning complimentary description particularly brilliant programmer technical expert. large segment technical community insist latter correct usage, jargon file definition.
+ sometimes, "hacker" simply used synonymously " geek " "a true hacker group person. s person loves stay night, machine love-hate relationship... kids tended brilliant interested conventional goals s term derision also ultimate compliment."      
+  fred shapiro thinks "the common theory hacker originally benign term malicious connotations word later perversion untrue." found malicious connotations already present mit (quoting  tech , mit student newspaper), time referred unauthorized users telephone network,               phreaker movement developed computer security hacker subculture today.
+ civic hacker    edit   
+ civic hackers use security and/or programming acumens create solutions, often public open-sourced , addressing challenges relevant neighborhoods, cities, states countries infrastructure within them.        municipalities major government agencies nasa known host hackathons promote specific date "national day civic hacking" encourage participation civic hackers.        civic hackers, though often operating autonomously independently, may work alongside coordination certain aspects government local infrastructure trains buses.        example, , philadelphia-based civic hacker william entriken developed web application displayed comparison actual arrival times local septa trains scheduled times reportedly frustrated discrepancy.      
+ security related hacking    edit   
+ security hackers people involved circumvention computer security. several types, including
+  white hat
+ hackers work keep data safe hackers finding system vulnerabilities can mitigated. white hats usually employed target system owner typically paid (sometimes quite well) work. work illegal done system owner consent.
+  black hat cracker
+ hackers malicious intentions. often steal, exploit, sell data, usually motivated personal gain. work usually illegal. cracker like black hat hacker,        specifically someone skilled tries via hacking make profits benefit, just vandalize. crackers find exploits system vulnerabilities often use advantage either selling fix system owner selling exploit black hat hackers, turn use steal information gain royalties.
+  grey hat
+ computer security experts may sometimes violate laws typical ethical standards , malicious intent typical black hat hacker.
+ hacker culture    edit   
+ main article  hacker culture
+ hacker culture idea derived community enthusiast computer programmers systems designers s around massachusetts institute technology (mit s) tech model railroad club (tmrc)        mit artificial intelligence laboratory .        concept expanded hobbyist home computing community, focusing hardware late s (e . homebrew computer club )        software ( video games ,        software cracking , demoscene ) s/1990s. later, encompass many new definitions art, life hacking .
+ motives    edit   
+ four primary motives proposed possibilities hackers attempt break computers networks. first, criminal financial gain hacking systems specific purpose stealing credit card numbers manipulating banking systems . second, many hackers thrive increasing reputation within hacker subculture will leave handles websites defaced leave evidence proof involved specific hack. third, corporate espionage allows companies acquire information products services can stolen used leverage within marketplace. lastly, state-sponsored attacks provide nation states wartime intelligence collection options conducted in, cyberspace .      
+ overlaps differences    edit   
+   eric s. raymond , maintainer  jargon file  proponent hacker culture
+ main basic difference programmer subculture computer security hacker mostly separate historical origin development. however, jargon file reports considerable overlap existed early phreaking beginning s. article mit student paper tech used term hacker context already pejorative meaning someone messing phone system.        overlap quickly started break people joined activity less responsible way.        case publication article exposing activities draper engressia.
+ according raymond, hackers programmer subculture usually work openly use real name, computer security hackers prefer secretive groups identity-concealing aliases.        also, activities practice largely distinct. former focus creating new improving existing infrastructure (especially software environment work with), latter primarily strongly emphasize general act circumvention security measures, effective use knowledge (which can report help fixing security bugs, exploitation reasons) rather secondary. visible difference views design mit hackers  incompatible timesharing system , deliberately security measures.
+ subtle overlaps, however, since basic knowledge computer security also common within programmer subculture hackers. example, ken thompson noted  turing award lecture possible add code unix "login" command accept either intended encrypted password particular known password, allowing backdoor system latter password. named invention " trojan horse ". furthermore, thompson argued, compiler modified automatically generate rogue code, make detecting modification even harder. compiler program generated compiler, trojan horse also automatically installed new compiler program, without detectable modification source new compiler. however, thompson disassociated strictly computer security hackers "i like criticize press handling hackers,  gang , dalton gang, etc. acts performed kids vandalism best probably trespass theft worst. ... watched kids testifying congress. clear completely unaware seriousness acts."      
+ programmer subculture hackers sees secondary circumvention security mechanisms legitimate done get practical barriers way actual work. special forms, can even expression playful cleverness.        however, systematic primary engagement activities one actual interests programmer subculture hackers significance actual activities, either.        difference that, historically, members programmer subculture hackers working academic institutions used computing environment there. contrast, prototypical computer security hacker access exclusively home computer modem. however, since mid-1990s, home computers run unix-like operating systems inexpensive internet home access available first time, many people outside academic world started take part programmer subculture hacking.
+ since mid-1980s, overlaps ideas members computer security hacking community. prominent case robert t. morris, user mit-ai, yet wrote morris worm . jargon file hence calls "a true hacker blundered".        nevertheless, members programmer subculture tendency look disassociate overlaps. commonly refer disparagingly people computer security subculture crackers refuse accept definition hacker encompasses activities. computer security hacking subculture, hand, tends distinguish two subcultures harshly, acknowledging much common including many members, political social goals, love learning technology. restrict use term cracker categories script kiddies black hat hackers instead.
+   front page phrack , long-running online magazine hackers
+ three subcultures relations hardware modifications. early days network hacking, phreaks building blue boxes various variants. programmer subculture hackers stories several hardware hacks folklore, mysterious "magic" switch attached pdp-10 computer mit ai lab that, switched off, crashed computer.        early hobbyist hackers built home computers construction kits. however, activities died s phone network switched digitally controlled switchboards, causing network hacking shift dialing remote computers modems pre-assembled inexpensive home computers available academic institutions started give individual mass-produced workstation computers scientists instead using central timesharing system. kind widespread hardware modification nowadays case modding .
+ encounter programmer computer security hacker subculture occurred end s, group computer security hackers, sympathizing chaos computer club (which disclaimed knowledge activities), broke computers american military organizations academic institutions. sold data machines soviet secret service, one order fund drug addiction. case solved clifford stoll , scientist working system administrator, found ways log attacks trace back (with help many others).   , german film adaption fictional elements, shows events attackers perspective. stoll described case book  cuckoo egg  documentary kgb, computer, perspective. according eric s. raymond, "nicely illustrates difference hacker cracker . stoll portrait himself, lady martha, friends berkeley internet paints marvelously vivid picture hackers people around like live think."      
+ representation media    edit   
+ mainstream media current usage term may traced back early s. term, previously used among computer enthusiasts, introduced wider society mainstream media ,        even computer community referred computer intrusion hacking, although exclusive definition word. reaction increasing media use term exclusively criminal connotation, computer community began differentiate terminology. alternative terms cracker coined effort maintain distinction hackers within legitimate programmer community performing computer break-ins. terms black hat , white hat gray hat developed laws breaking computers came effect, distinguish criminal activities activities legal.
+  network news  use term consistently pertains primarily criminal activities, despite attempts technical community preserve distinguish original meaning. today, mainstream media general public continue describe computer criminals, levels technical sophistication, "hackers" generally make use word non-criminal connotations. members media sometimes seem unaware distinction, grouping legitimate "hackers" linus torvalds steve wozniak along criminal "crackers".      
+ result, definition still subject heated controversy. wider dominance pejorative connotation resented many object term taken cultural jargon used negatively,        including historically preferred self-identify hackers. many advocate using recent nuanced alternate terms describing criminals others negatively take advantage security flaws software hardware. others prefer follow common popular usage, arguing positive form confusing unlikely become widespread general public. minority still use term senses despite controversy, leaving context clarify (or leave ambiguous) meaning intended.
+ however, positive definition hacker widely used predominant form many years negative definition popularized, "hacker" can therefore seen shibboleth , identifying use technically oriented sense (as opposed exclusively intrusion-oriented sense) members computing community. hand, due variety industries software designers may find many prefer referred hackers word holds negative denotation many industries.
+ possible middle ground position suggested, based observation "hacking" describes collection skills tools used hackers descriptions differing reasons. analogy made locksmithing , specifically picking locks, skill can used good evil. primary weakness analogy inclusion script kiddies popular usage "hacker", despite lack underlying skill knowledge base.
+ see also    edit   
