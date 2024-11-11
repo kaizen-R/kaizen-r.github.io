@@ -157,3 +157,5 @@ And the concept is quite relevant for Machine Learning, as we shall see in futur
 ## References
 
 <https://en.wikipedia.org/wiki/Entropy_(information_theory)>
+
+The original idea about this post I read a few years back in "Network Security Through Data Analysis", 2nd Ed, by M. Collins (O\`Reilly)
