@@ -18,7 +18,7 @@ make_freq_df <- function(filename) {
         t1_bytes <- c(t1_bytes, temp)
         t1_chars <- c(t1_chars, rawToChar(temp))
     }
-    
+    close(test1)
     t1_df <- data.frame(sort(table(as.character.hexmode(t1_bytes)), decreasing = TRUE))
     t1_df$char <- names(sort(table(t1_chars), decreasing = TRUE))
     names(t1_df) <- c("x", "probs", "char")

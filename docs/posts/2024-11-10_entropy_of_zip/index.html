@@ -224,7 +224,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="shannons-information-entropy">Shannon’s Information Entropy</h2>
 <section id="why-try-to-understand-that" class="level3">
 <h3 class="anchored" data-anchor-id="why-try-to-understand-that">Why try to understand that?</h3>
-<p>Long story short, Information Entropy is useful in quite a few Machine learning algorithms, and to name only a few, the following two use it directly:</p>
+<p>Long story short, Information Entropy is useful in quite a few <strong>machine learning</strong> algorithms, and to name only a few, the following two use it directly:</p>
 <ul>
 <li><p>Partitioning Trees (for nodes selection)</p></li>
 <li><p>Logistic Regression (through log loss)</p></li>
@@ -235,18 +235,18 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="how-it-is-defined">How it is defined?</h3>
 <p>The best way I personally managed to try and understand information entropy is through the concept of compression and surprise.</p>
 <p>A few helpful descriptions:</p>
-<p>“[…] the expected amount of information needed to describe the state of the variable […]”</p>
-<p>“Entropy is the measure of uncertainty of a variable. The more uncertain it is, the higher the entropy is.”</p>
+<p><em>“[…] the expected amount of information needed to describe the state of the variable […]”</em></p>
+<p><em>“Entropy is the measure of uncertainty of a variable. The more uncertain it is, the higher the entropy is.”</em></p>
 <p>Here is the mathematical expression of it:</p>
 <p><span class="math display">\[
 H(X) = - \sum_{x \in X} p(x) log(p(x))
 \]</span></p>
 <p>From the Wikipedia (I mean, why not?), this is the part that somehow can make sense for an intuitive understanding of the concept:</p>
-<p>“The <em>information content,</em> also called the <em>surprisal</em> or <em>self-information,</em> of an event <span class="math inline">\(E\)</span> is a function which increases as the probability <span class="math inline">\(p(E)\)</span> of an event decreases. When <span class="math inline">\(p(E)\)</span> is close to 1, the surprisal of the event is low, but if <span class="math inline">\(p(E)\)</span> is close to 0, the surprisal of the event is high. This relationship is described by the function</p>
+<p><em>“The information content, also called the surprisal or self-information, of an event</em> <span class="math inline">\(E\)</span> <em>is a function which increases as the probability</em> <span class="math inline">\(p(E)\)</span> <em>of an event decreases. When</em> <span class="math inline">\(p(E)\)</span> <em>is close to 1, the surprisal of the event is low, but if</em> <span class="math inline">\(p(E)\)</span> <em>is close to 0, the surprisal of the event is high. This relationship is described by the function</em></p>
 <p><span class="math display">\[
 log({1 \over p(E)})
 \]</span></p>
-<p>where <span class="math inline">\(log()\)</span> is the logarithm, which gives 0 surprise when the probability of the event is 1. In fact, log is the only function that satisfies а specific set of conditions […]”</p>
+<p><em>where</em> <span class="math inline">\(log()\)</span> <em>is the logarithm, which gives 0 surprise when the probability of the event is 1. In fact, log is the only function that satisfies а specific set of conditions […]“</em></p>
 </section>
 </section>
 <section id="application-detecting-cipherzip-on-data-streams" class="level2">
@@ -255,7 +255,7 @@ log({1 \over p(E)})
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="sample_characters_prevalence_visu.png" class="img-fluid figure-img"></p>
-<figcaption>Characters distribution in Plain/Zip text for some Wiki entries</figcaption>
+<figcaption>Characters distribution in Plain vs Zip text for a few Wiki entries</figcaption>
 </figure>
 </div>
 <section id="the-code" class="level3">
@@ -272,15 +272,17 @@ log({1 \over p(E)})
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        t1_bytes <span class="ot">&lt;-</span> <span class="fu">c</span>(t1_bytes, temp)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        t1_chars <span class="ot">&lt;-</span> <span class="fu">c</span>(t1_chars, <span class="fu">rawToChar</span>(temp))</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">close</span>(test1)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    t1_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">sort</span>(<span class="fu">table</span>(<span class="fu">as.character.hexmode</span>(t1_bytes)), <span class="at">decreasing =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    t1_df<span class="sc">$</span>char <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">table</span>(t1_chars), <span class="at">decreasing =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    t1_df<span class="sc">$</span>probs <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">prop.table</span>(<span class="fu">sort</span>(<span class="fu">table</span>(t1_chars), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)))</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(t1_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"char"</span>, <span class="st">"probs"</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(sum(t1_df$y))</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    t1_df<span class="sc">$</span>y <span class="ot">&lt;-</span> t1_df<span class="sc">$</span>y<span class="sc">/</span><span class="fu">sum</span>(t1_df<span class="sc">$</span>y) </span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    t1_df</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(t1_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"probs"</span>, <span class="st">"char"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Instead of counts (table output), make it probability:</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    t1_df<span class="sc">$</span>probs <span class="ot">&lt;-</span> t1_df<span class="sc">$</span>probs<span class="sc">/</span><span class="fu">sum</span>(t1_df<span class="sc">$</span>probs)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Alternative could have been:</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">#t1_df$probs &lt;- as.numeric(prop.table(sort(table(t1_chars), decreasing = TRUE)))</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    t1_df</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The above function is a (bad, but functional) way of taking a file, reading it in “raw” format, and output byte-by-byte into a dataframe.</p>
 <ul>
@@ -290,39 +292,45 @@ log({1 \over p(E)})
 </ul>
 <p>With the above in mind, here is an output of plain and zip’ed text, along with the Shannon’s Entropy of it, correspondingly:</p>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> firewall_wiki <span class="ot">&lt;-</span> <span class="fu">compare_clear_zip</span>(<span class="dv">1</span>, wiki_pages_df)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>   x          y char      probs</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">20</span> <span class="fl">0.14766670</span>      <span class="fl">0.14766670</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">65</span> <span class="fl">0.09267745</span>    e <span class="fl">0.09267745</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">69</span> <span class="fl">0.07790143</span>    i <span class="fl">0.07790143</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="dv">74</span> <span class="fl">0.06658562</span>    t <span class="fl">0.06658562</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="dv">6</span>e <span class="fl">0.06621154</span>    n <span class="fl">0.06621154</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="dv">61</span> <span class="fl">0.06050687</span>    a <span class="fl">0.06050687</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>   x           y char       probs</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">0</span> <span class="fl">0.012244898</span>      <span class="fl">0.012244898</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">39</span> <span class="fl">0.006722689</span>    <span class="dv">9</span> <span class="fl">0.006722689</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">72</span> <span class="fl">0.006722689</span>    r <span class="fl">0.006722689</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="dv">5</span>f <span class="fl">0.006482593</span>    _ <span class="fl">0.006482593</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="dv">34</span> <span class="fl">0.006242497</span>    <span class="dv">4</span> <span class="fl">0.006242497</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> e4 <span class="fl">0.006242497</span> \xe4 <span class="fl">0.006242497</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Entropy Plain text: 4.38674335811205"</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Entropy Zip text: 7.9669387921095"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>updating<span class="sc">:</span> posts<span class="sc">/</span><span class="dv">2024-11-10</span>_entropy_of_zip<span class="sc">/</span><span class="fu">firewall_wiki.txt</span> (deflated <span class="dv">63</span>%)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>   x      probs char</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">20</span> <span class="fl">0.14766670</span>     </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">65</span> <span class="fl">0.09267745</span>    e</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">69</span> <span class="fl">0.07790143</span>    i</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="dv">74</span> <span class="fl">0.06658562</span>    t</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="dv">6</span>e <span class="fl">0.06621154</span>    n</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="dv">61</span> <span class="fl">0.06050687</span>    a</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>   x       probs char</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">0</span> <span class="fl">0.012244898</span>     </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">39</span> <span class="fl">0.006722689</span>    <span class="dv">9</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">72</span> <span class="fl">0.006722689</span>    r</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="dv">5</span>f <span class="fl">0.006482593</span>    _</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="dv">34</span> <span class="fl">0.006242497</span>    <span class="dv">4</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> e4 <span class="fl">0.006242497</span> \xe4</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Entropy Plain text: 4.29839806234458"</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Entropy Zip text: 7.94701914818039"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
-<li><p>In Plain text, the space character appears quite a bit. So do the letters e, i, t, n, a… (That’s for English, and remember these are small sample texts extracted from some Wikipedia pages…). Plain text has repetition on some characters (higher probability of appearance), with varying distributions (and uses fewer different bytes).</p></li>
+<li><p>In Plain text, the space character appears quite a bit. So do the letters <em>e, i, t, n, a.</em>.. (That’s for English, and remember these are small sample texts extracted from some Wikipedia pages…). Plain text has repetition on some characters (higher probability of appearance), with varying distributions (and uses fewer different bytes).</p></li>
 <li><p>In Zip, the probabilities are each MUCH lower, and more even across all possible bytes. And that’s our KEY concept for today. Zip is <strong>compression</strong>, so <strong>all</strong> its characters have as few repetition as possible (i.e.&nbsp;low probability).</p></li>
-<li><p>Interestingly, with the above approache, <strong>ciphered data would look like zip data</strong>.</p></li>
+<li><p>Interestingly, with the above approach, <strong>ciphered data would look like zip data</strong>.</p></li>
 </ul>
 <p>OK, so let’s go back to our definitions of the first part:</p>
-<p>“[…] When <span class="math inline">\(p(E)\)</span> is close to 1, the surprisal of the event is low, but if <span class="math inline">\(p(E)\)</span> is close to 0, the surprisal of the event is high[…]”</p>
+<p><em>“[…] When</em> <span class="math inline">\(p(E)\)</span> <em>is close to 1, the surprisal of the event is low, but if</em> <span class="math inline">\(p(E)\)</span> <em>is close to 0, the surprisal of the event is high[…]“</em></p>
 <p>Hopefully we’re getting somewhere with understanding the concept. Uncommon characters will have higher “surprisal”, and lower probability of appearing.</p>
-<p>Oh: And we should not be afraid of the math, it wasn’t that bad.</p>
+<p>Oh: And we should not be afraid of the math, it wasn’t that bad. Here is what Shannon’s Entropy actually looks like for varying values of probability of appearance of a given character:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="shannon_entropy_visu.png" class="img-fluid figure-img"></p>
+<figcaption>Shannon Entropy across possible probabilities</figcaption>
+</figure>
+</div>
 </section>
 <section id="what-does-it-mean-in-practice" class="level3">
 <h3 class="anchored" data-anchor-id="what-does-it-mean-in-practice">What does it mean in practice?</h3>
-<p>Well, it means that if you <strong>sample some</strong> bytes sniffed on a network, if you see seemingly random characters with no prevalence of a few ones, you know it’s not clear-text.</p>
-<p>And yes, if you have the file extension, maybe this is all useless.</p>
-<p>So why you would care? First, this is pretty cool. If you sample data (from a network stream, or bytes on a disk…), you can distinguish “automagically” what’s plain text and what’s ciphered/zip.</p>
-<p>Maybe you can use that to detect covert channels out of packet capture?</p>
-<p>Or maybe let your computer on its own decide to use one set of algorithm to analyse things when there is plain text, and use <strong>another</strong> set of characters when there is ciphered/compressed text (or images, etc.).</p>
+<p>Well, it means that if you <strong>sample some</strong> bytes sniffed on a network, if you see seemingly random characters and no particular prevalence of any given one over the rest, you know it’s not clear-text.</p>
+<p>And yes, if you have the file extension, maybe this is all useless. So why you would care?</p>
+<p>First, this is pretty cool. If you sample data (from a network stream, or bytes on a disk…), you can distinguish “automagically” what’s plain text and what’s ciphered/zip.</p>
+<p>Second: Maybe you can use that to detect covert channels out of packet capture? Or maybe let your computer on its own decide to use one set of algorithm to analyse things when there is plain text, and use <strong>another</strong> set of characters when there is ciphered/compressed text (or images, etc.).</p>
 </section>
 </section>
 <section id="conclusions" class="level2">
