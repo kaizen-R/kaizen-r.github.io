@@ -38,6 +38,8 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+.Rhistory
+*.Rproj
 
 # pkgdown site
 #docs/
