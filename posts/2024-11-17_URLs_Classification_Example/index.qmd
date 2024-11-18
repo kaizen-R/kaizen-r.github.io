@@ -29,7 +29,7 @@ See I have a "plan" in my head about how to introduce Machine Learning, includin
 
 > Both regression (linear or not) and classification are usually considered to be the two most common supervised learning use-cases.
 
--   Then you have **Reinforcement Learning** (aka RL). So far, me at least, I have yet to come across a real-world application of that, although it is pretty cool a concept! But I'll admit, I have played little with RL for now, and it's a pending task of mine. It does sound appealing, and there are some papers out there to use RL for optimizing pentesting processes and such.
+-   Then you have **Reinforcement Learning** (aka RL). So far, I have yet to personally come across a real-world cybersecurity application of that, although it is pretty cool a concept! (Actually a friend has demonstrated something with Honeypots and such...) But I'll admit, I have played little with RL myself for now, and it's a pending task of mine. It does sound appealing, and there are some papers out there to use RL for optimizing pentesting processes and such.
 
 -   And then you have **Self-Supervised Learning**. The first time I read that I was like "Whaaaat?". But that's LLMs, as noted at the end of one of my most recent posts. You predict next word in a text, and check what actually comes in the... Rest of the text. So you only need... The text. Nifty. But I'm not too fond of it and have yet to think it through enough to come up with something practical beyond LLMs...
 
