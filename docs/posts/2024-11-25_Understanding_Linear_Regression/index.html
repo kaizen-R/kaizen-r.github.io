@@ -229,11 +229,11 @@ window.Quarto = {
 <p>In effect, you’re “modelling” a relationship - and in doing so, you’re actually compressing information.</p>
 <p>More to the point, if you have an intuition that such relationship holds true for other points you were <em>not</em> given, then you can interpolate (if the new points are in the range of original vectors - otherwise it’s called “extrapolation”) an expected output from a given input.</p>
 <p>In other words: If you know (or expect) there is a linear (straight line) relationship between a webserver load and number of concurrently opened sessions, you could estimate a load (say % CPU) from knowing only the number of users currently connected (or the other way around, obviously). You’d expect the load to grow with the number of users.</p>
-<p>The concept of regression (linear OR otherwise) are important in ML. It’s a core part of most models. You doubt? Let me put it this way: Regression is a core part of how neurons work in a neural network. There. Believe me now? (I guess I just justified myself in tagging this entry as Machine Learning, after all.)</p>
+<p>The concept of regression (linear or otherwise) are important in ML. It’s a core part of most models. You doubt? Let me put it this way: Regression is a core part of how neurons work in a neural network. There. Believe me now? (I guess I just justified myself in tagging this entry as Machine Learning, after all.)</p>
 </section>
 <section id="two-points-interextrapolation" class="level2">
 <h2 class="anchored" data-anchor-id="two-points-interextrapolation">Two points inter/extrapolation</h2>
-<p>We’ll start off very easy today. Imagine to begin with you <strong>only have to points</strong>. So two pairs<span class="math inline">\((x_1, y_1), (x_2, y_2)\)</span> of coordinates then. IF (<strong>again, big IF</strong>) you somehow expects a straight line could be used to estimate a third <span class="math inline">\(y_3\)</span> from a third <span class="math inline">\(x_3\)</span> coordinate in the range of the two original points… How can you estimate said value of <span class="math inline">\(y_3\)</span>.</p>
+<p>We’ll start off very easy today. Imagine to begin with you <strong>only have two points</strong>. So two pairs<span class="math inline">\((x_1, y_1), (x_2, y_2)\)</span> of coordinates then. IF (<strong>again, big IF</strong>) you somehow expects a straight line could be used to estimate a third <span class="math inline">\(y_3\)</span> from a third <span class="math inline">\(x_3\)</span> coordinate in the range of the two original points… How can you estimate said value of <span class="math inline">\(y_3\)</span>.</p>
 <p>Well, it’s basic (elementary? high school? Idk) math, you want to find <span class="math inline">\(a, b\)</span> in the following:</p>
 <p><span class="math display">\[
 y = ax + b
@@ -311,9 +311,9 @@ b = y_1 - a x_1
 <p>Differentiating (that’s calculus) here will mean that we know in which direction (up, down, horizontal) said curve goes for a given point on the x axis. <strong>If we know that,</strong> we know that <strong>if the curve goes upwards, to minimize the thing, we want to go in the opposite direction</strong>.</p>
 <p>And that’s exactly what “descending the gradient” is all about (although in multivariate settings: A gradient in vector calculus is “the direction and the rate of fastest increase”, so to “descend a gradient”, you want to move in the opposite direction).</p>
 <p>For linear regression, it’s cool because we can do partial derivatives (as shown on the referenced Wiki page above) to find our <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> parameters that describe the line that “best fit the data”.</p>
-<p>It’s quite clever, mind you: You minimize the error of your predicted value compared to the actual value. That’s how your machine can <strong>learn!</strong> But it’s also what people have been using t<strong>o train Neural Networks!</strong></p>
+<p>It’s quite clever, mind you: You minimize the error of your predicted value compared to the actual value. That’s how your machine can <strong>learn!</strong> But it’s also what people have been using <strong>to train Neural Networks!</strong></p>
 <p>For today, let’s just store the following information: The “Least Square Minimization” can help find a minimum error through differentiation.</p>
-<p>And for a future conversation: <strong>Gradient Descent</strong> (hidden in today’s Sum of Square Minimization) <strong>is one of the two mathematical keys for back-propagation</strong>. (And back-propagation was the before and after of connectionism in Machine Learning theory).</p>
+<p>And for a future conversation: <strong>Gradient Descent</strong> (hidden in today’s Sum of Square Minimization) <strong>is one of the two mathematical keys for back-propagation</strong>. (And back-propagation was the <em>before and after of connectionism</em> in Machine Learning theory).</p>
 <p>Alright, let’s move on and return to our very simple example.</p>
 </section>
 <section id="the-result" class="level2">
@@ -352,7 +352,7 @@ b = y_1 - a x_1
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Importantly, squared error is differentiable and has a global minimum</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## "easily" found through... Gradient Descent!</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## "easily". Related to "Gradient Descent"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>err_x <span class="ot">&lt;-</span> my_regression_y_set <span class="sc">-</span> (alpha_est <span class="sc">+</span> my_regression_x_set <span class="sc">*</span> beta_est)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>err_y <span class="ot">&lt;-</span> <span class="fu">sapply</span>(err_x, \(x) x<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
@@ -365,17 +365,16 @@ b = y_1 - a x_1
 </div>
 </div>
 </div>
-<p>And that’s it! We’ve used the math (skipping some steps), to show one can use the math (although nowadays all that stuff is available with one command, if not directly, then through packages).</p>
-<p>So here we’ve shown a downward slope.</p>
-<p>Maybe our x axis represented the number of users connected to our system, and the y axis some number to represent the available resources on a given server. (I could have started with that.)</p>
-<p>So in the future, IF you see a CLEAR straight line between two things, well, you could use this approach to “predict” what would happen if you move along the x axis.</p>
-<p>Last note about the math: in this simple case, we’ve in fact used two statistics concepts to do the calculations: the means of the x and y axis, and the deviations of each point to said means.</p>
+<p>And that’s it! We’ve used the math (skipping some steps), to show one can use it to do a linear regression (although nowadays all that stuff is available with one command, if not directly, then through packages).</p>
+<p>So here we’ve shown a downward slope: Let’s put it in context of a potential real-world application: Maybe our x axis represented the number of users connected to our system, and the y axis some number to represent the available resources (spare CPU or something) on a given server. If you know a linear relationship applies, you can estimate at which point you will reach 100% CPU… (I could have started with that, sorry.)</p>
+<p>So in the future, <strong>if</strong> you see a <strong>clear</strong> straight line between two things, well, you could use the above not-scary-at-all math approach to “predict” what would happen if you move along the x axis.</p>
+<p>Last note about the math: in this simple case, if you look at the code, we’ve in fact used two statistics concepts to do the calculations: the means of the x and y axis, and the “deviations” of each point to said means.</p>
 <p><em>Does it not make some intuitive sense that the line that best fits the points is related to the means and deviations of the points to said means? :)</em></p>
 </section>
 <section id="look-at-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="look-at-the-data">Look at the data</h2>
 <p>In the above, we’ve used deviations and means. These are basic concepts from statistics. And in the introduction, we have mentioned something about “models” and “compression”. Which is what it is: Statistics are NOT the real world. And they can be misused. Here the 2 most common examples to illustrate how you can go astray with using statistics without looking at the data.</p>
-<p>Let’s illustrate just that, with a couple of typical example:</p>
+<p>Let’s illustrate just that, with a couple of typical (like, VERY typical) examples:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -385,7 +384,7 @@ b = y_1 - a x_1
 </div>
 </div>
 </div>
-<p>And if it’s not clear enough, all these have the same mean and standard deviation:</p>
+<p>And if it’s not clear enough, all these here below have the same mean and standard deviation:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -409,6 +408,7 @@ b = y_1 - a x_1
 </div>
 <p>See how they are basically the same numbers?</p>
 <p>Statistics are great, useful and very important today (and have been for quite a while, I’d argue). They’re just not always the right solution (neither is ML in a larger sense, mind you).</p>
+<p>Always look at the data!</p>
 </section>
 <section id="conclusions" class="level2">
 <h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
@@ -416,8 +416,8 @@ b = y_1 - a x_1
 <p>And we’ve skipped steps! (i.e.&nbsp;solving systems of equations, which can be represented as matrices, which is relevant for completely different reasons :D)</p>
 <p>Not too shabby, after all…</p>
 <blockquote class="blockquote">
-<p>I’d like to go into Neural Networks a bit in a future entry. Even discuss a bit the history of it. And that would conclude my preparation for my sessions about “ML Background for Cybersecurity”. Surely there is more to it all, but if I manage to convey a few key concepts to my colleagues, I’ll be very very happy. And this is me trying.</p>
-<p>But after that, I’ll shift gears and focus on a personal project I have had in mind for a long time and that is taking shape: It involves R packages and a set of ML algorithms that for reasons I don’t quite understand have not received as much attention as I personally think they should. To be continued!</p>
+<p>I’d like to go into Logistic Regression and Neural Networks a bit in a future entries. Even discuss a bit the history of ML, maybe. And that would conclude my preparation for my sessions about “ML Background for Cybersecurity”. Surely there is more to it all, but if I manage to convey a few key concepts to my colleagues, I’ll be very <em>very</em> happy. And this here is me trying.</p>
+<p>But after that, I’ll shift gears and focus on a personal project I have had in mind for some time and that is taking shape: It involves writing an R package, for a set of ML algorithms that for reasons I don’t quite understand have not received as much attention as I personally think they should. To be continued!</p>
 </blockquote>
 </section>
 <section id="references" class="level2">
