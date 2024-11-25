@@ -23,7 +23,7 @@ More to the point, if you have an intuition that such relationship holds true fo
 
 In other words: If you know (or expect) there is a linear (straight line) relationship between a webserver load and number of concurrently opened sessions, you could estimate a load (say % CPU) from knowing only the number of users currently connected (or the other way around, obviously). You'd expect the load to grow with the number of users.
 
-The concept of regression (linear or otherwise) are important in ML. It's a core part of most models. You doubt? Let me put it this way: Regression is a core part of how neurons work in a neural network. There. Believe me now? (I guess I just justified myself in tagging this entry as Machine Learning, after all.)
+The concept of regression (linear or otherwise) are important in ML. It's a core part of most models. You doubt? Let me put it this way: Regression is a core part of how training a neural network works. There. Believe me now? (I guess I just justified myself in tagging this entry as Machine Learning, after all.)
 
 ## Two points inter/extrapolation
 
