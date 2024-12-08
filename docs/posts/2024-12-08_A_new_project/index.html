@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Nico">
+<meta name="dcterms.date" content="2024-12-08">
 
-<title>Kaizen-R.com new home</title>
+<title>A new project – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,77 +68,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Kaizen-R.com new home</span>
     </a>
   </div>
@@ -149,7 +91,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -172,221 +114,120 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Kaizen-R.com new home</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">A new project</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">ML</div>
+                <div class="quarto-category">news</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Nico </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">December 8, 2024</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="ML">ML <span class="quarto-category-count">(3)</span></div><div class="category" data-category="code">code <span class="quarto-category-count">(2)</span></div><div class="category" data-category="math">math <span class="quarto-category-count">(2)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(2)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<section id="ive-been-thinking-for-a-while" class="level1">
+<h1>I’ve been thinking for a while…</h1>
+<p>Ever since I read about the concept in M. Mitchell’s book “Complexity The emerging science at the edge of order and chaos” some time last year (I think around this time of the year…), I have been thinking about this, in the background of my head.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="IMG_5050.jpg" class="img-fluid figure-img"></p>
+<figcaption>What piqued me curiosity</figcaption>
+</figure>
+</div>
+<p>The weird strings above, the <em>11##10###</em> thing, might mean nothing to most right now (you have to look a bit further into it all, and I’ll probably try and explain some of it in the future), but <strong>it was a revelation to me</strong> when I first read it.</p>
+<p>So yes, I’ve had other fish to fry for some time, but <strong>now it feels like I might just have the mental space to shift my focus</strong> a bit…</p>
+<section id="the-new-project" class="level2">
+<h2 class="anchored" data-anchor-id="the-new-project">The new project</h2>
+<p>So here is my upcoming project, explained in one picture:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="image0.jpeg" class="img-fluid figure-img" alt="LCS Intro Book and R Package" width="500"></p>
+<figcaption>My new project in one picture</figcaption>
+</figure>
+</div>
+<p>(By the way, a personal note here: buying that left book in physical format from Springer was one “tough cookie”, <strong>thank goodness I’m motivated</strong>, it’s <strong>quite possibly the priciest book I ever bought from my own pocket, in €-per-page</strong>… Oh well: It looks it still was the right call for me :D)</p>
+</section>
+<section id="why-now-why-me" class="level2">
+<h2 class="anchored" data-anchor-id="why-now-why-me">Why now? Why me?</h2>
+<p>As I said, I’ve been a bit busy. Full-time job, MSc paper (success!), then summer, <em>learning other stuff</em>, (did I mention full-time job? :D)… But <strong>it is time</strong>.</p>
+<p>I also have been thinking for quite some time <em>I should try my hand eventually at creating my own R Package</em>. This was all the more true after the last R conferences I attended recently, where it looks like “everyone is doing it” in the R (mostly academic) community… So <strong>why not me?</strong></p>
+<p>Plus, <strong>I have an idea or two</strong>. So what if I’m not the greatest coder out there? I still do have some tricks in my sleeves ;) I <a href="https://openaccess.uoc.edu/bitstream/10609/150434/1/nleconteFMDP0624report.pdf" target="_blank">have proved</a> (at least to myself) I can do <strong>highly distributed processing using (among other things) R</strong> and <strong>create my own thing</strong>. (My very own algorithm, that was.)</p>
+<p>Plus, I’m into ML just as much as the next person, but I’ve also played quite a bit with <strong>Genetic Algorithms</strong> recently. And I believe I have all it takes to put that to good use here. (I’m just a bit sad this will not involve Network Graphs, the way I have it designed (yet, anyway :D).) I believe I understand how the <a href="https://en.wikipedia.org/wiki/Learning_classifier_system" target="_blank"><strong>LCS algorithms</strong></a> might be particularly useful in their own specific way. I can see in my head how they <strong>must</strong> work, what makes them different, all in spite of not having written one line of code yet.</p>
+<p>Now, it might take a while, indeed. Why, with the Holiday season coming, the day job and all. But I have a sort of a plan in mind, already an architecture (in my head, for now), examples of how I would want to validate the implementation (that last thing, one example with application to cybersecurity and logs classification, in particular, woke me up in the middle of the night a couple of weeks back).</p>
+<p>And R packages, from what I have read thus far, are not “magic”. <strong>It’s going to be work</strong>, for sure, but I don’t see anything I can’t manage. If anything, it’s less complicated than I thought. I’ve already played with testthat, microbenchmark, I’ve always separated my code in functions, separated R and C++ code, all that… So yeah, I think I’m up to the task.</p>
+<p>And finally, a note about the “why now”: <strong>I can’t find it done yet!!</strong> Which to me is quite incredible. I have found this niche, that nobody (in the R community) has deemed relevant enough thus far, and I am willing to put the work towards filling that niche!</p>
+</section>
+<section id="the-outcome" class="level2">
+<h2 class="anchored" data-anchor-id="the-outcome">The outcome</h2>
+<p>This here today is me announcing, basically, <strong>my intention to create</strong> and (hopefully) get <strong>my future new <em>RLCS</em> package onto CRAN</strong>. I know, I know, I’m getting WAAAAY ahead of myself here.</p>
+<p>And <em>I realize me publishing this entry might very well mean someone beats me to it</em>. If that happens, well… I’m <em>already</em> convinced my implementation will be “competitive”, so… <strong>let’em!</strong></p>
+<p>(Plus, why would anyone decide to go for this now? It would just make no sense whatsoever - if not to bother me. If that’s you: Just give me a few months, and you’ll save yourself the trouble :D)</p>
+</section>
+<section id="will-i-manage" class="level2">
+<h2 class="anchored" data-anchor-id="will-i-manage">Will I manage?</h2>
+<p>It turns out, for some reason, I <strong>know</strong> I will. Obviously, I don’t “know know”, it’s more of a feeling.</p>
+<p>I am enthused, to begin with. I have the knowledge. Time is not an issue, although it will take me probably a few months (my best estimate right now, given my current known agenda, is 3-4 months for a functional package, plus whatever time it takes for submission to CRAN of a “v001”).</p>
+<p>Moreover, I somehow needed a new, rather difficult, interesting long-term personal objective. I feel this will help me get in the “flow”, which is a great feeling (but hard to come by).</p>
+<p>Also, I have this crazy idea that, once the thing works, I can dive further into it and study it towards a bigger goal, maybe research, ideally even (who knows) a PhD…?</p>
+</section>
+<section id="what-about-the-sessions-on-ml" class="level2">
+<h2 class="anchored" data-anchor-id="what-about-the-sessions-on-ml">What about the sessions on ML?</h2>
+<p>I’ve done my first (of two) presentation about “Background of ML for Cybersecurity”. I actually had trouble with some of the demos during the first session :S But not because of the demos themselves, just, “heat of the moment”, computer resources, demo effect, and so on. Nothing major.</p>
+<p>Thankfully, I get a second chance, as there is a second session coming. And I have time to prepare some more examples, so that’s good too, the second session will be all-the-more interesting.</p>
+<p>But <strong>because</strong> I have some time, I’m making a pause there and re-focusing on this new project of mine as a personal interest thing.</p>
+</section>
+<section id="and-what-about-the-migration-of-the-old-blog" class="level2">
+<h2 class="anchored" data-anchor-id="and-what-about-the-migration-of-the-old-blog">And what about the migration of the old blog?</h2>
+<p>I realize nobody cares, but heck: I do. I need to “migrate”, move everything (while reviewing each thing) from the old blog to this new setup, because.. Well, because this platform is more convenient, and – let’s be honest – cheaper… After all, it’s one thing to write for one own’s pleasure, and quite another to spend money with no return year after year just to maintain it.</p>
+<p>So yes, I need to organize myself to minimize future costs a bit (it just is the sensible thing to do, economically).</p>
+</section>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p><strong>**This is important:</strong> <strong>I still don’t really know why this family of algorithms have received sooo little attention**</strong>, beyond the fact that “Connectionism” has received a lot of said attention (deservingly, for sure).</p>
+<p>But I’m curious about whether LCS can be made (ideally equally) valuable. And <strong>I have the personal conviction that I am in the right position to dig further into it.</strong></p>
+<p>And so it is time, I’m in an ideal position, and I’m motivated.</p>
+<p>Now all I have to do is… Start!</p>
+<p>(To start hear means also put thoughts to paper, design, code, test, document… Don’t expect lots of news too soon, either! <strong>I’m not in a hurry</strong>, nobody should be: this thing has been known since the 70’s and it looks like few - aside from noted exceptions - have cared about it thus far…)</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p><a href="https://www.youtube.com/watch?v=CRge_cZ2cJc" target="_blank">This is the best intro explaining the algorithm that I found thus far - and if anything it confirmed I was on the right path</a>. It just makes a lot of sense to me!</p>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="ML,news" data-listing-date-sort="1733612400000" data-listing-file-modified-sort="1733667837446" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1236">
-<div class="thumbnail">
-<p><a href="./posts/2024-12-08_A_new_project/index.html" class="no-external"></a></p><a href="./posts/2024-12-08_A_new_project/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/2024-12-08_A_new_project/IMG_5050.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2024-12-08_A_new_project/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2024-12-08_A_new_project/index.html" class="no-external">A new project</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2024-12-08_A_new_project/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('ML'); return false;">
-ML
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2024-12-08_A_new_project/index.html" class="no-external">Ever since I read about the concept in M. Mitchell’s book “Complexity The emerging science at the edge of order and chaos” some time last year (I think around this time of…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2024-12-08_A_new_project/index.html" class="no-external">
-<div class="listing-date">
-Dec 8, 2024
-</div>
-<div class="listing-author">
-Nico
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="ML,math" data-listing-date-sort="1732489200000" data-listing-file-modified-sort="1732563157732" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2472">
-<div class="thumbnail">
-<p><a href="./posts/2024-11-25_Understanding_Linear_Regression/index.html" class="no-external"></a></p><a href="./posts/2024-11-25_Understanding_Linear_Regression/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/2024-11-25_Understanding_Linear_Regression/index_files/figure-html/unnamed-chunk-1-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2024-11-25_Understanding_Linear_Regression/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2024-11-25_Understanding_Linear_Regression/index.html" class="no-external">Understanding Linear Regression</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2024-11-25_Understanding_Linear_Regression/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('ML'); return false;">
-ML
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('math'); return false;">
-math
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2024-11-25_Understanding_Linear_Regression/index.html" class="no-external">This is probably one of the last entries from my preparation to introduce “Background of ML for Cybersecurity”. This time, it’s really about what should probably have been…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2024-11-25_Understanding_Linear_Regression/index.html" class="no-external">
-<div class="listing-date">
-Nov 25, 2024
-</div>
-<div class="listing-author">
-Nico
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="ML,code" data-listing-date-sort="1731798000000" data-listing-file-modified-sort="1731915153569" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18" data-listing-word-count-sort="3526">
-<div class="thumbnail">
-<p><a href="./posts/2024-11-17_URLs_Classification_Example/index.html" class="no-external"></a></p><a href="./posts/2024-11-17_URLs_Classification_Example/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/2024-11-17_URLs_Classification_Example/looking_at_url_lengths.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2024-11-17_URLs_Classification_Example/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2024-11-17_URLs_Classification_Example/index.html" class="no-external">Classifying URLs</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2024-11-17_URLs_Classification_Example/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('ML'); return false;">
-ML
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2024-11-17_URLs_Classification_Example/index.html" class="no-external">I’m still working my way through a “practical demos” session on ML background for Cybersecurity.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2024-11-17_URLs_Classification_Example/index.html" class="no-external">
-<div class="listing-date">
-Nov 17, 2024
-</div>
-<div class="listing-author">
-Nico
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="math,code" data-listing-date-sort="1731193200000" data-listing-file-modified-sort="1731312895815" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1137">
-<div class="thumbnail">
-<p><a href="./posts/2024-11-10_entropy_of_zip/index.html" class="no-external"></a></p><a href="./posts/2024-11-10_entropy_of_zip/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/2024-11-10_entropy_of_zip/sample_characters_prevalence_visu.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2024-11-10_entropy_of_zip/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2024-11-10_entropy_of_zip/index.html" class="no-external">Entropy - Identifying compressed files</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2024-11-10_entropy_of_zip/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('math'); return false;">
-math
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2024-11-10_entropy_of_zip/index.html" class="no-external">About Shannon’s Information Entropy, applied to potentially detecting ciphered or compressed text compared to plain text.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2024-11-10_entropy_of_zip/index.html" class="no-external">
-<div class="listing-date">
-Nov 10, 2024
-</div>
-<div class="listing-author">
-Nico
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="news" data-listing-date-sort="1731020400000" data-listing-file-modified-sort="1731085534940" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="67">
-<div class="thumbnail">
-<p><a href="./posts/2024-11-08_welcome/index.html" class="no-external"></a></p><a href="./posts/2024-11-08_welcome/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/2024-11-08_welcome/thumbnail.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2024-11-08_welcome/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2024-11-08_welcome/index.html" class="no-external">Welcome To My Blog</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2024-11-08_welcome/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2024-11-08_welcome/index.html" class="no-external">This is the first post in this future Blog. Currently testing all kinds of things, will updated hopefully shortly!</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2024-11-08_welcome/index.html" class="no-external">
-<div class="listing-date">
-Nov 8, 2024
-</div>
-<div class="listing-author">
-Nico
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
