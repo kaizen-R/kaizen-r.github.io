@@ -147,6 +147,27 @@
     "text": "This is the best intro explaining the algorithm that I found thus far - and if anything it confirmed I was on the right path. It just makes a lot of sense to me!"
   },
   {
+    "objectID": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html",
+    "href": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html",
+    "title": "RLCS Day 1 - Part II: Basic Covering",
+    "section": "",
+    "text": "So I had a bit of time. And I chose to use it to keep going a bit. I moved a couple of things, created a few more supporting functions, modified them somewhat, and added the covering part.\nCovering needs to happen when for a given training instance (state, class), there is no match in the correct set.\nCorrect set is the subset of the Matching set for which, on top of the condition matching, the predicted class/action is also correct.\nAnd well, it’s working:\n\n\n\ntesting basic covering functionality\n\n\n\n\n\nNext up is “Rule Discovery”, whereby, in Michigan-style LCS, a GA-like process will take place to create offspring from two parents taken in the Correct set.\nThat will include cross-over (in one way or another) and mutation (with a preset pressure/probability). With these, on top of coverage, the LCS will hence create new valid rules, that will become part of the population, to be evaluated on further training instances.\nOther parts of the algorithm – meant to contain the population size – will come later. :)"
+  },
+  {
+    "objectID": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#its-sunday",
+    "href": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#its-sunday",
+    "title": "RLCS Day 1 - Part II: Basic Covering",
+    "section": "",
+    "text": "So I had a bit of time. And I chose to use it to keep going a bit. I moved a couple of things, created a few more supporting functions, modified them somewhat, and added the covering part.\nCovering needs to happen when for a given training instance (state, class), there is no match in the correct set.\nCorrect set is the subset of the Matching set for which, on top of the condition matching, the predicted class/action is also correct.\nAnd well, it’s working:\n\n\n\ntesting basic covering functionality"
+  },
+  {
+    "objectID": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#conclusion",
+    "href": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#conclusion",
+    "title": "RLCS Day 1 - Part II: Basic Covering",
+    "section": "",
+    "text": "Next up is “Rule Discovery”, whereby, in Michigan-style LCS, a GA-like process will take place to create offspring from two parents taken in the Correct set.\nThat will include cross-over (in one way or another) and mutation (with a preset pressure/probability). With these, on top of coverage, the LCS will hence create new valid rules, that will become part of the population, to be evaluated on further training instances.\nOther parts of the algorithm – meant to contain the population size – will come later. :)"
+  },
+  {
     "objectID": "posts/2024-11-17_URLs_Classification_Example/index.html",
     "href": "posts/2024-11-17_URLs_Classification_Example/index.html",
     "title": "Classifying URLs",
@@ -270,6 +291,6 @@
     "href": "index.html",
     "title": "Kaizen-R.com new home",
     "section": "",
-    "text": "RLCS Day 1: Rules formatting, storage, and matching\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 22, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nA new project\n\n\n\n\n\n\nML\n\n\nnews\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 8, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nUnderstanding Linear Regression\n\n\n\n\n\n\nML\n\n\nmath\n\n\n\n\n\n\n\n\n\nNov 25, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nClassifying URLs\n\n\n\n\n\n\nML\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 17, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nEntropy - Identifying compressed files\n\n\n\n\n\n\nmath\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 10, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nNov 8, 2024\n\n\nNico\n\n\n\n\n\n\nNo matching items"
+    "text": "RLCS Day 1 - Part II: Basic Covering\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 22, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 1: Rules formatting, storage, and matching\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 22, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nA new project\n\n\n\n\n\n\nML\n\n\nnews\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 8, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nUnderstanding Linear Regression\n\n\n\n\n\n\nML\n\n\nmath\n\n\n\n\n\n\n\n\n\nNov 25, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nClassifying URLs\n\n\n\n\n\n\nML\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 17, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nEntropy - Identifying compressed files\n\n\n\n\n\n\nmath\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 10, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nNov 8, 2024\n\n\nNico\n\n\n\n\n\n\nNo matching items"
   }
 ]

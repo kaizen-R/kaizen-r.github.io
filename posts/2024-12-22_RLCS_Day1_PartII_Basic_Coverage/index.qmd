@@ -1,0 +1,28 @@
+---
+title: "RLCS Day 1 - Part II: Basic Covering"
+author: "Nico"
+date: "2024-12-22"
+categories: [ML, RLCS]
+---
+
+# Just a quick update
+
+## It's sunday...
+
+So I had a bit of time. And I chose to use it to keep going a bit. I moved a couple of things, created a few more supporting functions, modified them somewhat, and added the covering part.
+
+Covering needs to happen when for a given training instance (state, class), there is no match in the **correct set**.
+
+**Correct set is the subset of the Matching set for which, on top of the condition matching, the predicted class/action is also correct.**
+
+And well, it's working:
+
+![testing basic covering functionality](basic_coverage_works.jpg)
+
+## Conclusion
+
+Next up is "Rule Discovery", whereby, in Michigan-style LCS, a **GA-like** process will take place to **create offspring from two parents taken in the Correct set**.
+
+That will include **cross-over** (in one way or another) and **mutation** (with a preset pressure/probability). With these, on top of coverage, the LCS will hence create **new valid rules,** that **will become part of the population**, to be evaluated on further training instances.
+
+Other parts of the algorithm – meant to contain the population size – will come later. :)

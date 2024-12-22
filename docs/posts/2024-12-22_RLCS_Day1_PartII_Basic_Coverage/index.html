@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Nico">
+<meta name="dcterms.date" content="2024-12-22">
 
-<title>Kaizen-R.com new home</title>
+<title>RLCS Day 1 - Part II: Basic Covering – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,77 +68,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Kaizen-R.com new home</span>
     </a>
   </div>
@@ -149,7 +91,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -172,296 +114,73 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Kaizen-R.com new home</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">RLCS Day 1 - Part II: Basic Covering</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">ML</div>
+                <div class="quarto-category">RLCS</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Nico </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">December 22, 2024</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(7)</span></div><div class="category" data-category="ML">ML <span class="quarto-category-count">(5)</span></div><div class="category" data-category="RLCS">RLCS <span class="quarto-category-count">(3)</span></div><div class="category" data-category="code">code <span class="quarto-category-count">(2)</span></div><div class="category" data-category="math">math <span class="quarto-category-count">(2)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(2)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<section id="just-a-quick-update" class="level1">
+<h1>Just a quick update</h1>
+<section id="its-sunday" class="level2">
+<h2 class="anchored" data-anchor-id="its-sunday">It’s sunday…</h2>
+<p>So I had a bit of time. And I chose to use it to keep going a bit. I moved a couple of things, created a few more supporting functions, modified them somewhat, and added the covering part.</p>
+<p>Covering needs to happen when for a given training instance (state, class), there is no match in the <strong>correct set</strong>.</p>
+<p><strong>Correct set is the subset of the Matching set for which, on top of the condition matching, the predicted class/action is also correct.</strong></p>
+<p>And well, it’s working:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="basic_coverage_works.jpg" class="img-fluid figure-img"></p>
+<figcaption>testing basic covering functionality</figcaption>
+</figure>
+</div>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Next up is “Rule Discovery”, whereby, in Michigan-style LCS, a <strong>GA-like</strong> process will take place to <strong>create offspring from two parents taken in the Correct set</strong>.</p>
+<p>That will include <strong>cross-over</strong> (in one way or another) and <strong>mutation</strong> (with a preset pressure/probability). With these, on top of coverage, the LCS will hence create <strong>new valid rules,</strong> that <strong>will become part of the population</strong>, to be evaluated on further training instances.</p>
+<p>Other parts of the algorithm – meant to contain the population size – will come later. :)</p>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="ML,RLCS" data-listing-date-sort="1734822000000" data-listing-file-modified-sort="1734883610339" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="171">
-<div class="thumbnail">
-<p><a href="./posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html" class="no-external"></a></p><a href="./posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/basic_coverage_works.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html" class="no-external">RLCS Day 1 - Part II: Basic Covering</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('ML'); return false;">
-ML
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RLCS'); return false;">
-RLCS
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html" class="no-external">So I had a bit of time. And I chose to use it to keep going a bit. I moved a couple of things, created a few more supporting functions, modified them somewhat, and added the…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html" class="no-external">
-<div class="listing-date">
-Dec 22, 2024
-</div>
-<div class="listing-author">
-Nico
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="ML,RLCS" data-listing-date-sort="1734822000000" data-listing-file-modified-sort="1734866823561" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1546">
-<div class="thumbnail">
-<p><a href="./posts/2024-12-22_RLCS_Day1_Matching_and_Classifier_storage/index.html" class="no-external"></a></p><a href="./posts/2024-12-22_RLCS_Day1_Matching_and_Classifier_storage/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/2024-12-22_RLCS_Day1_Matching_and_Classifier_storage/population_example.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2024-12-22_RLCS_Day1_Matching_and_Classifier_storage/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2024-12-22_RLCS_Day1_Matching_and_Classifier_storage/index.html" class="no-external">RLCS Day 1: Rules formatting, storage, and matching</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2024-12-22_RLCS_Day1_Matching_and_Classifier_storage/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('ML'); return false;">
-ML
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RLCS'); return false;">
-RLCS
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2024-12-22_RLCS_Day1_Matching_and_Classifier_storage/index.html" class="no-external">So I wasn’t kidding. I really like this “Learning Classifier System” (aka LCS) idea, and I really want to develop the R package for it, which I will call “RLCS” (clever, hu?).</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2024-12-22_RLCS_Day1_Matching_and_Classifier_storage/index.html" class="no-external">
-<div class="listing-date">
-Dec 22, 2024
-</div>
-<div class="listing-author">
-Nico
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="ML,news,RLCS" data-listing-date-sort="1733612400000" data-listing-file-modified-sort="1734865997664" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1236">
-<div class="thumbnail">
-<p><a href="./posts/2024-12-08_A_new_project/index.html" class="no-external"></a></p><a href="./posts/2024-12-08_A_new_project/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/2024-12-08_A_new_project/IMG_5050.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2024-12-08_A_new_project/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2024-12-08_A_new_project/index.html" class="no-external">A new project</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2024-12-08_A_new_project/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('ML'); return false;">
-ML
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RLCS'); return false;">
-RLCS
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2024-12-08_A_new_project/index.html" class="no-external">Ever since I read about the concept in M. Mitchell’s book “Complexity The emerging science at the edge of order and chaos” some time last year (I think around this time of…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2024-12-08_A_new_project/index.html" class="no-external">
-<div class="listing-date">
-Dec 8, 2024
-</div>
-<div class="listing-author">
-Nico
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="ML,math" data-listing-date-sort="1732489200000" data-listing-file-modified-sort="1732563157732" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2472">
-<div class="thumbnail">
-<p><a href="./posts/2024-11-25_Understanding_Linear_Regression/index.html" class="no-external"></a></p><a href="./posts/2024-11-25_Understanding_Linear_Regression/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/2024-11-25_Understanding_Linear_Regression/index_files/figure-html/unnamed-chunk-1-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2024-11-25_Understanding_Linear_Regression/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2024-11-25_Understanding_Linear_Regression/index.html" class="no-external">Understanding Linear Regression</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2024-11-25_Understanding_Linear_Regression/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('ML'); return false;">
-ML
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('math'); return false;">
-math
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2024-11-25_Understanding_Linear_Regression/index.html" class="no-external">This is probably one of the last entries from my preparation to introduce “Background of ML for Cybersecurity”. This time, it’s really about what should probably have been…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2024-11-25_Understanding_Linear_Regression/index.html" class="no-external">
-<div class="listing-date">
-Nov 25, 2024
-</div>
-<div class="listing-author">
-Nico
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="ML,code" data-listing-date-sort="1731798000000" data-listing-file-modified-sort="1731915153569" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18" data-listing-word-count-sort="3526">
-<div class="thumbnail">
-<p><a href="./posts/2024-11-17_URLs_Classification_Example/index.html" class="no-external"></a></p><a href="./posts/2024-11-17_URLs_Classification_Example/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/2024-11-17_URLs_Classification_Example/looking_at_url_lengths.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2024-11-17_URLs_Classification_Example/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2024-11-17_URLs_Classification_Example/index.html" class="no-external">Classifying URLs</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2024-11-17_URLs_Classification_Example/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('ML'); return false;">
-ML
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2024-11-17_URLs_Classification_Example/index.html" class="no-external">I’m still working my way through a “practical demos” session on ML background for Cybersecurity.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2024-11-17_URLs_Classification_Example/index.html" class="no-external">
-<div class="listing-date">
-Nov 17, 2024
-</div>
-<div class="listing-author">
-Nico
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="math,code" data-listing-date-sort="1731193200000" data-listing-file-modified-sort="1731312895815" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1137">
-<div class="thumbnail">
-<p><a href="./posts/2024-11-10_entropy_of_zip/index.html" class="no-external"></a></p><a href="./posts/2024-11-10_entropy_of_zip/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/2024-11-10_entropy_of_zip/sample_characters_prevalence_visu.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2024-11-10_entropy_of_zip/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2024-11-10_entropy_of_zip/index.html" class="no-external">Entropy - Identifying compressed files</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2024-11-10_entropy_of_zip/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('math'); return false;">
-math
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2024-11-10_entropy_of_zip/index.html" class="no-external">About Shannon’s Information Entropy, applied to potentially detecting ciphered or compressed text compared to plain text.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2024-11-10_entropy_of_zip/index.html" class="no-external">
-<div class="listing-date">
-Nov 10, 2024
-</div>
-<div class="listing-author">
-Nico
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="news" data-listing-date-sort="1731020400000" data-listing-file-modified-sort="1731085534940" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="67">
-<div class="thumbnail">
-<p><a href="./posts/2024-11-08_welcome/index.html" class="no-external"></a></p><a href="./posts/2024-11-08_welcome/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/2024-11-08_welcome/thumbnail.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2024-11-08_welcome/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2024-11-08_welcome/index.html" class="no-external">Welcome To My Blog</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2024-11-08_welcome/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2024-11-08_welcome/index.html" class="no-external">This is the first post in this future Blog. Currently testing all kinds of things, will updated hopefully shortly!</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2024-11-08_welcome/index.html" class="no-external">
-<div class="listing-date">
-Nov 8, 2024
-</div>
-<div class="listing-author">
-Nico
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
