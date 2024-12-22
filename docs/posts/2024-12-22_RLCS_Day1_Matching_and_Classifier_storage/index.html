@@ -321,21 +321,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>lcs_classifier2 <span class="ot">&lt;-</span> <span class="fu">add_valid_rule_to_pop</span>(lcs_classifier2, conditions[<span class="dv">3</span>], actions[<span class="dv">3</span>])</span>
 <span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>lcs_classifier2 <span class="ot">&lt;-</span> <span class="fu">add_valid_rule_to_pop</span>(lcs_classifier2, conditions[<span class="dv">4</span>], actions[<span class="dv">4</span>])</span>
 <span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">make_pop_printable</span>(lcs_classifier2))</span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"validate correct match on test set"</span>, {</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"validate correct match on test set"</span>, {</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_equal</span>(</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>        <span class="fu">get_match_set_v002</span>(test_environment<span class="sc">$</span>state[<span class="dv">1</span>], lcs_classifier2), </span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">1</span>)</span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_equal</span>(</span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>        <span class="fu">get_match_set_v002</span>(test_environment<span class="sc">$</span>state[<span class="dv">1</span>], lcs_classifier2), </span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">1</span>)</span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>        <span class="fu">get_match_set_v002</span>(test_environment<span class="sc">$</span>state[<span class="dv">2</span>], lcs_classifier2),</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
 <span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_equal</span>(</span>
-<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>        <span class="fu">get_match_set_v002</span>(test_environment<span class="sc">$</span>state[<span class="dv">2</span>], lcs_classifier2),</span>
-<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="comparing_formats_speed.jpg" class="img-fluid"></p>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="population_example.jpg" class="img-fluid figure-img"></p>
+<figcaption>An example population</figcaption>
+</figure>
+</div>
 </section>
 <section id="well-keep-the-list-format-for-now" class="level2">
 <h2 class="anchored" data-anchor-id="well-keep-the-list-format-for-now">We’ll keep the list format for now</h2>
@@ -343,14 +344,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sapply</span>(test_environment<span class="sc">$</span>state, <span class="cf">function</span>(x) { <span class="fu">get_match_set_v001</span>(x, lcs_classifier1)}),</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sapply</span>(test_environment<span class="sc">$</span>state, <span class="cf">function</span>(x) { <span class="fu">get_match_set_v002</span>(x, lcs_classifier2)}),</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">times =</span> <span class="dv">10000</span>L</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>(OUTPUT<span class="sc">:</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>Unit<span class="sc">:</span> microseconds</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>(...)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>     min      lq      mean  median      uq       max neval</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a> <span class="fl">184.213</span> <span class="fl">189.912</span> <span class="fl">208.47577</span> <span class="fl">193.192</span> <span class="fl">196.595</span> <span class="fl">48154.500</span> <span class="dv">10000</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fl">76.957</span>  <span class="fl">80.483</span>  <span class="fl">88.82058</span>  <span class="fl">81.836</span>  <span class="fl">83.435</span>  <span class="fl">3152.613</span> <span class="dv">10000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="comparing_formats_speed.jpg" class="img-fluid figure-img"></p>
+<figcaption>lists and pre-calculated match positions is faster</figcaption>
+</figure>
+</div>
 <p>Lists are more flexible and data.frames are not the fastest option out there anyway. Here the pre-calculations in the second format also helps doing faster matching.</p>
 <p>However I know this choice might have an impact, particularly when time will come to implement deletion, subsumption and compaction (all useful for better LCS performance/value). And another idea I have in mind will require further lists management (but it’s too early to discuss that).</p>
 <p>But that’s a problem for future me (and nothing that hasn’t been solved already).</p>

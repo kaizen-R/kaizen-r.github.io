@@ -163,10 +163,6 @@ lcs_classifier2 <- add_valid_rule_to_pop(lcs_classifier2, conditions[2], actions
 lcs_classifier2 <- add_valid_rule_to_pop(lcs_classifier2, conditions[3], actions[3])
 lcs_classifier2 <- add_valid_rule_to_pop(lcs_classifier2, conditions[4], actions[4])
 
-print(make_pop_printable(lcs_classifier2))
-
-
-
 test_that("validate correct match on test set", {
     expect_equal(
         get_match_set_v002(test_environment$state[1], lcs_classifier2), 
@@ -179,7 +175,7 @@ test_that("validate correct match on test set", {
 })
 ```
 
-![](comparing_formats_speed.jpg)
+![An example population](population_example.jpg)
 
 ## We'll keep the list format for now
 
@@ -189,14 +185,9 @@ microbenchmark(
     sapply(test_environment$state, function(x) { get_match_set_v002(x, lcs_classifier2)}),
     times = 10000L
 )
-
-(OUTPUT:)
-Unit: microseconds
-(...)
-     min      lq      mean  median      uq       max neval
- 184.213 189.912 208.47577 193.192 196.595 48154.500 10000
-  76.957  80.483  88.82058  81.836  83.435  3152.613 10000
 ```
+
+![lists and pre-calculated match positions is faster](comparing_formats_speed.jpg)
 
 Lists are more flexible and data.frames are not the fastest option out there anyway. Here the pre-calculations in the second format also helps doing faster matching.
 
