@@ -2,7 +2,7 @@
 title: "A new project"
 author: "Nico"
 date: "2024-12-08"
-categories: [ML, news]
+categories: [ML, news, RLCS]
 ---
 
 # I've been thinking for a while...
