@@ -17,7 +17,7 @@ Covering needs to happen when for a given training instance (state, class), ther
 
 And well, it's working:
 
-![testing basic covering functionality](basic_coverage_works.jpg)
+![testing basic covering functionality](basic_coverage_works_v2.jpg)
 
 ## Conclusion
 
