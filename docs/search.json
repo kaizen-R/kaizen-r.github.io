@@ -147,27 +147,6 @@
     "text": "This is the best intro explaining the algorithm that I found thus far - and if anything it confirmed I was on the right path. It just makes a lot of sense to me!"
   },
   {
-    "objectID": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html",
-    "href": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html",
-    "title": "RLCS Day 1 - Part II: Basic Covering",
-    "section": "",
-    "text": "So I had a bit of time. And I chose to use it to keep going a bit. I moved a couple of things, created a few more supporting functions, modified them somewhat, and added the covering part.\nCovering needs to happen when for a given training instance (state, class), there is no match in the correct set.\nCorrect set is the subset of the Matching set for which, on top of the condition matching, the predicted class/action is also correct.\nAnd well, it’s working:\n\n\n\ntesting basic covering functionality\n\n\n\n\n\nNext up is “Rule Discovery”, whereby, in Michigan-style LCS, a GA-like process will take place to create offspring from two parents taken in the Correct set.\nThat will include cross-over (in one way or another) and mutation (with a preset pressure/probability). With these, on top of coverage, the LCS will hence create new valid rules, that will become part of the population, to be evaluated on further training instances.\nOther parts of the algorithm – meant to contain the population size – will come later. :)"
-  },
-  {
-    "objectID": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#its-sunday",
-    "href": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#its-sunday",
-    "title": "RLCS Day 1 - Part II: Basic Covering",
-    "section": "",
-    "text": "So I had a bit of time. And I chose to use it to keep going a bit. I moved a couple of things, created a few more supporting functions, modified them somewhat, and added the covering part.\nCovering needs to happen when for a given training instance (state, class), there is no match in the correct set.\nCorrect set is the subset of the Matching set for which, on top of the condition matching, the predicted class/action is also correct.\nAnd well, it’s working:\n\n\n\ntesting basic covering functionality"
-  },
-  {
-    "objectID": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#conclusion",
-    "href": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#conclusion",
-    "title": "RLCS Day 1 - Part II: Basic Covering",
-    "section": "",
-    "text": "Next up is “Rule Discovery”, whereby, in Michigan-style LCS, a GA-like process will take place to create offspring from two parents taken in the Correct set.\nThat will include cross-over (in one way or another) and mutation (with a preset pressure/probability). With these, on top of coverage, the LCS will hence create new valid rules, that will become part of the population, to be evaluated on further training instances.\nOther parts of the algorithm – meant to contain the population size – will come later. :)"
-  },
-  {
     "objectID": "posts/2024-11-17_URLs_Classification_Example/index.html",
     "href": "posts/2024-11-17_URLs_Classification_Example/index.html",
     "title": "Classifying URLs",
@@ -208,6 +187,76 @@
     "title": "Classifying URLs",
     "section": "References",
     "text": "References\nFor today, only the recommended list of potential datasets for Cybersecurity.\nThe rest is of my own doing. Of course, the Internet, Stack Overflow, Wikipedia, etc. as usual."
+  },
+  {
+    "objectID": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html",
+    "href": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html",
+    "title": "RLCS Day 2 - Full Rule Discovery",
+    "section": "",
+    "text": "I have yet another day off (that’s the thing with Holiday season), and I really wanted to keep working on this.\nSo I added the Genetic Algorithm part to my Supervised Learning basic Michigan-style LCS.\nThat means, after covering (done last Sunday) I am done with the (basic) implementation of the Rule Discovery features of the LCS algorithm.\nAnd, heck, it works.\n\n\n\nSo we had covering, whereby new rules were created when none in the classifiers matched the a new-coming environment instance.\nBut this is only part of the discovery of new rules. The second part in the Michigan-style LCS is that of a Genetic Algorithm.\nI implemented now a simple version, with tournament parents selection. That is, from the Correct set (see past entries) – but taking numerosity of classifiers into account – I choose N (a parameter) parents randomly. Then I take the best 2 parents by fitness. Which is ellitist.\nThen I run a one-point cross-over, to generate 2 children.\nI apply mutation to the children genes in turn, with a mutation pressure set as yet another parameter (default is 5% in my implementation).\nAnd finally I add the children to the population.\nNote that children mutations ensure only valid rules are created (i.e. condition is compatible with the training instance). Mutations either generalize (add a wildcard) or specify (replaces a wildcard by a 0 or 1, depending on training instance).\nFully general (“all wildcard”) individuals are of course discarded. If a child actually matches by condition an individual in the correct set, it is discarded and the repeated classifier instead get a numerosity increase.\nAnd that’s IT!\n\n\n\nIn my current dummy example, whereby the goal is for the LCS to discover the rule “Class is NOT(bit 4 of input state)”, well… In manual runs (several of them), I often (not always, mind you) find the two best rules are perfect rules:\n\n\n\nPerfect Rules are often discovered!\n\n\n\n\n\nThe first two rules (ordered by accuracy and numerosity, both decreasing) are the exact rules that perfectly will always predict the correct class/action, and are perfectly balanced in this case between general and specific.\nThese are the kind of things that an LCS provides that a Neural Network won’t:\nIt tells you WHY it makes a decision.\nHere, it is saying:\n\nRule 1: If bit 4 is 0, then class is 1. I am 100% accurate, whenever that happens.\nRule 2: If bit 4 is 1, then class is 0. I am 100% accurate, whenever that happens.\n\nWhich is exactly what this dummy training data set was trying to say in the first place, with 70% of the training possibilities shown to train the algorithm.\nObviously this is… A somewhat silly example. But the thing is, I did NOT tell it how to get there, and it got the IF THEN ELSE correctly on its own.\n\n\n\nEvery now and then (after a certain number of Epochs) I run a Deletion process, whereby rules that have Numerosity 1 are discarded, thereby containing the size of the set of classifiers.\nThis is important for interpretability and performance.\n\n\n\nI am quite happy that after only a couple of days of coding, I have a basic, perfectly functional LCS!\nI do miss two components: Subsumption and Compaction.\nPlus of course the Prediction, that comes after training, on a test subset.\nIt’s all on my to-do, but this thing is already promising!\nGranted, it’s not real fast. And the code is far from perfect, or duly organized. But it works!"
+  },
+  {
+    "objectID": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#intro",
+    "href": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#intro",
+    "title": "RLCS Day 2 - Full Rule Discovery",
+    "section": "",
+    "text": "I have yet another day off (that’s the thing with Holiday season), and I really wanted to keep working on this.\nSo I added the Genetic Algorithm part to my Supervised Learning basic Michigan-style LCS.\nThat means, after covering (done last Sunday) I am done with the (basic) implementation of the Rule Discovery features of the LCS algorithm.\nAnd, heck, it works."
+  },
+  {
+    "objectID": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#what-the-ga-does",
+    "href": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#what-the-ga-does",
+    "title": "RLCS Day 2 - Full Rule Discovery",
+    "section": "",
+    "text": "So we had covering, whereby new rules were created when none in the classifiers matched the a new-coming environment instance.\nBut this is only part of the discovery of new rules. The second part in the Michigan-style LCS is that of a Genetic Algorithm.\nI implemented now a simple version, with tournament parents selection. That is, from the Correct set (see past entries) – but taking numerosity of classifiers into account – I choose N (a parameter) parents randomly. Then I take the best 2 parents by fitness. Which is ellitist.\nThen I run a one-point cross-over, to generate 2 children.\nI apply mutation to the children genes in turn, with a mutation pressure set as yet another parameter (default is 5% in my implementation).\nAnd finally I add the children to the population.\nNote that children mutations ensure only valid rules are created (i.e. condition is compatible with the training instance). Mutations either generalize (add a wildcard) or specify (replaces a wildcard by a 0 or 1, depending on training instance).\nFully general (“all wildcard”) individuals are of course discarded. If a child actually matches by condition an individual in the correct set, it is discarded and the repeated classifier instead get a numerosity increase.\nAnd that’s IT!"
+  },
+  {
+    "objectID": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#results-with-fully-functional-rule-discovery",
+    "href": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#results-with-fully-functional-rule-discovery",
+    "title": "RLCS Day 2 - Full Rule Discovery",
+    "section": "",
+    "text": "In my current dummy example, whereby the goal is for the LCS to discover the rule “Class is NOT(bit 4 of input state)”, well… In manual runs (several of them), I often (not always, mind you) find the two best rules are perfect rules:\n\n\n\nPerfect Rules are often discovered!"
+  },
+  {
+    "objectID": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#important-what-the-rules-set-tells-us",
+    "href": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#important-what-the-rules-set-tells-us",
+    "title": "RLCS Day 2 - Full Rule Discovery",
+    "section": "",
+    "text": "The first two rules (ordered by accuracy and numerosity, both decreasing) are the exact rules that perfectly will always predict the correct class/action, and are perfectly balanced in this case between general and specific.\nThese are the kind of things that an LCS provides that a Neural Network won’t:\nIt tells you WHY it makes a decision.\nHere, it is saying:\n\nRule 1: If bit 4 is 0, then class is 1. I am 100% accurate, whenever that happens.\nRule 2: If bit 4 is 1, then class is 0. I am 100% accurate, whenever that happens.\n\nWhich is exactly what this dummy training data set was trying to say in the first place, with 70% of the training possibilities shown to train the algorithm.\nObviously this is… A somewhat silly example. But the thing is, I did NOT tell it how to get there, and it got the IF THEN ELSE correctly on its own."
+  },
+  {
+    "objectID": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#deletion-is-also-implemented",
+    "href": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#deletion-is-also-implemented",
+    "title": "RLCS Day 2 - Full Rule Discovery",
+    "section": "",
+    "text": "Every now and then (after a certain number of Epochs) I run a Deletion process, whereby rules that have Numerosity 1 are discarded, thereby containing the size of the set of classifiers.\nThis is important for interpretability and performance."
+  },
+  {
+    "objectID": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#conclusion",
+    "href": "posts/2024-12-22_RLCS_Day1_PartII_Basic_Coverage/index.html#conclusion",
+    "title": "RLCS Day 2 - Full Rule Discovery",
+    "section": "",
+    "text": "I am quite happy that after only a couple of days of coding, I have a basic, perfectly functional LCS!\nI do miss two components: Subsumption and Compaction.\nPlus of course the Prediction, that comes after training, on a test subset.\nIt’s all on my to-do, but this thing is already promising!\nGranted, it’s not real fast. And the code is far from perfect, or duly organized. But it works!"
+  },
+  {
+    "objectID": "posts/2024-12-24_RLCS_Day_2_Almost_Done_v001/index.html",
+    "href": "posts/2024-12-24_RLCS_Day_2_Almost_Done_v001/index.html",
+    "title": "RLCS Day 1 - Part II: Basic Covering",
+    "section": "",
+    "text": "So I had a bit of time. And I chose to use it to keep going a bit. I moved a couple of things, created a few more supporting functions, modified them somewhat, and added the covering part.\nCovering needs to happen when for a given training instance (state, class), there is no match in the correct set.\nCorrect set is the subset of the Matching set for which, on top of the condition matching, the predicted class/action is also correct.\nAnd well, it’s working:\n\n\n\ntesting basic covering functionality\n\n\n\n\n\nNext up is “Rule Discovery”, whereby, in Michigan-style LCS, a GA-like process will take place to create offspring from two parents taken in the Correct set.\nThat will include cross-over (in one way or another) and mutation (with a preset pressure/probability). With these, on top of coverage, the LCS will hence create new valid rules, that will become part of the population, to be evaluated on further training instances.\nOther parts of the algorithm – meant to contain the population size – will come later. :)"
+  },
+  {
+    "objectID": "posts/2024-12-24_RLCS_Day_2_Almost_Done_v001/index.html#its-sunday",
+    "href": "posts/2024-12-24_RLCS_Day_2_Almost_Done_v001/index.html#its-sunday",
+    "title": "RLCS Day 1 - Part II: Basic Covering",
+    "section": "",
+    "text": "So I had a bit of time. And I chose to use it to keep going a bit. I moved a couple of things, created a few more supporting functions, modified them somewhat, and added the covering part.\nCovering needs to happen when for a given training instance (state, class), there is no match in the correct set.\nCorrect set is the subset of the Matching set for which, on top of the condition matching, the predicted class/action is also correct.\nAnd well, it’s working:\n\n\n\ntesting basic covering functionality"
+  },
+  {
+    "objectID": "posts/2024-12-24_RLCS_Day_2_Almost_Done_v001/index.html#conclusion",
+    "href": "posts/2024-12-24_RLCS_Day_2_Almost_Done_v001/index.html#conclusion",
+    "title": "RLCS Day 1 - Part II: Basic Covering",
+    "section": "",
+    "text": "Next up is “Rule Discovery”, whereby, in Michigan-style LCS, a GA-like process will take place to create offspring from two parents taken in the Correct set.\nThat will include cross-over (in one way or another) and mutation (with a preset pressure/probability). With these, on top of coverage, the LCS will hence create new valid rules, that will become part of the population, to be evaluated on further training instances.\nOther parts of the algorithm – meant to contain the population size – will come later. :)"
   },
   {
     "objectID": "posts/2024-11-10_entropy_of_zip/index.html",
@@ -291,6 +340,6 @@
     "href": "index.html",
     "title": "Kaizen-R.com new home",
     "section": "",
-    "text": "RLCS Day 1 - Part II: Basic Covering\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 22, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 1: Rules formatting, storage, and matching\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 22, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nA new project\n\n\n\n\n\n\nML\n\n\nnews\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 8, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nUnderstanding Linear Regression\n\n\n\n\n\n\nML\n\n\nmath\n\n\n\n\n\n\n\n\n\nNov 25, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nClassifying URLs\n\n\n\n\n\n\nML\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 17, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nEntropy - Identifying compressed files\n\n\n\n\n\n\nmath\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 10, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nNov 8, 2024\n\n\nNico\n\n\n\n\n\n\nNo matching items"
+    "text": "RLCS Day 2 - Full Rule Discovery\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 24, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 1 - Part II: Basic Covering\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 22, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 1: Rules formatting, storage, and matching\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 22, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nA new project\n\n\n\n\n\n\nML\n\n\nnews\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 8, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nUnderstanding Linear Regression\n\n\n\n\n\n\nML\n\n\nmath\n\n\n\n\n\n\n\n\n\nNov 25, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nClassifying URLs\n\n\n\n\n\n\nML\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 17, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nEntropy - Identifying compressed files\n\n\n\n\n\n\nmath\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 10, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nNov 8, 2024\n\n\nNico\n\n\n\n\n\n\nNo matching items"
   }
 ]

@@ -1,28 +1,80 @@
 ---
-title: "RLCS Day 1 - Part II: Basic Covering"
+title: "RLCS Day 2 - Full Rule Discovery"
 author: "Nico"
-date: "2024-12-22"
+date: "2024-12-24"
 categories: [ML, RLCS]
 ---
 
-# Just a quick update
+# GA Implemented, and full discovery works!
 
-## It's sunday...
+## Intro
 
-So I had a bit of time. And I chose to use it to keep going a bit. I moved a couple of things, created a few more supporting functions, modified them somewhat, and added the covering part.
+I have yet another day off (that's the thing with Holiday season), and I really wanted to keep working on this.
 
-Covering needs to happen when for a given training instance (state, class), there is no match in the **correct set**.
+So I added the Genetic Algorithm part to my Supervised Learning basic Michigan-style LCS.
 
-**Correct set is the subset of the Matching set for which, on top of the condition matching, the predicted class/action is also correct.**
+That means, after covering (done last Sunday) I am done with the (basic) implementation of the Rule Discovery features of the LCS algorithm.
 
-And well, it's working:
+And, heck, it works.
 
-![testing basic covering functionality](basic_coverage_works_v2.jpg)
+## What the GA does
+
+So we had covering, whereby new rules were created when none in the classifiers matched the a new-coming environment instance.
+
+But this is only part of the discovery of new rules. The second part in the Michigan-style LCS is that of a **Genetic Algorithm**.
+
+I implemented now a simple version, with **tournament** parents selection. That is, from the Correct set (see past entries) – but taking numerosity of classifiers into account – I choose N (a parameter) parents randomly. Then I take the best 2 parents by fitness. Which is **ellitist**.
+
+Then I run a **one-point cross-over**, to generate 2 children.
+
+I apply mutation to the children genes in turn, with a **mutation pressure** set as yet another parameter (default is 5% in my implementation).
+
+And finally I **add the children to the population**.
+
+Note that children mutations ensure only **valid** rules are created (i.e. condition is compatible with the training instance). **Mutations either generalize** (add a wildcard) **or specify** (replaces a wildcard by a 0 or 1, depending on training instance).
+
+Fully general ("all wildcard") individuals are of course **discarded**. If a child actually matches by condition an individual in the correct set, it is discarded and the repeated classifier instead get a numerosity increase.
+
+And that's IT!
+
+## Results with fully functional Rule Discovery
+
+In my current dummy example, whereby the goal is for the LCS to discover the rule "Class is NOT(bit 4 of input state)", well... In manual runs (several of them), I *often* (*not always*, mind you) find **the two best rules are perfect rules**:
+
+![Perfect Rules are often discovered!](/posts/2024-12-24_RLCS_Day_2_Almost_Done_v001/Full_Rule_Discovery_Results.jpg)
+
+## IMPORTANT: What the rules set tells us!!
+
+The first two rules (ordered by accuracy and numerosity, both decreasing) are the exact rules that perfectly will always predict the correct class/action, and are perfectly **balanced** in this case between **general and specific**.
+
+These are the **kind of things that an LCS provides that a Neural Network won't**:
+
+**It tells you WHY it makes a decision.**
+
+Here, it is saying:
+
+-   **Rule 1: If bit 4 is 0, then class is 1. I am 100% accurate, whenever that happens.**
+
+-   **Rule 2: If bit 4 is 1, then class is 0. I am 100% accurate, whenever that happens.**
+
+Which is exactly what this dummy training data set was trying to say in the first place, with 70% of the training possibilities shown to train the algorithm.
+
+Obviously this is... A somewhat silly example. But the thing is, I did NOT tell it how to get there, and it got the IF THEN ELSE correctly on its own.
+
+## DELETION is also implemented
+
+Every now and then (after a certain number of Epochs) I run a Deletion process, whereby rules that have Numerosity 1 are discarded, thereby containing the size of the set of classifiers.
+
+This is important for interpretability and performance.
 
 ## Conclusion
 
-Next up is "Rule Discovery", whereby, in Michigan-style LCS, a **GA-like** process will take place to **create offspring from two parents taken in the Correct set**.
+I am quite happy that after only a couple of days of coding, I have **a basic, perfectly functional LCS!**
 
-That will include **cross-over** (in one way or another) and **mutation** (with a preset pressure/probability). With these, on top of coverage, the LCS will hence create **new valid rules,** that **will become part of the population**, to be evaluated on further training instances.
+I do miss two components: **Subsumption** and **Compaction**.
 
-Other parts of the algorithm – meant to contain the population size – will come later. :)
+Plus of course the **Prediction**, that comes after training, on a test subset.
+
+It's all on my to-do, but **this thing is already promising!**
+
+Granted, it's not real fast. **And** the code is far from perfect, or duly organized. But it **works!**

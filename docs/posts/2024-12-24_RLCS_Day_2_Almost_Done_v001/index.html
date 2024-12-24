@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2024-12-24">
+<meta name="dcterms.date" content="2024-12-22">
 
-<title>RLCS Day 2 - Full Rule Discovery – Kaizen-R.com new home</title>
+<title>RLCS Day 1 - Part II: Basic Covering – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">RLCS Day 2 - Full Rule Discovery</h1>
+      <h1 class="title">RLCS Day 1 - Part II: Basic Covering</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">ML</div>
                 <div class="quarto-category">RLCS</div>
@@ -136,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">December 24, 2024</p>
+        <p class="date">December 22, 2024</p>
       </div>
     </div>
     
@@ -155,62 +155,26 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="ga-implemented-and-full-discovery-works" class="level1">
-<h1>GA Implemented, and full discovery works!</h1>
-<section id="intro" class="level2">
-<h2 class="anchored" data-anchor-id="intro">Intro</h2>
-<p>I have yet another day off (that’s the thing with Holiday season), and I really wanted to keep working on this.</p>
-<p>So I added the Genetic Algorithm part to my Supervised Learning basic Michigan-style LCS.</p>
-<p>That means, after covering (done last Sunday) I am done with the (basic) implementation of the Rule Discovery features of the LCS algorithm.</p>
-<p>And, heck, it works.</p>
-</section>
-<section id="what-the-ga-does" class="level2">
-<h2 class="anchored" data-anchor-id="what-the-ga-does">What the GA does</h2>
-<p>So we had covering, whereby new rules were created when none in the classifiers matched the a new-coming environment instance.</p>
-<p>But this is only part of the discovery of new rules. The second part in the Michigan-style LCS is that of a <strong>Genetic Algorithm</strong>.</p>
-<p>I implemented now a simple version, with <strong>tournament</strong> parents selection. That is, from the Correct set (see past entries) – but taking numerosity of classifiers into account – I choose N (a parameter) parents randomly. Then I take the best 2 parents by fitness. Which is <strong>ellitist</strong>.</p>
-<p>Then I run a <strong>one-point cross-over</strong>, to generate 2 children.</p>
-<p>I apply mutation to the children genes in turn, with a <strong>mutation pressure</strong> set as yet another parameter (default is 5% in my implementation).</p>
-<p>And finally I <strong>add the children to the population</strong>.</p>
-<p>Note that children mutations ensure only <strong>valid</strong> rules are created (i.e.&nbsp;condition is compatible with the training instance). <strong>Mutations either generalize</strong> (add a wildcard) <strong>or specify</strong> (replaces a wildcard by a 0 or 1, depending on training instance).</p>
-<p>Fully general (“all wildcard”) individuals are of course <strong>discarded</strong>. If a child actually matches by condition an individual in the correct set, it is discarded and the repeated classifier instead get a numerosity increase.</p>
-<p>And that’s IT!</p>
-</section>
-<section id="results-with-fully-functional-rule-discovery" class="level2">
-<h2 class="anchored" data-anchor-id="results-with-fully-functional-rule-discovery">Results with fully functional Rule Discovery</h2>
-<p>In my current dummy example, whereby the goal is for the LCS to discover the rule “Class is NOT(bit 4 of input state)”, well… In manual runs (several of them), I <em>often</em> (<em>not always</em>, mind you) find <strong>the two best rules are perfect rules</strong>:</p>
+<section id="just-a-quick-update" class="level1">
+<h1>Just a quick update</h1>
+<section id="its-sunday" class="level2">
+<h2 class="anchored" data-anchor-id="its-sunday">It’s sunday…</h2>
+<p>So I had a bit of time. And I chose to use it to keep going a bit. I moved a couple of things, created a few more supporting functions, modified them somewhat, and added the covering part.</p>
+<p>Covering needs to happen when for a given training instance (state, class), there is no match in the <strong>correct set</strong>.</p>
+<p><strong>Correct set is the subset of the Matching set for which, on top of the condition matching, the predicted class/action is also correct.</strong></p>
+<p>And well, it’s working:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../posts/2024-12-24_RLCS_Day_2_Almost_Done_v001/Full_Rule_Discovery_Results.jpg" class="img-fluid figure-img"></p>
-<figcaption>Perfect Rules are often discovered!</figcaption>
+<p><img src="basic_coverage_works_v2.jpg" class="img-fluid figure-img"></p>
+<figcaption>testing basic covering functionality</figcaption>
 </figure>
 </div>
 </section>
-<section id="important-what-the-rules-set-tells-us" class="level2">
-<h2 class="anchored" data-anchor-id="important-what-the-rules-set-tells-us">IMPORTANT: What the rules set tells us!!</h2>
-<p>The first two rules (ordered by accuracy and numerosity, both decreasing) are the exact rules that perfectly will always predict the correct class/action, and are perfectly <strong>balanced</strong> in this case between <strong>general and specific</strong>.</p>
-<p>These are the <strong>kind of things that an LCS provides that a Neural Network won’t</strong>:</p>
-<p><strong>It tells you WHY it makes a decision.</strong></p>
-<p>Here, it is saying:</p>
-<ul>
-<li><p><strong>Rule 1: If bit 4 is 0, then class is 1. I am 100% accurate, whenever that happens.</strong></p></li>
-<li><p><strong>Rule 2: If bit 4 is 1, then class is 0. I am 100% accurate, whenever that happens.</strong></p></li>
-</ul>
-<p>Which is exactly what this dummy training data set was trying to say in the first place, with 70% of the training possibilities shown to train the algorithm.</p>
-<p>Obviously this is… A somewhat silly example. But the thing is, I did NOT tell it how to get there, and it got the IF THEN ELSE correctly on its own.</p>
-</section>
-<section id="deletion-is-also-implemented" class="level2">
-<h2 class="anchored" data-anchor-id="deletion-is-also-implemented">DELETION is also implemented</h2>
-<p>Every now and then (after a certain number of Epochs) I run a Deletion process, whereby rules that have Numerosity 1 are discarded, thereby containing the size of the set of classifiers.</p>
-<p>This is important for interpretability and performance.</p>
-</section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>I am quite happy that after only a couple of days of coding, I have <strong>a basic, perfectly functional LCS!</strong></p>
-<p>I do miss two components: <strong>Subsumption</strong> and <strong>Compaction</strong>.</p>
-<p>Plus of course the <strong>Prediction</strong>, that comes after training, on a test subset.</p>
-<p>It’s all on my to-do, but <strong>this thing is already promising!</strong></p>
-<p>Granted, it’s not real fast. <strong>And</strong> the code is far from perfect, or duly organized. But it <strong>works!</strong></p>
+<p>Next up is “Rule Discovery”, whereby, in Michigan-style LCS, a <strong>GA-like</strong> process will take place to <strong>create offspring from two parents taken in the Correct set</strong>.</p>
+<p>That will include <strong>cross-over</strong> (in one way or another) and <strong>mutation</strong> (with a preset pressure/probability). With these, on top of coverage, the LCS will hence create <strong>new valid rules,</strong> that <strong>will become part of the population</strong>, to be evaluated on further training instances.</p>
+<p>Other parts of the algorithm – meant to contain the population size – will come later. :)</p>
 
 
 </section>
