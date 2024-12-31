@@ -147,9 +147,17 @@ I just want to **make this clear**:
 
 -   It generalizes very well: I end up with an LCS that **correctly classified 96 to 97+% of the 3799 sample tests**.
 
+### EDIT: Small changes, good perf gains
+
+Just FYI, I worked a bit more (31/12) on this and reduced the running times for **better results** in just above **20 seconds** for the mono-thread version:
+
+![Better speed AND accuracy after slight code update](perf_update_20241231.jpg)
+
+This gives us in fact **98.6+% of correctly classified test samples after 20s training** (still on only 500 training samples)**!**
+
 ## Performance
 
-One thing that has worried me the past few days, something I actually **knew** was a concern with LCS, was performance. I mean **speed**, here.
+One thing that has worried me the past few days, something I actually **knew** was a concern with LCS, was performance. I mean **speed**, here. (SEE EDIT ABOVE before you continue)
 
 Training requires exposing the LCS to **sufficient training instances** to "represent" the overall data. Here I believe, **in LCS in particular**, too many training instances would hinder training because of the speed of processing power needed. I truly believe **better chosen training instances are more important than more training instances**. Kinda contrary of what Deep Learning would have you think. Although, this belief is, right now, just that: A belief.
 

@@ -277,10 +277,21 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Training on these 500 examples takes me <strong>between 7.4 and 9.3 minutes</strong> (in the above example)</p></li>
 <li><p>It generalizes very well: I end up with an LCS that <strong>correctly classified 96 to 97+% of the 3799 sample tests</strong>.</p></li>
 </ul>
+<section id="edit-small-changes-good-perf-gains" class="level3">
+<h3 class="anchored" data-anchor-id="edit-small-changes-good-perf-gains">EDIT: Small changes, good perf gains</h3>
+<p>Just FYI, I worked a bit more (31/12) on this and reduced the running times for <strong>better results</strong> in just above <strong>20 seconds</strong> for the mono-thread version:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="perf_update_20241231.jpg" class="img-fluid figure-img"></p>
+<figcaption>Better speed AND accuracy after slight code update</figcaption>
+</figure>
+</div>
+<p>This gives us in fact <strong>98.6+% of correctly classified test samples after 20s training</strong> (still on only 500 training samples)<strong>!</strong></p>
+</section>
 </section>
 <section id="performance" class="level2">
 <h2 class="anchored" data-anchor-id="performance">Performance</h2>
-<p>One thing that has worried me the past few days, something I actually <strong>knew</strong> was a concern with LCS, was performance. I mean <strong>speed</strong>, here.</p>
+<p>One thing that has worried me the past few days, something I actually <strong>knew</strong> was a concern with LCS, was performance. I mean <strong>speed</strong>, here. (SEE EDIT ABOVE before you continue)</p>
 <p>Training requires exposing the LCS to <strong>sufficient training instances</strong> to “represent” the overall data. Here I believe, <strong>in LCS in particular</strong>, too many training instances would hinder training because of the speed of processing power needed. I truly believe <strong>better chosen training instances are more important than more training instances</strong>. Kinda contrary of what Deep Learning would have you think. Although, this belief is, right now, just that: A belief.</p>
 <p>LCS on the other hand, for each training instance, require a <strong>lot</strong> of “epochs”, so s<strong>eeing the same data quite a few times</strong>. That is because <strong>after covering, the GA kicks in and that happens with choosing what best rules are available</strong>, which are <strong>evolved over time</strong> and where “best” depends on how many matches, how general but specific enough a rule is, whether a rule not only matches but also returns the correct action… The point is, ideally, you want to train your LCS on a dataset, but <strong>circle over that dataset many times</strong>. <strong>I’m talking, thousands of times ideally</strong> - for each entry.</p>
 <p>The other aspect of it is, of course, choosing R as a programming language. As much as I am comfortable with it, <strong>it is a slow language</strong>, if you consider compiled alternatives and such.</p>
