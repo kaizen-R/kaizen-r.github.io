@@ -168,6 +168,41 @@
     "text": "I am quite happy that after only a couple of days of coding, I have a basic, perfectly functional LCS!\nI do miss two components: Subsumption and Compaction.\nPlus of course the Prediction, that comes after training, on a test subset.\nIt’s all on my to-do, but this thing is already promising!\nGranted, it’s not real fast. And the code is far from perfect, or duly organized. But it works!"
   },
   {
+    "objectID": "posts/2025-01-25_RLCS_4_DataMining/index.html",
+    "href": "posts/2025-01-25_RLCS_4_DataMining/index.html",
+    "title": "RLCS: for Data Mining",
+    "section": "",
+    "text": "The exact same code to do supervised learning can be used for data mining. In fact, I’ve already shown that, with the “not-bit-4” example.\nThe approach is simple: Instead of training (and then testing with new data), suppose what you want to understand something about your data. Then you can show it all to the LCS for it to come up with rules. If you’re lucky, your data has hidden rules that you didn’t know about.\n\n\n\nSo we’ve seen it already, the “not-bit-4” example. Well, the LCS can try to find out for you:\n\n\n\nIt looks easy like this, doesn’t it?\n\n\nBut what if what you have is this? Not so easy to find the rule manually, right?\n\n\n\nWhat if your data looks like so?\n\n\nMaybe too easy? But it’s the concept that matters! Let’s try a different example. See if you can spot it:\n\n\n\nThis one is just slightly trickier…\n\n\nThe LCS only takes a few second…\n\n\n\nprocessing for simple cases is rather fast\n\n\nAnd finds the rules (4 in this case):\n\n\n\nBit 4 XOR bit 5\n\n\nThat’s how the LCS here expresses “bit 4 XOR bit 5”. And yes, that was it.\nEnough with the examples. But conceptually, the “Mux6” example for the last entry? Same-same.\nAnd more to the point, I had 6 bits inputs here, but what if there are 10 bits? 20 bits? Would you be able to manually find similar rules? It would take me some time :D\n\n\n\nI actually have a use-case at work I want to test this on. As soon as I upload a first version of my project to GitHub, I’ll be able to test it there. I have inventories and some things about them I want to know whether I can explain with short, readable rules. I think the LCS might help. Although… Maybe there is no simple rule to be found, but that’s worth trying.\nThe trick there will be: How to encode the data into binary strings, as this is what my code accepts…? But I actually know how to go about that.\n\n\n\nWell, I just like the idea that the same Supervised Learning algorithm can be used to do Data mining. And provide interpretable information about some datasets (if there is something to be found, that is).\nTake that, Neural Networks! :D"
+  },
+  {
+    "objectID": "posts/2025-01-25_RLCS_4_DataMining/index.html#lcs-for-data-mining",
+    "href": "posts/2025-01-25_RLCS_4_DataMining/index.html#lcs-for-data-mining",
+    "title": "RLCS: for Data Mining",
+    "section": "",
+    "text": "The exact same code to do supervised learning can be used for data mining. In fact, I’ve already shown that, with the “not-bit-4” example.\nThe approach is simple: Instead of training (and then testing with new data), suppose what you want to understand something about your data. Then you can show it all to the LCS for it to come up with rules. If you’re lucky, your data has hidden rules that you didn’t know about."
+  },
+  {
+    "objectID": "posts/2025-01-25_RLCS_4_DataMining/index.html#demonstration",
+    "href": "posts/2025-01-25_RLCS_4_DataMining/index.html#demonstration",
+    "title": "RLCS: for Data Mining",
+    "section": "",
+    "text": "So we’ve seen it already, the “not-bit-4” example. Well, the LCS can try to find out for you:\n\n\n\nIt looks easy like this, doesn’t it?\n\n\nBut what if what you have is this? Not so easy to find the rule manually, right?\n\n\n\nWhat if your data looks like so?\n\n\nMaybe too easy? But it’s the concept that matters! Let’s try a different example. See if you can spot it:\n\n\n\nThis one is just slightly trickier…\n\n\nThe LCS only takes a few second…\n\n\n\nprocessing for simple cases is rather fast\n\n\nAnd finds the rules (4 in this case):\n\n\n\nBit 4 XOR bit 5\n\n\nThat’s how the LCS here expresses “bit 4 XOR bit 5”. And yes, that was it.\nEnough with the examples. But conceptually, the “Mux6” example for the last entry? Same-same.\nAnd more to the point, I had 6 bits inputs here, but what if there are 10 bits? 20 bits? Would you be able to manually find similar rules? It would take me some time :D"
+  },
+  {
+    "objectID": "posts/2025-01-25_RLCS_4_DataMining/index.html#so-what",
+    "href": "posts/2025-01-25_RLCS_4_DataMining/index.html#so-what",
+    "title": "RLCS: for Data Mining",
+    "section": "",
+    "text": "I actually have a use-case at work I want to test this on. As soon as I upload a first version of my project to GitHub, I’ll be able to test it there. I have inventories and some things about them I want to know whether I can explain with short, readable rules. I think the LCS might help. Although… Maybe there is no simple rule to be found, but that’s worth trying.\nThe trick there will be: How to encode the data into binary strings, as this is what my code accepts…? But I actually know how to go about that."
+  },
+  {
+    "objectID": "posts/2025-01-25_RLCS_4_DataMining/index.html#conclusion",
+    "href": "posts/2025-01-25_RLCS_4_DataMining/index.html#conclusion",
+    "title": "RLCS: for Data Mining",
+    "section": "",
+    "text": "Well, I just like the idea that the same Supervised Learning algorithm can be used to do Data mining. And provide interpretable information about some datasets (if there is something to be found, that is).\nTake that, Neural Networks! :D"
+  },
+  {
     "objectID": "posts/2024-11-17_URLs_Classification_Example/index.html",
     "href": "posts/2024-11-17_URLs_Classification_Example/index.html",
     "title": "Classifying URLs",
@@ -424,6 +459,6 @@
     "href": "index.html",
     "title": "Kaizen-R.com new home",
     "section": "",
-    "text": "RLCS Day 4.5 - Fully Functional v0 and New Tests\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 29, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 2 - Full Rule Discovery\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 24, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 1 - Part II: Basic Covering\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 22, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 1: Rules formatting, storage, and matching\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 22, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nA new project\n\n\n\n\n\n\nML\n\n\nnews\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 8, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nUnderstanding Linear Regression\n\n\n\n\n\n\nML\n\n\nmath\n\n\n\n\n\n\n\n\n\nNov 25, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nClassifying URLs\n\n\n\n\n\n\nML\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 17, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nEntropy - Identifying compressed files\n\n\n\n\n\n\nmath\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 10, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nNov 8, 2024\n\n\nNico\n\n\n\n\n\n\nNo matching items"
+    "text": "RLCS: for Data Mining\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 4.5 - Fully Functional v0 and New Tests\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 29, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 2 - Full Rule Discovery\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 24, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 1 - Part II: Basic Covering\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 22, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 1: Rules formatting, storage, and matching\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 22, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nA new project\n\n\n\n\n\n\nML\n\n\nnews\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 8, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nUnderstanding Linear Regression\n\n\n\n\n\n\nML\n\n\nmath\n\n\n\n\n\n\n\n\n\nNov 25, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nClassifying URLs\n\n\n\n\n\n\nML\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 17, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nEntropy - Identifying compressed files\n\n\n\n\n\n\nmath\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 10, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nNov 8, 2024\n\n\nNico\n\n\n\n\n\n\nNo matching items"
   }
 ]

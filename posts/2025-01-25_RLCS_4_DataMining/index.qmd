@@ -1,0 +1,54 @@
+---
+title: "RLCS: for Data Mining"
+author: "Nico"
+date: "2025-01-25"
+categories: [ML, RLCS]
+---
+
+# A useful tool
+
+## LCS for data mining
+
+The **exact same code** to do supervised learning can be used for data mining. In fact, I've already shown that, with the "not-bit-4" example.
+
+The approach is simple: Instead of training (and then testing with new data), suppose what you want to understand something about your data. Then you can show it **all** to the LCS for it to come up with rules. If you're lucky, your data has hidden rules that you didn't know about.
+
+## Demonstration
+
+So we've seen it already, the "not-bit-4" example. Well, the LCS can try to find out for you:
+
+![It looks easy like this, doesn't it?](rlcs_not_bit_4.png){alt="it looks easier like this, doesn't it?"}
+
+But what if what you have is this? Not so easy to find the rule manually, right?
+
+![What if your data looks like so?](not_bit_4_input.png){width="80"}
+
+Maybe too easy? But it's the **concept** that matters! Let's try a different example. See if you can spot it:
+
+![This one is just slightly trickier...](4xor5.jpg){width="82"}
+
+The LCS only takes a few second...
+
+![processing for simple cases is rather fast](4xor5_training.jpg)
+
+And finds the rules (4 in this case):
+
+![Bit 4 XOR bit 5](rlcs_4_xor_5.jpg)
+
+That's how the LCS here expresses "bit 4 XOR bit 5". And yes, that was it.
+
+Enough with the examples. But conceptually, the "Mux6" example for the last entry? Same-same.
+
+And more to the point, I had 6 bits inputs here, but what if there are 10 bits? 20 bits? Would you be able to manually find similar rules? It would take me some time :D
+
+## So what?
+
+I actually have a use-case at work I want to test this on. As soon as I upload a first version of my project to GitHub, I'll be able to test it there. I have inventories and some things about them I want to know whether I can explain with short, readable rules. I think the LCS might help. Although... Maybe there is no simple rule to be found, but that's worth trying.
+
+The trick there will be: How to encode the data into binary strings, as this is what my code accepts...? But I actually know how to go about that.
+
+## Conclusion
+
+Well, I just like the idea that the same Supervised Learning algorithm can be used to do Data mining. And provide interpretable information about some datasets (if there is something to be found, that is).
+
+Take that, Neural Networks! :D
