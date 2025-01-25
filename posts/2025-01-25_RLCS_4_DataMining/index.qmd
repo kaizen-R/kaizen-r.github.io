@@ -41,6 +41,8 @@ Enough with the examples. But conceptually, the "Mux6" example for the last entr
 
 And more to the point, I had 6 bits inputs here, but what if there are 10 bits? 20 bits? Would you be able to manually find similar rules? It would take me some time :D
 
+Sure, the algorithm is slower with 20 bits instead of 6 (can you blame it?). But it's machine time. :)
+
 ## So what?
 
 I actually have a use-case at work I want to test this on. As soon as I upload a first version of my project to GitHub, I'll be able to test it there. I have inventories and some things about them I want to know whether I can explain with short, readable rules. I think the LCS might help. Although... Maybe there is no simple rule to be found, but that's worth trying.
