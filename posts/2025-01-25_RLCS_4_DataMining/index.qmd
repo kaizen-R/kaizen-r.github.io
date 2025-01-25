@@ -51,4 +51,6 @@ The trick there will be: How to encode the data into binary strings, as this is 
 
 Well, I just like the idea that the same Supervised Learning algorithm can be used to do Data mining. And provide interpretable information about some datasets (if there is something to be found, that is).
 
-Take that, Neural Networks! :D
+**Take that, Neural Networks!** :D
+
+Alright, I guess next week I'll return to working on the package itself.
