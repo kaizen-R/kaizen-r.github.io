@@ -17,7 +17,7 @@ The approach is simple: Instead of training (and then testing with new data), su
 
 So we've seen it already, the "not-bit-4" example. Well, the LCS can try to find out for you:
 
-![It looks easy like this, doesn't it?](rlcs_not_bit_4.png){alt="it looks easier like this, doesn't it?"}
+![it looks easier like this, doesn't it?](rlcs_not_bit_4.png)
 
 But what if what you have is this? Not so easy to find the rule manually, right?
 

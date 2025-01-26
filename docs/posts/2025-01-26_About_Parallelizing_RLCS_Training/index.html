@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2025-01-25">
+<meta name="dcterms.date" content="2025-01-26">
 
-<title>RLCS: for Data Mining – Kaizen-R.com new home</title>
+<title>RLCS: training in parallel? – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -69,6 +69,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -115,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">RLCS: for Data Mining</h1>
+      <h1 class="title">RLCS: training in parallel?</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">ML</div>
                 <div class="quarto-category">RLCS</div>
@@ -136,7 +165,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">January 25, 2025</p>
+        <p class="date">January 26, 2025</p>
       </div>
     </div>
     
@@ -155,65 +184,95 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="a-useful-tool" class="level1">
-<h1>A useful tool</h1>
-<section id="lcs-for-data-mining" class="level2">
-<h2 class="anchored" data-anchor-id="lcs-for-data-mining">LCS for data mining</h2>
-<p>The <strong>exact same code</strong> to do supervised learning can be used for data mining. In fact, I’ve already shown that, with the “not-bit-4” example.</p>
-<p>The approach is simple: Instead of training (and then testing with new data), suppose what you want to understand something about your data. Then you can show it <strong>all</strong> to the LCS for it to come up with rules. If you’re lucky, your data has hidden rules that you didn’t know about.</p>
+<section id="not-as-easy-as-it-might-seem" class="level1">
+<h1>Not as easy as it might seem…</h1>
+<section id="the-idea" class="level2">
+<h2 class="anchored" data-anchor-id="the-idea">The idea</h2>
+<p>I’ve already tried to parallelize a bit the training of a supervised-learning LCS. It kinda’ works… But the more I think about it, the more I’m convinced it’s not as easy as I thought.</p>
+<p>I initially thought of one way of parallel processing: Break the training samples in N (as many as CPU cores you wanna use) subsets, train N LCS.</p>
+<p>Then “merge”, subsume, remove duplicates, and… Repeat.</p>
+<p>Ideally you would bootstrap the thing with an initial epoch on all the training set, just to have relevant coverage to start with.</p>
+<p>But there is an issue: What if your dataset is “not perfect”? Let’s suppose there isn’t a clear-cut separation between classes to be found, but rather a fuzzy separation. So there aren’t perfect rules to be discovered. Instead, in each subset, some rules work, but THEN when these are exposed to the complete dataset, the discovered classes in one subset is correct in that subset, but NOT in the overall training data?</p>
+<p>You end up with classifiers that… Don’t work over test sets.</p>
+<p>At least that’s my current conclusion after trying it with some messier-than-perfect datasets.</p>
 </section>
-<section id="demonstration" class="level2">
-<h2 class="anchored" data-anchor-id="demonstration">Demonstration</h2>
-<p>So we’ve seen it already, the “not-bit-4” example. Well, the LCS can try to find out for you:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="rlcs_not_bit_4.png" class="img-fluid figure-img"></p>
-<figcaption>it looks easier like this, doesn’t it?</figcaption>
-</figure>
-</div>
-<p>But what if what you have is this? Not so easy to find the rule manually, right?</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="not_bit_4_input.png" class="img-fluid figure-img" width="80"></p>
-<figcaption>What if your data looks like so?</figcaption>
-</figure>
-</div>
-<p>Maybe too easy? But it’s the <strong>concept</strong> that matters! Let’s try a different example. See if you can spot it:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="4xor5.jpg" class="img-fluid figure-img" width="82"></p>
-<figcaption>This one is just slightly trickier…</figcaption>
-</figure>
-</div>
-<p>The LCS only takes a few second…</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="4xor5_training.jpg" class="img-fluid figure-img"></p>
-<figcaption>processing for simple cases is rather fast</figcaption>
-</figure>
-</div>
-<p>And finds the rules (4 in this case):</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="rlcs_4_xor_5.jpg" class="img-fluid figure-img"></p>
-<figcaption>Bit 4 XOR bit 5</figcaption>
-</figure>
-</div>
-<p>That’s how the LCS here expresses “bit 4 XOR bit 5”. And yes, that was it.</p>
-<p>Enough with the examples. But conceptually, the “Mux6” example for the last entry? Same-same.</p>
-<p>And more to the point, I had 6 bits inputs here, but what if there are 10 bits? 20 bits? Would you be able to manually find similar rules? It would take me some time :D</p>
-<p>Sure, the algorithm is slower with 20 bits instead of 6 (can you blame it?). But it’s machine time. :)</p>
+<section id="the-idea-version-2" class="level2">
+<h2 class="anchored" data-anchor-id="the-idea-version-2">The idea, version 2</h2>
+<p>So if breaking the dataset in sub-sets does not work… What about breaking the data POINTS in different parts?</p>
+<p>In my earlier example, I have tested (quite successfully, in my view) my RLCS on a simplified MNIST exercise.</p>
+<p>There, I was training to classify images. The original images where too big, in their equivalent bit-strings representation, for my laptop to work on in acceptable runtimes (for my taste). I ended up compressing said images into 49 bits strings per image. It was then manageable, and it worked quite good, in little over 20 seconds of training (with the correct hyper-parameters).</p>
+<p>But could I instead break each images in say 7x7 <strong>lines</strong>, and <strong>train on each line separately</strong> (and in parallel), and <strong>then train one more LCS on the result of that</strong> (so 7 outputs would become the input states for a new classifier system, another 7-bits train set, so to speak)?</p>
+<p>I would then in effect, <em>in terms of overall processing time, train approximately twice on 7 bits strings</em>, instead of once on 49 bits strings.</p>
+<p>Would that even work? More on that later.</p>
+<p>But first…</p>
 </section>
-<section id="so-what" class="level2">
-<h2 class="anchored" data-anchor-id="so-what">So what?</h2>
-<p>I actually have a use-case at work I want to test this on. As soon as I upload a first version of my project to GitHub, I’ll be able to test it there. I have inventories and some things about them I want to know whether I can explain with short, readable rules. I think the LCS might help. Although… Maybe there is no simple rule to be found, but that’s worth trying.</p>
-<p>The trick there will be: How to encode the data into binary strings, as this is what my code accepts…? But I actually know how to go about that.</p>
+<section id="the-caveat" class="level2">
+<h2 class="anchored" data-anchor-id="the-caveat">The caveat</h2>
+<p><strong>Epistasis!</strong></p>
+<p>Well, at least that’s how I understand it right now: Two (or more) <strong>different locations</strong> of the “genome” are <strong>required</strong> to define the phenotype. In my simple RLCS, in that case <strong>two or more bits in a state interact</strong> in a more or less complex manner so that the class is decided by said interaction. THEN, <strong>the second approach would break the assumptions!</strong></p>
+<p>Think of the “Mux6” example explained in this Blog a few entries ago. <strong>Two bits pointed to a position, which value was the class to be predicted</strong>. In that example, the first two bits pointed to a position in the last 4 bits.</p>
+<p>IF I were to break the 6 bits states in say two sub-strings of 3 bits each, thinking I can learn from each sub-string and then recompose (see “idea version 2” above)… I would fail miserably: you <strong>need the complete 6-bit strings in that example for the LCS to come up with the relevant rules!</strong></p>
+<p>That said…</p>
+</section>
+<section id="counter-caveat-not-bit-4-in-10-bits-states" class="level2">
+<h2 class="anchored" data-anchor-id="counter-caveat-not-bit-4-in-10-bits-states">Counter-caveat: Not-bit-4 in 10-bits states</h2>
+<p>I’ve shown ad-nauseam by now the “not-bit-4” example. In the example so far, I have used 5 bits strings. So the “search space” was that of 5 bits. And the solution was <strong>simple</strong> in that one bit would suffice to predict the whole class.</p>
+<p>But that was arbitrary, and meant to be simple.</p>
+<p>What if we were to be faced with the exact same rule to be found in 10-bits strings? The solution would be just as simple (two rules would suffice), but the search space would be comparatively… Well, way bigger.</p>
+<p>In 5-bits, the not-bit-4 is <strong>fully expressed with 32 states</strong>.</p>
+<p>In 10-bits, <strong>the SAME not-bit-4 classifier works with… 1024 states (total)</strong>. For a perfect data mining exercise, you need to find a ruleset that perfectly matches all 1024 states, and you need to try combinations of <strong>3 possible values per-bit</strong> (our ternary alphabet: {‘#’, ‘0’, ‘1’}). If I’m correct, that’s about <strong>59048 possible unique classifiers</strong> (the ‘##########’ option is not valid for us…). <strong>And</strong> an LCS is expected to output a <strong>combination subset</strong> of these 59K classifiers as an output System, which could be a very large search space indeed…</p>
+<p><strong>However!</strong> Well, let’s try to apply the logic of my approach number 2 above to break down the exercise and then see what would happen in such a simple case…</p>
+<p>Imagine I break down the exercise into 3 trainings:</p>
+<ul>
+<li><p>The first 5 bits (which in fact are more than enough) per state, creating <span class="math inline">\(RLCS_1\)</span></p></li>
+<li><p>The last 5 bits per state (completely irrelevant, but we don’t know that upfront), creating <span class="math inline">\(RLCS_2\)</span></p></li>
+<li><p>Then the outputs of the above to train a third LCS, <span class="math inline">\(RLCS_{combined}\)</span></p></li>
+</ul>
+<p>The hope is that we can train the first two in parallel, and use the predictions of these two in combination to then train a third classifier (which incidentally here would be exposed to 2-bits states).</p>
+<p>So I’d expect to reduce the search space quite a bit. And hence the training times.</p>
+<p>Well, here goes the results, and heck!</p>
+<p>Parallel runtime using the approach described here to break the problem in just two 5-bit string sub-problems, <strong>less than 5 seconds</strong>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="break_type_II_runtime.jpg" class="img-fluid figure-img"></p>
+<figcaption>breaking original problem in two makes it fast!</figcaption>
+</figure>
+</div>
+<p>Compared to <strong>original</strong> sequential time on the 10-bit string, <strong>more than 4 minutes</strong>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="not_bit_4_10_sequential.jpg" class="img-fluid figure-img"></p>
+<figcaption>That worked, just… Very slow, comparatively</figcaption>
+</figure>
+</div>
+<p>The result however is slightly more difficult to interpret (that is, in the current version of this exercise, which I just wanted to see working, but it is not clean…). In particular, each subset I have to keep (for now) better than chance results (anything &gt; 0.5), but that’s just because it’s a dirty example, <strong>it can be made cleaner for sure</strong>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="break_type_II_results.jpg" class="img-fluid figure-img"></p>
+<figcaption>Fast results, but requires a bit more work to interpret</figcaption>
+</figure>
+</div>
+<p>Still, <strong>from “&gt; 4 minutes” to “&lt; 5 seconds”</strong>! But then again, <strong>this will only works for such a problem where the solution did exist in a subset of original bit-strings</strong>.</p>
+</section>
+<section id="trick-why-so-fast" class="level2">
+<h2 class="anchored" data-anchor-id="trick-why-so-fast">Trick: Why so fast?</h2>
+<p>Well, for one, I am NOT in fact browsing in parallel through 1024 states!</p>
+<p>See, each sub-string of 5 bits and its class, as a subset can be de-duplicated! There are a lot of repeated instances, particularly in the first subset, whereby all entries that say “00000 -&gt; class 1” <strong>appear 32 times</strong> (one for each of the continuing 5-bit strings for the rest of the original state).</p>
+<p>That kind of deduplication can reduce processing efforts indeed :)</p>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>Well, I just like the idea that the same Supervised Learning algorithm can be used to do Data mining. And provide interpretable information about some datasets (if there is something to be found, that is).</p>
-<p><strong>Take that, Neural Networks!</strong> :D</p>
-<p>Alright, I guess next week I’ll return to working on the package itself.</p>
+<p><strong>I haven’t tested it yet</strong>, but I would wager <strong>this approach should work just fine on images</strong>, as described above, <strong>breaking images in lines and then combining classifiers</strong>…</p>
+<p>Parallelizing training is an obvious idea (to me) in concept: For some examples, training is slow, and so running it in N parallel processes must be faster (for, you know, complicated examples).</p>
+<p><strong>But as explained in some detail today, it’s not that simple!</strong> It might work in some cases, as explained, but in the “real world”, we wouldn’t know upfront whether it would in fact work, would we? And so we might have to do some trial-and-error…</p>
+<p>But even just running tests on new datasets, as explained above, might allow us to:</p>
+<ul>
+<li><p>Either see how we can run fast in parallel on a given dataset</p></li>
+<li><p>Or find out that the dataset cannot be broken the way we have initially chosen, indicating possible “epistasis”, which in itself would be interesting</p></li>
+<li><p><strong>Or</strong> – <em>and that could happen</em> – that the chosen dataset cannot be broken down as we would like it to, for an LCS to come up with a proposed classification solution (think Yahoo finance historical data… Yes, I’ve had a quick look, but that’s not relevant… <em>Suffice to say, I won’t beat the markets just yet</em> :D:D:D)</p></li>
+</ul>
+<p>I’ll work on that parallelizing stuff some more… Even if that’s <strong>not</strong> <strong>part of the package itself</strong>, it’s more about data preparation and how to use the package, I am aware. But demonstrating how the future RLCS package can hopefully be used and <strong>competitive compared to a Neural Network</strong> (for instance) is part of my overall objective, I guess.</p>
+<p>Fun stuff (to me) all of it :)</p>
 
 
 </section>
