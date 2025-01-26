@@ -61,13 +61,13 @@ What if we were to be faced with the exact same rule to be found in 10-bits stri
 
 In 5-bits, the not-bit-4 is **fully expressed with 32 states**.
 
-In 10-bits, **the SAME not-bit-4 classifier works with... 1024 states (total)**. For a perfect data mining exercise, you need to find a ruleset that perfectly matches all 1024 states, and you need to try combinations of **3 possible values per-bit** (our ternary alphabet: {'\#', '0', '1'}). If I'm correct, that could be up to about **(59049-1)/2 possible unique classifiers** to potentially check (coverage ensures here that not-bit-4 is respected, so that's only half the overall 10 bits strings... **And** the '\##########' option is not valid for us...). Well, approximately anyway.
+In 10-bits, **the SAME not-bit-4 classifier works with... 1024 states (total)**. For a perfect data mining exercise, you need to find a ruleset that perfectly matches all 1024 states, and you need to try combinations of **3 possible values per-bit** (our ternary alphabet: {'\#', '0', '1'}). If I'm correct, that could be up to about 3\^10\*2 (including class) **59049-1 possible unique classifiers** to potentially check (coverage ensures here that not-bit-4 is respected, so that's only half the overall 10 bits strings + class, as half are illegal, making it a 3\^10 matter... **And** the '\##########' option is not valid for us...). Well, approximately anyway.
 
-**And** let's remember, an LCS is expected to output a **combination subset** of these 29.5K classifiers as an output System, which **could be a very large search space** indeed... (In a real world setup, that is.)
+**And** let's remember, an LCS is expected to output a **combination subset** of these \~59K classifiers as an output System, which **could be a very large search space** indeed... (In a real world setup, that is.)
 
-**However!** Well, let's try to apply the logic of my approach number 2 above to break down the exercise and then see what would happen in such a simple case...
+**However!** Well, let's try to apply the logic of my "approach number 2" above to break down the exercise and then see what would happen in such a simple case...
 
-Imagine I break down the exercise into 3 trainings:
+Imagine I break down the exercise into 3 "trainings":
 
 -   The first 5 bits (which in fact are more than enough) per state, creating $RLCS_1$
 
@@ -75,11 +75,9 @@ Imagine I break down the exercise into 3 trainings:
 
 -   Then the outputs of the above to train a third LCS, $RLCS_{combined}$
 
-The hope is that we can train the first two in parallel, and use the predictions of these two in combination to then train a third classifier (which incidentally here would be exposed to 2-bits states).
+The hope is that we can train the first two in parallel, and use the predictions of these two in combination to then train a third classifier (which incidentally here would be exposed to 2-bits states). So I'd expect to reduce the search space quite a bit. And hence the training times.
 
-So I'd expect to reduce the search space quite a bit. And hence the training times.
-
-Well, here goes the results, and heck!
+Well, with no further ado, here come the initial results, and **heck**!
 
 Parallel runtime using the approach described here to break the problem in just two 5-bit string sub-problems, **less than 5 seconds**:
 
@@ -99,13 +97,13 @@ Still, **from "\> 4 minutes" to "\< 5 seconds"**! But then again, **this will on
 
 Well, for one, I am NOT in fact browsing in parallel through 1024 states!
 
-See, each sub-string of 5 bits and its class, as a subset can be de-duplicated! There are a lot of repeated instances, particularly in the first subset, whereby all entries that say "00000 -\> class 1" **appear 32 times** (one for each of the continuing 5-bit strings for the rest of the original state).
+See, each sub-string of 5 bits and its class, as a subset can be de-duplicated! There are a lot of repeated instances, say in the first subset, whereby all entries that say "00000 -\> class 1" **appear 32 times** (one for each of the continuing 5-bit strings for the rest of the original state).
 
 That kind of deduplication can reduce processing efforts indeed :)
 
 ## Conclusion
 
-**I haven't tested it yet**, but I would wager **this approach should work just fine on images**, as described above, **breaking images in lines and then combining classifiers**...
+**I haven't tested it yet**, but I would wager **this approach should work just fine on images too**, as described above, **breaking images in lines and then combining classifiers**...
 
 Parallelizing training is an obvious idea (to me) in concept: For some examples, training is slow, and so running it in N parallel processes must be faster (for, you know, complicated examples).
 
@@ -113,11 +111,11 @@ Parallelizing training is an obvious idea (to me) in concept: For some examples,
 
 But even just running tests on new datasets, as explained above, might allow us to:
 
--   Either see how we can run fast in parallel on a given dataset
+-   Either see how we can run fast in parallel on a given dataset and still work out a solution
 
--   Or find out that the dataset cannot be broken the way we have initially chosen, indicating possible "epistasis", which in itself would be interesting
+-   Or find out that the dataset cannot be broken the way we have initially chosen, indicating possible "epistasis", which in itself would be interesting and would hav ejust supposed a few seconds lots here.
 
--   **Or** – *and that could happen* – that the chosen dataset cannot be broken down as we would like it to, for an LCS to come up with a proposed classification solution (think Yahoo finance historical data... Yes, I've had a quick look, but that's not relevant... *Suffice to say, I won't beat the markets just yet* :D:D:D)
+-   **Or** – *and that could happen* – that the chosen dataset *cannot* be broken down as we would like it to, for an LCS to come up with a proposed classification solution as there is not a very clear-cut solution (think Yahoo finance historical data... Yes, I've had a quick look. *Suffice to say, I won't beat the markets just yet* :D:D:D But that's not relevant... )
 
 I'll work on that parallelizing stuff some more... Even if that's **not** **part of the package itself**, it's more about data preparation and how to use the package, I am aware. But demonstrating how the future RLCS package can hopefully be used and **competitive compared to a Neural Network** (for instance) is part of my overall objective, I guess.
 

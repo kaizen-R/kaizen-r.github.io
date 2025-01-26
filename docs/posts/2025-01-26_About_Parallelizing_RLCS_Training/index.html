@@ -220,18 +220,17 @@ window.Quarto = {
 <p>But that was arbitrary, and meant to be simple.</p>
 <p>What if we were to be faced with the exact same rule to be found in 10-bits strings? The solution would be just as simple (two rules would suffice), but the search space would be comparatively… Well, way bigger.</p>
 <p>In 5-bits, the not-bit-4 is <strong>fully expressed with 32 states</strong>.</p>
-<p>In 10-bits, <strong>the SAME not-bit-4 classifier works with… 1024 states (total)</strong>. For a perfect data mining exercise, you need to find a ruleset that perfectly matches all 1024 states, and you need to try combinations of <strong>3 possible values per-bit</strong> (our ternary alphabet: {‘#’, ‘0’, ‘1’}). If I’m correct, that could be up to about <strong>(59049-1)/2 possible unique classifiers</strong> to potentially check (coverage ensures here that not-bit-4 is respected, so that’s only half the overall 10 bits strings… <strong>And</strong> the ‘##########’ option is not valid for us…). Well, approximately anyway.</p>
-<p><strong>And</strong> let’s remember, an LCS is expected to output a <strong>combination subset</strong> of these 29.5K classifiers as an output System, which <strong>could be a very large search space</strong> indeed… (In a real world setup, that is.)</p>
-<p><strong>However!</strong> Well, let’s try to apply the logic of my approach number 2 above to break down the exercise and then see what would happen in such a simple case…</p>
-<p>Imagine I break down the exercise into 3 trainings:</p>
+<p>In 10-bits, <strong>the SAME not-bit-4 classifier works with… 1024 states (total)</strong>. For a perfect data mining exercise, you need to find a ruleset that perfectly matches all 1024 states, and you need to try combinations of <strong>3 possible values per-bit</strong> (our ternary alphabet: {‘#’, ‘0’, ‘1’}). If I’m correct, that could be up to about 3^10*2 (including class) <strong>59049-1 possible unique classifiers</strong> to potentially check (coverage ensures here that not-bit-4 is respected, so that’s only half the overall 10 bits strings + class, as half are illegal, making it a 3^10 matter… <strong>And</strong> the ‘##########’ option is not valid for us…). Well, approximately anyway.</p>
+<p><strong>And</strong> let’s remember, an LCS is expected to output a <strong>combination subset</strong> of these ~59K classifiers as an output System, which <strong>could be a very large search space</strong> indeed… (In a real world setup, that is.)</p>
+<p><strong>However!</strong> Well, let’s try to apply the logic of my “approach number 2” above to break down the exercise and then see what would happen in such a simple case…</p>
+<p>Imagine I break down the exercise into 3 “trainings”:</p>
 <ul>
 <li><p>The first 5 bits (which in fact are more than enough) per state, creating <span class="math inline">\(RLCS_1\)</span></p></li>
 <li><p>The last 5 bits per state (completely irrelevant, but we don’t know that upfront), creating <span class="math inline">\(RLCS_2\)</span></p></li>
 <li><p>Then the outputs of the above to train a third LCS, <span class="math inline">\(RLCS_{combined}\)</span></p></li>
 </ul>
-<p>The hope is that we can train the first two in parallel, and use the predictions of these two in combination to then train a third classifier (which incidentally here would be exposed to 2-bits states).</p>
-<p>So I’d expect to reduce the search space quite a bit. And hence the training times.</p>
-<p>Well, here goes the results, and heck!</p>
+<p>The hope is that we can train the first two in parallel, and use the predictions of these two in combination to then train a third classifier (which incidentally here would be exposed to 2-bits states). So I’d expect to reduce the search space quite a bit. And hence the training times.</p>
+<p>Well, with no further ado, here come the initial results, and <strong>heck</strong>!</p>
 <p>Parallel runtime using the approach described here to break the problem in just two 5-bit string sub-problems, <strong>less than 5 seconds</strong>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -258,19 +257,19 @@ window.Quarto = {
 <section id="trick-why-so-fast" class="level2">
 <h2 class="anchored" data-anchor-id="trick-why-so-fast">Trick: Why so fast?</h2>
 <p>Well, for one, I am NOT in fact browsing in parallel through 1024 states!</p>
-<p>See, each sub-string of 5 bits and its class, as a subset can be de-duplicated! There are a lot of repeated instances, particularly in the first subset, whereby all entries that say “00000 -&gt; class 1” <strong>appear 32 times</strong> (one for each of the continuing 5-bit strings for the rest of the original state).</p>
+<p>See, each sub-string of 5 bits and its class, as a subset can be de-duplicated! There are a lot of repeated instances, say in the first subset, whereby all entries that say “00000 -&gt; class 1” <strong>appear 32 times</strong> (one for each of the continuing 5-bit strings for the rest of the original state).</p>
 <p>That kind of deduplication can reduce processing efforts indeed :)</p>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p><strong>I haven’t tested it yet</strong>, but I would wager <strong>this approach should work just fine on images</strong>, as described above, <strong>breaking images in lines and then combining classifiers</strong>…</p>
+<p><strong>I haven’t tested it yet</strong>, but I would wager <strong>this approach should work just fine on images too</strong>, as described above, <strong>breaking images in lines and then combining classifiers</strong>…</p>
 <p>Parallelizing training is an obvious idea (to me) in concept: For some examples, training is slow, and so running it in N parallel processes must be faster (for, you know, complicated examples).</p>
 <p><strong>But as explained in some detail today, it’s not that simple!</strong> It might work in some cases, as explained, but in the “real world”, we wouldn’t know upfront whether it would in fact work, would we? And so we might have to do some trial-and-error…</p>
 <p>But even just running tests on new datasets, as explained above, might allow us to:</p>
 <ul>
-<li><p>Either see how we can run fast in parallel on a given dataset</p></li>
-<li><p>Or find out that the dataset cannot be broken the way we have initially chosen, indicating possible “epistasis”, which in itself would be interesting</p></li>
-<li><p><strong>Or</strong> – <em>and that could happen</em> – that the chosen dataset cannot be broken down as we would like it to, for an LCS to come up with a proposed classification solution (think Yahoo finance historical data… Yes, I’ve had a quick look, but that’s not relevant… <em>Suffice to say, I won’t beat the markets just yet</em> :D:D:D)</p></li>
+<li><p>Either see how we can run fast in parallel on a given dataset and still work out a solution</p></li>
+<li><p>Or find out that the dataset cannot be broken the way we have initially chosen, indicating possible “epistasis”, which in itself would be interesting and would hav ejust supposed a few seconds lots here.</p></li>
+<li><p><strong>Or</strong> – <em>and that could happen</em> – that the chosen dataset <em>cannot</em> be broken down as we would like it to, for an LCS to come up with a proposed classification solution as there is not a very clear-cut solution (think Yahoo finance historical data… Yes, I’ve had a quick look. <em>Suffice to say, I won’t beat the markets just yet</em> :D:D:D But that’s not relevant… )</p></li>
 </ul>
 <p>I’ll work on that parallelizing stuff some more… Even if that’s <strong>not</strong> <strong>part of the package itself</strong>, it’s more about data preparation and how to use the package, I am aware. But demonstrating how the future RLCS package can hopefully be used and <strong>competitive compared to a Neural Network</strong> (for instance) is part of my overall objective, I guess.</p>
 <p>Fun stuff (to me) all of it :)</p>
