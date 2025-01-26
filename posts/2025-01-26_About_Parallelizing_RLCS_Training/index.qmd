@@ -61,7 +61,9 @@ What if we were to be faced with the exact same rule to be found in 10-bits stri
 
 In 5-bits, the not-bit-4 is **fully expressed with 32 states**.
 
-In 10-bits, **the SAME not-bit-4 classifier works with... 1024 states (total)**. For a perfect data mining exercise, you need to find a ruleset that perfectly matches all 1024 states, and you need to try combinations of **3 possible values per-bit** (our ternary alphabet: {'\#', '0', '1'}). If I'm correct, that's about **59048 possible unique classifiers** (the '\##########' option is not valid for us...). **And** an LCS is expected to output a **combination subset** of these 59K classifiers as an output System, which could be a very large search space indeed...
+In 10-bits, **the SAME not-bit-4 classifier works with... 1024 states (total)**. For a perfect data mining exercise, you need to find a ruleset that perfectly matches all 1024 states, and you need to try combinations of **3 possible values per-bit** (our ternary alphabet: {'\#', '0', '1'}). If I'm correct, that could be up to about **(59049-1)/2 possible unique classifiers** to potentially check (coverage ensures here that not-bit-4 is respected, so that's only half the overall 10 bits strings... **And** the '\##########' option is not valid for us...). Well, approximately anyway.
+
+**And** let's remember, an LCS is expected to output a **combination subset** of these 29.5K classifiers as an output System, which **could be a very large search space** indeed... (In a real world setup, that is.)
 
 **However!** Well, let's try to apply the logic of my approach number 2 above to break down the exercise and then see what would happen in such a simple case...
 
