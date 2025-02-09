@@ -51,8 +51,10 @@ Which in itself – for me – would already be pretty cool.
 
 ## References
 
-To be fair, there are a few papers out there I was able to access, in particular and both of particular value to inspire my future exercise:
+To be fair, there are a few papers out there I was able to access for free. In no special order and particularly valuable to inspire my future exercise I found these:
 
 <https://arxiv.org/abs/2305.09945>
 
 <https://dl.acm.org/doi/pdf/10.1145/206944.206955>
+
+<https://www2.cs.uh.edu/~ceick/6367/bull-lcs.pdf>
