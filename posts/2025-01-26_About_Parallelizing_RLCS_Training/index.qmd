@@ -113,7 +113,7 @@ But even just running tests on new datasets, as explained above, might allow us 
 
 -   Either see how we can run fast in parallel on a given dataset and still work out a solution
 
--   Or find out that the dataset cannot be broken the way we have initially chosen, indicating possible "epistasis", which in itself would be interesting and would hav ejust supposed a few seconds lots here.
+-   Or find out that the dataset cannot be broken the way we have initially chosen, indicating possible "epistasis", which in itself would be interesting and would have just supposed a few seconds lost here.
 
 -   **Or** – *and that could happen* – that the chosen dataset *cannot* be broken down as we would like it to, for an LCS to come up with a proposed classification solution as there is not a very clear-cut solution (think Yahoo finance historical data... Yes, I've had a quick look. *Suffice to say, I won't beat the markets just yet* :D:D:D But that's not relevant... )
 
