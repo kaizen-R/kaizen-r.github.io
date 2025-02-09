@@ -48,3 +48,11 @@ As to when I could *use* it, I know the answer for data mining and SL – not so
 But **if** (big if at this stage) I manage to make it work, that would mean I actually **understand enough** of LCS as a concept to implement it from scratch and *do data mining, Supervised Learning and Reinforcement learning*. In turn that would also imply I know a bit more of what Reinforcement Learning entails.
 
 Which in itself – for me – would already be pretty cool.
+
+## References
+
+To be fair, there are a few papers out there I was able to access, in particular and both of particular value to inspire my future exercise:
+
+<https://arxiv.org/abs/2305.09945>
+
+<https://dl.acm.org/doi/pdf/10.1145/206944.206955>
