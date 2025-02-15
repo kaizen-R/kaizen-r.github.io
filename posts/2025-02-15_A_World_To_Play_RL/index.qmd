@@ -15,11 +15,21 @@ As the "Agent" will need to interact with the World, and the World should return
 
 For today, I just created a basic object to generate a "random world" that can have walls, food, even enemy(ies) and in which we can throw an agent at random in any empty space.
 
+**EDIT: Added Agent movements and visualizations**
+
 A few peculiarities maybe: I think it will be simpler in the future to not have to deal with "borders" from the Agent perspective, and so I set my Worlds to necessarily be walls all around.
 
-For now, I'm keeping it as a numerical matrix. Adding a method to return a ggplot object that includes colors should not be difficult :D
+## A random policy agent in a random world
 
-## Today's results
+Let's start today with a simple video showing the results. The agent is the blue thing. Food is green, enemy is red, black are walls.
+
+All is initialized randomly, and so are the moves of the current agent. On the left, I show the agent's perspective/perception (allocentric) of the World. On the right, the World as it is at each step:
+
+{{< video rl_env_video_random_v001.mp4 title="A random agent in a random world..." width="500" height="350">}}
+
+Videos are always more satisfying than matrices, but to understand what happens, let's have a look under the hood...
+
+## Today's results in Matrix Format
 
 So in my matrix, I choose 0 = empty cell, 1 is a wall, 2 is food, 3 is an enemy (defaults to no enemies). And 4 will be an agent. This is all arbitrary, but when in the future I encode into binary there will be a specific order, as this will be relevant for the GA to work with.
 
@@ -27,8 +37,22 @@ Anyhow, it looks like so:
 
 ![A simple world object](A_Simple_World_Object.jpg){fig-align="center"}
 
-In this "world", I will need to add methods to move around (from-to positions, or just "to"), control for ilegal moves (can't move into a wall), return rewards (good for food, bad if enemy, and empty and walls, well, to be defined).
+In this "world", I needed to add methods to move around (from-to positions, or just "to"), control for ilegal moves (can't move into a wall), return rewards: good +10 for food, bad -100 if enemy, and empty and walls, well, to be refined.
 
-All very simple, but cool at the same time: I shall be able to render "animations" of said worlds in the future, so we could observe the agent move around...
+All very simple, but cool at the same time: I can already render "animations" of said worlds... Albeit with a very stupid agent for now...
+
+## What next?
+
+Well, I'm afraid now I have most of the pieces. But still:
+
+-   I will need to implement a variation of my existing RLCS code to account for four possible actions (for now, actions are binary, that's not enough).
+
+-   I will need to add a sensible binary encoding for the agent to interpret its visible environment
+
+-   I will need to account for rewards, change the design for the RL case where I need to add prediction and an Action Set
+
+-   ...
+
+Quite a bit of work still. But all fun.
 
 TO BE CONTINUED...
