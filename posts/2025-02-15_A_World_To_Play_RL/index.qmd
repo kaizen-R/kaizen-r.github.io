@@ -1,0 +1,34 @@
+---
+title: "RLCS: A World to Play RL"
+author: "Nico"
+date: "2025-02-15"
+categories: [ML, RLCS]
+---
+
+# We need an environment
+
+## The World should be easy to interact with
+
+Today I just started something simple: An Object to represent a simulated World in which an Agent can move.
+
+As the "Agent" will need to interact with the World, and the World should return rewards, and understand positions, etc., I decided in this case to go the way of R Objects, more specifically "setRefClass".
+
+For today, I just created a basic object to generate a "random world" that can have walls, food, even enemy(ies) and in which we can throw an agent at random in any empty space.
+
+A few peculiarities maybe: I think it will be simpler in the future to not have to deal with "borders" from the Agent perspective, and so I set my Worlds to necessarily be walls all around.
+
+For now, I'm keeping it as a numerical matrix. Adding a method to return a ggplot object that includes colors should not be difficult :D
+
+## Today's results
+
+So in my matrix, I choose 0 = empty cell, 1 is a wall, 2 is food, 3 is an enemy (defaults to no enemies). And 4 will be an agent. This is all arbitrary, but when in the future I encode into binary there will be a specific order, as this will be relevant for the GA to work with.
+
+Anyhow, it looks like so:
+
+![A simple world object](A_Simple_World_Object.jpg){fig-align="center"}
+
+In this "world", I will need to add methods to move around (from-to positions, or just "to"), control for ilegal moves (can't move into a wall), return rewards (good for food, bad if enemy, and empty and walls, well, to be defined).
+
+All very simple, but cool at the same time: I shall be able to render "animations" of said worlds in the future, so we could observe the agent move around...
+
+TO BE CONTINUED...
