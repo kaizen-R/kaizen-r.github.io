@@ -1,0 +1,68 @@
+---
+title: "RLCS: Reinforcement Learning: World Explorer v1"
+author: "Nico"
+date: "2025-02-16"
+categories: [ML, RLCS]
+---
+
+# Looking for food, avoiding the bad guys
+
+## Reinforcement Learning with LCS
+
+This is quite literally my first Reinforcement Learning exercise ever. Coded from scratch. With no Neural Network whatsoever, but instead, using my own implementation of the Learning Classifier System(s) I have been discussing lately.
+
+And the point is this: It works!
+
+Here I present the first actual working results.
+
+## Limited agent, simple rules
+
+So we have an agent (blue dot) that can move in any of {up, down, right, left} direction.
+
+We have a simulated world, with walls (black dots), some rewarding food (green dots) and some hurting enemies/poison (red dots).
+
+Indeed the aestetics of this demo are not marvelous, but I've never cared much about look&feel, I care about what happens under the hood here.
+
+![monitoring the learning process](the_screen.jpg)
+
+So our agent moves, and gets a reward as informed by our world. For instance:
+
+-   **No reward** if moving to an empty cell
+
+-   **Small negative** reward if **moving backwards** (to the cell it was in at immediately anterior step)
+
+-   **somewhat larger negative reward if "bumping" into a wall**
+
+-   **large positive reward if finding food** (obviously)
+
+-   and **large negative reward if moving onto an enemy**/poison cell (duh!)
+
+The trick is: **We do NOT tell the agent what to do!** It must learn how to behave on its own, just by maximizing its reward.
+
+And here, the agent will use my implementation of a **Learning Classifier System**. No neural network or deep learning or anything fancy like that :D
+
+Oh, and **every line of code is in R**.
+
+## A few more details
+
+So there is a bit more to it. I will not explain today in detail my whole implementation of an LCS algorithm to do RL. But some of the logic available to the agent is important to understand current results:
+
+-   I chose to implement a "small memory" for my agent, so that **a reward will inform the current step** **and** be "passed onto" the **last action, divided by 2.**
+
+-   The reason to do that is the following: **the agent only sees one cell in all 8 directions (inlcuding diagonals), and it can move in 4 main directions**. The **idea** of the small memory was to allow the machine to **learn rules to choose to "move diagonally"**. I haven't validated exactly if this is the result. But it seems the agent **does work better with that little bit of "memory"**.
+
+I'll discuss the complete algorithm later on, but today let's look at the result in a short video!
+
+## The result
+
+Here is a small video I made of the current results...
+
+{{< video RL_RLCS_WORLD1_V001.mp4 title="Reinforcement Learning using LCS in R, first results" width="500" height="350">}}
+
+## Conclusions
+
+I am **unclear** at this point about whether I just implemented a version – or a mix – of *TD, Q-Learning, XCS, CS01*... That's the theory part, and I'll need to dig deeper into that now, to frame better what I just created.
+
+(Also, **the code is very... messy**, right now :D I just wanted to see if I could get it to work...)
+
+But from an experimental perspective, **this was very satisfying already.**
