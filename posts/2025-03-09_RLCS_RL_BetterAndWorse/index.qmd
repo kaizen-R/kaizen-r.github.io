@@ -9,7 +9,7 @@ categories: [ML, RLCS]
 
 ## Better Code
 
-Well, it's been a couple of weeks (I was a bit offline last weekend). So I'm back at it and, first, I needed to clean things up. It just was messy code.
+Well, it's been a couple of weeks (I was a bit offline last couple of weekends, I guess). So I'm back at it and, first, I needed to clean things up. It just was messy code.
 
 So I did that, removed some duplicate code with functions, unused variables, found out some of it was in fact quite wrong...
 
@@ -23,7 +23,7 @@ BUT!
 
 ## Worse results
 
-As it turns out, in fixing the code, I made the learning **worse**... It still kind-of works, but form the last few runs, it... **well, it feels it learns worse**.
+As it turns out, in fixing the code, I made the learning **worse**... It still kind-of works, but from the last few runs, it... **well, it feels it learns worse**.
 
 And I'm really wondering which of the many parameters I have changed, on top of the fixes, have made it bad.
 
