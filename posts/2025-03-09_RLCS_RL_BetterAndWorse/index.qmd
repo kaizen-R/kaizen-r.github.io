@@ -1,0 +1,34 @@
+---
+title: "RLCS: Improving... And getting worse (at the same time!)"
+author: "Nico"
+date: "2025-03-09"
+categories: [ML, RLCS]
+---
+
+# Back to work
+
+## Better Code
+
+Well, it's been a couple of weeks (I was a bit offline last weekend). So I'm back at it and, first, I needed to clean things up. It just was messy code.
+
+So I did that, removed some duplicate code with functions, unused variables, found out some of it was in fact quite wrong...
+
+Heck, I half-wonder how it actually worked so well a couple of weeks back learning, that simple agent in that simple small "world" moving around looking for "food"...
+
+I also studied a bit more on RL (although, I have not read as much as I wanted, I had a couple of other books under way... Anyhow), and modified things so that the reward distribution would better follow the ideas of temporal difference (TD).
+
+Now code is a bit cleaner, probably running smoother, less cluttered...
+
+BUT!
+
+## Worse results
+
+As it turns out, in fixing the code, I made the learning **worse**... It still kind-of works, but form the last few runs, it... **well, it feels it learns worse**.
+
+And I'm really wondering which of the many parameters I have changed, on top of the fixes, have made it bad.
+
+## Conclusions
+
+There is still stuff to clean. I'm not advancing as much as I wanted with setting things up in an actual package yet. And while the Supervised Learning is working fine (maybe even better), the Reinforcement Learning example is worse off after this weekend.
+
+No matter, I'll review again. And I'll fix it. I'm just slower than I wanted. Oh well...
