@@ -1,0 +1,32 @@
+---
+title: "Migrating Contents (slowly)"
+author: "Nico"
+date: "2025-03-14"
+categories: [news]
+---
+
+# One thing I need to do...
+
+## Migrating more of the old contents
+
+I've had my own kaizen-r.com blog for some time, and I relaunched on github.io in November last year.
+
+One issue I'm facing is I need to migrate all the old contents, which were not on the same platform... And so I need to manually migrate the contents of the older blog.
+
+## Not everything goes
+
+So one thing that happens is I have made **many** publications about my last MSc project. As the project is published already, it makes little sense for me to re-produce all those entries.
+
+Some, I might, but the majority will disappear.
+
+And some more of the old contents is probably... Well, I might be better off if it disappears. Saves me the effort.
+
+## Easy and slow
+
+Text is just copy-paste, almost.
+
+The issue is to re-organize the multimedia (mostly images... And a few videos). That, unfortunately, will not be fast...
+
+## Conclusions
+
+In short, I'll need to slowly move contents from the old blog, with some criteria hopefully.
