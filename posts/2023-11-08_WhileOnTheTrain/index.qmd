@@ -1,0 +1,34 @@
+---
+title: "While on the Train: Cellular Automata"
+author: "Nico"
+date: "2023-11-08"
+categories: [visualization]
+---
+
+## Intro
+
+I decidedly LOVE riding on a train: For whatever reason, it’s one particular moment where I somehow focus a bit more than usual. It’s usually just a few hours, reasonably quiet environment, a bit more spacious than say airplanes (airplanes are just not the same, even with earplugs), no TV to distract my attention, the excuse of limited/imperfect mobile coverage… You name it. I just don’t know, but it works, I feel motivated to code & run experiments while on a train…
+
+## Introducing the Cellular Automata
+
+One thing that I liked about the book I recommended a couple of days back (see last entry before this one) is that it provides nice and easy examples (but in Python), and then reasonable exercises. I loved to read through most of them (and some of the math sections), but reading is not that fun in this case, I wanted to try it out (of course!).
+
+The following is the result of a simple R implementation of “Cellular Automata” for simulation of a “fire spread” in a theoretical forest setting. The identification of the “neighbour” trees in fire follows the Von Neumann definition of “neighbours” in this 2D configuration.
+
+Hopefully the video is quite self-explanatory. You start with ONE burning tree, and then let time pass… 🙂
+
+{{< video fire_spread_v003.mp4 title="Cellular Automata (A bit like fire spread)" width="500" height="350">}}
+
+## Visualization trick
+
+**One thing I learnt today** is how to quickly **draw a matrix into a picture**. I hereby recommend you look into the “MBCbook” R package, for its function “imshow()”. Which incidentally I found while looking for alternatives to the Python function… imshow! (So yeah, it was a fast search that one…)
+
+## Conclusions
+
+I hope you enjoyed it (I could definitely make it faster, and more or less dense a forest, and change the neighbours identification, and what not… I’ve tested this a few times with a few parameters).
+
+At least to me, this was for no-good-reason quite… Satisfying 🙂
+
+~~And I’m not sharing the code (not yet anyway) just because this was a first, horrible pasted-together step by step implementation, full of slow and nested “for loops”, to-be-improved matrix indexing, not enough functions… And well, just not quite “presentable”.~~ Find the code linked below. But it does work just fine though 🙂
+
+[Code on my GitHub account](https://github.com/kaizen-R/R/blob/master/Sample/other_simulations/fire_spread_automata_v001.R)

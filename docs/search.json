@@ -434,6 +434,41 @@
     "text": "Resources\n“Applied Numerical Methods Using MatLab, 2nd Edition”, Ed. Wiley, by W. Y. Yang, W. Cao, J. Kim & al."
   },
   {
+    "objectID": "posts/2023-11-08_WhileOnTheTrain/index.html",
+    "href": "posts/2023-11-08_WhileOnTheTrain/index.html",
+    "title": "While on the Train: Cellular Automata",
+    "section": "",
+    "text": "I decidedly LOVE riding on a train: For whatever reason, it’s one particular moment where I somehow focus a bit more than usual. It’s usually just a few hours, reasonably quiet environment, a bit more spacious than say airplanes (airplanes are just not the same, even with earplugs), no TV to distract my attention, the excuse of limited/imperfect mobile coverage… You name it. I just don’t know, but it works, I feel motivated to code & run experiments while on a train…"
+  },
+  {
+    "objectID": "posts/2023-11-08_WhileOnTheTrain/index.html#intro",
+    "href": "posts/2023-11-08_WhileOnTheTrain/index.html#intro",
+    "title": "While on the Train: Cellular Automata",
+    "section": "",
+    "text": "I decidedly LOVE riding on a train: For whatever reason, it’s one particular moment where I somehow focus a bit more than usual. It’s usually just a few hours, reasonably quiet environment, a bit more spacious than say airplanes (airplanes are just not the same, even with earplugs), no TV to distract my attention, the excuse of limited/imperfect mobile coverage… You name it. I just don’t know, but it works, I feel motivated to code & run experiments while on a train…"
+  },
+  {
+    "objectID": "posts/2023-11-08_WhileOnTheTrain/index.html#introducing-the-cellular-automata",
+    "href": "posts/2023-11-08_WhileOnTheTrain/index.html#introducing-the-cellular-automata",
+    "title": "While on the Train: Cellular Automata",
+    "section": "Introducing the Cellular Automata",
+    "text": "Introducing the Cellular Automata\nOne thing that I liked about the book I recommended a couple of days back (see last entry before this one) is that it provides nice and easy examples (but in Python), and then reasonable exercises. I loved to read through most of them (and some of the math sections), but reading is not that fun in this case, I wanted to try it out (of course!).\nThe following is the result of a simple R implementation of “Cellular Automata” for simulation of a “fire spread” in a theoretical forest setting. The identification of the “neighbour” trees in fire follows the Von Neumann definition of “neighbours” in this 2D configuration.\nHopefully the video is quite self-explanatory. You start with ONE burning tree, and then let time pass… 🙂"
+  },
+  {
+    "objectID": "posts/2023-11-08_WhileOnTheTrain/index.html#visualization-trick",
+    "href": "posts/2023-11-08_WhileOnTheTrain/index.html#visualization-trick",
+    "title": "While on the Train: Cellular Automata",
+    "section": "Visualization trick",
+    "text": "Visualization trick\nOne thing I learnt today is how to quickly draw a matrix into a picture. I hereby recommend you look into the “MBCbook” R package, for its function “imshow()”. Which incidentally I found while looking for alternatives to the Python function… imshow! (So yeah, it was a fast search that one…)"
+  },
+  {
+    "objectID": "posts/2023-11-08_WhileOnTheTrain/index.html#conclusions",
+    "href": "posts/2023-11-08_WhileOnTheTrain/index.html#conclusions",
+    "title": "While on the Train: Cellular Automata",
+    "section": "Conclusions",
+    "text": "Conclusions\nI hope you enjoyed it (I could definitely make it faster, and more or less dense a forest, and change the neighbours identification, and what not… I’ve tested this a few times with a few parameters).\nAt least to me, this was for no-good-reason quite… Satisfying 🙂\nAnd I’m not sharing the code (not yet anyway) just because this was a first, horrible pasted-together step by step implementation, full of slow and nested “for loops”, to-be-improved matrix indexing, not enough functions… And well, just not quite “presentable”. Find the code linked below. But it does work just fine though 🙂\nCode on my GitHub account"
+  },
+  {
     "objectID": "posts/2024-10-26_UnsupervisedLearning_DBScan/index.html",
     "href": "posts/2024-10-26_UnsupervisedLearning_DBScan/index.html",
     "title": "ML Concepts: Unsupervised Learning – Clustering – DBScan",
@@ -886,6 +921,6 @@
     "href": "index.html",
     "title": "Kaizen-R.com new home",
     "section": "",
-    "text": "Migrating Contents (slowly)\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMar 14, 2025\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS: Improving… And getting worse (at the same time!)\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nMar 9, 2025\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS: Reinforcement Learning: World Explorer v1\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nFeb 16, 2025\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS: A World to Play RL\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nFeb 15, 2025\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS: Reinforcement Learning?\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nFeb 9, 2025\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS: training in parallel?\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nJan 26, 2025\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS: for Data Mining\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 4.5 - Fully Functional v0 and New Tests\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 29, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 2 - Full Rule Discovery\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 24, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 1 - Part II: Basic Covering\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 22, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 1: Rules formatting, storage, and matching\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 22, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nA new project\n\n\n\n\n\n\nML\n\n\nnews\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 8, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nUnderstanding Linear Regression\n\n\n\n\n\n\nML\n\n\nmath\n\n\n\n\n\n\n\n\n\nNov 25, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nClassifying URLs\n\n\n\n\n\n\nML\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 17, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nEntropy - Identifying compressed files\n\n\n\n\n\n\nmath\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 10, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nNov 8, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nML Concepts: Word Embeddings\n\n\n\n\n\n\nML\n\n\nNLP\n\n\n\n\n\n\n\n\n\nNov 2, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nML Concepts: Unsupervised Learning – Clustering – DBScan\n\n\n\n\n\n\nML\n\n\nvisualization\n\n\n\n\n\n\n\n\n\nOct 26, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRandom Exercises: Interpolation with Lagrange Polynomials\n\n\n\n\n\n\nMath\n\n\n\n\n\n\n\n\n\nOct 20, 2024\n\n\nNico\n\n\n\n\n\n\nNo matching items"
+    "text": "Migrating Contents (slowly)\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMar 14, 2025\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS: Improving… And getting worse (at the same time!)\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nMar 9, 2025\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS: Reinforcement Learning: World Explorer v1\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nFeb 16, 2025\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS: A World to Play RL\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nFeb 15, 2025\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS: Reinforcement Learning?\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nFeb 9, 2025\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS: training in parallel?\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nJan 26, 2025\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS: for Data Mining\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 4.5 - Fully Functional v0 and New Tests\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 29, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 2 - Full Rule Discovery\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 24, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 1 - Part II: Basic Covering\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 22, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRLCS Day 1: Rules formatting, storage, and matching\n\n\n\n\n\n\nML\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 22, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nA new project\n\n\n\n\n\n\nML\n\n\nnews\n\n\nRLCS\n\n\n\n\n\n\n\n\n\nDec 8, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nUnderstanding Linear Regression\n\n\n\n\n\n\nML\n\n\nmath\n\n\n\n\n\n\n\n\n\nNov 25, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nClassifying URLs\n\n\n\n\n\n\nML\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 17, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nEntropy - Identifying compressed files\n\n\n\n\n\n\nmath\n\n\ncode\n\n\n\n\n\n\n\n\n\nNov 10, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nNov 8, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nML Concepts: Word Embeddings\n\n\n\n\n\n\nML\n\n\nNLP\n\n\n\n\n\n\n\n\n\nNov 2, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nML Concepts: Unsupervised Learning – Clustering – DBScan\n\n\n\n\n\n\nML\n\n\nvisualization\n\n\n\n\n\n\n\n\n\nOct 26, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nRandom Exercises: Interpolation with Lagrange Polynomials\n\n\n\n\n\n\nMath\n\n\n\n\n\n\n\n\n\nOct 20, 2024\n\n\nNico\n\n\n\n\n\n\n\n\n\n\n\n\nWhile on the Train: Cellular Automata\n\n\n\n\n\n\nvisualization\n\n\n\n\n\n\n\n\n\nNov 8, 2023\n\n\nNico\n\n\n\n\n\n\nNo matching items"
   }
 ]
