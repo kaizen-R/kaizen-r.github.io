@@ -1,0 +1,56 @@
+---
+title: "Random Exercises: Interpolation with Lagrange Polynomials"
+author: "Nico"
+date: "2024-10-20"
+categories: [Math]
+---
+
+## Intro
+
+As I want to make sure I keep posting here, I keep looking for things to write about in my own personal “library” (book shelves).
+
+One topic I want to make sure I don’t forget about is “Numerical Methods”. (Another one is graph theory, another one is anomaly detection… There are a few topics like that :D).
+
+Anyhow. Today: **Interpolation**.
+
+More specifically, Lagrange polynomials. Which is just one of many possible approaches (and has its own drawbacks).
+
+## Concept of Interpolation
+
+So first, what is “Interpolation”. Most people interested in Statistics and Machine Learning (mostly wrt time series and predicting the future of stock markets, say…) will have heard about Extrapolation. And that’s mostly it: Take a distribution or timeline and “predict” what the future of it should look like. (To keep things simple, that is).
+
+Interpolation is about finding a distribution *in between known points*. So not about the “future” (in the above comparison) but instead about the “present”, if you will. It’s about “filling the gaps”. Or trying to 🙂
+
+## Lagrange Polynomials
+
+“For a given set of N+1 data points, we want to find the coefficients of an Nth-degree polynomial function to match them \[…\]”
+
+![](https://www.kaizen-r.com/wp-content/uploads/2024/10/lagrange_poly.png){alt=""}
+
+Lagrange polynomials are somewhat intuitive because each term x_m can rather easily be shown to correspond exactly to y_m (by definition of L\_{N, m} above).
+
+Alright, and the math above leads me to the following R code (my own, but not saying “perfect”, of course :D):
+
+![](https://www.kaizen-r.com/wp-content/uploads/2024/10/interpolation_lagrange_r_v001-1024x809.png){alt=""}
+
+(The [source code can be found here](https://github.com/kaizen-R/R/blob/master/Sample/math/interpolation_lagrange_poly_v001.R))
+
+And to validate that, I take the same example points as that of the reference book, and we can plot the results:
+
+![](https://www.kaizen-r.com/wp-content/uploads/2024/10/lagrange_poly_result_plot-1024x605.png){alt=""}
+
+So we see a POSSIBLE approach here, which “looks” sensible (but MIGHT VERY WELL be wrong).
+
+## Conclusions
+
+Today was about one of many approaches, a short **introduction to the topic of Interpolation** (as “opposed”, though not really, to extrapolation).
+
+There are several alternatives, namely *Newton Polynomials*, for which improvements can be obtained by better choosing sample points (*Chebyshev nodes*). Or the well appreciated C*ubic Splines*.
+
+Newton Polynomials for instance work with recursion, and so might come in handy if one expects to ADD new reference data points in the future, because with Lagrange Polynomials, all calculations need to be redone from scratch.
+
+All of which might make for a nice few **future entries** of this blog 🙂
+
+## Resources
+
+“Applied Numerical Methods Using MatLab, 2nd Edition”, Ed. Wiley, by W. Y. Yang, W. Cao, J. Kim & al.
