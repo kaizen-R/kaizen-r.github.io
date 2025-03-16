@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2024-10-20">
+<meta name="dcterms.date" content="2025-03-16">
 
-<title>Random Exercises: Interpolation with Lagrange Polynomials – Kaizen-R.com new home</title>
+<title>RLCS for RL: It works again (using books helps) – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,9 +115,10 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Random Exercises: Interpolation with Lagrange Polynomials</h1>
+      <h1 class="title">RLCS for RL: It works again (using books helps)</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">math</div>
+                <div class="quarto-category">ML</div>
+                <div class="quarto-category">RLCS</div>
               </div>
                   </div>
   </div>
@@ -135,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 20, 2024</p>
+        <p class="date">March 16, 2025</p>
       </div>
     </div>
     
@@ -154,42 +155,104 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="intro" class="level2">
-<h2 class="anchored" data-anchor-id="intro">Intro</h2>
-<p>As I want to make sure I keep posting here, I keep looking for things to write about in my own personal “library” (book shelves).</p>
-<p>One topic I want to make sure I don’t forget about is “Numerical Methods”. (Another one is graph theory, another one is anomaly detection… There are a few topics like that :D).</p>
-<p>Anyhow. Today: <strong>Interpolation</strong>.</p>
-<p>More specifically, Lagrange polynomials. Which is just one of many possible approaches (and has its own drawbacks).</p>
+<section id="i-bought-the-book-and-used-it" class="level1">
+<h1>I bought the book and used it</h1>
+<section id="using-theory-is-proving-useful-indeed" class="level2">
+<h2 class="anchored" data-anchor-id="using-theory-is-proving-useful-indeed">Using theory is proving useful indeed</h2>
+<p>Recently, I had “broken” my Reinforcement Learning implementation, in the sense that it would learn at first, and then it would get worse with more experience, instead of better.</p>
+<p>With so many <em>hyper-parameters</em> to consider, I knew I had touched too many levers while trying to improve…</p>
+<p>One key thing was my exploration prevalence. But I didn’t know that. I start training with high exploration (1 step in each 2). That’s meant to expose to the maximum possible situations at first. In the smaller worlds, that should cover more environment states, and so reward of different actions would be learnt early on. That was the idea behind my choice, anyway. It kind of made sense…</p>
+<p>But then I knew of course that too much exploration would mean… Worse rewards.</p>
+<p>That was correct, but a few more things were happening… The short list here:</p>
+<ul>
+<li><p>my reward update function per classifier of the LCS was not great</p></li>
+<li><p>and my choosing of best classifiers (influencing the algorithm step of going from match-set to action-set) was in fact all wrong too 🤦‍♂️</p></li>
+</ul>
+<p>Theory to the rescue!</p>
 </section>
-<section id="concept-of-interpolation" class="level2">
-<h2 class="anchored" data-anchor-id="concept-of-interpolation">Concept of Interpolation</h2>
-<p>So first, what is “Interpolation”. Most people interested in Statistics and Machine Learning (mostly wrt time series and predicting the future of stock markets, say…) will have heard about Extrapolation. And that’s mostly it: Take a distribution or timeline and “predict” what the future of it should look like. (To keep things simple, that is).</p>
-<p>Interpolation is about finding a distribution <em>in between known points</em>. So not about the “future” (in the above comparison) but instead about the “present”, if you will. It’s about “filling the gaps”. Or trying to 🙂</p>
+<section id="i-only-have-gone-through-chapter-1-2-and-already" class="level2">
+<h2 class="anchored" data-anchor-id="i-only-have-gone-through-chapter-1-2-and-already">I only have gone through chapter 1 &amp; 2 and already…</h2>
+<p>I bought the “bible of RL” (see Resources below) and recently received it at home. And it’s already making a difference! (Actually, having a physical copy was a great choice for me.)</p>
+<p>I have now corrected the above issues, but inspired by only the first two chapters (the second one really, as I had glanced at the first one earlier…) I was able to implement 2 different reward-update functions that (along with exploration pressure increase) made all the difference.</p>
+<p>Plus I now have initialized my rewards with a high positive value to foment more exploration at the earlier stages.</p>
 </section>
-<section id="lagrange-polynomials" class="level2">
-<h2 class="anchored" data-anchor-id="lagrange-polynomials">Lagrange Polynomials</h2>
-<p>“For a given set of N+1 data points, we want to find the coefficients of an Nth-degree polynomial function to match them […]”</p>
-<p><img src="https://www.kaizen-r.com/wp-content/uploads/2024/10/lagrange_poly.png" class="img-fluid" alt=""></p>
-<p>Lagrange polynomials are somewhat intuitive because each term x_m can rather easily be shown to correspond exactly to y_m (by definition of L_{N, m} above).</p>
-<p>Alright, and the math above leads me to the following R code (my own, but not saying “perfect”, of course :D):</p>
-<p><img src="https://www.kaizen-r.com/wp-content/uploads/2024/10/interpolation_lagrange_r_v001-1024x809.png" class="img-fluid" alt=""></p>
-<p>(The <a href="https://github.com/kaizen-R/R/blob/master/Sample/math/interpolation_lagrange_poly_v001.R">source code can be found here</a>)</p>
-<p>And to validate that, I take the same example points as that of the reference book, and we can plot the results:</p>
-<p><img src="https://www.kaizen-r.com/wp-content/uploads/2024/10/lagrange_poly_result_plot-1024x605.png" class="img-fluid" alt=""></p>
-<p>So we see a POSSIBLE approach here, which “looks” sensible (but MIGHT VERY WELL be wrong).</p>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>To emit a judgement on the quality of my implementation, along with the right mix of hyper-parameters (then again, I’m not saying they’re optimal, I’m saying they’re OK)…</p>
+<p>I had to sit down and choose what would demonstrate “learning” in my small scenario.</p>
+<p>So I kept things very simple:</p>
+<ul>
+<li><p>1 agent</p></li>
+<li><p>4 actions corresponding to the 4 directions (horizontal and vertical only)</p></li>
+<li><p>At all steps, the agent can see empty cells, wall cells, food cells, enemy cells and where it came from (allocentric perception forced me to do that), 1 cell in any direction (including diagonals).</p></li>
+</ul>
+<p>In a simple scenario, 5x5 world, there are at any point: 16 wall cells, 5 empty cells, 1 food, 1 enemy, 1 walk-back.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="simple_scenario_overview.jpg" class="img-fluid figure-img"></p>
+<figcaption>a simple world to study learning quality</figcaption>
+</figure>
+</div>
+<p>Given that, I think <strong>this demonstrates how good the agent is after some training</strong>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="learning_with_sampleaverage.jpg" class="img-fluid figure-img"></p>
+<figcaption>learning with sample average reward update</figcaption>
+</figure>
+</div>
+<p>The above is using a <strong>“sample average” reward update function</strong>, whereby the reward contribution gets smaller and smaller with time.</p>
+<p>This learns the best exploitation policy in certain scenarios <strong>where there is a unique perfect policy</strong>. However, in our case, given the limited agent perception, one could consider that it would be best to keep learning over time.</p>
+<p>That is because the “food” and the “enemy” positions change once the agent collides with them. Although in the <strong>longer run</strong> that is probably incorrect, there are <strong>many</strong> possible perceived states even in this very small scenario (and in spite of the LCS and its GA pressuring to learn of each scenario only the relevant part of the states…), we could think that with limited learning steps, an option that ensures the agent keeps learning in a <strong>non-stationary</strong> environment will be better off.</p>
+<p>Well, so I implemented the equations with <strong>fixed alpha</strong> (set to 0.1).</p>
+<p>Note that in all the above, I keep starting training with one <strong>exploratory step</strong> in each 2, then reduce exploration every 2000 time-steps, <strong>until I get to 1 in 6</strong>. That forces exploration too, with more pressure at the beginning.</p>
+<p>With the new rules this might be in fact unnecessary, I am aware, but I still haven’t tested with fixed exploration pressure (say always 1 in 6 in my example). It should work!</p>
+<p>Anyhow, the results with fixed alpha are almost identical in my simple scenario:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="learning_with_fixedalpha.jpg" class="img-fluid figure-img"></p>
+<figcaption>learning with fixed alpha</figcaption>
+</figure>
+</div>
+</section>
+<section id="what-do-the-above-screenshot-say" class="level2">
+<h2 class="anchored" data-anchor-id="what-do-the-above-screenshot-say">What do the above screenshot say?</h2>
+<p>Well, we’ve seen there are:</p>
+<ul>
+<li><p>More wall cells (16) than empty cells (5)</p></li>
+<li><p>more empty cells (5) than enemy, food and “walk-back” cell (of which there is one)</p></li>
+</ul>
+<p>And yet, after some training, the agent averages, over 1000 most recent steps taken:</p>
+<ul>
+<li><p>275 food eaten (most rewarding)</p></li>
+<li><p>3 enemy encounters (most penalized)</p></li>
+<li><p>less than 100 wall bumps (heavily penalized)</p></li>
+<li><p>about 150 walk-backs (slightly penalized)</p></li>
+<li><p>and well, quite a bit of walking around in empty cells</p></li>
+</ul>
+<p>I haven’t done the math, but in some of the perceived states:</p>
+<ul>
+<li><p>Corner: 5 walls/8 total cells. There are 4 corners. 62.5%</p></li>
+<li><p>Side: 3 walls/8. 37.5%</p></li>
+<li><p>The above account for 8 of 9 possible agent positions (exceptuating center cell)</p></li>
+</ul>
+<p>And yet, <strong>only 10% of the time the agent bumps into a wall</strong> on average (and that’s with a 17% chance of exploratory move!).</p>
+<p>As the agent has <strong>very limited</strong> state perception, I believe this is proof right there that it has indeed learnt something.</p>
+<p>I’d have to run <strong>many more numbers</strong> (4 moves possible, 9 locations, 5 different possible cells-status per cell, in different combinations… I’m not doing that until someone asks me to do a PhD on the topic 😁)</p>
+<p>Similar numbers could demonstrate that there are lots of food-related actions compared to white cell prevalence…</p>
+<p>And indeed, supposing the <strong>identical probability</strong> of encountering food or enemy at any stage, the fact that our agent has chosen the right action when faced with both possibilities, choosing food 275 times for only 3 times the enemy (again, exploration step 1 in 6 in all described statistics above), well…</p>
+<p><strong>I’m sold.</strong></p>
 </section>
 <section id="conclusions" class="level2">
 <h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>Today was about one of many approaches, a short <strong>introduction to the topic of Interpolation</strong> (as “opposed”, though not really, to extrapolation).</p>
-<p>There are several alternatives, namely <em>Newton Polynomials</em>, for which improvements can be obtained by better choosing sample points (<em>Chebyshev nodes</em>). Or the well appreciated C<em>ubic Splines</em>.</p>
-<p>Newton Polynomials for instance work with recursion, and so might come in handy if one expects to ADD new reference data points in the future, because with Lagrange Polynomials, all calculations need to be redone from scratch.</p>
-<p>All of which might make for a nice few <strong>future entries</strong> of this blog 🙂</p>
+<p>I’m <strong>very happy about it all</strong>. The <strong>Reinforcement Learning example</strong> I chose is working <strong>nicely!</strong> And it <strong>makes sense</strong>, based on the little theory I have studied thus far.</p>
+<p>(Note: I shall actually post a short entry on <strong>real-world application of data mining with my LCS implementation</strong>. Any day now, it has happened already…).</p>
 </section>
 <section id="resources" class="level2">
 <h2 class="anchored" data-anchor-id="resources">Resources</h2>
-<p>“Applied Numerical Methods Using MatLab, 2nd Edition”, Ed. Wiley, by W. Y. Yang, W. Cao, J. Kim &amp; al.</p>
+<p>“Reinforcement Learning, An introduction.”, 2nd Ed. Bradford Books, by R. S. Sutton &amp; A. G. Bardo.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

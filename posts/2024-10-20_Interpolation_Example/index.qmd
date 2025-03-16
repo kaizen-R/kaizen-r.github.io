@@ -2,7 +2,7 @@
 title: "Random Exercises: Interpolation with Lagrange Polynomials"
 author: "Nico"
 date: "2024-10-20"
-categories: [Math]
+categories: [math]
 ---
 
 ## Intro
