@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nico">
+<meta name="dcterms.date" content="2025-03-19">
+
+<title>RLCS &amp; Explainable AI – Kaizen-R.com new home</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Kaizen-R.com new home</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">RLCS &amp; Explainable AI</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">ML</div>
+                <div class="quarto-category">RLCS</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Nico </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 19, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="walking-the-walk" class="level1">
+<h1>Walking the walk…</h1>
+<section id="foreword" class="level2">
+<h2 class="anchored" data-anchor-id="foreword">Foreword</h2>
+<p>I have been open about some of my worries with GenAI (and in fact Deep Learning with Neural Networks).</p>
+<p>One of these worries had to do with the fact that DeepLearning outputs, while very precise in the immense majority of cases, are never easily interpreted. In other words, one cannot easily understand <strong>why a (deep) neural network</strong> (in the supervised learning case, for instance) <strong>makes the choices it makes.</strong></p>
+<p>They say “If you talk the talk… Walk the walk”. Well, here goes my own personal attempt at just that.</p>
+</section>
+<section id="lcs-outputs-can-be-interpreted" class="level2">
+<h2 class="anchored" data-anchor-id="lcs-outputs-can-be-interpreted">LCS outputs can be interpreted</h2>
+<p>I’ve shown in the past, how for data mining the rules themselves are showing how a classifier (separately, each of the classifier <strong>systems</strong>) actually “shows” where to put our attention (see <a href="https://kaizen-r.github.io/posts/2025-01-25_RLCS_4_DataMining/" class="uri">https://kaizen-r.github.io/posts/2025-01-25_RLCS_4_DataMining/</a> for instance).</p>
+<p>Well, today we’ll see how using <strong>LCS outcome can be used itself directly to help interpret the algorithm’s own choices</strong>.</p>
+<p>And how that can be important.</p>
+<p>And to be perfectly clear, this was one of the <strong>key reasons</strong> why I got <strong>interested in LCS</strong> as a family of algorithms in the first place!</p>
+</section>
+<section id="explainable-ai" class="level2">
+<h2 class="anchored" data-anchor-id="explainable-ai">Explainable AI</h2>
+<p>If you use a neural network trained to classify numbers, say on MNIST dataset, it will work. Most assuredly!</p>
+<p>And training it can be faster than with the LCS (although, that is… not that clear. More on that some other time).</p>
+<p>But more importantly: although the neural network output will work, <strong>you will have a hard time understanding</strong> <strong>why it chose one class or another</strong>. (At least, without SHAP, LIME, etc.)</p>
+<p>Well, <strong>I present to you, interpreting LCS output as images classifier:</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="example_visu_explained.jpg" class="img-fluid figure-img"></p>
+<figcaption>LCS are expressive in their choices!</figcaption>
+</figure>
+</div>
+<p>A few things happen here: First, I take MNIST, but as explained in the past, to contain the processing needs, I <strong>compress</strong> the input image <strong>first</strong> (that’s not part of the LCS algorithm 😁). Once I’m down to a 7x7 binary image, I use that as my <strong>state</strong> and I train the LCS with an <strong>environment of several such “states”</strong> (i.e.&nbsp;compressed pictures).</p>
+<p>Different from a Neural Network, I do not need to train on that many examples (also already clarified in the past). So I train on <strong>only 500 samples</strong>, chosen randomly, and here I train for quite some time (<strong>almost 7 minutes</strong>, but single-thread, mind you) on said 500 samples.</p>
+<p>As an output, I get a set of a <strong>few thousand “classifiers”</strong> (&lt; 2500 in today’s example), all of which I have presented in the past also and won’t explain here again. <strong>Together, they form the System of classifiers.</strong></p>
+<p>But just for reference, I got a <strong>99% correctly classified testing samples (out of 3799</strong> of them, none of which had been seen for training).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="classification_results.jpg" class="img-fluid figure-img" width="450"></p>
+<figcaption>Quality of generated classifier</figcaption>
+</figure>
+</div>
+<p>Now on to the <strong>explainable</strong> part!</p>
+</section>
+<section id="the-visuals" class="level2">
+<h2 class="anchored" data-anchor-id="the-visuals">The visuals</h2>
+<p>Now tell me: <strong>Does the following set of visuals help in actually interpreting the LCS recommendation?</strong> (hint: I think it does!)</p>
+<p>I’ve been trying to visualize why the LCS choices are indeed <strong>explainable</strong>. Of course, matching several rules makes it more confusing… But <strong>each rule that matches is a vote</strong>. If you can visualize the “ensemble” of rules/classifiers, all of which <strong>must</strong> have <strong>matched the sample</strong>, in our case hopefully you can see what the LCS is using as subset of reference for a given image.</p>
+<p>Here an example, whereby a Zero image is correctly classified, among other reasons because it needs to have “lines around” and one “empty pixel” in the center! That’s enough for the LCS to decide that was a zero, and probably <strong>very few</strong> of the <em>156 rules that matched that test sample</em> (all of which agreed on the correct class) would have been sufficient to explain the choice!</p>
+<p>In other words, I try to <strong>show the ensemble</strong> and its <strong>choice</strong> in such a way that you see <strong>why the LCS decided on class 0 for that sample</strong>.</p>
+<p><strong>Good luck doing that with a Neural network!</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="example_0_1.jpg" class="img-fluid figure-img"></p>
+<figcaption>Class 0 - Visualized</figcaption>
+</figure>
+</div>
+</section>
+<section id="why-is-this-good-12" class="level2">
+<h2 class="anchored" data-anchor-id="why-is-this-good-12">Why is this good? 1/2</h2>
+<p><strong>Explainable AI is important for many reasons</strong>.</p>
+<p>Because of the very <strong>nature of ML</strong> (in that sense different from other approaches), sometimes (as rarely as it might be, 1% of the cases in today’s exercise) it <strong>makes a classification mistake</strong>. There are several possible reasons for that, but often it has to do with problems with generalization (<strong>overfitting</strong>).</p>
+<p>Remember we used 500 samples for training, and have tested with 99% correct results on 3800 test samples!</p>
+<p>(Note that part of the trick here is that my compressing the original images has removed more subtle differences that might have otherwise required better generalization… Fair enough!)</p>
+<p>But I do hope in the exercise for today, the visualization of the LCS choices is helpful and indeed <strong>explainable</strong>.</p>
+<p>At the very least, I feel it’s important to know, when an error is detected.</p>
+</section>
+<section id="why-is-it-good-22" class="level2">
+<h2 class="anchored" data-anchor-id="why-is-it-good-22">Why is it good? 2/2</h2>
+<p><strong>Resistance to Adversarial attacks!</strong></p>
+<p>One important <strong>issue with some CNNs</strong> for instance for images classification is that they are <strong>sensible to a type of attack</strong> whereby someone can <em>add noise to a picture</em>, <strong>invisible to the human eye</strong>, and force the classifier to err the classification.</p>
+<p>This <strong>will not happen with LCS</strong>, as I hope the visuals I introduced today clearly show. And that’s pretty cool, too.</p>
+</section>
+<section id="locating-errors" class="level2">
+<h2 class="anchored" data-anchor-id="locating-errors">Locating errors</h2>
+<p>For our exercise today, a few (1%) of the examples were wrongly classified, and in all cases the <strong>confidence of the proposed classification was below 65%</strong>.</p>
+<p>As the LCS output is a “system of classifiers”, whereby a new <strong>sample matches several “rules”</strong>, and given in our exercise the high level of <strong>compression</strong> with loss of information, it was no surprise that some examples were <em>difficult based on the compressed image</em> (<strong>I wouldn’t have been able to do any better myself</strong>, without the original image).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="understandable_misclassification.jpg" class="img-fluid figure-img"></p>
+<figcaption>Look at the compressed sample used, you’ll understand the confusion of the LCS</figcaption>
+</figure>
+</div>
+<p>In summary, they matched several classifiers, some of which were voting for one class, while the rest for the other… Which is <strong>reflected in the low confidence</strong> of the outcome!</p>
+<p>And overall, my code for LCS did a great job, given what they see as (compressed) input.</p>
+</section>
+<section id="a-few-more-examples-for-no-reason" class="level2">
+<h2 class="anchored" data-anchor-id="a-few-more-examples-for-no-reason">A few more examples (for no reason)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="example_0_2.jpg" class="img-fluid figure-img"></p>
+<figcaption>Class 0 - other example</figcaption>
+</figure>
+</div>
+<p>It <em>doesn’t always happen</em>, but here again a <strong>central empty cell</strong> is quite self-explanatory. Moreover, one can tell the <strong>line needs to spread horizontally</strong> for the set of classifiers to agree on a Zero class, here. (That happens more often indeed)</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="example_1_1.jpg" class="img-fluid figure-img"></p>
+<figcaption>Class 1 - an example</figcaption>
+</figure>
+</div>
+<p>You can see in the above, how the <strong>width of the line is constrained</strong> by the “empty cells” recommendations (“Pixel=0”). Clearly the line for the one is apparent (“Pixel=1”). And the resulting visual shows (green) empty cells surrounding (maroon) full cells, indeed.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="example_1_2.jpg" class="img-fluid figure-img"></p>
+<figcaption>Last example for today</figcaption>
+</figure>
+</div>
+</section>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>Look, I’m not kidding myself. I will not magically shift the focus of the whole AI community towards the LCS algorithm, overnight.</p>
+<p>Plus, it’s not a perfect algorithm. Many hyper-parameters to consider, not particularly fast (although… to be discussed)…</p>
+<p>But it does work, requires (at least in today’s example) relatively few (ideally well chosen) samples for training, and is <strong>clear in why it makes the decisions it makes</strong>, which as explained is (at least from my perspective) very <strong>important</strong>.</p>
+<p>I do hope, however, that maybe it shows there <strong>are alternatives</strong> to neural networks, and if nothing else, I would expect this exercise might be considered useful, as a complementary approach: Keep using your neural networks, deep learning and what-not, but maybe you can <strong>use an LCS on the side</strong>, to confirm (with a level of confidence included, and visuals that express the why) the neural net choices…</p>
+<p>And although I still have a lot to do, I hope when it’s ready, my RLCS package will participate in making that a reality :)</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
