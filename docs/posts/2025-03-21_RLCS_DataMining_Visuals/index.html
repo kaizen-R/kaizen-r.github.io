@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2025-03-19">
+<meta name="dcterms.date" content="2025-03-21">
 
-<title>RLCS &amp; Explainable AI – Kaizen-R.com new home</title>
+<title>RLCS for Data Mining: Visuals – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -115,7 +149,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">RLCS &amp; Explainable AI</h1>
+      <h1 class="title">RLCS for Data Mining: Visuals</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">ML</div>
                 <div class="quarto-category">RLCS</div>
@@ -137,7 +171,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">March 19, 2025</p>
+        <p class="date">March 21, 2025</p>
       </div>
     </div>
     
@@ -156,120 +190,56 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="walking-the-walk" class="level1">
-<h1>Walking the walk…</h1>
-<section id="foreword" class="level2">
-<h2 class="anchored" data-anchor-id="foreword">Foreword</h2>
-<p>I have been open about some of my worries with GenAI (and in fact Deep Learning with Neural Networks).</p>
-<p>One of these worries had to do with the fact that DeepLearning outputs, while very precise in the immense majority of cases, are never easily interpreted. In other words, one cannot easily understand <strong>why a (deep) neural network</strong> (in the supervised learning case, for instance) <strong>makes the choices it makes.</strong></p>
-<p>They say “If you talk the talk… Walk the walk”. Well, here goes my own personal attempt at just that.</p>
-</section>
-<section id="lcs-outputs-can-be-interpreted" class="level2">
-<h2 class="anchored" data-anchor-id="lcs-outputs-can-be-interpreted">LCS outputs can be interpreted</h2>
-<p>I’ve shown in the past, how for data mining the rules themselves are showing how a classifier (separately, each of the classifier <strong>systems</strong>) actually “shows” where to put our attention (see <a href="https://kaizen-r.github.io/posts/2025-01-25_RLCS_4_DataMining/" class="uri">https://kaizen-r.github.io/posts/2025-01-25_RLCS_4_DataMining/</a> for instance).</p>
-<p>Well, today we’ll see how using <strong>LCS outcome can be used itself directly to help interpret the algorithm’s own choices</strong>.</p>
-<p>And how that can be important.</p>
-<p>And to be perfectly clear, this was one of the <strong>key reasons</strong> why I got <strong>interested in LCS</strong> as a family of algorithms in the first place!</p>
-</section>
-<section id="explainable-ai" class="level2">
-<h2 class="anchored" data-anchor-id="explainable-ai">Explainable AI</h2>
-<p>If you use a neural network trained to classify numbers, say on MNIST dataset, it will work. Most assuredly!</p>
-<p>And training it can be faster than with the LCS (although, that is… not that clear. More on that some other time).</p>
-<p>But more importantly: although the neural network output will work, <strong>you will have a hard time understanding</strong> <strong>why it chose one class or another</strong>. (At least, without SHAP, LIME, etc.)</p>
-<p>Well, <strong>I present to you, interpreting LCS output as images classifier:</strong></p>
+<section id="i-keep-at-it-explainable-findings" class="level2">
+<h2 class="anchored" data-anchor-id="i-keep-at-it-explainable-findings">I keep at it: Explainable findings</h2>
+<p>I’ve shown quite a few “Classifiers” and detailed how data mining can be cool with an LCS.</p>
+<p>But looking at text-like classifiers populations is not fun (easier for the computer, not fun for the human).</p>
+<p>Here is an alternative:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="example_visu_explained.jpg" class="img-fluid figure-img"></p>
-<figcaption>LCS are expressive in their choices!</figcaption>
+<p><img src="data_mining_lcs_focus_3D.jpg" class="img-fluid figure-img"></p>
+<figcaption>What you need to decide on classification</figcaption>
 </figure>
 </div>
-<p>A few things happen here: First, I take MNIST, but as explained in the past, to contain the processing needs, I <strong>compress</strong> the input image <strong>first</strong> (that’s not part of the LCS algorithm 😁). Once I’m down to a 7x7 binary image, I use that as my <strong>state</strong> and I train the LCS with an <strong>environment of several such “states”</strong> (i.e.&nbsp;compressed pictures).</p>
-<p>Different from a Neural Network, I do not need to train on that many examples (also already clarified in the past). So I train on <strong>only 500 samples</strong>, chosen randomly, and here I train for quite some time (<strong>almost 7 minutes</strong>, but single-thread, mind you) on said 500 samples.</p>
-<p>As an output, I get a set of a <strong>few thousand “classifiers”</strong> (&lt; 2500 in today’s example), all of which I have presented in the past also and won’t explain here again. <strong>Together, they form the System of classifiers.</strong></p>
-<p>But just for reference, I got a <strong>99% correctly classified testing samples (out of 3799</strong> of them, none of which had been seen for training).</p>
+<p>That’s the 3D version of it.</p>
+<p>Interpretation: It basically says “most rules will require to know about 3 bits only (out of 6 in this case), and for these, the first two bits are much more important”.</p>
+<p>Indeed. That was for the MUX6bits of past examples, the very same proposed in the book about LCS I have referenced in past entries.</p>
+<p>I had inspiration from a video by Dr.&nbsp;Will Browne on how one could visualize the attention of an LCS:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="classification_results.jpg" class="img-fluid figure-img" width="450"></p>
-<figcaption>Quality of generated classifier</figcaption>
+<p><img src="original_proposed_visual.jpg" class="img-fluid figure-img" width="500"></p>
+<figcaption>Proposed alternative in Dr.&nbsp;Browne’s youtube video</figcaption>
 </figure>
 </div>
-<p>Now on to the <strong>explainable</strong> part!</p>
-</section>
-<section id="the-visuals" class="level2">
-<h2 class="anchored" data-anchor-id="the-visuals">The visuals</h2>
-<p>Now tell me: <strong>Does the following set of visuals help in actually interpreting the LCS recommendation?</strong> (hint: I think it does!)</p>
-<p>I’ve been trying to visualize why the LCS choices are indeed <strong>explainable</strong>. Of course, matching several rules makes it more confusing… But <strong>each rule that matches is a vote</strong>. If you can visualize the “ensemble” of rules/classifiers, all of which <strong>must</strong> have <strong>matched the sample</strong>, in our case hopefully you can see what the LCS is using as subset of reference for a given image.</p>
-<p>Here an example, whereby a Zero image is correctly classified, among other reasons because it needs to have “lines around” and one “empty pixel” in the center! That’s enough for the LCS to decide that was a zero, and probably <strong>very few</strong> of the <em>156 rules that matched that test sample</em> (all of which agreed on the correct class) would have been sufficient to explain the choice!</p>
-<p>In other words, I try to <strong>show the ensemble</strong> and its <strong>choice</strong> in such a way that you see <strong>why the LCS decided on class 0 for that sample</strong>.</p>
-<p><strong>Good luck doing that with a Neural network!</strong></p>
+<p>Compared to the past results I have been showing:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="example_0_1.jpg" class="img-fluid figure-img"></p>
-<figcaption>Class 0 - Visualized</figcaption>
+<p><img src="data_mining_lcs_focus_old.jpg" class="img-fluid figure-img" width="500"></p>
+<figcaption>Former/old presentation…</figcaption>
+</figure>
+</div>
+<p>I think the visual is better looking :D</p>
+<p>As I am not a fan of forcing 3D on what could be 2D and a palette, here goes an alternative visualization. Less fancy, but just as practical, I think:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="data_mining_lcs_focus_2D.jpg" class="img-fluid figure-img" width="500"></p>
+<figcaption>2D alternative. Might be the best one</figcaption>
 </figure>
 </div>
 </section>
-<section id="why-is-this-good-12" class="level2">
-<h2 class="anchored" data-anchor-id="why-is-this-good-12">Why is this good? 1/2</h2>
-<p><strong>Explainable AI is important for many reasons</strong>.</p>
-<p>Because of the very <strong>nature of ML</strong> (in that sense different from other approaches), sometimes (as rarely as it might be, 1% of the cases in today’s exercise) it <strong>makes a classification mistake</strong>. There are several possible reasons for that, but often it has to do with problems with generalization (<strong>overfitting</strong>).</p>
-<p>Remember we used 500 samples for training, and have tested with 99% correct results on 3800 test samples!</p>
-<p>(Note that part of the trick here is that my compressing the original images has removed more subtle differences that might have otherwise required better generalization… Fair enough!)</p>
-<p>But I do hope in the exercise for today, the visualization of the LCS choices is helpful and indeed <strong>explainable</strong>.</p>
-<p>At the very least, I feel it’s important to know, when an error is detected.</p>
-</section>
-<section id="why-is-it-good-22" class="level2">
-<h2 class="anchored" data-anchor-id="why-is-it-good-22">Why is it good? 2/2</h2>
-<p><strong>Resistance to Adversarial attacks!</strong></p>
-<p>One important <strong>issue with some CNNs</strong> for instance for images classification is that they are <strong>sensible to a type of attack</strong> whereby someone can <em>add noise to a picture</em>, <strong>invisible to the human eye</strong>, and force the classifier to err the classification.</p>
-<p>This <strong>will not happen with LCS</strong>, as I hope the visuals I introduced today clearly show. And that’s pretty cool, too.</p>
-</section>
-<section id="locating-errors" class="level2">
-<h2 class="anchored" data-anchor-id="locating-errors">Locating errors</h2>
-<p>For our exercise today, a few (1%) of the examples were wrongly classified, and in all cases the <strong>confidence of the proposed classification was below 65%</strong>.</p>
-<p>As the LCS output is a “system of classifiers”, whereby a new <strong>sample matches several “rules”</strong>, and given in our exercise the high level of <strong>compression</strong> with loss of information, it was no surprise that some examples were <em>difficult based on the compressed image</em> (<strong>I wouldn’t have been able to do any better myself</strong>, without the original image).</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="understandable_misclassification.jpg" class="img-fluid figure-img"></p>
-<figcaption>Look at the compressed sample used, you’ll understand the confusion of the LCS</figcaption>
-</figure>
-</div>
-<p>In summary, they matched several classifiers, some of which were voting for one class, while the rest for the other… Which is <strong>reflected in the low confidence</strong> of the outcome!</p>
-<p>And overall, my code for LCS did a great job, given what they see as (compressed) input.</p>
-</section>
-<section id="a-few-more-examples-for-no-reason" class="level2">
-<h2 class="anchored" data-anchor-id="a-few-more-examples-for-no-reason">A few more examples (for no reason)</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="example_0_2.jpg" class="img-fluid figure-img"></p>
-<figcaption>Class 0 - other example</figcaption>
-</figure>
-</div>
-<p>It <em>doesn’t always happen</em>, but here again a <strong>central empty cell</strong> is quite self-explanatory. Moreover, one can tell the <strong>line needs to spread horizontally</strong> for the set of classifiers to agree on a Zero class, here. (That happens more often indeed)</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="example_1_1.jpg" class="img-fluid figure-img"></p>
-<figcaption>Class 1 - an example</figcaption>
-</figure>
-</div>
-<p>You can see in the above, how the <strong>width of the line is constrained</strong> by the “empty cells” recommendations (“Pixel=0”). Clearly the line for the one is apparent (“Pixel=1”). And the resulting visual shows (green) empty cells surrounding (maroon) full cells, indeed.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="example_1_2.jpg" class="img-fluid figure-img"></p>
-<figcaption>Last example for today</figcaption>
-</figure>
-</div>
+<section id="code-improvement" class="level2">
+<h2 class="anchored" data-anchor-id="code-improvement">Code improvement</h2>
+<p>Did you notice the code above?</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lcs_classifier2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>That’s because I am working on doing things a bit better, using in this case S3 objects. I create a class “rlcs_population” and with that I can have dedicated print, plot, etc. functions that are called for these objects!</p>
+<p>Still not great, still work ongoing, but… Looking better every day :)</p>
 </section>
 <section id="conclusions" class="level2">
 <h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>Look, I’m not kidding myself. I will not magically shift the focus of the whole AI community towards the LCS algorithm, overnight.</p>
-<p>Plus, it’s not a perfect algorithm. Many hyper-parameters to consider, not particularly fast (although… to be discussed)…</p>
-<p>But it does work, requires (at least in today’s example) relatively few (ideally well chosen) samples for training, and is <strong>clear in why it makes the decisions it makes</strong>, which as explained is (at least from my perspective) very <strong>important</strong>.</p>
-<p>I do hope, however, that maybe it shows there <strong>are alternatives</strong> to neural networks, and if nothing else, I would expect this exercise might be considered useful, as a complementary approach: Keep using your neural networks, deep learning and what-not, but maybe you can <strong>use an LCS on the side</strong>, to confirm (with a level of confidence included, and visuals that express the why) the neural net choices…</p>
-<p>And although I still have a lot to do, I hope when it’s ready, my RLCS package will participate in making that a reality :)</p>
+<p>I’m not always a fan of 3D visuals.</p>
+<p>But I have to admit, it beats looking at strings of binary numbers in our tertiary alphabet…</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

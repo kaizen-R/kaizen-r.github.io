@@ -2,7 +2,7 @@
 title: "RLCS & Explainable AI"
 author: "Nico"
 date: "2025-03-19"
-categories: [ML, RLCS]
+categories: [ML, RLCS, visualization]
 ---
 
 # Walking the walk...
@@ -91,7 +91,7 @@ For our exercise today, a few (1%) of the examples were wrongly classified, and 
 
 As the LCS output is a "system of classifiers", whereby a new **sample matches several "rules"**, and given in our exercise the high level of **compression** with loss of information, it was no surprise that some examples were *difficult based on the compressed image* (**I wouldn't have been able to do any better myself**, without the original image).
 
-![Look at the compressed sample used, you'll understand the confusion of the LCS](understandable_misclassification.jpg){alt="Look at the compressed sample used, you'll understand the confusion of the LCS"}
+![Look at the compressed sample used, you'll understand the confusion of the LCS](understandable_misclassification.jpg)
 
 In summary, they matched several classifiers, some of which were voting for one class, while the rest for the other... Which is **reflected in the low confidence** of the outcome!
 
