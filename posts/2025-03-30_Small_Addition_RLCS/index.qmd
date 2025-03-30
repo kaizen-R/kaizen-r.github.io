@@ -33,7 +33,7 @@ But let's make a **second pause**: What if you have more values? Say 32 of them,
 
 **How to break that though?** Choosing means kind of **makes an assumption** about the distribution (normality) of input variable. So **for now, and without thinking much about it** I prefer to use the **median, and quartiles**, thereby breaking the input in 4 buckets of similar (or almost identical) sizes. And then, why not, break each bucket in turn in 4 sub-buckets. Voilà: **16 subsets of the one variable.** To be represented each as a 4 bits binary string.
 
-And **no, I haven't given it much more thought**. This is just a simplified approach, one which my statistician friends will surely criticize the next time I meet them... But **the important thing is the conceptual approach**: **If you accept loss of information, there is nothing precluding you from encoding your real numbers input into binary strings!**
+And **no, I haven't given it much more thought**. This is just a simplified approach, **one which I do not believe is perfect** (maybe considering the input distribution would be better), **or even best for the LCS processing**; one which **my statistician friends will surely criticize** the next time I meet them... But **the important thing is the conceptual approach**: **If you accept loss of information, there is nothing precluding you from encoding your real numbers input into binary strings!**
 
 Thereby, of course, making the **algorithm more practical** to use.
 
