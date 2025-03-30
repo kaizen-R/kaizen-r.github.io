@@ -9,7 +9,7 @@ categories: [ML, RLCS]
 
 ## "But you only take binary strings as input??"
 
-I was in attending a local R conference the other day, and took the opportunity to discuss a bit with some of the (very few) that have an understanding of what I'm doing these days with the RLCS project.
+I was in attending a local R conference the other day, and took the opportunity to discuss a bit with some of the (very few) that have a minimal interest (and an understanding) of what I'm trying to do these days with the RLCS project.
 
 It's always great to talk with them, they know so much, there is so much experience in there. And of course, that means, they can criticize my work. Which, from them, or anyone with criteria for that matter, I happily welcome!
 
