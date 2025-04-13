@@ -1,0 +1,112 @@
+---
+title: "Sunday Thoughts: About Strategy, Information, Decisions, Simulations, Reinforcement Learning & al."
+author: "Nico"
+date: "2025-04-13"
+categories: [Information, ML, Decisions, Optimization]
+---
+
+# About Strategy, Information, Decisions, Simulations, Reinforcement Learning & al.
+
+## Random Sunday thoughts
+
+Yesterday I did nothing. Like... Nothing. I considered it an active choice, and as such I wasn't sad at the end of the day for not having "produced" anything... And today I was motivated to look for something to do.
+
+But what? Well, I have options for sure, but one of them was to choose a topic to read about, and I had that book about Strategy that "called me", half-started (maybe 1/4 read...). Of the different options I had, I chose that book.
+
+And while reading it, these ideas of Tolstoi (see "War and Peace") about some limits of the "science" (rather art) of Strategy, and how history might filter a few decisions as key, discarding many other things that have happened...
+
+![Book Cover for "Strategy, a History" (see resources)](Strategy book cover.png){fig-align="center" width="300"}
+
+But let's not get ahead of ourselves, as since this morning I have given it some thought...
+
+## Most simplistic Decisions & Information
+
+**Binary** things. Yes or No. True or False. Option A or B. This is the simplest level of information encoding I guess.
+
+And so it goes for **Decisions**! After all, if you have to choose between 3 (competing) options, you can look at them as 3 different binary choices.
+
+And that "simil" I think is key. Binary is in the end the minimal level of encoding for information AND for decisions, and maybe then it **kinda makes sense that information is hence just a support for decision**.
+
+Or maybe not: *some will argue* **randomness**, **intuition**, etc. I don't disagree. **Chaos theory sorts of proves that point**, that you **can't predict the future**. Not absolutely anyway, not in the long run, in complex systems. And decisions are not only binary in nature: they are **also about making a prediction**, aren't they? Otherwise... They make no sense.
+
+And because of Chaos theory, **maybe no one can make perfect decisions**, Bayesian thinking would be limited, and **then it's all irrelevant**... Well, I don't know, I suppose there is some truth to that, but I can't do much about that, can I?
+
+And so **I prefer to look at information-based decisions as imperfect. But not useless or pointless.**
+
+(Incidentally, binary is the current encoding for the RLCS package input, but that is quite irrelevant to today's discussion...)
+
+## About Limits of Strategy?
+
+Coming back to the discussion of Tolstoi's perspective (I haven't read Tolstoi myself), the book implies that he would consider that the impact of specific decisions by military leaders (say, Bonaparte, etc.) was in fact less important than history would have us think, and that the sum of individual decisions (of say the whole armies) in context are then at the very best influenced.
+
+This reminded me of two "ideas" somehow. Maybe it's a bit far-fetched... But here goes:
+
+-   Cybernetics. Now this is far from a perfect match here, I know. But in concept, a captain that steers a boat pushes in one direction, but you **can't perfectly** indicate an **exact** direction, so in that sense you have a lot of influence, yes, but there is some... wiggle? uncertainty? And although I understand I am being fuzzy in my juxtaposition of these ideas here, well, it also agrees with the fact that although you can have an impact on the overall direction of things, no decision will here be perfect as you cannot have a perfect impact.
+
+-   And the second idea, is Asimov's "Psycho-History". I've always loved the original trilogy of the Foundations (not the TV adaptation...). The very concept of psycho-history is resounding when reading these concepts by Tolstoi as introduced above... Which I found interesting.
+
+What these things are saying, put together, is I guess this: Say in a large company.
+
+One boss can make "strategic" decisions. But how much of that translates into a perfectly aligned (maybe more tactical) action? Does anyone know what such an action could/should be (and that's the job of managers and employees, you could argue)? Would context accompany, at all?
+
+**Context is of course taken into account in decision making**. As it should be. But context evolves, and some talk about 5-year plans, and I would argue, that might not... Work, as the context is so uncertain. (And there could be a counter-argument made that part of the context is not as "changing", or that strategic plans need constant review, etc. All fair points :))
+
+Would the whole team of many people ever be perfectly aligned with said action or actions? I guess not, and the ideas of Chaos and Complex Systems are supporting my view here. Do they (the whole team) actually need to be "perfectly" aligned, one might wonder...?
+
+Also, how much of the decision is important vs how much of the actual good-willingness of the underlying execution team (which is what appears to be what Tolstoi would have argued...)? What then is the relative importance of the understanding and alignment of the team?
+
+In that context, **how important is the decision itself?**
+
+**Clearly, a wrong decision will make things worse, and a good decision will make things better**, that's not my point here :)
+
+This is all obviously a bit "out-there" and more of a thought exercise. But as I like the topic of decision making and strategy, well...
+
+And yes, I guess I'm opening more questions than I am answering... My bad.
+
+## Ironman's approach, I feel, is not wrong
+
+Somewhat related is the topic of the decision making itself and information, and the topic of simulations. And whenever I think of simulations these days, I think about Monte-Carlo, Reinforcement Learning, and the likes.
+
+### Side note
+
+This one point has made my day, really. Reinforcement Learning is cool, no question asked, but here is a **common derived conversation about RL: So what?**
+
+The discussion is about the **applications of Reinforcement Learning**. Well, I will today argue that **beyond playing games, it can be considered in context of simulations for decision making**. And that opens a lot of potential value for it...
+
+Back to the conversation, now...
+
+## So, Simulations
+
+I'll admit, I'm a fan of the Ironman movies (and no, I'm not ashamed). But I mostly like the "Jarvis" part of it. That **helpful AI program that helps Tony Stark**. Or other simulations that Tony runs to create something...
+
+![running simulations to make decisions, Ironman's way](running_scenarios.png)
+
+In several scenes of different movies in the series of Ironman or the Avengers, Tony launches a simulation of something (say of different ways of programming something, compiling it, and seeing whether the resulting program would successfully fulfill a given purpose, I guess).
+
+With all the considerations above about the limits of decision-making, their actual impact, the importance of chaos theory, impossibility of considering future changing-context, the role of the execution, alignment, etc... With all that in mind...
+
+I've run in the past simulations of traffic in (medium) cities, which helped identify bottlenecks for different traffic scenarios. I've run Monte-Carlo simulations of infectious processes on small networks, to decide better on which nodes to act. I've been playing with Reinforcement Learning, whereby an agent takes more or less appropriate decisions with (limited) contextual information.
+
+And although maybe this has all been mostly theoretical, I do believe that, within (today's) said limits of decision making, that approach makes a lot of sense.
+
+So yes, I think RL has a place, maybe, beyond playing Chess and Go... And maybe if one can setup a valid "simulation" of a scenario, then RL could be one approach to test different options and see what a computer could come up with.
+
+By the way, this is also what Meta-heuristics is all about (including, obviously, Genetic Algorithms, which my readers will know I like :)). And Operations Research (albeit slightly different in approach, or sure).
+
+I also believe that the ideas of "digital twins" for instance in Health Care decision support are interesting, in that sense.
+
+And well, that's the gist of my thoughts on the topic today.
+
+## Conclusions
+
+I know, I didn't invent fire today. It would seem, I rarely have an actually original thought... Apologies here. The best I can do, it appears, is agreeing or disagreeing with some view, and then changing my mind with everything I learn along the way... Oh well.
+
+Then again, hopefully me connecting different ideas is enough of a "value-add". I read somewhere that this **connecting the dots is, in fact, a way of "innovating"**.
+
+I do hope these thoughts are not completely crazy and that they inspire some more thoughts by others... That would be great.
+
+And that would justify writing about it in the first place, beyond the fact that writing helps me think...
+
+## Resources
+
+[Strategy, A History, by L. Freedman](https://www.amazon.com/Strategy-History-Lawrence-Freedman/dp/0199325154)
