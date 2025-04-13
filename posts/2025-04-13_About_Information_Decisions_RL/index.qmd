@@ -51,7 +51,7 @@ One boss can make "strategic" decisions. But how much of that translates into a 
 
 **Context is of course taken into account in decision making**. As it should be. But context evolves, and some talk about 5-year plans, and I would argue, that might not... Work, as the context is so uncertain. (And there could be a counter-argument made that part of the context is not as "changing", or that strategic plans need constant review, etc. All fair points :))
 
-Would the whole team of many people ever be perfectly aligned with said action or actions? I guess not, and the ideas of Chaos and Complex Systems are supporting my view here. Do they (the whole team) actually need to be "perfectly" aligned, one might wonder...?
+Would the whole team of many people ever be perfectly aligned with said action or actions? I guess not, and the ideas of Chaos (in that even if deterministic, one cannot cover perfectly an initial situation in all its detail) and Complex Systems (that pieces influence pieces, and one would need to consider each piece, here an employee, in its own context, as well as the system at large) are supporting my view here. Do they (the whole team) actually need to be "perfectly" aligned, one might wonder...?
 
 Also, how much of the decision is important vs how much of the actual good-willingness of the underlying execution team (which is what appears to be what Tolstoi would have argued...)? What then is the relative importance of the understanding and alignment of the team?
 
@@ -65,7 +65,7 @@ And yes, I guess I'm opening more questions than I am answering... My bad.
 
 ## Ironman's approach, I feel, is not wrong
 
-Somewhat related is the topic of the decision making itself and information, and the topic of simulations. And whenever I think of simulations these days, I think about Monte-Carlo, Reinforcement Learning, and the likes.
+Somewhat related is the topic of the decision making itself and information, and the topic of simulations. Actually above I kinda of made a point of the limits of any simulation. In that the reality is complex, has several levels of abstraction, and too much detail to ever be included in a simulation. Still... Whenever I think of simulations these days, I think about Monte-Carlo, Reinforcement Learning, and the likes.
 
 ### Side note
 
@@ -83,7 +83,7 @@ I'll admit, I'm a fan of the Ironman movies (and no, I'm not ashamed). But I mos
 
 In several scenes of different movies in the series of Ironman or the Avengers, Tony launches a simulation of something (say of different ways of programming something, compiling it, and seeing whether the resulting program would successfully fulfill a given purpose, I guess).
 
-With all the considerations above about the limits of decision-making, their actual impact, the importance of chaos theory, impossibility of considering future changing-context, the role of the execution, alignment, etc... With all that in mind...
+With all the considerations above about **the limits of decision-making**, their actual impact, the importance of chaos theory, impossibility of considering future changing-context, the role of the execution, alignment, etc... With all that in mind...
 
 I've run in the past simulations of traffic in (medium) cities, which helped identify bottlenecks for different traffic scenarios. I've run Monte-Carlo simulations of infectious processes on small networks, to decide better on which nodes to act. I've been playing with Reinforcement Learning, whereby an agent takes more or less appropriate decisions with (limited) contextual information.
 
@@ -95,9 +95,11 @@ By the way, this is also what Meta-heuristics is all about (including, obviously
 
 I also believe that the ideas of "digital twins" for instance in Health Care decision support are interesting, in that sense.
 
-And well, that's the gist of my thoughts on the topic today.
+All in all, I guess this point is that one can support (ever imperfect) decision making with simulations.
 
 ## Conclusions
+
+And well, that's the gist of my thoughts on the topic today.
 
 I know, I didn't invent fire today. It would seem, I rarely have an actually original thought... Apologies here. The best I can do, it appears, is agreeing or disagreeing with some view, and then changing my mind with everything I learn along the way... Oh well.
 
