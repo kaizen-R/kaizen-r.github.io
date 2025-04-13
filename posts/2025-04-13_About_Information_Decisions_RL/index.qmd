@@ -25,7 +25,7 @@ But let's not get ahead of ourselves, as since this morning I have given it some
 
 And so it goes for **Decisions**! After all, if you have to choose between 3 (competing) options, you can look at them as 3 different binary choices.
 
-And that "simil" I think is key. Binary is in the end the minimal level of encoding for information AND for decisions, and maybe then it **kinda makes sense that information is hence just a support for decision**.
+And that "simile" I think is key. Binary is in the end the minimal level of encoding for information AND for decisions, and maybe then it **kinda makes sense that information is hence just a support for decision**.
 
 Or maybe not: *some will argue* **randomness**, **intuition**, etc. I don't disagree. **Chaos theory sorts of proves that point**, that you **can't predict the future**. Not absolutely anyway, not in the long run, in complex systems. And decisions are not only binary in nature: they are **also about making a prediction**, aren't they? Otherwise... They make no sense.
 
@@ -41,13 +41,11 @@ Coming back to the discussion of Tolstoi's perspective (I haven't read Tolstoi m
 
 This reminded me of two "ideas" somehow. Maybe it's a bit far-fetched... But here goes:
 
--   Cybernetics. Now this is far from a perfect match here, I know. But in concept, a captain that steers a boat pushes in one direction, but you **can't perfectly** indicate an **exact** direction, so in that sense you have a lot of influence, yes, but there is some... wiggle? uncertainty? And although I understand I am being fuzzy in my juxtaposition of these ideas here, well, it also agrees with the fact that although you can have an impact on the overall direction of things, no decision will here be perfect as you cannot have a perfect impact.
+-   Cybernetics. Now this is far from a perfect match here, I know. But in concept, originally, that was inspired by a captain that steers a boat, thereby pushes in one direction, but with the wind, waves and what-not, you **can't perfectly** indicate an **exact** direction, so in that sense you have a lot of influence, yes, but there is some... wiggle? uncertainty? And although I understand I am being fuzzy in my juxtaposition of these ideas here, well, it also agrees with the fact that although you can have an impact on the overall direction of things, no decision will here be perfect as you cannot have a perfect impact. Yes, you can build negative-feedback loops, constantly improving... Anyway. Just crossed my mind, there.
 
--   And the second idea, is Asimov's "Psycho-History". I've always loved the original trilogy of the Foundations (not the TV adaptation...). The very concept of psycho-history is resounding when reading these concepts by Tolstoi as introduced above... Which I found interesting.
+-   And the second idea, is Asimov's "Psycho-History". I've always loved the original trilogy of the Foundations (not the TV adaptation...). The very concept of psycho-history is resounding when reading these concepts by Tolstoi as introduced above... Again here, maybe steering is possible, but the "masses" have a sort of inertia to them... A topic, an idea I always found interesting.
 
-What these things are saying, put together, is I guess this: Say in a large company.
-
-One boss can make "strategic" decisions. But how much of that translates into a perfectly aligned (maybe more tactical) action? Does anyone know what such an action could/should be (and that's the job of managers and employees, you could argue)? Would context accompany, at all?
+What these things are saying, put together, is I guess this: Say in a large company. One boss can make "strategic" decisions. But how much of that translates into a perfectly aligned (maybe more tactical) action? Does anyone know what such an action could/should be (and that's the job of managers and employees, you could argue)? Would context accompany, at all?
 
 **Context is of course taken into account in decision making**. As it should be. But context evolves, and some talk about 5-year plans, and I would argue, that might not... Work, as the context is so uncertain. (And there could be a counter-argument made that part of the context is not as "changing", or that strategic plans need constant review, etc. All fair points :))
 
