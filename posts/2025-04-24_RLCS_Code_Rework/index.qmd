@@ -1,0 +1,88 @@
+---
+title: "RLCS: Better code?"
+author: "Nico"
+date: "2025-04-24"
+categories: [ML, RLCS, code, Optimization]
+---
+
+## I'm worried about my code being too ugly
+
+Most of the code thus far was about getting it to work, and for it to not be too slow at runtime (with several approaches considered).
+
+And although I do try to not write pure garbage code, well, sometimes I'm not happy with the results.
+
+I rescued the (mostly yet unread) books I have from "Uncle Bob" (see References) to get renewed inspiration on that topic.
+
+## Monadic & Dyadic functions
+
+Well, I understand the concept, but... How do you pass one variable when you need to pass several hyperparameters for the algorithm to work?
+
+I'm sure this is not a correct solution, but I just decided to simply move the **hyperparameters into an object** (which, you know, can be a simple list underneath). That will make the calls **cleaner for sure**.
+
+## Very similar functions
+
+I have several functions that do **almost** exactly the same thing, just... They act on a different parameter.
+
+Things like "increase_match_count()", "increase_correct_count()" and "increase_action_count()", as you can probably intuit, are basically the very same function.
+
+So I'm thinking about not re-writing the complete functions (although, all of them are very very simple, in that they just lapply() and +1 a given parameter for a given population), and overload them, using a function factory (as described in "Advanced R"). It's probably best to do it that way, but I'll think about it, because if I need to expose said functions, then they'd have to have their own .R file each, and then it's less self-explanatory...
+
+## RL is... I'm still not doing a package, really...
+
+I'm facing an issue in **concept**: How do you **package a Reinforcement Learning** Algorithm?
+
+I don't see two ways around it, you **must** make assumptions about the environment for your agent(s).
+
+So say the environment will be passed as a parameter.
+
+You have no choice but to interact with it, and so it simply can't expose just any interfaces. Things like "agent_calls_action(agent, action)", or "get_action_score(agent, action)" (that will always return a valid (say, numeric) value) must be somehow **standardized**.
+
+Maybe you can require the environment object to answer correctly to "list_available_actions()", but then, you need to probably ensure that these actions are all well controlled in different states, so that they are all legal actions whenever the agent calls them... Or instead you might want to be able to call "list_legal_actions(agent)" out of your environment object at each stage...
+
+And so in "wrapping" the RLCS code to make it into a package, **I have to make assumptions about valid worlds**/environment being provided, for RL.
+
+For supervised learning, it not that much of an issue, although in the current state of affairs, you will need a specific environment. BUT the key difference is, you **can test the complete environment** for valid states and actions **upon first call**, and before you proceed with the algorithm run(s), so ideally you won't run into invalid stuff upon working with the package in the future.
+
+## Parallel processing or not?
+
+One other key thing is processing time. We've seen I have tried different calls to parallelize the thing and see what made sense, when. More or less.
+
+One rather big issue is that the LCS algorithm is very sequential in nature. And so for large environments (i.e. many states) or long (strings) states (i.e. big search space), it can be slow, and there are not too many ways around it. But I have shown there **are** possibilities to consider. And I **could** make that part of the package itself, really.
+
+One drawback however is that I have made some effort to **limit as much as possible dependencies**.
+
+I use plyr::rbind.fill(), and for the package code itself, I think that's basically all of it. No other required library/function I haven't coded myself.
+
+(For World Plotting or Classifier System Visuals, yes, maybe, but I'm considering leaving that as supplementary code, not part of the package, although I will say, visuals are important to make the thing more attractive...)
+
+Regardless, even with uncommon plotting functions, maybe I require (directly) 3 packages overall? And nothing such as "tidyverse" or other big metapackages.
+
+That's very much intentional (again, efficiency was a consideration, and I prefer **smaller packages** with shorter lists of dependencies...). Also, it makes **maintainability better**, surely (renv() or not).
+
+But that's a **balancing exercise**, isn't it? And adding support for parallel processing is one set of potentially rather big dependencies. Plus, making sure that works cross-platforms...
+
+## Conclusions
+
+These and other similar considerations are in my head these days. Although I will also say, I'm taking it slow. The whole thing works, and it's not awfully slow (considering what it could be).
+
+But should the code be "better looking"...
+
+-   I have next to no comments, for instance. Mainly because I try to use functions with self-explanatory names.
+
+-   I have done plenty of testing, for each function, but... I haven't done quite exactly TDD, namely I haven't written down tests for each function in a neat file or set of test files...
+
+-   Other ideas, like functional approaches: There are still plenty of looping things happening. Should I use recursion, with TCO? I haven't looked much into TCO in R, for instance, but if it worked nicely (i.e. fast enough), maybe it would make sense for at least some of my funcions? Or does it? My experience with recursion in R is very bad, but I wasn't aware of the TCO option. Memoizing could be another option, but there is quite a bit of stochastic stuff happening with this algorithm, and so that might not be a good idea at all.
+
+-   Not to mention, I haven't even looked into RCpp for this package just yet. It kinda feels unnecessary at this stage but... I also don't have a comparison point, so maybe I'm loosing an opportunity to have things improving greatly right there? After all, I use vectorized operations (lapply() and al.) a lot, but maybe an RCpp loop of loops would run even faster? I haven't tried it here.
+
+So much to do still...
+
+Also, I want to make a page dedicated to documenting this code/package, so that the algorithm can be understood, and presented. I've pointed to great resources in the past to understand the algorithm. I just want to make something to explain the algorithm, with my own implementation. But that's a different topic, I guess.
+
+## Resources
+
+[Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882), by R. C. Martin ("Uncle Bob")
+
+[Functional Design](https://www.amazon.com/Functional-Design-Principles-Patterns-Practices/dp/0138176396), by R. C. Martin ("Uncle Bob")
+
+[Advanced R](https://adv-r.hadley.nz/function-factories.html), by H. Wickham

@@ -15,7 +15,7 @@ But what? Well, I have options for sure, but one of them was to choose a topic t
 
 And while reading it, these ideas of Tolstoi (see "War and Peace") about some limits of the "science" (rather art) of Strategy, and how history might filter a few decisions as key, discarding many other things that have happened...
 
-![Book Cover for "Strategy, a History" (see resources)](Strategy book cover.png){fig-align="center" width="300"}
+![Book Cover for "Strategy, a History" (see resources)](Strategy%20book%20cover.png){fig-align="center" width="300"}
 
 But let's not get ahead of ourselves, as since this morning I have given it some thought...
 
