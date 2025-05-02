@@ -1,0 +1,110 @@
+---
+title: "RLCS: small code rewrites"
+author: "Nico"
+date: "2025-05-02"
+categories: [ML, RLCS, code, Optimization]
+---
+
+## Small updates of the code
+
+As announced, I'm doing some code rewriting, just because...
+
+## Function Factory
+
+So I had 2 or three of these:
+
+``` R
+inc_match_count <- function(M_pop) { ## All versions
+  lapply(M_pop, \(x) {
+    x$match_count <- x$match_count + 1
+    x
+  })
+}
+
+inc_correct_count <- function(C_pop) { ## SL Specific
+  lapply(C_pop, \(x) {
+    x$correct_count <- x$correct_count + 1
+    x
+  })
+}
+
+inc_action_count <- function(A_pop) { ## RL Specific
+  lapply(A_pop, \(x) {
+    x$action_count <- x$action_count + 1
+    x
+  })
+}
+```
+
+Now it looks like so:
+
+``` R
+## Function factory to increase parameter counts
+inc_param_count <- function(param) {
+  param <- as.name(param)
+  function(pop) {
+    lapply(pop, \(x) {
+      x[[param]] <- x[[param]] + 1
+      x
+    })
+  }
+}
+
+inc_match_count <- inc_param_count("match_count")
+inc_correct_count <- inc_param_count("correct_count")
+inc_action_count <- inc_param_count("action_count")
+```
+
+As I do not intend to expose these functions in the future "packaged" version, well, this is pretty safe.
+
+## Object for Hyperparameters
+
+And as also announced, I cleaned up a bit the code to "call training". Now using an object for the hyperparameters of the algorithm, which has its own defaults, makes things a bit cleaner.
+
+``` R
+source("run_params/datamining_examples_recommended_hyperparameters_v001.R")
+
+basic_hyperparameters <- RLCS_hyperparameters(
+  wildcard_prob = wildcard_prob,
+  rd_trigger = rd_trigger,
+  mutation_probability = mutation_probability,
+  parents_selection_mode = parents_selection_mode,
+  tournament_pressure = tournament_pressure,
+  n_epochs = n_epochs,
+  deletion_trigger = deletion_trigger,
+  deletion_threshold = deletion_threshold
+)
+
+## It makes it more readable here:
+example_lcs <- rlcs_train(train_environment, basic_hyperparameters)
+```
+
+And given the number of parameters, it's even more readable of course if you take the defaults:
+
+``` R
+default_lcs_hyperparameters <- RLCS_hyperparameters()
+example_lcs <- rlcs_train(train_environment, default_lcs_hyperparameters)
+```
+
+Using an object might also help with adding error controls... Probably, that's not implemented yet. Also, it's a valid approach to clean code, as these variables are all part of the same concept of hyper-parameters for the algorithm, meaning they do belong together.
+
+And as a note here, "defaults" are seldom all good for an LCS, so you should probably overwrite some of the parameters depending on each problem you look at...
+
+For comparison, I saved a version of an old call, and it's just that it received too many parameters:
+
+``` R
+lcs_res <- rlcs_meta_train(train_environment,
+                           1, ## Warmup with just one epoch
+                           wildcard_prob,
+                           rd_trigger,
+                           parents_selection_mode,
+                           mutation_probability,
+                           tournament_pressure,
+                           deletion_trigger) ## Deletion won't be triggered
+```
+
+## Resources
+
+[Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882), by R. C. Martin ("Uncle Bob")
+
+[Advanced R](https://adv-r.hadley.nz/function-factories.html), by H. Wickham
