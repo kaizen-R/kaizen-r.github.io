@@ -1300,5 +1300,26 @@
     "title": "RLCS: small code rewrites",
     "section": "Resources",
     "text": "Resources\nClean Code, by R. C. Martin (“Uncle Bob”)\nAdvanced R, by H. Wickham"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#the-weirdest-thing-happened",
+    "href": "others/RLCS_documentation.html#the-weirdest-thing-happened",
+    "title": "RLCS: A documentation",
+    "section": "The weirdest thing happened",
+    "text": "The weirdest thing happened\nHave you ever found something that no one else has done?\nI found such a thing last November 2024. But let’s go back for a minute."
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#an-issue-with-ai-explainability",
+    "href": "others/RLCS_documentation.html#an-issue-with-ai-explainability",
+    "title": "RLCS: A documentation",
+    "section": "An issue with “AI”: explainability",
+    "text": "An issue with “AI”: explainability"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#a-bit-of-history-john-h.-hollands-ideas",
+    "href": "others/RLCS_documentation.html#a-bit-of-history-john-h.-hollands-ideas",
+    "title": "RLCS: A documentation",
+    "section": "A bit of history: John H. Holland’s Ideas",
+    "text": "A bit of history: John H. Holland’s Ideas\nJ. Holland is behind the ideas of Genetic Algorithms.\n\n1+1\n\n[1] 2"
   }
 ]

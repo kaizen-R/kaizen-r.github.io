@@ -13,7 +13,7 @@ As announced, I'm doing some code rewriting, just because...
 
 So I had 2 or three of these:
 
-``` R
+``` r
 inc_match_count <- function(M_pop) { ## All versions
   lapply(M_pop, \(x) {
     x$match_count <- x$match_count + 1
@@ -38,7 +38,7 @@ inc_action_count <- function(A_pop) { ## RL Specific
 
 Now it looks like so:
 
-``` R
+``` r
 ## Function factory to increase parameter counts
 inc_param_count <- function(param) {
   param <- as.name(param)
@@ -61,7 +61,7 @@ As I do not intend to expose these functions in the future "packaged" version, w
 
 And as also announced, I cleaned up a bit the code to "call training". Now using an object for the hyperparameters of the algorithm, which has its own defaults, makes things a bit cleaner.
 
-``` R
+``` r
 source("run_params/datamining_examples_recommended_hyperparameters_v001.R")
 
 basic_hyperparameters <- RLCS_hyperparameters(
@@ -81,7 +81,7 @@ example_lcs <- rlcs_train(train_environment, basic_hyperparameters)
 
 And given the number of parameters, it's even more readable of course if you take the defaults:
 
-``` R
+``` r
 default_lcs_hyperparameters <- RLCS_hyperparameters()
 example_lcs <- rlcs_train(train_environment, default_lcs_hyperparameters)
 ```
@@ -92,7 +92,7 @@ And as a note here, "defaults" are seldom all good for an LCS, so you should pro
 
 For comparison, I saved a version of an old call, and it's just that it received too many parameters:
 
-``` R
+``` r
 lcs_res <- rlcs_meta_train(train_environment,
                            1, ## Warmup with just one epoch
                            wildcard_prob,
