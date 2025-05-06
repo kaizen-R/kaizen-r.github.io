@@ -1,5 +1,5 @@
 ---
-title: "RLCS: A documentation"
+title: "RLCS: A story"
 # format:
 #   html:
 #     toc: true
@@ -7,9 +7,9 @@ title: "RLCS: A documentation"
     
 format: 
   revealjs:
-    # footer: "[github.com/meghall06/neair](https://github.com/meghall06/neair)&nbsp;&nbsp;&nbsp;"
-    # theme: [moon, custom.scss]
-    toc: true
+    footer: "[kaizen-r blog on RLCS](https://kaizen-r.github.io/#category=RLCS)&nbsp;"
+    theme: [simple]
+    # toc: true
     preview-links: auto
     chalkboard: 
       boardmarker-width: 5
@@ -18,20 +18,353 @@ execute:
   echo: true
 ---
 
-# RLCS - Future Package-to-be
+# The weirdest thing
 
-## The weirdest thing happened
+. . .
 
 Have you ever found something that **no one else has done?**
 
+. . .
+
 I found such a thing last November 2024. But let's go back for a minute.
 
+::: {.notes}
+Speaker notes go here.
+:::
+
 ## An issue with "AI": explainability
+
+Let's call it Machine Learning. Today that's mostly Neural networks. And mostly, that means it's all **black boxes**.
+
+<br/>There are [ways around that](https://a.co/d/ba1J0oh "Interpretable Machine Learning: A Guide For Making Black Box Models Explainable").
+
+E.g. such alternatives like *Partitioning Trees* and other "open book" algorithms...
+
+. . .
+
+<br/>Today, we'll be discussing one such explainable Machine Learning algorithm.
 
 ## A bit of history: John H. Holland's Ideas
 
 J. Holland is behind the ideas of Genetic Algorithms.
 
+\<TBC\>
+
 ```{r}
 1+1
 ```
+
+## The goal: A new R package
+
+![Getting started](images/books.jpeg){fig-align="center"}
+
+## The goal: A new R package
+
+A package to implement the Learning Classifier System algorithm
+
+A simple version of it (to begin with)
+
+-   Binary Alphabet\*
+
+-   With functional examples
+
+-   Implementing
+
+    -   Data Mining and Supervised Learning
+
+    -   Reinforcement Learning
+
+<br/> :::{small}
+
+\*to be explained very soon
+
+:::
+
+## Why nobody has done it yet?
+
+After some time working on the thing...
+
+. . .
+
+It's not fast
+
+:::incremental
+
+-   There are many sequential steps, rather unavoidable ones at that
+
+-   Not ideal to compete with a world of GPUs and parallel processing (yet ;))
+
+:::
+
+. . .
+
+It's "complex"
+
+:::incremental
+
+-   Or so does the [Wikipedia entry](https://en.wikipedia.org/wiki/Learning_classifier_system#Disadvantages) say...
+
+-   When it comes to "alphabets", it does get messy, I'll admit
+
+:::
+
+## Demo Time
+
+Data Mining Scenario
+
+. . .
+
+A warning, the algorithm is non-deterministic...
+
+. . .
+
+To be clear: I have used that on a Corporate CMDB (IT Inventory) and it helped!
+
+## Demo Time
+
+Expected result:
+
+![](images/rlcs_not_bit_4.png){fig-align="center"}
+
+## Epistasis
+
+LCS SL can somehow recognize **things that are interrelated in the data**, here how **two different parts interact**.
+
+Aptly... The [term](https://en.wikipedia.org/wiki/Epistasis) comes from the world of genetics, where it refers to genes modified by the presence of other genes.
+
+# Some code
+
+## How did I approach the thing?
+
+:::incremental
+
+-   Lists. Lists, everywhere. Which might have been a bad idea... (data.table?)
+
+-   from there, lapply() & al. is then my best friend
+
+-   Start small, grow fast (because I get obsessed)
+
+-   then clean it
+
+-   then clean it some more
+
+-   ever postponing the move to a Package, though
+
+:::
+
+## Examples
+
+Before
+
+``` R
+lcs_res <- rlcs_meta_train(train_environment,
+                           1, ## Warmup with just one epoch
+                           wildcard_prob,
+                           rd_trigger,
+                           parents_selection_mode,
+                           mutation_probability,
+                           tournament_pressure,
+                           deletion_trigger) ## Deletion won't be triggered
+```
+
+. . .
+
+Too many parameters! (Uncle Bob wouldn't like it)
+
+## Examples
+
+After, using an object ([reference class, "R5"](http://adv-r.had.co.nz/R5.html), in this case)
+
+``` R
+default_lcs_hyperparameters <- RLCS_hyperparameters()
+example_lcs <- rlcs_train(train_environment, default_lcs_hyperparameters)
+```
+
+## Examples
+
+Or, you know...
+
+``` R
+source("run_params/datamining_examples_recommended_hyperparameters_v001.R")
+
+basic_hyperparameters <- RLCS_hyperparameters(
+  wildcard_prob = wildcard_prob,
+  rd_trigger = rd_trigger,
+  mutation_probability = mutation_probability,
+  parents_selection_mode = parents_selection_mode,
+  tournament_pressure = tournament_pressure,
+  n_epochs = n_epochs,
+  deletion_trigger = deletion_trigger,
+  deletion_threshold = deletion_threshold
+)
+
+## It makes it more readable here:
+example_lcs <- rlcs_train(train_environment, basic_hyperparameters)
+```
+
+## Examples
+
+Before
+
+``` R
+inc_match_count <- function(M_pop) { ## All versions
+  lapply(M_pop, \(x) {
+    x$match_count <- x$match_count + 1
+    x
+  })
+}
+
+inc_correct_count <- function(C_pop) { ## SL Specific
+  lapply(C_pop, \(x) {
+    x$correct_count <- x$correct_count + 1
+    x
+  })
+}
+
+inc_action_count <- function(A_pop) { ## RL Specific
+  lapply(A_pop, \(x) {
+    x$action_count <- x$action_count + 1
+    x
+  })
+}
+```
+
+## Examples
+
+After, using a [function factory](https://adv-r.hadley.nz/function-factories.html)
+
+``` R
+## Function factory to increase parameter counts
+inc_param_count <- function(param) {
+  param <- as.name(param)
+  function(pop) {
+    lapply(pop, \(x) {
+      x[[param]] <- x[[param]] + 1
+      x
+    })
+  }
+}
+
+inc_match_count <- inc_param_count("match_count")
+inc_correct_count <- inc_param_count("correct_count")
+inc_action_count <- inc_param_count("action_count")
+```
+
+## Examples
+
+Before
+
+``` R
+## Support function for human-compatible printing:
+make_pop_printable <- function(classifier) {
+    
+    df <- plyr::rbind.fill(lapply(1:length(classifier), \(i) {
+        t_c <- classifier[[i]]
+        data.frame(id = t_c$id,
+                   condition = t_c$condition_string,
+                   action = t_c$action,
+                   match_count = t_c$match_count,
+                   correct_count = t_c$correct_count,
+                   accuracy = t_c$accuracy,
+                   numerosity = t_c$numerosity,
+                   first_seen = t_c$first_seen)
+    }))
+    df[order(df$accuracy, df$numerosity, decreasing = T),]
+}
+```
+
+. . .
+
+(Even the parameter name is wrong...)
+
+## Examples
+
+After, thanks to using S3 object (one of the very few dependencies I have is in fact plyr::rbind.fill)
+
+``` R
+print.rlcs_population <- function(pop) {
+  if(length(pop) == 0) return(NULL)
+  
+  pop <- lcs_best_sort_sl(pop)
+  pop <- unclass(pop)
+  plyr::rbind.fill(lapply(1:length(pop), \(i) {
+    t_c <- pop[[i]]
+    data.frame(condition = t_c$condition_string,
+               action = t_c$action,
+               match_count = t_c$match_count,
+               correct_count = t_c$correct_count,
+               accuracy = t_c$accuracy,
+               numerosity = t_c$numerosity,
+               first_seen = t_c$first_seen)
+  }))
+}
+```
+
+. . .
+
+``` R
+print(example_lcs_population)
+```
+
+## Then again
+
+This is all work in progress.
+
+I'm now working backwards from "it works" to "someone else will understand how it works".
+
+I'm in no hurry, although I'd really like to make it into a CRAN Package.
+
+Which means I must document more, write down actual tests (post-hoc TDD, I guess), keep working
+
+## Reinforcement Learning Conundrum
+
+We've seen it works, but... **How do you package an RL algorithm?**
+
+. . .
+
+You must make assumptions about the "world" your agent is going to interact with. This makes things complicated:
+
+:::incremental
+
+-   What to include inside the package? What not?
+
+-   What to expose from the package? What not?
+
+:::
+
+And a few other such questions slow me down a bit...
+
+## Execution Speed
+
+There are other concerns. For instance, this is a "slow" algorithm.
+
+. . .
+
+Parallel computing? %dopar% was tested (it works, but...)
+
+:::incremental
+
+-   vertical and horizontal partitioning
+    -   Break data set (vertical). Two options
+
+        -   instances subsets (reduce population covered per thread/core)
+
+        -   Substrings of states (reduce search space)
+
+        -   both are "risky"
+
+    -   run fewer iterations (epochs) on full dataset, but on several cores in parallel
+
+:::
+
+# Visuals
+
+## Because text and code won't make it popular...
+
+\<TBC\>
+
+# Resources
+
+-   <https://meghan.rbind.io/blog/2022-07-12-making-slides-in-quarto-with-revealjs/#my-quarto-journey-begins>
+
+-   

@@ -1311,15 +1311,155 @@
   {
     "objectID": "others/RLCS_documentation.html#an-issue-with-ai-explainability",
     "href": "others/RLCS_documentation.html#an-issue-with-ai-explainability",
-    "title": "RLCS: A documentation",
+    "title": "RLCS: A story",
     "section": "An issue with “AI”: explainability",
-    "text": "An issue with “AI”: explainability"
+    "text": "An issue with “AI”: explainability\nLet’s call it Machine Learning. Today that’s mostly Neural networks. And mostly, that means it’s all black boxes.\nThere are ways around that.\nE.g. such alternatives like Partitioning Trees and other “open book” algorithms…\n\nToday, we’ll be discussing one such explainable Machine Learning algorithm."
   },
   {
     "objectID": "others/RLCS_documentation.html#a-bit-of-history-john-h.-hollands-ideas",
     "href": "others/RLCS_documentation.html#a-bit-of-history-john-h.-hollands-ideas",
-    "title": "RLCS: A documentation",
+    "title": "RLCS: A story",
     "section": "A bit of history: John H. Holland’s Ideas",
-    "text": "A bit of history: John H. Holland’s Ideas\nJ. Holland is behind the ideas of Genetic Algorithms.\n\n1+1\n\n[1] 2"
+    "text": "A bit of history: John H. Holland’s Ideas\nJ. Holland is behind the ideas of Genetic Algorithms.\n&lt;TBC&gt;\n\n1+1\n\n[1] 2"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#why-nobody-has-done-it-yet",
+    "href": "others/RLCS_documentation.html#why-nobody-has-done-it-yet",
+    "title": "RLCS: A story",
+    "section": "Why nobody has done it yet?",
+    "text": "Why nobody has done it yet?\nAfter some time working on the thing…\n\nIt’s not fast\n\n\nThere are many sequential steps, rather unavoidable ones at that\nNot ideal to compete with a world of GPUs and parallel processing (yet ;))\n\n\n\n\nIt’s “complex”\n\n\nOr so does the Wikipedia entry say…\nWhen it comes to “alphabets”, it does get messy, I’ll admit"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#the-goal-a-new-r-package",
+    "href": "others/RLCS_documentation.html#the-goal-a-new-r-package",
+    "title": "RLCS: A story",
+    "section": "The goal: A new R package",
+    "text": "The goal: A new R package\n\nGetting started"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#the-goal-a-new-r-package-1",
+    "href": "others/RLCS_documentation.html#the-goal-a-new-r-package-1",
+    "title": "RLCS: A story",
+    "section": "The goal: A new R package",
+    "text": "The goal: A new R package\nA package to implement the Learning Classifier System algorithm\nA simple version of it (to begin with)\n\nBinary Alphabet*\nWith functional examples\nImplementing\n\nData Mining and Supervised Learning\nReinforcement Learning\n\n\n :::{small}\n*to be explained very soon\n:::"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#some-code",
+    "href": "others/RLCS_documentation.html#some-code",
+    "title": "RLCS: A story",
+    "section": "Some code",
+    "text": "Some code\nHow did I approach the thing?\n\n\nLists. Lists, everywhere.\nlapply() is then my best friend\nStart small, grow fast (because I get obsessed)\nthen clean it\nthen clean it some more\never postponing the move to a Package, though"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#examples",
+    "href": "others/RLCS_documentation.html#examples",
+    "title": "RLCS: A story",
+    "section": "Examples",
+    "text": "Examples\nBefore\nlcs_res &lt;- rlcs_meta_train(train_environment,\n                           1, ## Warmup with just one epoch\n                           wildcard_prob,\n                           rd_trigger,\n                           parents_selection_mode,\n                           mutation_probability,\n                           tournament_pressure,\n                           deletion_trigger) ## Deletion won't be triggered\n\nToo many parameters! (Uncle Bob wouldn’t like it)"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#examples-1",
+    "href": "others/RLCS_documentation.html#examples-1",
+    "title": "RLCS: A story",
+    "section": "Examples",
+    "text": "Examples\nAfter, using an object (reference class, “R5”, in this case)\ndefault_lcs_hyperparameters &lt;- RLCS_hyperparameters()\nexample_lcs &lt;- rlcs_train(train_environment, default_lcs_hyperparameters)"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#demo-time",
+    "href": "others/RLCS_documentation.html#demo-time",
+    "title": "RLCS: A story",
+    "section": "Demo Time",
+    "text": "Demo Time\nData Mining Scenario\n\nA warning, the algorithm is non-deterministic…\n\n\nTo be clear: I have used that on a Corporate CMDB (IT Inventory) and it helped!"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#demo-time-1",
+    "href": "others/RLCS_documentation.html#demo-time-1",
+    "title": "RLCS: A story",
+    "section": "Demo Time",
+    "text": "Demo Time\nExpected result:"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#examples-2",
+    "href": "others/RLCS_documentation.html#examples-2",
+    "title": "RLCS: A story",
+    "section": "Examples",
+    "text": "Examples\nOr, you know…\nsource(\"run_params/datamining_examples_recommended_hyperparameters_v001.R\")\n\nbasic_hyperparameters &lt;- RLCS_hyperparameters(\n  wildcard_prob = wildcard_prob,\n  rd_trigger = rd_trigger,\n  mutation_probability = mutation_probability,\n  parents_selection_mode = parents_selection_mode,\n  tournament_pressure = tournament_pressure,\n  n_epochs = n_epochs,\n  deletion_trigger = deletion_trigger,\n  deletion_threshold = deletion_threshold\n)\n\n## It makes it more readable here:\nexample_lcs &lt;- rlcs_train(train_environment, basic_hyperparameters)"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#examples-3",
+    "href": "others/RLCS_documentation.html#examples-3",
+    "title": "RLCS: A story",
+    "section": "Examples",
+    "text": "Examples\nBefore\ninc_match_count &lt;- function(M_pop) { ## All versions\n  lapply(M_pop, \\(x) {\n    x$match_count &lt;- x$match_count + 1\n    x\n  })\n}\n\ninc_correct_count &lt;- function(C_pop) { ## SL Specific\n  lapply(C_pop, \\(x) {\n    x$correct_count &lt;- x$correct_count + 1\n    x\n  })\n}\n\ninc_action_count &lt;- function(A_pop) { ## RL Specific\n  lapply(A_pop, \\(x) {\n    x$action_count &lt;- x$action_count + 1\n    x\n  })\n}"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#examples-4",
+    "href": "others/RLCS_documentation.html#examples-4",
+    "title": "RLCS: A story",
+    "section": "Examples",
+    "text": "Examples\nAfter, using a function factory\n## Function factory to increase parameter counts\ninc_param_count &lt;- function(param) {\n  param &lt;- as.name(param)\n  function(pop) {\n    lapply(pop, \\(x) {\n      x[[param]] &lt;- x[[param]] + 1\n      x\n    })\n  }\n}\n\ninc_match_count &lt;- inc_param_count(\"match_count\")\ninc_correct_count &lt;- inc_param_count(\"correct_count\")\ninc_action_count &lt;- inc_param_count(\"action_count\")"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#epistasis",
+    "href": "others/RLCS_documentation.html#epistasis",
+    "title": "RLCS: A story",
+    "section": "Epistasis",
+    "text": "Epistasis\nLCS SL can somehow recognize things that are interrelated in the data, here how two different parts interact.\nAptly… The term comes from the world of genetics, where it refers to genes modified by the presence of other genes."
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#examples-5",
+    "href": "others/RLCS_documentation.html#examples-5",
+    "title": "RLCS: A story",
+    "section": "Examples",
+    "text": "Examples\nBefore\n## Support function for human-compatible printing:\nmake_pop_printable &lt;- function(classifier) {\n    \n    df &lt;- plyr::rbind.fill(lapply(1:length(classifier), \\(i) {\n        t_c &lt;- classifier[[i]]\n        data.frame(id = t_c$id,\n                   condition = t_c$condition_string,\n                   action = t_c$action,\n                   match_count = t_c$match_count,\n                   correct_count = t_c$correct_count,\n                   accuracy = t_c$accuracy,\n                   numerosity = t_c$numerosity,\n                   first_seen = t_c$first_seen)\n    }))\n    df[order(df$accuracy, df$numerosity, decreasing = T),]\n}\n\n(Even the parameter name is wrong…)"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#examples-6",
+    "href": "others/RLCS_documentation.html#examples-6",
+    "title": "RLCS: A story",
+    "section": "Examples",
+    "text": "Examples\nAfter, thanks to using S3 object (one of the very few dependencies I have is in fact plyr::rbind.fill)\nprint.rlcs_population &lt;- function(pop) {\n  if(length(pop) == 0) return(NULL)\n  \n  pop &lt;- lcs_best_sort_sl(pop)\n  pop &lt;- unclass(pop)\n  plyr::rbind.fill(lapply(1:length(pop), \\(i) {\n    t_c &lt;- pop[[i]]\n    data.frame(condition = t_c$condition_string,\n               action = t_c$action,\n               match_count = t_c$match_count,\n               correct_count = t_c$correct_count,\n               accuracy = t_c$accuracy,\n               numerosity = t_c$numerosity,\n               first_seen = t_c$first_seen)\n  }))\n}\n\nprint(example_lcs_population)"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#how-did-i-approach-the-thing",
+    "href": "others/RLCS_documentation.html#how-did-i-approach-the-thing",
+    "title": "RLCS: A story",
+    "section": "How did I approach the thing?",
+    "text": "How did I approach the thing?\n\n\nLists. Lists, everywhere. Which might have been a bad idea… (data.table?)\nfrom there, lapply() & al. is then my best friend\nStart small, grow fast (because I get obsessed)\nthen clean it\nthen clean it some more\never postponing the move to a Package, though"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#then-again",
+    "href": "others/RLCS_documentation.html#then-again",
+    "title": "RLCS: A story",
+    "section": "Then again",
+    "text": "Then again\nThis is all work in progress.\nI’m now working backwards from “it works” to “someone else will understand how it works”.\nI’m in no hurry, although I’d really like to make it into a CRAN Package.\nWhich means I must document more, write down actual tests (post-hoc TDD, I guess), keep working"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#visuals",
+    "href": "others/RLCS_documentation.html#visuals",
+    "title": "RLCS: A story",
+    "section": "Visuals",
+    "text": "Visuals"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#reinforcement-learning-conundrum",
+    "href": "others/RLCS_documentation.html#reinforcement-learning-conundrum",
+    "title": "RLCS: A story",
+    "section": "Reinforcement Learning Conundrum",
+    "text": "Reinforcement Learning Conundrum\nWe’ve seen it works, but… How do you package an RL algorithm?\n\nYou must make assumptions about the “world” your agent is going to interact with. This makes things complicated:\n\n\nWhat to include inside the package? What not?\nWhat to expose from the package? What not?\n\n\nAnd a few other such questions slow me down a bit…"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#execution-speed",
+    "href": "others/RLCS_documentation.html#execution-speed",
+    "title": "RLCS: A story",
+    "section": "Execution Speed",
+    "text": "Execution Speed\nThere are other concerns. For instance, this is a “slow” algorithm.\n\nParallel computing? %dopar% was tested (it works, but…)\n\n\nvertical and horizontal partitioning\n\nBreak data set (vertical). Two options\n\ninstances subsets (reduce population covered per thread/core)\nSubstrings of states (reduce search space)\nboth are “risky”\n\nrun fewer iterations (epochs) on full dataset, but on several cores in parallel"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#because-text-and-code-wont-make-it-popular",
+    "href": "others/RLCS_documentation.html#because-text-and-code-wont-make-it-popular",
+    "title": "RLCS: A story",
+    "section": "Because text and code won’t make it popular…",
+    "text": "Because text and code won’t make it popular…\n&lt;TBC&gt;"
   }
 ]
