@@ -1313,14 +1313,14 @@
     "href": "others/RLCS_documentation.html#an-issue-with-ai-explainability",
     "title": "RLCS: A story",
     "section": "An issue with “AI”: explainability",
-    "text": "An issue with “AI”: explainability\nLet’s call it Machine Learning. Today that’s mostly Neural networks. And mostly, that means it’s all black boxes.\nThere are ways around that.\nE.g. such alternatives like Partitioning Trees and other “open book” algorithms…\n\nToday, we’ll be discussing one such explainable Machine Learning algorithm."
+    "text": "An issue with “AI”: explainability\nLet’s call it Machine Learning. Today that’s mostly Neural networks. And mostly, that means it’s all black boxes.\n\nThere are ways around that.\nE.g. such alternatives like Partitioning Trees and other “open book” algorithms…\n\nToday, we’ll be discussing one such explainable Machine Learning algorithm."
   },
   {
     "objectID": "others/RLCS_documentation.html#a-bit-of-history-john-h.-hollands-ideas",
     "href": "others/RLCS_documentation.html#a-bit-of-history-john-h.-hollands-ideas",
     "title": "RLCS: A story",
     "section": "A bit of history: John H. Holland’s Ideas",
-    "text": "A bit of history: John H. Holland’s Ideas\nJ. Holland is behind the ideas of Genetic Algorithms.\n&lt;TBC&gt;\n\n1+1\n\n[1] 2"
+    "text": "A bit of history: John H. Holland’s Ideas\nJ. Holland is behind the ideas of Genetic Algorithms. He proposed an algorithm, represented by the CS-01 program. Later, people came up with variations…\nSo today we focus on “Michigan-style LCS”. Look it up for more info :)\n\nActually… That’s it. No time to dive deeper here."
   },
   {
     "objectID": "others/RLCS_documentation.html#why-nobody-has-done-it-yet",
@@ -1341,7 +1341,7 @@
     "href": "others/RLCS_documentation.html#the-goal-a-new-r-package-1",
     "title": "RLCS: A story",
     "section": "The goal: A new R package",
-    "text": "The goal: A new R package\nA package to implement the Learning Classifier System algorithm\nA simple version of it (to begin with)\n\nBinary Alphabet*\nWith functional examples\nImplementing\n\nData Mining and Supervised Learning\nReinforcement Learning\n\n\n :::{small}\n*to be explained very soon\n:::"
+    "text": "The goal: A new R package\nA package to implement a simple version of the Learning Classifier System algorithm:\n\nBinary Alphabet, tournament/one-point crossover GA, accuracy based, Michigan-style LCS\nWith examples, demonstrating the implementation for:\n\nData Mining\nSupervised Learning\nReinforcement Learning"
   },
   {
     "objectID": "others/RLCS_documentation.html#some-code",
@@ -1383,7 +1383,7 @@
     "href": "others/RLCS_documentation.html#examples-2",
     "title": "RLCS: A story",
     "section": "Examples",
-    "text": "Examples\nOr, you know…\nsource(\"run_params/datamining_examples_recommended_hyperparameters_v001.R\")\n\nbasic_hyperparameters &lt;- RLCS_hyperparameters(\n  wildcard_prob = wildcard_prob,\n  rd_trigger = rd_trigger,\n  mutation_probability = mutation_probability,\n  parents_selection_mode = parents_selection_mode,\n  tournament_pressure = tournament_pressure,\n  n_epochs = n_epochs,\n  deletion_trigger = deletion_trigger,\n  deletion_threshold = deletion_threshold\n)\n\n## It makes it more readable here:\nexample_lcs &lt;- rlcs_train(train_environment, basic_hyperparameters)"
+    "text": "Examples\nOr, you know…\nsource(\"run_params/datamining_examples_recommended_hyperparameters_v001.R\")\nbasic_hyperparameters &lt;- RLCS_hyperparameters(\n  wildcard_prob = wildcard_prob,\n  ## defaults for rd_trigger, mutation_probability,\n  ## parents_selection_mode && tournament_pressure\n  n_epochs = n_epochs,\n  deletion_trigger = deletion_trigger,\n  deletion_threshold = deletion_threshold\n)\n\n## It makes it more readable here:\nexample_lcs &lt;- rlcs_train(train_environment, basic_hyperparameters)"
   },
   {
     "objectID": "others/RLCS_documentation.html#examples-3",
@@ -1432,7 +1432,7 @@
     "href": "others/RLCS_documentation.html#then-again",
     "title": "RLCS: A story",
     "section": "Then again",
-    "text": "Then again\nThis is all work in progress.\nI’m now working backwards from “it works” to “someone else will understand how it works”.\nI’m in no hurry, although I’d really like to make it into a CRAN Package.\nWhich means I must document more, write down actual tests (post-hoc TDD, I guess), keep working"
+    "text": "Then again\nThis is all work in progress.\nI’m now working backwards from “it works” to “someone else will understand how it works”. I’m in no hurry, although I’d really like to make it into a CRAN Package.\nWhich means I must document more, write down actual tests (post-hoc TDD, I guess), keep working on speed (see “supplementary section”), etc."
   },
   {
     "objectID": "others/RLCS_documentation.html#visuals",
@@ -1461,5 +1461,131 @@
     "title": "RLCS: A story",
     "section": "Because text and code won’t make it popular…",
     "text": "Because text and code won’t make it popular…\n&lt;TBC&gt;"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#rl-video",
+    "href": "others/RLCS_documentation.html#rl-video",
+    "title": "RLCS: A story",
+    "section": "RL Video",
+    "text": "RL Video"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#so-how-does-it-work",
+    "href": "others/RLCS_documentation.html#so-how-does-it-work",
+    "title": "RLCS: A story",
+    "section": "So how does it work?",
+    "text": "So how does it work?\nImagine you receive samples of data points (aka states) with their corresponding classes (aka actions). All your input data and their classes (aka instances) form an environment.\nIn this case, we will accept binary string states for the environment instances (examples):\n\n\n\nState\nAction/Class\nFrom the…\n\n\n\n\n0010111100110010\n“setosa”\nIris dataset\n\n\n001010\n1\n“Mux 6”"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#generating-a-rule",
+    "href": "others/RLCS_documentation.html#generating-a-rule",
+    "title": "RLCS: A story",
+    "section": "Generating a rule",
+    "text": "Generating a rule\n\nThe key: “#” means “I don’t care”\n\nYou receive an instance of the population string of binary input (a state and a class). The class here is defined.\nCovering a state with a probability of “#” values means making a rule that matches the input. Something that could match other (partially) similar input:\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.2)\n[1] \"0#0001\"\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.8)\n[1] \"##0###\""
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#wait-what-binary-input",
+    "href": "others/RLCS_documentation.html#wait-what-binary-input",
+    "title": "RLCS: A story",
+    "section": "Wait, what? Binary input?!",
+    "text": "Wait, what? Binary input?!\nWell, for now… Yes. It’s not the end of the world. Here using 4-bits with Gray encoding of “double quartiles” per variable, we can create binary string:\n  Sepal.Length Sepal.Width Petal.Length Petal.Width  slb  swb  plb  pwb\n1          5.1         3.5          1.4         0.2 0010 1111 0011 0010\n2          4.9         3.0          1.4         0.2 0011 0101 0011 0010\n3          4.7         3.2          1.3         0.2 0000 1101 0000 0010\n             state  class\n1 0010111100110010 setosa\n2 0011010100110010 setosa\n3 0000110100000010 setosa"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#key-aspects-generating-a-rule",
+    "href": "others/RLCS_documentation.html#key-aspects-generating-a-rule",
+    "title": "RLCS: A story",
+    "section": "Key Aspects: Generating a rule",
+    "text": "Key Aspects: Generating a rule\n\nThe key: “#” means “I don’t care”\n\nYou receive an instance of the environment string of binary input (a state and a class). The class here is defined already.\nCovering a state with a probability of “#” values means making a rule that matches the input state and class/action. Something that could match other (partially) similar input:\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.2)\n[1] \"0#0001\"\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.8)\n[1] \"##0###\""
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#key-aspects-matching-rule-discovery",
+    "href": "others/RLCS_documentation.html#key-aspects-matching-rule-discovery",
+    "title": "RLCS: A story",
+    "section": "Key Aspects: Matching, Rule Discovery",
+    "text": "Key Aspects: Matching, Rule Discovery\nImagine you have by now created a set of rules with their corresponding actions.\nSo you generate new rules when you see new population instances that do not match any"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#key-aspects-1---generating-a-rule",
+    "href": "others/RLCS_documentation.html#key-aspects-1---generating-a-rule",
+    "title": "RLCS: A story",
+    "section": "Key Aspects 1 - Generating a rule",
+    "text": "Key Aspects 1 - Generating a rule\n\nThe key: “#” means “I don’t care”\n\nYou receive an instance of the environment (a binary string state and a class). The class here is defined already.\nCovering a state with a probability of “#” values means making a rule that matches the input state and class/action. Something that could match other (partially) similar input:\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.2)\n[1] \"0#0001\"\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.8)\n[1] \"##0###\""
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#key-aspects-2---matching",
+    "href": "others/RLCS_documentation.html#key-aspects-2---matching",
+    "title": "RLCS: A story",
+    "section": "Key Aspects 2 - Matching",
+    "text": "Key Aspects 2 - Matching\nSuppose you have a set of rules with their corresponding actions. That’s your population of rules, the central piece of your learning classifier system. So you generate new rules when you see new environment instances that do not match any rule in your population. However!\n\nIf one or more rules in your population match your new instance state, you simply increase the match count.\nIf one or more rules in your population match your new instance state and class/action, you increase the correct count."
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#key-aspects-3---rule-discovery",
+    "href": "others/RLCS_documentation.html#key-aspects-3---rule-discovery",
+    "title": "RLCS: A story",
+    "section": "Key Aspects 3 - Rule Discovery",
+    "text": "Key Aspects 3 - Rule Discovery\nAfter a few epochs of exposing the LCS to your full environment, you will have a few rules that match correctly a given instance, the correct set.\nMatch and Correct count are indicators of how good each rule is. But are there other better possibilities?\n\nTake all the correct set, and apply a Genetic Algorithm to that set, to generate new rules!"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#key-aspects-3---rule-discovery-1",
+    "href": "others/RLCS_documentation.html#key-aspects-3---rule-discovery-1",
+    "title": "RLCS: A story",
+    "section": "Key Aspects 3 - Rule Discovery",
+    "text": "Key Aspects 3 - Rule Discovery\nImplemented: Tournament of Parents, and One-Point Cross Over, with Mutation."
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#key-aspects-4---rule-compaction",
+    "href": "others/RLCS_documentation.html#key-aspects-4---rule-compaction",
+    "title": "RLCS: A story",
+    "section": "Key Aspects 4 - Rule Compaction",
+    "text": "Key Aspects 4 - Rule Compaction\nMatching must go through all the population every time an environment instance is presented to the LCS.\n\\[O(match) = epochs*N(environment)*N(population)\\]\nWhere \\(N()\\) means “size of”.\n\\[e.g. 1.000 * 5.000 * 1.000 = 5.000.000.000\\]\n\nSolution: Reduce the population of rules."
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#key-aspects-5---other-uses",
+    "href": "others/RLCS_documentation.html#key-aspects-5---other-uses",
+    "title": "RLCS: A story",
+    "section": "Key Aspects 5 - Other uses!",
+    "text": "Key Aspects 5 - Other uses!\n\nWhy talk about “environment” and “action”? This comes from the world of Reinforcement Learning.\n\n\nAnd because one can read the rules, and “understand” the population, you can also use the LCS to interpret the results and thus do data mining!\nAll with the same algorithm!"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#key-aspects-4---rule-compaction-1",
+    "href": "others/RLCS_documentation.html#key-aspects-4---rule-compaction-1",
+    "title": "RLCS: A story",
+    "section": "Key Aspects 4 - Rule Compaction",
+    "text": "Key Aspects 4 - Rule Compaction\n\n\nSubsumption: A “perfect” rule that has 100% accuracy might be simpler (more # characters) than other rules in the population with same classification. Keep only the best rules. (Implemented: Accuracy-based subsumption)\nDeletion: You can keep all rules that have a 60%+ accuracy after a number of epochs. But you can also cap the population size, keeping only the 10.000 best rules.\n…"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#key-aspects-5---prediction",
+    "href": "others/RLCS_documentation.html#key-aspects-5---prediction",
+    "title": "RLCS: A story",
+    "section": "Key Aspects 5 - Prediction",
+    "text": "Key Aspects 5 - Prediction\nImagine a new sample/instance, never seen before. (Test environment)\n\nPrediction is about returning the match set for that new instance.\n\n\nMajority (possibly weighted by numerosity, accuracy…) of proposed class/action will be the prediction.\nThat’s it! It also means, this is natively an ensemble learning algorithm."
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#key-aspects-6---other-uses",
+    "href": "others/RLCS_documentation.html#key-aspects-6---other-uses",
+    "title": "RLCS: A story",
+    "section": "Key Aspects 6 - Other uses!",
+    "text": "Key Aspects 6 - Other uses!\n\nWhy talk about “environment” and “action”? This comes from the world of Reinforcement Learning.\n\n\nAnd because one can read the rules, and “understand” the population, you can also use the LCS to interpret the results and thus do data mining!\nAll with the same algorithm!"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#section-1",
+    "href": "others/RLCS_documentation.html#section-1",
+    "title": "RLCS: A story",
+    "section": "",
+    "text": "kaizen-r blog on RLCS"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#iris",
+    "href": "others/RLCS_documentation.html#iris",
+    "title": "RLCS: A story",
+    "section": "Iris",
+    "text": "Iris\n[1] \"Training Runtime: 5.08055098454158\" (minutes)\n[1] \"Training Set Size: 119\"\n[1] \"Confusion 'Matrix' for Class setosa:\"\nsetosa \n     9 \n[1] \"Confusion 'Matrix' for Class versicolor:\"\n    setosa versicolor  virginica \n         1         10          2 \n[1] \"Confusion 'Matrix' for Class virginica:\"\nversicolor  virginica \n         1          7"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#images-classifier",
+    "href": "others/RLCS_documentation.html#images-classifier",
+    "title": "RLCS: A story",
+    "section": "Images Classifier",
+    "text": "Images Classifier"
   }
 ]

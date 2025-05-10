@@ -22,63 +22,194 @@ execute:
 
 . . .
 
-Have you ever found something that **no one else has done?**
+<br/>Have you ever found something that **no one else has done?**
 
-. . .
-
+::: notes
 I found such a thing last November 2024. But let's go back for a minute.
-
-::: {.notes}
-Speaker notes go here.
 :::
 
 ## An issue with "AI": explainability
 
 Let's call it Machine Learning. Today that's mostly Neural networks. And mostly, that means it's all **black boxes**.
 
+. . .
+
 <br/>There are [ways around that](https://a.co/d/ba1J0oh "Interpretable Machine Learning: A Guide For Making Black Box Models Explainable").
 
 E.g. such alternatives like *Partitioning Trees* and other "open book" algorithms...
 
-. . .
+::: notes
+Today, we'll be discussing one such explainable Machine Learning algorithm.
+:::
 
-<br/>Today, we'll be discussing one such explainable Machine Learning algorithm.
-
-## A bit of history: John H. Holland's Ideas
-
-J. Holland is behind the ideas of Genetic Algorithms.
-
-\<TBC\>
-
-```{r}
-1+1
-```
+# The Learning Classifier System Algorithm
 
 ## The goal: A new R package
 
 ![Getting started](images/books.jpeg){fig-align="center"}
 
+## A bit of history: John H. Holland's Ideas
+
+**J. Holland** is behind the ideas of **Genetic Algorithms**. He proposed an algorithm, represented by the CS-01 program. Later, people came up with variations...
+
+<br/>So today we focus on "Michigan-style LCS". Look it up for more info :)
+
+::: notes
+Actually... That's it. No time to dive deeper here.
+:::
+
+## So how does it work?
+
+Imagine you receive samples of data points (aka **states**) with their corresponding classes (aka **actions**). All your input data and their classes (aka **instances**) form an **environment.**
+
+<br/>In this case, we will accept **binary string states** for the **environment instances** (examples):
+
+| State            | Action/Class | From the...  |
+|------------------|--------------|--------------|
+| 0010111100110010 | "setosa"     | Iris dataset |
+| 001010           | 1            | "Mux 6"      |
+
+## Wait, what? Binary input?!
+
+Well, for now... Yes. It's not the end of the world. Here using 4-bits with Gray encoding of "double quartiles" per variable, we can create binary string:
+
+``` r
+  Sepal.Length Sepal.Width Petal.Length Petal.Width  slb  swb  plb  pwb
+1          5.1         3.5          1.4         0.2 0010 1111 0011 0010
+2          4.9         3.0          1.4         0.2 0011 0101 0011 0010
+3          4.7         3.2          1.3         0.2 0000 1101 0000 0010
+             state  class
+1 0010111100110010 setosa
+2 0011010100110010 setosa
+3 0000110100000010 setosa
+```
+
+## Key Aspects 1 - Generating a rule
+
+::: center
+**The key: "\#" means "I don't care"**
+:::
+
+You receive an **instance of the environment** (a binary string **state** and a **class**). The class here is defined already.
+
+<br/>**Covering** a state with a probability of "**\#**" values means making a **rule** that **matches** the input state and class/action. Something that could match other (partially) similar input:
+
+``` r
+> generate_cover_rule_for_unmatched_instance('010001', 0.2)
+[1] "0#0001"
+> generate_cover_rule_for_unmatched_instance('010001', 0.8)
+[1] "##0###"
+```
+
+## Key Aspects 2 - Matching
+
+Suppose you have a **set of rules with their corresponding actions**. That's your **population of rules**, the central piece of your **learning classifier system**. So you generate **new rules** when you see new environment **instances** that **do not match any rule** in your population. **However!**
+
+-   If one or more rules in your population match your new instance **state**, you simply increase the **match count.**
+
+-   If one or more rules in your population match your new instance **state and class/action**, you increase the **correct count.**
+
+## Key Aspects 3 - Rule Discovery
+
+After a few **epochs** of exposing the LCS to your full environment, you will have a **few rules that match correctly a given instance, the correct set**.
+
+<br/>Match and Correct count are indicators of how good each rule is. But **are there other better possibilities?**
+
+. . .
+
+<br/>Take all the **correct set**, and apply a **Genetic Algorithm** to that set, to generate **new rules**!
+
+## Key Aspects 3 - Rule Discovery
+
+Implemented: **Tournament of Parents, and One-Point Cross Over, with Mutation**.
+
+## Key Aspects 4 - Rule Compaction
+
+Matching must go through **all the population every time** an environment instance is presented to the LCS.
+
+$$O(match) = epochs*N(environment)*N(population)$$
+
+Where $N()$ means "size of".
+
+$$e.g. 1.000 * 5.000 * 1.000 = 5.000.000.000$$
+
+. . .
+
+<br/>Solution: **Reduce the population of rules**.
+
+## Key Aspects 4 - Rule Compaction
+
+<br/>
+
+-   **Subsumption**: A "perfect" rule that has 100% accuracy might be simpler (more \# characters) than other rules in the population with same classification. Keep only the best rules. (Implemented: Accuracy-based subsumption)
+
+-   **Deletion**: You can keep all rules that have a 60%+ accuracy after a number of epochs. But you can also cap the population size, keeping only the 10.000 best rules.
+
+-   ...
+
+## Key Aspects 5 - Prediction
+
+Imagine a new sample/instance, never seen before. (Test environment)
+
+. . .
+
+<br/>Prediction is about **returning the match set** for that new instance.
+
+. . .
+
+<br/>**Majority** (possibly weighted by numerosity, accuracy...) of **proposed class**/action will be the prediction.
+
+That's it! It also means, this is natively an ensemble learning algorithm.
+
+## Key Aspects 6 - Other uses!
+
+. . .
+
+Why talk about "environment" and "action"? This comes from the world of **Reinforcement Learning**.
+
+. . .
+
+And because **one can read the rules, and "understand" the population,** you can also use the LCS to interpret the results and thus do **data mining!**
+
+All with the same algorithm!
+
+# Demo Time
+
+## Iris
+
+``` r
+[1] "Training Runtime: 5.08055098454158" (minutes)
+[1] "Training Set Size: 119"
+[1] "Confusion 'Matrix' for Class setosa:"
+setosa 
+     9 
+[1] "Confusion 'Matrix' for Class versicolor:"
+    setosa versicolor  virginica 
+         1         10          2 
+[1] "Confusion 'Matrix' for Class virginica:"
+versicolor  virginica 
+         1          7 
+```
+
+## Images Classifier
+
+## RL Video
+
+{{< video videos/RL_RLCS_WORLD1_V001.mp4 title="Reinforcement Learning using LCS in R, first results" width="500" height="350">}}
+
 ## The goal: A new R package
 
-A package to implement the Learning Classifier System algorithm
+A package to implement a simple version of the Learning Classifier System algorithm:
 
-A simple version of it (to begin with)
+-   Binary Alphabet, tournament/one-point crossover GA, accuracy based, Michigan-style LCS
 
--   Binary Alphabet\*
+-   With examples, demonstrating the implementation for:
 
--   With functional examples
+    -   Data Mining
 
--   Implementing
-
-    -   Data Mining and Supervised Learning
+    -   Supervised Learning
 
     -   Reinforcement Learning
-
-<br/> :::{small}
-
-\*to be explained very soon
-
-:::
 
 ## Why nobody has done it yet?
 
@@ -88,43 +219,23 @@ After some time working on the thing...
 
 It's not fast
 
-:::incremental
-
+::: incremental
 -   There are many sequential steps, rather unavoidable ones at that
 
 -   Not ideal to compete with a world of GPUs and parallel processing (yet ;))
-
 :::
 
 . . .
 
 It's "complex"
 
-:::incremental
-
+::: incremental
 -   Or so does the [Wikipedia entry](https://en.wikipedia.org/wiki/Learning_classifier_system#Disadvantages) say...
 
 -   When it comes to "alphabets", it does get messy, I'll admit
-
 :::
 
-## Demo Time
-
-Data Mining Scenario
-
-. . .
-
-A warning, the algorithm is non-deterministic...
-
-. . .
-
-To be clear: I have used that on a Corporate CMDB (IT Inventory) and it helped!
-
-## Demo Time
-
-Expected result:
-
-![](images/rlcs_not_bit_4.png){fig-align="center"}
+## 
 
 ## Epistasis
 
@@ -132,12 +243,11 @@ LCS SL can somehow recognize **things that are interrelated in the data**, here 
 
 Aptly... The [term](https://en.wikipedia.org/wiki/Epistasis) comes from the world of genetics, where it refers to genes modified by the presence of other genes.
 
-# Some code
+# Some R code
 
 ## How did I approach the thing?
 
-:::incremental
-
+::: incremental
 -   Lists. Lists, everywhere. Which might have been a bad idea... (data.table?)
 
 -   from there, lapply() & al. is then my best friend
@@ -149,14 +259,13 @@ Aptly... The [term](https://en.wikipedia.org/wiki/Epistasis) comes from the worl
 -   then clean it some more
 
 -   ever postponing the move to a Package, though
-
 :::
 
 ## Examples
 
 Before
 
-``` R
+``` r
 lcs_res <- rlcs_meta_train(train_environment,
                            1, ## Warmup with just one epoch
                            wildcard_prob,
@@ -175,7 +284,7 @@ Too many parameters! (Uncle Bob wouldn't like it)
 
 After, using an object ([reference class, "R5"](http://adv-r.had.co.nz/R5.html), in this case)
 
-``` R
+``` r
 default_lcs_hyperparameters <- RLCS_hyperparameters()
 example_lcs <- rlcs_train(train_environment, default_lcs_hyperparameters)
 ```
@@ -184,15 +293,12 @@ example_lcs <- rlcs_train(train_environment, default_lcs_hyperparameters)
 
 Or, you know...
 
-``` R
+``` r
 source("run_params/datamining_examples_recommended_hyperparameters_v001.R")
-
 basic_hyperparameters <- RLCS_hyperparameters(
   wildcard_prob = wildcard_prob,
-  rd_trigger = rd_trigger,
-  mutation_probability = mutation_probability,
-  parents_selection_mode = parents_selection_mode,
-  tournament_pressure = tournament_pressure,
+  ## defaults for rd_trigger, mutation_probability,
+  ## parents_selection_mode && tournament_pressure
   n_epochs = n_epochs,
   deletion_trigger = deletion_trigger,
   deletion_threshold = deletion_threshold
@@ -206,7 +312,7 @@ example_lcs <- rlcs_train(train_environment, basic_hyperparameters)
 
 Before
 
-``` R
+``` r
 inc_match_count <- function(M_pop) { ## All versions
   lapply(M_pop, \(x) {
     x$match_count <- x$match_count + 1
@@ -233,7 +339,7 @@ inc_action_count <- function(A_pop) { ## RL Specific
 
 After, using a [function factory](https://adv-r.hadley.nz/function-factories.html)
 
-``` R
+``` r
 ## Function factory to increase parameter counts
 inc_param_count <- function(param) {
   param <- as.name(param)
@@ -254,7 +360,7 @@ inc_action_count <- inc_param_count("action_count")
 
 Before
 
-``` R
+``` r
 ## Support function for human-compatible printing:
 make_pop_printable <- function(classifier) {
     
@@ -281,7 +387,7 @@ make_pop_printable <- function(classifier) {
 
 After, thanks to using S3 object (one of the very few dependencies I have is in fact plyr::rbind.fill)
 
-``` R
+``` r
 print.rlcs_population <- function(pop) {
   if(length(pop) == 0) return(NULL)
   
@@ -302,7 +408,7 @@ print.rlcs_population <- function(pop) {
 
 . . .
 
-``` R
+``` r
 print(example_lcs_population)
 ```
 
@@ -310,29 +416,17 @@ print(example_lcs_population)
 
 This is all work in progress.
 
-I'm now working backwards from "it works" to "someone else will understand how it works".
+I'm now working backwards from "it works" to "someone else will understand how it works". I'm in no hurry, although I'd really like to **make it into a CRAN Package**.
 
-I'm in no hurry, although I'd really like to make it into a CRAN Package.
+Which means I must document more, write down actual tests (post-hoc TDD, I guess), keep working on speed (see "supplementary section"), etc.
 
-Which means I must document more, write down actual tests (post-hoc TDD, I guess), keep working
+# Resources
 
-## Reinforcement Learning Conundrum
+-   <https://meghan.rbind.io/blog/2022-07-12-making-slides-in-quarto-with-revealjs/#my-quarto-journey-begins>
 
-We've seen it works, but... **How do you package an RL algorithm?**
+-   
 
-. . .
-
-You must make assumptions about the "world" your agent is going to interact with. This makes things complicated:
-
-:::incremental
-
--   What to include inside the package? What not?
-
--   What to expose from the package? What not?
-
-:::
-
-And a few other such questions slow me down a bit...
+# Supplementary
 
 ## Execution Speed
 
@@ -342,8 +436,7 @@ There are other concerns. For instance, this is a "slow" algorithm.
 
 Parallel computing? %dopar% was tested (it works, but...)
 
-:::incremental
-
+::: incremental
 -   vertical and horizontal partitioning
     -   Break data set (vertical). Two options
 
@@ -354,17 +447,28 @@ Parallel computing? %dopar% was tested (it works, but...)
         -   both are "risky"
 
     -   run fewer iterations (epochs) on full dataset, but on several cores in parallel
-
 :::
 
-# Visuals
+## Reinforcement Learning Conundrum
+
+We've seen it works, but... **How do you package an RL algorithm?**
+
+. . .
+
+You must make assumptions about the "world" your agent is going to interact with. This makes things complicated:
+
+::: incremental
+-   What to include inside the package? What not?
+
+-   What to expose from the package? What not?
+:::
+
+And a few other such questions slow me down a bit...
+
+# Visuals (as seen in Demo)
 
 ## Because text and code won't make it popular...
 
 \<TBC\>
 
-# Resources
-
--   <https://meghan.rbind.io/blog/2022-07-12-making-slides-in-quarto-with-revealjs/#my-quarto-journey-begins>
-
--   
+## 
