@@ -1,9 +1,5 @@
 ---
-title: "RLCS: A story"
-# format:
-#   html:
-#     toc: true
-#     embed-resources: true
+title: "RLCS: An Introduction"
     
 format: 
   revealjs:
@@ -18,49 +14,45 @@ execute:
   echo: true
 ---
 
-# The weirdest thing
-
-. . .
-
-<br/>Have you ever found something that **no one else has done?**
-
-::: notes
-I found such a thing last November 2024. But let's go back for a minute.
-:::
-
 ## An issue with "AI": explainability
 
 Let's call it Machine Learning. Today that's mostly Neural networks. And mostly, that means it's all **black boxes**.
 
+<br/>There are [ways around that](https://a.co/d/ba1J0oh "Interpretable Machine Learning: A Guide For Making Black Box Models Explainable"). (e.g. *Trees* and other "open book" algorithms...)
+
 . . .
 
-<br/>There are [ways around that](https://a.co/d/ba1J0oh "Interpretable Machine Learning: A Guide For Making Black Box Models Explainable").
-
-E.g. such alternatives like *Partitioning Trees* and other "open book" algorithms...
-
-::: notes
-Today, we'll be discussing one such explainable Machine Learning algorithm.
-:::
-
-# The Learning Classifier System Algorithm
-
-## The goal: A new R package
-
-![Getting started](images/books.jpeg){fig-align="center"}
-
-## A bit of history: John H. Holland's Ideas
-
-**J. Holland** is behind the ideas of **Genetic Algorithms**. He proposed an algorithm, represented by the CS-01 program. Later, people came up with variations...
-
-<br/>So today we focus on "Michigan-style LCS". Look it up for more info :)
+<br/>[John H. Holland proposed an algorithm with the Cognitive System One](https://en.wikipedia.org/wiki/Learning_classifier_system#Early_years) program (1976). Later, people came up with variations... Today we focus on [Michigan-style LCS](https://en.wikipedia.org/wiki/Learning_classifier_system#Michigan-Style_Learning_Classifier_System).
 
 ::: notes
 Actually... That's it. No time to dive deeper here.
+
+Today, we'll be discussing one such explainable Machine Learning algorithm.
 :::
+
+## The goal: A new R package
+
+![](images/books.jpeg){fig-align="center" width="500"}
+
+. . .
+
+Have you ever found something that **no one else has done?**
+
+:::notes
+
+I found such a thing last November 2024. But let's go back for a minute.
+
+:::
+
+# Learning Classifier System: Algorithm
+
+## Keywords
+
+![](images/LCS_Keywords.png)
 
 ## So how does it work?
 
-Imagine you receive samples of data points (aka **states**) with their corresponding classes (aka **actions**). All your input data and their classes (aka **instances**) form an **environment.**
+Imagine you receive samples of data points (aka **states**) with their corresponding classes (aka **actions**). All your input entries (aka **instances**) form an **environment.**
 
 <br/>In this case, we will accept **binary string states** for the **environment instances** (examples):
 
@@ -71,7 +63,9 @@ Imagine you receive samples of data points (aka **states**) with their correspon
 
 ## Wait, what? Binary input?!
 
-Well, for now... Yes. It's not the end of the world. Here using 4-bits with Gray encoding of "double quartiles" per variable, we can create binary string:
+Well, for now... Yes. There are alternatives. But for now...
+
+<br/>Here using 4-bits with Gray encoding of "double quartiles" per variable, we can create binary string:
 
 ``` r
   Sepal.Length Sepal.Width Petal.Length Petal.Width  slb  swb  plb  pwb
@@ -84,11 +78,11 @@ Well, for now... Yes. It's not the end of the world. Here using 4-bits with Gray
 3 0000110100000010 setosa
 ```
 
-## Key Aspects 1 - Generating a rule
+# Key concepts
 
-::: center
-**The key: "\#" means "I don't care"**
-:::
+## 1 - Generating a rule
+
+> **The key: "\#" means "I don't care"**
 
 You receive an **instance of the environment** (a binary string **state** and a **class**). The class here is defined already.
 
@@ -101,15 +95,21 @@ You receive an **instance of the environment** (a binary string **state** and a 
 [1] "##0###"
 ```
 
-## Key Aspects 2 - Matching
+## 2 - Matching
 
-Suppose you have a **set of rules with their corresponding actions**. That's your **population of rules**, the central piece of your **learning classifier system**. So you generate **new rules** when you see new environment **instances** that **do not match any rule** in your population. **However!**
+You generate **new rules** when you see new environment **instances** that **do not match any rule** yet. Suppose you have a **set of rules**. That's your **population (of rules)**.
 
--   If one or more rules in your population match your new instance **state**, you simply increase the **match count.**
+<br/>
 
--   If one or more rules in your population match your new instance **state and class/action**, you increase the **correct count.**
+-   If one(+) rule(s) in your population **matches** your new instance **state** -\> increase the **match count of the corresponding classifier.**
 
-## Key Aspects 3 - Rule Discovery
+-   If one(+) rule(s) in your population matches your new instance **state && class/action** –\> increase the **correct count.**
+
+::: notes
+including their corresponding actions
+:::
+
+## 3 - Rule Discovery
 
 After a few **epochs** of exposing the LCS to your full environment, you will have a **few rules that match correctly a given instance, the correct set**.
 
@@ -119,11 +119,11 @@ After a few **epochs** of exposing the LCS to your full environment, you will ha
 
 <br/>Take all the **correct set**, and apply a **Genetic Algorithm** to that set, to generate **new rules**!
 
-## Key Aspects 3 - Rule Discovery
+## 3 - Rule Discovery (GA)
 
-Implemented: **Tournament of Parents, and One-Point Cross Over, with Mutation**.
+![](images/GA_Explained.png)
 
-## Key Aspects 4 - Rule Compaction
+## 4 - Population Size
 
 Matching must go through **all the population every time** an environment instance is presented to the LCS.
 
@@ -137,17 +137,17 @@ $$e.g. 1.000 * 5.000 * 1.000 = 5.000.000.000$$
 
 <br/>Solution: **Reduce the population of rules**.
 
-## Key Aspects 4 - Rule Compaction
+## 4 - Population Size
 
 <br/>
 
--   **Subsumption**: A "perfect" rule that has 100% accuracy might be simpler (more \# characters) than other rules in the population with same classification. Keep only the best rules. (Implemented: Accuracy-based subsumption)
+-   **Subsumption**: A "perfect" classifier that has 100% accuracy might be simpler (more \# characters) than other classifiers in the population with same classification. Keep only the best classifiers. (Implemented: Accuracy-based subsumption)
 
--   **Deletion**: You can keep all rules that have a 60%+ accuracy after a number of epochs. But you can also cap the population size, keeping only the 10.000 best rules.
+-   **Compaction**: You can keep all classifiers that have a 60%+ accuracy after a number of epochs.
 
--   ...
+-   **Deletion**: But you can also cap the population size, keeping only the 10.000 best classifiers.
 
-## Key Aspects 5 - Prediction
+## 5 - Prediction
 
 Imagine a new sample/instance, never seen before. (Test environment)
 
@@ -161,7 +161,7 @@ Imagine a new sample/instance, never seen before. (Test environment)
 
 That's it! It also means, this is natively an ensemble learning algorithm.
 
-## Key Aspects 6 - Other uses!
+## 6 - Other uses!
 
 . . .
 
@@ -193,11 +193,48 @@ versicolor  virginica
 
 ## Images Classifier
 
+![](images/mnist_example_visu_explained.jpg){fig-align="center"}
+
+## Epistasis
+
+LCS can somehow recognize how **two different parts interact**. Aptly... The [term](https://en.wikipedia.org/wiki/Epistasis) comes from of genetics (genes modified by other genes...). (e.g. XOR...)
+
+![](images/epistasis_mux6.png){fig-align="center"}
+
+``` r
+  condition action match_count correct_count accuracy numerosity first_seen
+     10##1#      1       15913         15913        1        324        688
+     000###      0       15575         15575        1        357       3394
+     001###      1       14842         14842        1        298       9231
+     11###0      0       13149         13149        1        263      22839
+     ...
+```
+
+## Also included: Data Mining
+
+Given that the rules are "expressive", sometimes you can **ask the LCS to find rules that appear in your data**, NOT to classify future samples, but to identify what is important in different classes of your data.
+
+. . .
+
+**REAL WORLD example**: inventory of 10K rows with 20 columns, each binary encoded (by yours truly).
+
+Run the algorithm (for a while, in parallel...), see if something was useful to identify a 21st column (also binary)
+
+The LCS came up with **quite a few rules**, **some of which gave me information I didn't know about my own dataset**.
+
+## RL, TOO!
+
+![First self-brain-storm on RL with LCS](images/RL_Board.jpg){fig-align="center"}
+
 ## RL Video
 
-{{< video videos/RL_RLCS_WORLD1_V001.mp4 title="Reinforcement Learning using LCS in R, first results" width="500" height="350">}}
+![](images/good_rl_simple_scenario_overview.jpg){fig-align="center"}
 
-## The goal: A new R package
+{{< video videos/RL_RLCS_WORLD1_V001.mp4 title="Reinforcement Learning using LCS in R, first results" width="250" height="175">}}
+
+# Some R code
+
+## A (future, sorry!) R package
 
 A package to implement a simple version of the Learning Classifier System algorithm:
 
@@ -210,40 +247,6 @@ A package to implement a simple version of the Learning Classifier System algori
     -   Supervised Learning
 
     -   Reinforcement Learning
-
-## Why nobody has done it yet?
-
-After some time working on the thing...
-
-. . .
-
-It's not fast
-
-::: incremental
--   There are many sequential steps, rather unavoidable ones at that
-
--   Not ideal to compete with a world of GPUs and parallel processing (yet ;))
-:::
-
-. . .
-
-It's "complex"
-
-::: incremental
--   Or so does the [Wikipedia entry](https://en.wikipedia.org/wiki/Learning_classifier_system#Disadvantages) say...
-
--   When it comes to "alphabets", it does get messy, I'll admit
-:::
-
-## 
-
-## Epistasis
-
-LCS SL can somehow recognize **things that are interrelated in the data**, here how **two different parts interact**.
-
-Aptly... The [term](https://en.wikipedia.org/wiki/Epistasis) comes from the world of genetics, where it refers to genes modified by the presence of other genes.
-
-# Some R code
 
 ## How did I approach the thing?
 
@@ -385,7 +388,7 @@ make_pop_printable <- function(classifier) {
 
 ## Examples
 
-After, thanks to using S3 object (one of the very few dependencies I have is in fact plyr::rbind.fill)
+After - S3 object (dependency! plyr::rbind.fill)
 
 ``` r
 print.rlcs_population <- function(pop) {
@@ -395,12 +398,9 @@ print.rlcs_population <- function(pop) {
   pop <- unclass(pop)
   plyr::rbind.fill(lapply(1:length(pop), \(i) {
     t_c <- pop[[i]]
-    data.frame(condition = t_c$condition_string,
-               action = t_c$action,
-               match_count = t_c$match_count,
-               correct_count = t_c$correct_count,
-               accuracy = t_c$accuracy,
-               numerosity = t_c$numerosity,
+    data.frame(condition = t_c$condition_string, action = t_c$action,
+               match_count = t_c$match_count, correct_count = t_c$correct_count,
+               accuracy = t_c$accuracy, numerosity = t_c$numerosity,
                first_seen = t_c$first_seen)
   }))
 }
@@ -414,25 +414,53 @@ print(example_lcs_population)
 
 ## Then again
 
-This is all work in progress.
+<br/>This is all **work in progress**.
 
-I'm now working backwards from "it works" to "someone else will understand how it works". I'm in no hurry, although I'd really like to **make it into a CRAN Package**.
+. . .
 
-Which means I must document more, write down actual tests (post-hoc TDD, I guess), keep working on speed (see "supplementary section"), etc.
+<br/>I plan to **make it into a CRAN Package**.
 
-# Resources
+So: document more, write more tests, reorganize functions...
 
--   <https://meghan.rbind.io/blog/2022-07-12-making-slides-in-quarto-with-revealjs/#my-quarto-journey-begins>
+# More Resources
 
--   
+-   [THE BEST INTRO to the LCS Algorithm out-there (hands down!)](https://youtu.be/CRge_cZ2cJc?feature=shared) (12' video)
+
+-   [Advanced R is ALWAYS great](https://adv-r.hadley.nz/function-factories.html)
+
+-   And for my first [RevealJS Quarto, this blog entry](https://meghan.rbind.io/blog/2022-07-12-making-slides-in-quarto-with-revealjs/#my-quarto-journey-begins) (not mine)
+
+-   Probably quite a few more, including the two in the first picture.
 
 # Supplementary
+
+## Why nobody has done it yet?
+
+It's not fast
+
+::: incremental
+-   There are many sequential steps, rather unavoidable ones at that
+
+-   Not ideal to compete with a world of GPUs and parallel processing (yet ;))
+:::
+
+. . .
+
+It's "complex"
+
+::: incremental
+-   Or so does the [Wikipedia entry](https://en.wikipedia.org/wiki/Learning_classifier_system#Disadvantages) say...
+
+-   When it comes to "alphabets", it does get messy, I'll admit
+:::
 
 ## Execution Speed
 
 There are other concerns. For instance, this is a "slow" algorithm.
 
-. . .
+![profviz](images/profiling_monothread_runtimes.jpg){fig-align="center"}
+
+## Parallel Computing
 
 Parallel computing? %dopar% was tested (it works, but...)
 
@@ -448,6 +476,12 @@ Parallel computing? %dopar% was tested (it works, but...)
 
     -   run fewer iterations (epochs) on full dataset, but on several cores in parallel
 :::
+
+## Parallel Computing
+
+Depending on the dataset, it can be done... Or not...
+
+![](images/running_parallel-v001.jpg){fig-align="center"}
 
 ## Reinforcement Learning Conundrum
 
@@ -465,10 +499,6 @@ You must make assumptions about the "world" your agent is going to interact with
 
 And a few other such questions slow me down a bit...
 
-# Visuals (as seen in Demo)
+# Follow the link at the bottom for more info!
 
-## Because text and code won't make it popular...
-
-\<TBC\>
-
-## 
+# Thank you!
