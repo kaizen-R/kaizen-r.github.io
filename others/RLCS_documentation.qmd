@@ -38,10 +38,8 @@ Today, we'll be discussing one such explainable Machine Learning algorithm.
 
 Have you ever found something that **no one else has done?**
 
-:::notes
-
+::: notes
 I found such a thing last November 2024. But let's go back for a minute.
-
 :::
 
 # Learning Classifier System: Algorithm
