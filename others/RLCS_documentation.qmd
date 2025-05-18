@@ -133,7 +133,7 @@ $$e.g. 1.000 * 5.000 * 1.000 = 5.000.000.000$$
 
 . . .
 
-<br/>Solution: **Reduce the population of rules**.
+<br/>One option: **Reduce the population of rules**.
 
 ## 4 - Population Size
 
@@ -454,7 +454,7 @@ It's "complex"
 
 ## Execution Speed
 
-There are other concerns. For instance, this is a "slow" algorithm.
+For instance, this is a "slow" algorithm. Option: RCpp for Matching? (under testing right now!)
 
 ![profviz](images/profiling_monothread_runtimes.jpg){fig-align="center"}
 
