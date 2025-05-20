@@ -1755,5 +1755,12 @@
     "title": "RLCS: An Introduction",
     "section": "",
     "text": "Let’s call it Machine Learning. Today that’s mostly Neural networks. And mostly, that means it’s all black boxes.\nThere are ways around that. (e.g. Trees and other “open book” algorithms…)\n. . .\nJohn H. Holland proposed an algorithm with the Cognitive System One program (1976). Later, people came up with variations… Today we focus on Michigan-style LCS.\n\nActually… That’s it. No time to dive deeper here.\nToday, we’ll be discussing one such explainable Machine Learning algorithm."
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#iris-1",
+    "href": "others/RLCS_documentation.html#iris-1",
+    "title": "RLCS: An Introduction",
+    "section": "Iris",
+    "text": "Iris\n\nvisualizing one classifier - iris"
   }
 ]

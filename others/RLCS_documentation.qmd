@@ -189,6 +189,10 @@ versicolor  virginica
          1          7 
 ```
 
+## Iris
+
+![visualizing one classifier - iris](images/iris_one_classifier.png){fig-align="center"}
+
 ## Images Classifier
 
 ![](images/mnist_example_visu_explained.jpg){fig-align="center"}
