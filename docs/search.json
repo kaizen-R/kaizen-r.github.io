@@ -1481,7 +1481,7 @@
     "href": "others/RLCS_documentation.html#generating-a-rule",
     "title": "RLCS: An Introduction",
     "section": "1 - Generating a rule",
-    "text": "1 - Generating a rule\n\nThe key: “#” means “I don’t care”\n\nYou receive an instance of the environment (a binary string state and a class). The class here is defined already.\nCovering a state with a probability of “#” values means making a rule that matches the input state and class/action. Something that could match other (partially) similar input:\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.2)\n[1] \"0#0001\"\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.8)\n[1] \"##0###\""
+    "text": "1 - Generating a rule\n\nThe key: “#” means “I don’t care”\n\nCovering a state with a probability of “#” values means making a rule that matches the input state and class/action.\nSomething that could match other (partially) similar input:\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.2)\n[1] \"0#0001\"\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.8)\n[1] \"##0###\"\n\nYou receive an instance of the environment (a binary string state and a class).\nThe class here is defined already."
   },
   {
     "objectID": "others/RLCS_documentation.html#wait-what-binary-input",
@@ -1642,7 +1642,7 @@
     "href": "others/RLCS_documentation.html#rule-discovery-ga",
     "title": "RLCS: An Introduction",
     "section": "3 - Rule Discovery (GA)",
-    "text": "3 - Rule Discovery (GA)"
+    "text": "3 - Rule Discovery (GA)\n\nmut_point &lt;- which(runif(nchar(t_instance_state)) &lt; mut_prob)"
   },
   {
     "objectID": "others/RLCS_documentation.html#population-size",
@@ -1656,7 +1656,7 @@
     "href": "others/RLCS_documentation.html#population-size-1",
     "title": "RLCS: An Introduction",
     "section": "4 - Population Size",
-    "text": "4 - Population Size\n\n\nSubsumption: A “perfect” classifier that has 100% accuracy might be simpler (more # characters) than other classifiers in the population with same classification. Keep only the best classifiers. (Implemented: Accuracy-based subsumption)\nCompaction: You can keep all classifiers that have a 60%+ accuracy after a number of epochs.\nDeletion: But you can also cap the population size, keeping only the 10.000 best classifiers."
+    "text": "4 - Population Size\n\n\nSubsumption: A “perfect” classifier that has 100% accuracy might be simpler (more # characters) than other classifiers in the population with same classification. Keep only the best classifiers. (Implemented: Accuracy-based subsumption)\nCompaction: You can keep all classifiers that have e.g. 60%+ accuracy after a number of epochs.\nDeletion: But you can also cap the population size, keeping only e.g. 10.000 best classifiers."
   },
   {
     "objectID": "others/RLCS_documentation.html#prediction",
@@ -1712,7 +1712,7 @@
     "href": "others/RLCS_documentation.html#also-included-data-mining",
     "title": "RLCS: An Introduction",
     "section": "Also included: Data Mining",
-    "text": "Also included: Data Mining\nGiven that the rules are “expressive”, sometimes you can ask the LCS to find rules that appear in your data, NOT to classify future samples, but to identify what is important in different classes of your data.\n\nREAL WORLD example: inventory of 10K rows with 20 columns, each binary encoded (by yours truly).\nRun the algorithm (for a while, in parallel…), see if something was useful to identify a 21st column (also binary)\nThe LCS came up with quite a few rules, some of which gave me information I didn’t know about my own dataset."
+    "text": "Also included: Data Mining\nGiven that the rules are “expressive”, sometimes you can ask the LCS to find rules that appear in your data, NOT to classify future samples, but to identify what is important in different classes of your data.\n\nREAL WORLD anecdote: inventory of 10K rows with 20 columns, each duly binary encoded. I learnt something about my inventory!"
   },
   {
     "objectID": "posts/2025-05-18_RLCS_with_Cpp/index.html",

@@ -82,9 +82,9 @@ Well, for now... Yes. There are alternatives. But for now...
 
 > **The key: "\#" means "I don't care"**
 
-You receive an **instance of the environment** (a binary string **state** and a **class**). The class here is defined already.
+**Covering** a state with a **probability** of "**\#**" values means making a **rule** that **matches** the input state and class/action.
 
-<br/>**Covering** a state with a probability of "**\#**" values means making a **rule** that **matches** the input state and class/action. Something that could match other (partially) similar input:
+Something that **could** match other (partially) similar input:
 
 ``` r
 > generate_cover_rule_for_unmatched_instance('010001', 0.2)
@@ -92,6 +92,12 @@ You receive an **instance of the environment** (a binary string **state** and a 
 > generate_cover_rule_for_unmatched_instance('010001', 0.8)
 [1] "##0###"
 ```
+
+::: notes
+You receive an **instance of the environment** (a binary string **state** and a **class**).
+
+The class here is defined already.
+:::
 
 ## 2 - Matching
 
@@ -121,6 +127,10 @@ After a few **epochs** of exposing the LCS to your full environment, you will ha
 
 ![](images/GA_Explained.png)
 
+``` r
+mut_point <- which(runif(nchar(t_instance_state)) < mut_prob)
+```
+
 ## 4 - Population Size
 
 Matching must go through **all the population every time** an environment instance is presented to the LCS.
@@ -141,9 +151,9 @@ $$e.g. 1.000 * 5.000 * 1.000 = 5.000.000.000$$
 
 -   **Subsumption**: A "perfect" classifier that has 100% accuracy might be simpler (more \# characters) than other classifiers in the population with same classification. Keep only the best classifiers. (Implemented: Accuracy-based subsumption)
 
--   **Compaction**: You can keep all classifiers that have a 60%+ accuracy after a number of epochs.
+-   **Compaction**: You can keep all classifiers that have e.g. 60%+ accuracy after a number of epochs.
 
--   **Deletion**: But you can also cap the population size, keeping only the 10.000 best classifiers.
+-   **Deletion**: But you can also cap the population size, keeping only e.g. 10.000 best classifiers.
 
 ## 5 - Prediction
 
@@ -167,7 +177,7 @@ Why talk about "environment" and "action"? This comes from the world of **Reinfo
 
 . . .
 
-And because **one can read the rules, and "understand" the population,** you can also use the LCS to interpret the results and thus do **data mining!**
+<br/>And because **one can read the rules, and "understand" the population,** you can also use the LCS to interpret the results and thus do **data mining!**
 
 All with the same algorithm!
 
@@ -218,11 +228,7 @@ Given that the rules are "expressive", sometimes you can **ask the LCS to find r
 
 . . .
 
-**REAL WORLD example**: inventory of 10K rows with 20 columns, each binary encoded (by yours truly).
-
-Run the algorithm (for a while, in parallel...), see if something was useful to identify a 21st column (also binary)
-
-The LCS came up with **quite a few rules**, **some of which gave me information I didn't know about my own dataset**.
+<br/>**REAL WORLD anecdote**: inventory of 10K rows with 20 columns, each duly binary encoded. I learnt something about my inventory!
 
 ## RL, TOO!
 
