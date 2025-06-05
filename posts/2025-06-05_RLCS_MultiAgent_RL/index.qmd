@@ -1,0 +1,38 @@
+---
+title: "Multi-Agent RL"
+author: "Nico"
+date: "2025-06-05"
+categories: [RLCS, ML]
+---
+
+## Simplistic while functional 2D multi-agent RL
+
+Really all I did here, is modify the simple World I created a few months back to support multiple agents (blue-dots).
+
+Then I simply loop through each agent in turn (which means, they act sequentially), which is a simplification indeed, but sufficient for a quick demo.
+
+Finally, I train them, 16K steps for good measure, to look for green dots (food) and avoid the rest (red enemies, walls, etc.).
+
+Here is what it looks like (I even added an audio track :D)
+
+{{< video multi_agents_16K_steps_simple_world.mp4 title="A group of independent agents 'working' together..." width="500" height="350">}}
+
+## What for?
+
+Good question. Because I can? Nah...
+
+But also, consider this: Each of these 5 agents here have learnt independently their own set of rules with the LCS algorithm. And they seem to do a pretty good job.
+
+In terms of Applications, I don't know, but maybe a non-centrally coordinated, fully distributed behaviour, for a cleaning team of robots would be a kind of application here.
+
+And no, that's not a great idea (it would be easy to teach the robots what to do in this particular scenario) here. But in a more complex setting, maybe writing down behaviour rules would be harder, and then the LCS approach might make sense.
+
+## Conclusions
+
+I don't kid myself, but I was half-hoping to see some kind of "emergent" behaviour :D Obviously, that didn't happen.
+
+Then again, there is much more to that, and my agents are pretty simple... Oh well.
+
+**It works. That counts.**
+
+Next up: I think I want to look into "Complex Adaptive Systems". I have found a book that explains them pretty good, and provides some examples in prose, that I might want to transform into actual computer models... If, you know, I make the time for it.
