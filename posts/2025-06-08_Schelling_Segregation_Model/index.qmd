@@ -25,7 +25,7 @@ That's two loops, and a very simple logic. We start out with a "random" world, w
 
 That's it.
 
-And with just the agents' preferences, you can probably already guess what will happen. But the fun part is, there will be organization, even though **none** of the agents prefers to have a **majority** of the same type of agents. And yet...
+And with just the agents' preferences, you can probably already guess what will happen. But the fun part is, there will be organization, without a central policy or ruling system, and even though **none** of the agents prefers to have a **majority** of the same type of agents. And yet...
 
 Here the resulting animation:
 
