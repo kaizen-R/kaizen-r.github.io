@@ -27,7 +27,7 @@ That's it.
 
 And with just the agents' preferences, you can probably already guess what will happen. But the fun part is, there will be organization, without a central policy or ruling system, and even though **none** of the agents prefers to have a **majority** of the same type of agents. And yet...
 
-Here the resulting animation:
+Here the resulting animation of 1 run of said algorithm:
 
 {{< video Schelling_segregation_model.mp4 title="A group of independent agents 'working' together..." width="500" height="350">}}
 
