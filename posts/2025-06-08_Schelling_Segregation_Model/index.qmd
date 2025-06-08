@@ -1,0 +1,44 @@
+---
+title: "Classic Computational Social Model: Schelling's Segregation"
+author: "Nico"
+date: "2025-06-08"
+categories: [Decision, Optimization, visualization]
+---
+
+## I was reading about "Complex Adaptive Systems"
+
+And I thought some of these ideas were quite interesting. I don't know yet what to make of it all (I haven't read it all, either). It feels some of it is related to cybernetics, feedback loops, agents-based modelling (that last one, for sure). I am not the biggest fan of sociology, but these agents ideas have me curious though.
+
+Anyhow, so I was reading on that topic, of modelling things from a bottoms-up perspective, with independent agents making their own decisions, and of course whether there is an emergent behaviour then is interesting.
+
+One such social model is the "classic" computational model of Schelling (1978). I'm not a fan of the concept it illustrates (coming from racial segregation, it's not great). But the thing is, the emergent behavior of some level of self-organization is interesting, in-as-much there is no central push here for organization, just agents preferences "playing out".
+
+## The algorithm and the results
+
+So the concept is pretty simple. You have "agents" (say, people), that prefer to "live next to one another" if they are of the same type. What that means is up to the reader, I don't mind.
+
+Here, it just means, "green agents" will prefer to move if less than 30% of their neighbours are also green. "Red agents" are less tolerant and want at least 50% of their neighbours to be red as well.
+
+If those wishes are not fulfilled, the agents will move to a **random** (empty) location. We then iterate a few steps of time. At each step, each agent is asked in turn whether they want to move.
+
+That's two loops, and a very simple logic. We start out with a "random" world, with roughly (in this example) 33% of cells filled with green agents, 33% of red agents, 33% of empty cells.
+
+That's it.
+
+And with just the agents' preferences, you can probably already guess what will happen. But the fun part is, there will be organization, even though **none** of the agents prefers to have a **majority** of the same type of agents. And yet...
+
+Here the resulting animation:
+
+{{< video Schelling_segregation_model.mp4 title="A group of independent agents 'working' together..." width="500" height="350">}}
+
+## Conclusions
+
+This was more of an interlude than anything else. I am far from done with the RLCS work. But I can't avoid looking into more stuff.
+
+The agents-based ideas, complex systems, systems theory, cybernetics, etc. is always quite fascinating to me.
+
+And so I wanted to do one exercise while I had it in mind. The book didn't say how to implement it, but gave out enough of the concepts to easily make it into a working demo program.
+
+## References
+
+[The book inspiring this post](https://www.amazon.com/Complex-Adaptive-Systems-Introduction-Computational/dp/0691127026/ref=sr_1_1?dib=eyJ2IjoiMSJ9.VM-rM2hdEFBCpIpPCEgWSt0D-fDx4wlh41nHiCB7DKqIuU02qwIckrZhka9A877tKuOr60qfJwC0Q54QM4EkxV8ZzylXxGThMegSj2lq9S8uFXgdv499i5eVplHkzJFxPKzR8seN2mdWwCFe38Hle1zODy-ggNhniLV7E5TCC0sHqRjRmVH0hi1OALxHoDTmbDpBYj8sLhU1btPXvMdSmKw1KQlZfpBEN0SHpu8hdg0.2Od9HDP8fW2PW3fOXey0VnKYZhW_3ecQPv7T1w-qqMY&dib_tag=se&keywords=Complex+Adaptive+Systems&qid=1749400411&sr=8-1).
