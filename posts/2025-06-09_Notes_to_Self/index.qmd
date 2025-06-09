@@ -1,0 +1,38 @@
+---
+title: "Morning Coffee Thoughts"
+author: "Nico"
+date: "2025-06-09"
+categories: [Decisions]
+---
+
+## Sum of the parts?
+
+Just a quick note to myself here on a realization.
+
+-   Game Theory and FSM
+
+-   Finite States Machines (FSM), e.g. Moore Machines
+
+-   Moore's Machines and Ashby's transition matrices
+
+-   Moore's machines and binary representations
+
+-   Binary representations and RLCS
+
+-   RLCS and RL
+
+-   Transition Matrices and Graphs
+
+-   Graphs & infectious processes representation (?)
+
+-   Schelling's model & Agents evolving and making decisions in a simulated world
+
+-   So RL, but not only!
+
+Now:
+
+Can I use RLCS to create optimize Agents that in turn are representations of FSMs, thereby representing rather complex decision processes, all using a simple binary representation (maybe?), and hence allowing for rather complex modelling with all the pieces of the puzzle almost already implemented?
+
+I need to learn how to represent FSMs as binary strings to represent them as agents compatible with the RLCS code.
+
+But then... What could be done?

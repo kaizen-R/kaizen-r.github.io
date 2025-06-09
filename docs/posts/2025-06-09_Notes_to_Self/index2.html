@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2025-06-08">
+<meta name="dcterms.date" content="2025-06-09">
 
-<title>Classic Computational Social Model: Schelling’s Segregation – Kaizen-R.com new home</title>
+<title>Morning Coffee Thoughts – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -41,8 +41,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../../site_libs/quarto-contrib/videojs/video.min.js"></script>
-<link href="../../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -112,11 +110,9 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Classic Computational Social Model: Schelling’s Segregation</h1>
+      <h1 class="title">Morning Coffee Thoughts</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">Decisions</div>
-                <div class="quarto-category">Optimization</div>
-                <div class="quarto-category">visualization</div>
               </div>
                   </div>
   </div>
@@ -134,7 +130,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">June 8, 2025</p>
+        <p class="date">June 9, 2025</p>
       </div>
     </div>
     
@@ -153,32 +149,25 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="i-was-reading-about-complex-adaptive-systems" class="level2">
-<h2 class="anchored" data-anchor-id="i-was-reading-about-complex-adaptive-systems">I was reading about “Complex Adaptive Systems”</h2>
-<p>And I thought some of these ideas were quite interesting. I don’t know yet what to make of it all (I haven’t read it all, either). It feels some of it is related to cybernetics, feedback loops, agents-based modelling (that last one, for sure). I am not the biggest fan of sociology, but these agents ideas have me curious though.</p>
-<p>Anyhow, so I was reading on that topic, of modelling things from a bottoms-up perspective, with independent agents making their own decisions, and of course whether there is an emergent behaviour then is interesting.</p>
-<p>One such social model is the “classic” computational model of Schelling (1978). I’m not a fan of the concept it illustrates (supposedly related to some concept of segregation, whichever the kind or inspiratioin…). But the thing is, the emergent behavior of some level of self-organization is interesting, in-as-much there is no central push here for organization, just agents preferences “playing out”.</p>
-</section>
-<section id="the-algorithm-and-the-results" class="level2">
-<h2 class="anchored" data-anchor-id="the-algorithm-and-the-results">The algorithm and the results</h2>
-<p>So the concept is pretty simple. You have “agents” (say, people), that prefer to “live next to one another” if they are of the same type. What that means is up to the reader, I don’t mind.</p>
-<p>Here, it just means, “green agents” will prefer to move if less than 30% of their neighbours are also green. “Red agents” are less tolerant and want at least 50% of their neighbours to be red as well.</p>
-<p>If those wishes are not fulfilled, the agents will move to a <strong>random</strong> (empty) location. We then iterate a few steps of time. At each step, each agent is asked in turn whether they want to move.</p>
-<p>That’s two loops, and a very simple logic. We start out with a “random” world, with roughly (in this example) 33% of cells filled with green agents, 33% of red agents, 33% of empty cells.</p>
-<p>That’s it.</p>
-<p>And with just the agents’ preferences, you can probably already guess what will happen. But the fun part is, there will be organization, without a central policy or ruling system, and even though <strong>none</strong> of the agents prefers to have a <strong>majority</strong> of the same type of agents. And yet…</p>
-<p>Here the resulting animation of 1 run of said algorithm:</p>
-<div class="quarto-video"><video id="video_shortcode_videojs_video1" width="500" height="350" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="A group of independent agents 'working' together..."><source src="Schelling_segregation_model.mp4"></video></div>
-</section>
-<section id="conclusions" class="level2">
-<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>This was more of an interlude than anything else. I am far from done with the RLCS work. But I can’t avoid looking into more stuff.</p>
-<p>The agents-based ideas, complex systems, systems theory, cybernetics, etc. is always quite fascinating to me.</p>
-<p>And so I wanted to do one exercise while I had it in mind. The book didn’t say how to implement it, but gave out enough of the concepts to easily make it into a working demo program.</p>
-</section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<p><a href="https://www.amazon.com/Complex-Adaptive-Systems-Introduction-Computational/dp/0691127026/ref=sr_1_1?dib=eyJ2IjoiMSJ9.VM-rM2hdEFBCpIpPCEgWSt0D-fDx4wlh41nHiCB7DKqIuU02qwIckrZhka9A877tKuOr60qfJwC0Q54QM4EkxV8ZzylXxGThMegSj2lq9S8uFXgdv499i5eVplHkzJFxPKzR8seN2mdWwCFe38Hle1zODy-ggNhniLV7E5TCC0sHqRjRmVH0hi1OALxHoDTmbDpBYj8sLhU1btPXvMdSmKw1KQlZfpBEN0SHpu8hdg0.2Od9HDP8fW2PW3fOXey0VnKYZhW_3ecQPv7T1w-qqMY&amp;dib_tag=se&amp;keywords=Complex+Adaptive+Systems&amp;qid=1749400411&amp;sr=8-1">The book inspiring this post</a>.</p>
+<section id="sum-of-the-parts" class="level2">
+<h2 class="anchored" data-anchor-id="sum-of-the-parts">Sum of the parts?</h2>
+<p>Just a quick note to myself here on a realization.</p>
+<ul>
+<li><p>Game Theory and FSM</p></li>
+<li><p>Finite States Machines (FSM), e.g.&nbsp;Moore Machines</p></li>
+<li><p>Moore’s Machines and Ashby’s transition matrices</p></li>
+<li><p>Moore’s machines and binary representations</p></li>
+<li><p>Binary representations and RLCS</p></li>
+<li><p>RLCS and RL</p></li>
+<li><p>Transition Matrices and Graphs</p></li>
+<li><p>Graphs &amp; infectious processes representation (?)</p></li>
+<li><p>Schelling’s model &amp; Agents evolving and making decisions in a simulated world</p></li>
+<li><p>So RL, but not only!</p></li>
+</ul>
+<p>Now:</p>
+<p>Can I use RLCS to create optimize Agents that in turn are representations of FSMs, thereby representing rather complex decision processes, all using a simple binary representation (maybe?), and hence allowing for rather complex modelling with all the pieces of the puzzle almost already implemented?</p>
+<p>I need to learn how to represent FSMs as binary strings to represent them as agents compatible with the RLCS code.</p>
+<p>But then… What could be done?</p>
 
 
 </section>
@@ -602,7 +591,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>videojs(video_shortcode_videojs_video1);</script>
 
 
 
