@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2025-03-30">
+<meta name="dcterms.date" content="2025-06-21">
 
-<title>RLCS: Small addition – Kaizen-R.com new home</title>
+<title>RLCS for text? And a new idea… – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,8 +110,9 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">RLCS: Small addition</h1>
+      <h1 class="title">RLCS for text? And a new idea…</h1>
                                 <div class="quarto-categories">
+                <div class="quarto-category">NLP</div>
                 <div class="quarto-category">ML</div>
                 <div class="quarto-category">RLCS</div>
               </div>
@@ -131,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">March 30, 2025</p>
+        <p class="date">June 21, 2025</p>
       </div>
     </div>
     
@@ -150,79 +151,66 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="practical-considerations" class="level1">
-<h1>Practical considerations</h1>
-<section id="but-you-only-take-binary-strings-as-input" class="level2">
-<h2 class="anchored" data-anchor-id="but-you-only-take-binary-strings-as-input">“But you only take binary strings as input??”</h2>
-<p>I was in attending a local R conference the other day, and took the opportunity to discuss a bit with some of the (very few) that have a minimal interest (and an understanding) of what I’m trying to do these days with the RLCS project.</p>
-<p>It’s always great to talk with them, they know so much, there is so much experience in there. And of course, that means, they can criticize my work. Which, from them, or anyone with criteria for that matter, I happily welcome!</p>
+<section id="i-have-been-busy-with-something-for-work-lately" class="level2">
+<h2 class="anchored" data-anchor-id="i-have-been-busy-with-something-for-work-lately">I have been busy with something for work lately…</h2>
+<p>Alright so this a bit of a crazy idea.</p>
+<p>At work, these past few weeks, when I had the time, I had this side project, whereby I would try to create a model to classify texts in two categories, like “important vs not-important”. Sounded easy enough upfront, in my mind even a <strong>basic Naïve-Bayes (i.e.&nbsp;supervised learning) classifier would easily do the trick</strong>…</p>
+<p><strong>How wrong I was</strong>. After some testing, and several more or less complex algorithms all failing with similarly low accuracy (and that was enough for me, I needed not check other metrics)… I dug further, and I finally found some texts that were repeated across both classes. That is, yes: same identical complete text but present in the two classes. You know what they say: “Garbage-in, Garbage-out”. Now, <strong>to be fair, there was a reason for it</strong>, through <strong>no fault of the original/historical manual tagging</strong>! The thing just wasn’t originally meant to be used as a training dataset for a future Supervised Learning classifier, and the tags used were in fact a mess - from the perspective of this exercise, although they made sense in their original context. Anyhow…</p>
+<p>So <strong>we went back and started a fresh new (manual) classification system</strong> (well, my colleagues did) and <strong>right away</strong> the newly classified data allowed for a <strong>10% accuracy increase</strong> across all models/algorithms tested with it as training/testing set. And that, with a much smaller new dataset. So we were onto something, for sure.</p>
+<p>And yet, none of the algorithms still provided very good results. Part of the issue is, some of the texts in both classes are <strong>very</strong> similar. Me, I’d have a hard time deciding for some of the entries which class should apply (I’ve tried, and failed, so maybe I shouldn’t ask my machine to do something I can’t manually do myself on a small sample…).</p>
+<p>As a note, part of that classification exercise is in fact a bit of an art, maybe, and somewhat <strong>tacit</strong> information is required, experience: Hard to explain, and hence hard to manually write down in rules, <strong>which is why the ML approach was suggested in the first place</strong> (otherwise, simple rules could have worked?).</p>
+<p>An example: My company works in Healthcare, so mentions of hospitals and patients would be an easy give-away, compared to news about say fashion, or transportation…. But most of it isn’t as clear-cut…</p>
 </section>
-<section id="a-short-term-partial-but-functional-solution" class="level2">
-<h2 class="anchored" data-anchor-id="a-short-term-partial-but-functional-solution">A short term, partial (but functional) solution</h2>
-<p>Alright, so far I’ve always taken examples where I could translate the problems into binary strings for the input.</p>
-<p>For images, I took each pixel and set it to 1 if the pixel was “used” (say, a high shade of black), and 0 if it wasn’t (say, a light shade of grey). See <a href="https://kaizen-r.github.io/posts/2025-03-19_ExplainableAI/" class="uri">https://kaizen-r.github.io/posts/2025-03-19_ExplainableAI/</a> for instance, for a visual intuition.</p>
-<p>Other examples were specifically chosen to be already presenting binary “states”. That was the case with “not_bit_4” or “mux_6” <a href="https://kaizen-r.github.io/posts/2024-12-29_RLCS_fully_functional_v000/">here</a>.</p>
-<p>But it is very <strong>common to have numerical variables</strong> as input, not… Well, not simply binary ones.</p>
-<p>That said, <strong>pause for a second</strong>: What is a binary string if not (often times) a numerical value, duly encoded? It’s quite straightforward, if you think about it. Say you want to use 4 bits, you can encode 16 values, say the natural numbers (0:15). So 0000 is 0, 0010 is 2, and 1111 is 15.</p>
-<p>But let’s make a <strong>second pause</strong>: What if you have more values? Say 32 of them, from 0 to 31? And say, for the sake of example, that we want to <strong>limit the number of bits</strong> to be used still to 4 bits. Then we <strong>could</strong> decide to <strong>assume a loss of information</strong>, and if so, use 0000 as a state for actual values 0 and 1, and 1111 for actual values 30 and 31.</p>
-<p><strong>Why limit the number of bits, you ask?</strong> Well, because the way it is working currently, each added bit to the states <strong>increases the search space</strong> of the algorithm by a (multiplication) factor of 2. Which is to say, <strong>long binary strings as states are costly to process</strong> and depending on the problem, with lots of samples for training, for instance, would require a <strong>lot of time</strong> (Note: I’m not discussing here “a lot of processing power”, because as it is, paralelising is complex, although not impossible, and with varying efficacy depending on the scenarios). With few samples, or clear separation, for instance, the limitation of forcing a sequential processing can be overcome with nicely chosen hyperparameters. But it’s not straightforward. Anyhow, back to the topic.</p>
-<p><strong>Pause number 3:</strong> What if we had real-valued variables. Each variable then fits within its own range. I hereby suggest we could “break” it in buckets, so that each bucket can then in turn represent a subset of the chosen variable values, a range.</p>
-<p><strong>How to break that though?</strong> Choosing means kind of <strong>makes an assumption</strong> about the distribution (normality) of input variable. So <strong>for now, and without thinking much about it</strong> I prefer to use the <strong>median, and quartiles</strong>, thereby breaking the input in 4 buckets of similar (or almost identical) sizes. And then, why not, break each bucket in turn in 4 sub-buckets. Voilà: <strong>16 subsets of the one variable.</strong> To be represented each as a 4 bits binary string.</p>
-<p>And <strong>no, I haven’t given it much more thought</strong>. This is just a simplified approach, <strong>one which I do not believe is perfect</strong> (maybe considering the input distribution would be better), <strong>or even best for the LCS processing</strong>; one which <strong>my statistician friends will surely criticize</strong> the next time I meet them… But <strong>the important thing is the conceptual approach</strong>: <strong>If you accept loss of information, there is nothing precluding you from encoding your real numbers input into binary strings!</strong></p>
-<p>Thereby, of course, making the <strong>algorithm more practical</strong> to use.</p>
-</section>
-<section id="the-tweak-gray-encoding" class="level2">
-<h2 class="anchored" data-anchor-id="the-tweak-gray-encoding">The tweak: Gray encoding</h2>
-<p>Final detail for today: While reading the book “Introduction to Learning Classifier Systems” (mentioned in the <a href="https://kaizen-r.github.io/posts/2024-12-08_A_new_project/">first post on the RLCS topic</a>), they make a point about the binary encoding.</p>
-<p><strong>“Normal binary”</strong> encoding of numbers is not always “sequential” for <strong>consecutive numbers</strong>, in that the <strong>Hamming distance</strong> between 0011 and 0100 (3 and 4) is 2.</p>
-<p>There are alternatives, and one that is proposed in the book is the Gray code. I won’t delve into the details, but suffice to say, I am <strong>not yet fully</strong> convinced it is a great approach, but there is some intuition to it that makes it probably better than traditional encoding.</p>
-<p>Anyhow, I make a very very simplistic implementation of all I have discussed thus far today for the (in-)famous iris dataset. (Infamous in that, it’s almost too common :D But then again, that’s what makes it a perfect example!)</p>
-</section>
-<section id="the-iris-classifier" class="level2">
-<h2 class="anchored" data-anchor-id="the-iris-classifier">The Iris Classifier</h2>
-<p>So the iris dataset presents 4 real-valued variables, and 3 classes. Think of 16 buckets per variable, using quartiles and sub-quartiles. And a Gray code.</p>
-<p>Can we make a <strong>Supervised Learning model using LCS? Sure we can!</strong></p>
-<p>This is what it looks like, with the state simply putting together 4 strings of 4 bits:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="encoding_iris_with_buckets_and_gray.jpg" class="img-fluid figure-img"></p>
-<figcaption>encoding iris, binary buckets and grey</figcaption>
-</figure>
-</div>
-<p>And what about the result?</p>
-<p>Well, it’s a bit <strong>slow</strong>: 4’ for training. There are considerations about this, but overall, consider searching for solutions in a 16bits search space, where on top of everything else, classes are overlapping in different dimensions… But no excuse, and I haven’t continued tweaking hyperparameters for this particular example.</p>
-<p>Anyhow. And what of the quality of the resulting LCS as a supervised learning classifier?</p>
-<p>I take 80% of the samples for the training (119) samples, leaving only 30 samples for testing (it’s not a big dataset :D). And the results are like so:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="iris_classifier_quality.jpg" class="img-fluid figure-img" width="500"></p>
-<figcaption>not bad a classifier</figcaption>
-</figure>
-</div>
-<p>That’s about it. Although…</p>
-<p>Then again, other options are proposed in the book…</p>
-</section>
-<section id="could-we-accept-numerical-inputs" class="level2">
-<h2 class="anchored" data-anchor-id="could-we-accept-numerical-inputs">Could we accept numerical inputs?</h2>
-<p>Well, in fact, yes. There are alternatives, whereby instead of 0 or 1, you can take real numbers. The way this works (at least the way others have approached it and documented it in the reference book on the topic already mentioned) is like so:</p>
+<section id="rlcs-for-text-then" class="level2">
+<h2 class="anchored" data-anchor-id="rlcs-for-text-then">RLCS for text, then?</h2>
+<p>As we (you, my reader, and myself) have learnt over the past few months, the RLCS implementation has a few shortcomings, and today two of them are of particular interest:</p>
 <ul>
-<li><p>each variable is “covered” separately by a <strong>wide or narrow numerical range</strong></p></li>
-<li><p><strong>Coverage</strong> (creating new classifiers) would <strong>set a range around the variable value</strong>. Said range would replace our current bits in the state (bit strings).</p></li>
-<li><p>upon calling the <strong>Genetic Algorithm</strong>, the <strong>mutation step</strong> can replace said ranges with either generalization (so, # as implemented otherwise), but also it could try to <strong>widen or narrow the range</strong>.</p></li>
+<li><p>The binary input string format issue is going to be a bother</p></li>
+<li><p>The very <strong>high importance, for performance, of the length</strong> of said binary input strings, is another one.</p></li>
 </ul>
-<p>The above would allow to cover more or less ground per classifier, making them more or less specific. I feel this seems correct. But I do also believe the computational effort would potentially be higher (I haven’t thought it through either).</p>
-<p>Also, we need to decide what “narrow” or “wide” signifies for each variable, for instance.</p>
-<p>And of course, I would need to change the code to account for such inputs, which… I’m sorry, but I won’t do it for now. If someone some day shows a minimum of interest in the possibilities of the algorithm, I shall make sure I implement that.</p>
-<p>Actually, I kinda know how to go about it. But there are many pieces of the algorithm, and functionally testing any change (in the functionality) is a slow process (in spite of having run several tests thus far…). Unit testing wouldn’t be so much of a problem.</p>
+<p>Why so?</p>
+<p>Well, <strong>free text is not great to transform to binary strings</strong>. I am however willing to do a simplified test: Generate a TF-IDF (done) of the input texts, keep the main keywords, say top… 100 (rather easy), and instead of real numbers, just encode in binary (i.e.&nbsp;a keyword (stemmed and all, cleaned up) appears or doesn’t, for a particular entry of text). That seems <strong>simple enough</strong>: just “grep” over new text and look for a particular keyword, and that encodes one variable, and repeat with all 100 top keywords. Here you go: Binary string of length 100.</p>
+<p>But <strong>100 variables</strong> from a TD-IDF is a <strong>brutal</strong> simplification, when the original matrix might well have 3 or 4 <strong>thousand</strong> distinct stemmed-keywords… That’s a big information loss right there. (And I don’t mean to go the way of PCA and such, <strong>I could, but explainability of the results would be quite impacted</strong>, and so no, not today).</p>
+<p>Also, going <strong>from real number to binary true/false is another brutal information loss</strong>. More on this one in a moment.</p>
+<p>“100” here is just an idea, but come to think of it, I don’t think I can do much more than, say, 300? That is, without crawling to a halt in terms of processing time. I haven’t tried yet, and with the improvements in speed of a few weeks back, who knows… :D</p>
+</section>
+<section id="testing-the-idea" class="level2">
+<h2 class="anchored" data-anchor-id="testing-the-idea">Testing the idea</h2>
+<p>So I am willing to work on this approach starting this very weekend. (Maybe that will spill over the beginning of next week, but since this is actually “for work”, well, I don’t see an issue with merging my personal- and work-time for a few days here…)</p>
+<p>What I am hoping is, I can get some machine-provided rules to <strong>help</strong> with the automated classification of future texts. The texts at work are about Cybersecurity news (but that detail is not in fact important for this post). I just want to create something that will <strong>help</strong> the analysts in choosing what to worry about and what they can safely discard as noise/irrelevant pieces of news.</p>
+<p>One important aspect here will be the False-Positive vs False-Negative ratio, among other things. I am also worried about data-drift, as one keyword in the overall exercise is “news”, which, you know, change over time.</p>
+<p>But heck, this is all future issues, the first thing is to get a good enough classifier, that we shall later refine.</p>
+<p>And <strong>if I make the RLCS package (code) part of the final solution</strong>, if I actually show it can be useful for such a practical, real-world scenario, well… But <strong>that’s a big “if”</strong>.</p>
+</section>
+<section id="my-own-rosetta-stone" class="level2">
+<h2 class="anchored" data-anchor-id="my-own-rosetta-stone">My own Rosetta Stone</h2>
+<p>Actually, this is one excuse for this entry:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="rosetta_stone_tuned.png" class="img-fluid figure-img" width="400"></p>
+<figcaption>a rosetta stone to use with RLCS</figcaption>
+</figure>
+</div>
+<p>I have been meaning to do something about the limitation with the binary input strings issue. But instead of changing the code of the RLCS (for now), <strong>what if instead</strong> I facilitated the future data scientists’ efforts by offering a sort of <strong>translation engine</strong>?</p>
+<p>I could in fact create a function that:</p>
+<ul>
+<li><p>takes a data frame as input (say), or even a matrix.</p></li>
+<li><p>encodes factors or texts into variables with binary strings. Length of said variables would depend on the number of distinct values (i.e.&nbsp;levels of factors). Now that won’t work for pure free text, but it just might for short tags received as text columns in the DF.</p></li>
+<li><p>and using the function I demonstrated for the Iris dataset a few weeks back, I can “easily” encode real numbers into “bins” that I can then encode with binary strings. See <a href="http://localhost:3578/posts/2025-03-30_Small_Addition_RLCS/">this entry</a> about how that could work.</p></li>
+<li><p>Keep track of the above transformations and offer a “translator” to translate back the resulting rules learnt by the RLCS into the original format, or a readable version of it anyway.</p></li>
+</ul>
+<p><strong>I call this the Rosetta Stone</strong> for (what I believe are) obvious reasons.</p>
+<p>And I <strong>shall create such a Rosetta Stone function (or maybe an object?) as part of the RLCS package, for sure. That should help with adoption</strong>, or so I would hope.</p>
+<p>But maybe <strong>for now I focus on the simpler application</strong>. Direct binary encoding of top TF-IDF keywords, a simple binary present-or-not encoding. Simplistic, maybe too much so, but until I try… I won’t know, now will I?</p>
 </section>
 <section id="conclusions" class="level2">
 <h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>It is true that “only” accepting binary input strings for the states (i.e.&nbsp;the input data, in our context) is a difficulty, for sure.</p>
-<p>But consider that: Neural Networks accept numerical input. And people use them. This is slightly different, but not really if you look at it a certain way.</p>
-<p>So yes, I should work on a future version that will accept numerical input, not just binary strings. Sure. Some day. Future version is the key here, there is only so much I can cover for now :)</p>
+<p>Naïve-Bayes, SVM, Random-Forest, Lasso, heck even DNN, you name it: If the data is not good, and two classes are in fact not “somewhat clearly” separable (or no generalized rule will stand), then no amount of processing will create great models. I have tried (thanks to suggestion by other colleagues) more modern approaches, such as full-text embeddings (maybe my approach was simplistic: I used word2vec, with say 200 dimensions, and then averaged full entries vectors… obtaining simple encodings of texts in 200-dimensional vectors, each text one point… It actually kind’a worked, but still wasn’t great, and aside from clustering approaches, well, results would be harder to explain… Anyhow, I digress: This wasn’t a solution. Yet :D)</p>
+<p>That said, <strong>maybe</strong> a subset of <strong>good, understandable rules,</strong> while <strong>not always</strong> useful, can <strong>make a dent</strong> into the problem. And that’s what I’m <strong>hoping</strong> the application of RLCS to this text classification problem might offer: Find us some rules that will classify perfectly <strong>some</strong> of the new texts, so that an analyst can skip reading through them, and maybe move on to other news.</p>
+<p><strong>Then</strong>, where the rule-set won’t actually work, the RLCS output will hopefully tell you it’s <strong>not confident</strong> (mixed subset of recommended classes) in the proposed classification, and so <strong>as an analyst you can go back to other approaches</strong> (or say manually review, tag, and save for future improvements), but <strong>at least you will have received help for the clear-cut cases</strong>, in reviewing <strong>some</strong> of the news pieces.</p>
+<p>So I am hoping I can at the very least <strong>reduce the size of the problem</strong>, in the <strong>short term</strong>. And I do believe, this is something the RLCS can help with :)</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
