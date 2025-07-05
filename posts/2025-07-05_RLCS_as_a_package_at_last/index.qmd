@@ -27,7 +27,7 @@ Then I deleted some temporary code that shouldn't have been there...
 
 Then I **know and accept** this is far from finished and I have plenty more to do still but...
 
-Long story short, I then made sure I had a clean environment, ran "devtools::load_all()" and ran a function I knew was stand-alone and should work:
+Long story short, I then made sure I had a clean environment, ran "devtools::load_all()" and ran a function I knew was stand-alone and should work (actually I "fudged" even the new project name, but this is just a first test :D):
 
 ![from scripts to package, one step at a time](finally_moving_forward_with_package_creation.png)
 
