@@ -1,0 +1,50 @@
+---
+title: "RLCS as a package?"
+author: "Nico"
+date: "2025-07-05"
+categories: [RLCS]
+---
+
+## Finally I am moving forward with this
+
+I have plenty of work still, with this RLCS Package idea.
+
+One of them, indeed, is to make it into... A package.
+
+I have been postponing this for quite some time, and well, I can only stall for so long.
+
+## Might actually be feasible
+
+The thing is, I have been worried about how hard it would be. Well...
+
+I use RStudio (side note: I hope it lives as product for still a long time...).
+
+So I "just" created a "Package Project", and then went through some of the chapters of the "R Packages" book once again this morning with a coffee.
+
+Time has come, and so... What I needed to actually get it moving was to copy my current, non-package, functional code from my (usual) RLibs/ folder to the new project's R/ folder...
+
+Then I deleted some temporary code that shouldn't have been there...
+
+Then I **know and accept** this is far from finished and I have plenty more to do still but...
+
+Long story short, I then made sure I had a clean environment, ran "devtools::load_all()" and ran a function I knew was stand-alone and should work:
+
+![from scripts to package, one step at a time](finally_moving_forward_with_package_creation.png)
+
+## Conclusions
+
+It's VERY early in that part of the process.
+
+But while reviewing the book this morning, I realized I had actually been fairly organized following my own rules, and minimal changes would get me somewhere.
+
+But surely, I have a lot more to do. For instance, what if I do not want to expose a function, and make it available only internally? Not sure yet about how to go about that.
+
+Documentation, roxygen2? I'm not too familiar yet. Vignette? Sounds like a nice idea but, not there yet.
+
+RCpp? I have just the one function that did make a difference in terms of processing speed, and it makes sense it is kept as part of the package, so I need to make sure I include it, although I'm unclear on exactly how...
+
+So yes, plenty yet to do. But it looks quite... Feasible? That's good news.
+
+## Resources
+
+<https://r-pkgs.org/>
