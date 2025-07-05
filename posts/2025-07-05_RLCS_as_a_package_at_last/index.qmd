@@ -31,9 +31,23 @@ Long story short, I then made sure I had a clean environment, ran "devtools::loa
 
 ![from scripts to package, one step at a time](finally_moving_forward_with_package_creation.png)
 
+## Basically, it works, with "kinks"
+
+So it looks like it "works" almost as-is:
+
+![working basics in package form](and_it_works_in_the_basics.png)
+
+However the above has for now a couple of issues at least:
+
+-   That's the version WITHOUT RCpp faster version of match function
+
+-   And for some reason, I have to manually re-load the functions that set the print and plot for rules and population of RLCS, which... Well I don't know yet why :D
+
+But as-is, I can actually use this "as a package" to do supervised learning and it would in fact work, essentially.
+
 ## Conclusions
 
-It's VERY early in that part of the process.
+It's **very** early in that part of the process.
 
 But while reviewing the book this morning, I realized I had actually been fairly organized following my own rules, and minimal changes would get me somewhere.
 

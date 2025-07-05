@@ -2076,7 +2076,7 @@
     "href": "posts/2025-07-05_RLCS_as_a_package_at_last/index.html#conclusions",
     "title": "RLCS as a package?",
     "section": "Conclusions",
-    "text": "Conclusions\nIt’s VERY early in that part of the process.\nBut while reviewing the book this morning, I realized I had actually been fairly organized following my own rules, and minimal changes would get me somewhere.\nIndeed, I have a lot more to do. For instance:\n\nwhat if I do not want to expose a function, and make it available only internally? Not sure yet about how to go about that.\nDocumentation, roxygen2? I’m not too familiar yet. Vignette? Sounds like a nice idea but, not there yet either.\nRCpp? I have just the one function that did make a difference in terms of processing speed, and it makes sense it is kept as part of the package, so I need to make sure I include it, although I’m unclear on exactly how…\n\nSo yes, plenty yet to do. But it looks quite… Feasible? That’s good news."
+    "text": "Conclusions\nIt’s very early in that part of the process.\nBut while reviewing the book this morning, I realized I had actually been fairly organized following my own rules, and minimal changes would get me somewhere.\nIndeed, I have a lot more to do. For instance:\n\nwhat if I do not want to expose a function, and make it available only internally? Not sure yet about how to go about that.\nDocumentation, roxygen2? I’m not too familiar yet. Vignette? Sounds like a nice idea but, not there yet either.\nRCpp? I have just the one function that did make a difference in terms of processing speed, and it makes sense it is kept as part of the package, so I need to make sure I include it, although I’m unclear on exactly how…\n\nSo yes, plenty yet to do. But it looks quite… Feasible? That’s good news."
   },
   {
     "objectID": "posts/2025-07-05_RLCS_as_a_package_at_last/index.html#resources",
@@ -2084,5 +2084,12 @@
     "title": "RLCS as a package?",
     "section": "Resources",
     "text": "Resources\nhttps://r-pkgs.org/"
+  },
+  {
+    "objectID": "posts/2025-07-05_RLCS_as_a_package_at_last/index.html#basically-it-works-with-kinks",
+    "href": "posts/2025-07-05_RLCS_as_a_package_at_last/index.html#basically-it-works-with-kinks",
+    "title": "RLCS as a package?",
+    "section": "Basically, it works, with “kinks”",
+    "text": "Basically, it works, with “kinks”\nSo it looks like it “works” almost as-is:\n\n\n\nworking basics in package form\n\n\nHowever the above has for now a couple of issues at least:\n\nThat’s the version WITHOUT RCpp faster version of match function\nAnd for some reason, I have to manually re-load the functions that set the print and plot for rules and population of RLCS, which… Well I don’t know yet why :D\n\nBut as-is, I can actually use this “as a package” to do supervised learning and it would in fact work, essentially."
   }
 ]
