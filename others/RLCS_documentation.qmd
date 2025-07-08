@@ -186,22 +186,26 @@ All with the same algorithm!
 ## Iris
 
 ``` r
-[1] "Training Runtime: 5.08055098454158" (minutes)
-[1] "Training Set Size: 119"
+[1] "Training Runtime: 4.44374799728394" (seconds)
+[1] "Training Set Size: 127"
 [1] "Confusion 'Matrix' for Class setosa:"
 setosa 
-     9 
+     5 
 [1] "Confusion 'Matrix' for Class versicolor:"
-    setosa versicolor  virginica 
-         1         10          2 
-[1] "Confusion 'Matrix' for Class virginica:"
 versicolor  virginica 
-         1          7 
+         6          1 
+[1] "Confusion 'Matrix' for Class virginica:"
+virginica 
+       10 
 ```
 
 ## Iris
 
 ![visualizing one classifier - iris](images/iris_one_classifier.png){fig-align="center"}
+
+## Images Classifier
+
+![](images/images_classifying_example_results.png){fig-align="center"}
 
 ## Images Classifier
 
@@ -236,9 +240,11 @@ Given that the rules are "expressive", sometimes you can **ask the LCS to find r
 
 ## RL Video
 
-![](images/good_rl_simple_scenario_overview.jpg){fig-align="center"}
+![](images/good_rl_simple_scenario_overview.jpg){fig-align="center" width="500"}
 
 {{< video videos/RL_RLCS_WORLD1_V001.mp4 title="Reinforcement Learning using LCS in R, first results" width="250" height="175">}}
+
+{{< video videos/RL_progress_stats.mp4 title="Actual learning..." width="250" height="175">}}
 
 # Some R code
 

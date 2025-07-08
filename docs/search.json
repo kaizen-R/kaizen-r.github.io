@@ -1579,7 +1579,7 @@
     "href": "others/RLCS_documentation.html#iris",
     "title": "RLCS: An Introduction",
     "section": "Iris",
-    "text": "Iris\n[1] \"Training Runtime: 5.08055098454158\" (minutes)\n[1] \"Training Set Size: 119\"\n[1] \"Confusion 'Matrix' for Class setosa:\"\nsetosa \n     9 \n[1] \"Confusion 'Matrix' for Class versicolor:\"\n    setosa versicolor  virginica \n         1         10          2 \n[1] \"Confusion 'Matrix' for Class virginica:\"\nversicolor  virginica \n         1          7"
+    "text": "Iris\n[1] \"Training Runtime: 4.44374799728394\" (seconds)\n[1] \"Training Set Size: 127\"\n[1] \"Confusion 'Matrix' for Class setosa:\"\nsetosa \n     5 \n[1] \"Confusion 'Matrix' for Class versicolor:\"\nversicolor  virginica \n         6          1 \n[1] \"Confusion 'Matrix' for Class virginica:\"\nvirginica \n       10"
   },
   {
     "objectID": "others/RLCS_documentation.html#images-classifier",
@@ -2133,5 +2133,12 @@
     "title": "RLCS package: Progressing nicely",
     "section": "Conclusion",
     "text": "Conclusion\nMy next focus should be on clean-up and documentation. And maybe a better understanding of the Roxygen2 role and NAMESPACE (for exporting only certain functions, I believe…).\nBut overall, I’m back on track with the RLCS package :)"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#images-classifier-1",
+    "href": "others/RLCS_documentation.html#images-classifier-1",
+    "title": "RLCS: An Introduction",
+    "section": "Images Classifier",
+    "text": "Images Classifier"
   }
 ]
