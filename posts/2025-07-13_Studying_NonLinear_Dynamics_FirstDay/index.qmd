@@ -1,0 +1,306 @@
+---
+title: "Studying Nonlinear Dynamics: Day 1"
+author: "Nico"
+date: "2025-07-013"
+categories: [math, code]
+---
+
+## I really want to understand...
+
+Math. More specifically, Ordinary Differential Equations. More specifically, in fact, probably things related with evolution in time. Although not only.
+
+I just want to **really** understand mathematical models used for simulating things.
+
+And ODEs are just the thing.
+
+Physics, Chemistry, etc. maybe are beyond the point. Simulating interactions of... Well, agents, that's what got me curious. Or populations growth (i.e. the Logistic Model...). That kind of things.
+
+Anyhow, that's the why for today's post.
+
+## The book
+
+I have done exercises about ODE in the past, but being able to follow the math, and being able to understand the math, are, to me, two different things. My goal here is to understand, not just copy and paste.
+
+After reading some comments online, I came across this book, highly recommended in its approach to the topic:
+
+![The reference book that I hope will change things](IMG_6595.jpg)
+
+## "Day 1"
+
+Actually, Day 2. Day 1, I went through Chapter 1 (Overview) which confirmed this looked promising.
+
+So Day 2. Chapter 2. Well, that took me the whole day, yesterday. And a hard day of thinking about the math, too. And that didn't even include none of the whole section of exercises, either. But no one said it would be easy, hu?
+
+So I did go through the whole theory of the chapter in the end, but in the middle, I made a detour of sorts, when reaching "example 2.2.1". This was the provided information:
+
+$$
+\dot{x} = x^2-1
+$$
+
+That seemed innocuous enough, right? You would look for roots, fair enough: (-1, 1). Then where $\dot{x} > 0$, you know the "flow" will move to the right, and to the left when negative, so you can draw the vector field.
+
+Obviating the "arrows" of the vector field, I just put a "full dot" for stable equilibrium, and "empty dot" for unstable equilibrium.
+
+It looks like so (and that was not the part that got me stumbling). One thing I did, is code the whole thing (in R, obviously) and so here I am generating a phase portrait for that scenario:
+
+```{r echo=FALSE}
+## Poorly written, but it's enough for today.
+## Supporting functions:
+
+## Draw a Phase Portrait:
+draw_phase_portrait <- function(dot_x, x_min=-10, x_max=10, x_step = .01) {
+  # if(is.null(dot_x)) return("Single ODE required")
+  
+  x_range <- seq(x_min, x_max, x_step)
+  fun_df <- data.frame(x = x_range, d_x = sapply(x_range, dot_x))
+  
+  fixed_points_pos <- which(fun_df$d_x==0)
+
+  plot(fun_df, 
+       ylab="f(x)",
+       type="l", col="blue", main="phase portrait - first order ODE")
+  ## Axis help understand the visualization in these cases:
+  abline(h=0)
+  abline(v=0)
+  ## fixed_points:
+  if(length(fixed_points_pos) > 0) {
+    ## We need to differentiate the STABLE from UNSTABLE points
+    ## Stable will be "full points"
+    points_types <- rep(1, length(fixed_points_pos))
+    # print(points_types)
+    for(pos_index in 1:length(fixed_points_pos)) {
+      if(fixed_points_pos[pos_index] == 1) { ## i.e. first entry in range:
+        if(fun_df[2, 2] < 0) points_types[pos_index] <- 16
+      } else {
+        if(fun_df[fixed_points_pos[pos_index]-1, 2] > 0) points_types[pos_index] <- 16
+      }
+    }
+    points(fun_df[fixed_points_pos,], pch=points_types) ## That's OK as a start
+  }
+}
+
+## Let's use first the (simple) Euler method for showing what really happens then:
+# x_n+1 = x_n + f(xn)*delta(t), for t very small ideally.
+generate_particle_positions_for_x0 <- function(x0, fun_x, n_steps=400, time_step=0.01) {
+  particle_positions <- data.frame(t=0, x=x0)
+  xn <- x0
+  for(i in 1:n_steps) {
+    x_n_plus_1 <- xn + dot_x(xn) * time_step
+    particle_positions <- 
+      rbind(particle_positions,
+            data.frame(t=i,x=x_n_plus_1))
+    xn <- x_n_plus_1
+  }
+  particle_positions
+}
+
+## For each position, we gather the slope, which is...
+## the value of the derivative at that point! Of course.
+generate_particle_slopes_for_x0 <- function(x0, dot_x, n_steps=400, time_step=0.01) {
+  particle_slopes <- data.frame(t=0, slope=dot_x(x0))
+  xn <- x0
+  for(i in 1:n_steps) {
+    x_n_plus_1 <- xn + dot_x(xn) * time_step
+    particle_slopes <- 
+      rbind(particle_slopes,
+            data.frame(t=i,slope=dot_x(xn)))
+    xn <- x_n_plus_1
+  }
+  particle_slopes
+}
+
+## Now to generate the field, we need many "points" to be drawn as small slopes...
+generate_time_slopes_field <- function(dot_x, x0_seq=seq(-5, 3, 0.4), time_range=c(0, 4), time_step=0.01) {
+  slopes_df <- NULL
+  radius <- 0.1
+  for(x0 in x0_seq) {
+      ## Could have used the function parameters, better... Oh well.
+    t_slopes <- generate_particle_slopes_for_x0(x0, dot_x, n_steps=400, time_step = 0.01)
+    ## Subset to make it more visually appealing...
+    t_slopes <- t_slopes[1:nrow(t_slopes) %% 15 == 0,]
+    # if(x0 == 0.9) head(t_slopes)
+    for(t_time in 1:nrow(t_slopes)) {
+      arrows(radius*cos(atan(t_slopes[t_time, "slope"])+pi)+t_slopes[t_time, "t"],
+             radius*sin(atan(t_slopes[t_time, "slope"])+pi)+x0,
+             radius*cos(atan(t_slopes[t_time, "slope"]))+t_slopes[t_time, "t"],
+             radius*sin(atan(t_slopes[t_time, "slope"]))+x0, 
+             length = 0.2*radius)
+    }
+  }
+}
+```
+
+```{r echo=FALSE}
+## "Simple" ODE: (Example 2.2.1 of "Nonlinear Dynamics and Chaos", by S. Strogatz)
+
+## Code better commented when I create and share the original code on my Github at some later (unknown) date...
+
+## So, negated and derived, we get:
+dot_x <- function(x) x^2-1
+## Which should be coherent with ODE: d(x)/d(t)-x^2+1=0
+
+x_min <- -2 ; x_max <- 2
+
+## Let's try to draw a "phase portrait" for this x' = f(x)
+draw_phase_portrait(dot_x, x_min, x_max)
+## Now, clarification: on a phase portrait:
+## The "flow" is to the right when dx > 0, to the left when dx < 0.
+
+```
+
+But then something came up. See, one argument of the methods presented in the book (thus far, anyway) is to get a "geometric" sense of what happens with nonlinear equations that are hard to solve analytically.
+
+This one example ODE was easy to integrate, so I could visualize the "potential function" that leads to this. That's where I made a conceptual mistake that got me wondering what was wrong...
+
+### Just integrate?
+
+Well, if you integrate the above, you get:
+
+$$f(x) = x^3/3-x+C$$
+
+But when you draw that, you get quite exactly the **opposite** of what you'd expect. Why? Why is it, when I integrate the ODE directly, I get the opposite function of what I'd expect?
+
+I could **see** that what you want for this example, what fits nicely with the ODE, is **in fact** the following:
+
+```{r echo=FALSE}
+## Integrating the example, we are talking about a particle that moves in space
+## following:
+## f(x) = -1/3x^3+x+C
+
+## original function: Integral of -x^2+1 is:
+orig_fun <- function(x, const_C=0) {
+  -(x^3)/3+x+const_C
+}
+
+orig_seq <- seq(x_min, x_max, 0.01)
+orig_points <- data.frame(x=orig_seq, y=orig_fun(orig_seq, 0))
+plot(orig_points, type="l", main="original function (C=0)")
+
+```
+
+**That is the same thing, but multiplied by -1.**
+
+### The Key
+
+> **"A first order ODE can be understood as gradient descent."**
+
+That's what clicked for me and fixed a conceptual problem that got me worried for... Hours? Until I asked a friend (thanks Omar) and at long last, it all made sense.
+
+So here is the concept of the whole exercise. Let's go back and go step-by-step. So, again, this:
+
+```{r}
+draw_phase_portrait(dot_x, x_min, x_max)
+```
+
+How I can make an intuition of that phase portrait and the vector field for it is:
+
+With the passing of time:
+
+-   a particle 'landing' near x=-1 will tend to move towards, and then stay, at x=-1.
+
+-   a particle 'landing' between x=-1 and x=1 will tend to go to the left until it stabilizes at x=-1.
+
+-   a particle 'landing' on the right of x=1 will move **away** from 1, and it will move ever **faster**.
+
+-   a particle 'landing' **precisely** at x=1 will stay there, but any perturbation to it, however small, will push it away from that "equilibrium".
+
+I could **see** that here: The concept I understand is, if you consider some sort of a particle (ball? flow? no matter) that falls vertically onto this next curve, see below (which you have to imagine is "covered in some dense fluid, say honey or similar", thereby eliminating the possibility of overshooting a stable equilibrium because of previous horizontal inertia...), it will indeed behave as described above, right?
+
+```{r}
+plot(orig_points, type="l", main="original function (C=0)")
+```
+
+Right? Now I had missed a step in the logic of the ODE. Because what I just described is the "gradient descent".
+
+**Heck! But I know that one! Why could I not "see" the solution?**
+
+Gradient descent is, by **definition**, the **negated** derivative!!
+
+So if I am given:
+
+$$
+\dot{x} = x^2-1
+$$
+
+I should have **known (!!)** that the integral corresponding to that ODE, the one that negates the gradient hereby represented, is in fact:
+
+$$
+\int -(x^2-1) = -(x^3/3-x+C)
+$$
+
+That was ALL I needed to understand to **see** where I had made a (conceptual) mistake.
+
+And it finally clicked when that friend gave me that key. Sometimes, you need help. I'm just glad I know a few people that can answer such questions.
+
+## Slopes Field
+
+On to the last piece of the puzzle, visualizing the "field" of that equation.
+
+One "cool thing" about this whole concept is you can visualize "all" initial positions and effect of the passing of time for the above "potential" equation, that is, all the possible behaviours of a "particle falling onto the curve". That's called a slopes field.
+
+And you only need the ODE (here, first order) for that!
+
+The only real difficulty I had there was to draw the "arrows". I know it shows the "slopes" at some given points. Which, well, is the definition of the derivative, so yes, the ODE is the key. As per each $x0$, that's easy too. And generating the positions over time, well...
+
+I used the (simple, far from ideal but sufficient for today) Euler method for getting a numerical solution for each $x0$, iterating with small $\Delta t$. Then I extract a subset of each possible $t$ positions, and thereby space a bit the arrows so that it can be visualized.
+
+One thing I still don't quite understand: the cos, tan, and all that trigonometry stuff **required to draw the arrows**. So yeah, I'll admit: I just copied that part of the code from [here](https://stackoverflow.com/questions/47984874/how-to-create-a-slope-field-in-r).
+
+Aside from that slight difficulty of the drawing of the arrows, I'm quite happy with the outcome!
+
+```{r echo=FALSE}
+particle_positions1 <- generate_particle_positions_for_x0(-5, fun_x)
+particle_positions2 <- generate_particle_positions_for_x0(-2, fun_x)
+particle_positions3 <- generate_particle_positions_for_x0(-.5, fun_x)
+particle_positions4 <- generate_particle_positions_for_x0(.9, fun_x)
+particle_positions5 <- generate_particle_positions_for_x0(1, fun_x)
+particle_positions6 <- generate_particle_positions_for_x0(1.1, fun_x)
+particle_positions7 <- generate_particle_positions_for_x0(1.2, fun_x)
+
+# par(mfrow=c(1,1))
+plot(particle_positions1, 
+     ylim = c(-5, 3),
+     type="l",
+     main="some x0 values in slopes field",
+     col="black")
+lines(particle_positions2, col="blue")
+lines(particle_positions3, col="lightblue")
+lines(particle_positions4, col="grey")  
+lines(particle_positions5, col="lightgreen")  
+lines(particle_positions6, col="green")  
+lines(particle_positions7, col="red")  
+
+generate_time_slopes_field(dot_x)
+```
+
+You can **see what the vector field predicted!**
+
+## This makes me happy
+
+At long last, I have a **conceptual** understanding of what a given (simple, first order) ODE represents, in a mathematical sense, but also as an intuition.
+
+This book, I will say, is **very** promising... But it's also very **dense** with concepts to be understood. Here is me "reading" chapter 2:
+
+![Does it make sense to underline EVERYTHING? :D](images/IMG_6597.jpg)
+
+![Wrapping my head around vector fields](images/IMG_6596 copy.jpeg)
+
+## Conclusions
+
+Well, that was... Challenging.
+
+At the rythm of one full day of work per chapter, **just to read the theory**, and 13 such chapters, notwithstanding that doing some exercises might very well add another day or two for each of the chapters (at least), and considering this is not something I can do on a workday (no way, this requires waaaaay too much focus of me), so considering one such effective day per week, we're looking at... 26 weeks, at best?
+
+Half a year. For this one book.
+
+And that is, if I keep the focus on that one book (that's something I do wrong: **I jump from book to book, all the time**. Too many interesting things to learn, what can I say...)
+
+I should really consider reading short novels, instead :D
+
+On the other hand: The satisfaction of getting the intuition behind the math is **incredibly fulfilling**. So maybe it's worth it, after all...
+
+## References
+
+["Nonlinear Dynamics and Chaos (...)", by S. Strogatz (CRC Press)](https://a.co/d/8yTxgbY)
+
+Drawing the Slopes Field, I was initially not sure about how to draw the arrows, [this helped](https://stackoverflow.com/questions/47984874/how-to-create-a-slope-field-in-r).
