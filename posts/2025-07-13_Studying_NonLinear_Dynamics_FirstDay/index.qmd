@@ -150,7 +150,7 @@ draw_phase_portrait(dot_x, x_min, x_max)
 
 But then something came up. See, one argument of the methods presented in the book (thus far, anyway) is to get a "geometric" sense of what happens with nonlinear equations that are hard to solve analytically.
 
-This one example ODE was easy to integrate, so I could visualize the "potential function" that leads to this. That's where I made a conceptual mistake that got me wondering what was wrong...
+This one example ODE was easy to "integrate", so I could visualize the "potential function" that leads to this. That's where I made a conceptual mistake that got me wondering what was wrong...
 
 ### Just integrate?
 
@@ -182,7 +182,7 @@ plot(orig_points, type="l", main="original function (C=0)")
 
 ### The Key
 
-> **"A first order ODE can be understood as gradient descent."**
+> **"A first order ODE can be understood as gradient descent of its potential function."**
 
 That's what clicked for me and fixed a conceptual problem that got me worried for... Hours? Until I asked a friend (thanks Omar) and at long last, it all made sense.
 
@@ -222,7 +222,7 @@ $$
 \dot{x} = x^2-1
 $$
 
-I should have **known (!!)** that the integral corresponding to that ODE, the one that negates the gradient hereby represented, is in fact:
+I should have **known (!!)** that the potential function corresponding to that ODE, the one that negates the gradient hereby represented, is in fact:
 
 $$
 \int -(x^2-1) = -(x^3/3-x+C)
@@ -231,6 +231,30 @@ $$
 That was ALL I needed to understand to **see** where I had made a (conceptual) mistake.
 
 And it finally clicked when that friend gave me that key. Sometimes, you need help. I'm just glad I know a few people that can answer such questions.
+
+Edit: I also keep getting confused by trying to "solve the ODE" and getting to the potential function.
+
+Here is the clarification I need to keep in mind, for first order ODE.
+
+Solving the ODE analytically means solving:
+
+$$
+\dot{x} = f(x) = dx/dt \rightarrow\int{{1\over{f(x)}} dx}=\int{dt} 
+$$
+
+Which should lead to an expression $x(t)$, which is related to $t$ for a specifically given $x(0)$.
+
+Whereas the potential function is given by:
+
+$$
+\dot{x} = f(x) = {-dV\over{}dx}
+$$
+
+Which is where one can "see" the negative of the derivative... Which was the gradient descent all along. I just didn't grab the distinction :(
+
+Actually, that also makes it clear that "solving" analytically what looked like a simple ODE is in fact a real pain... And why one would prefer to use geometric approaches.
+
+Anyhow, I'm still not 100% clear on what the "solving analytically the ODE" means: I can understand how the first order ODE itself expresses a change over time for a given initial condition. Which is why I can understand the next section. But I guess I still need to wrap my head **conceptually** around what "solving it" means.
 
 ## Slopes Field
 
@@ -283,7 +307,7 @@ This book, I will say, is **very** promising... But it's also very **dense** wit
 
 ![Does it make sense to underline EVERYTHING? :D](images/IMG_6597.jpg)
 
-![Wrapping my head around vector fields](images/IMG_6596 copy.jpeg)
+![Wrapping my head around vector fields](images/IMG_6596%20copy.jpeg)
 
 ## Conclusions
 

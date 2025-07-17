@@ -253,7 +253,7 @@ window.Quarto = {
 </div>
 </div>
 <p>But then something came up. See, one argument of the methods presented in the book (thus far, anyway) is to get a “geometric” sense of what happens with nonlinear equations that are hard to solve analytically.</p>
-<p>This one example ODE was easy to integrate, so I could visualize the “potential function” that leads to this. That’s where I made a conceptual mistake that got me wondering what was wrong…</p>
+<p>This one example ODE was easy to “integrate”, so I could visualize the “potential function” that leads to this. That’s where I made a conceptual mistake that got me wondering what was wrong…</p>
 <section id="just-integrate" class="level3">
 <h3 class="anchored" data-anchor-id="just-integrate">Just integrate?</h3>
 <p>Well, if you integrate the above, you get:</p>
@@ -274,7 +274,7 @@ window.Quarto = {
 <section id="the-key" class="level3">
 <h3 class="anchored" data-anchor-id="the-key">The Key</h3>
 <blockquote class="blockquote">
-<p><strong>“A first order ODE can be understood as gradient descent.”</strong></p>
+<p><strong>“A first order ODE can be understood as gradient descent of its potential function.”</strong></p>
 </blockquote>
 <p>That’s what clicked for me and fixed a conceptual problem that got me worried for… Hours? Until I asked a friend (thanks Omar) and at long last, it all made sense.</p>
 <p>So here is the concept of the whole exercise. Let’s go back and go step-by-step. So, again, this:</p>
@@ -314,12 +314,26 @@ window.Quarto = {
 <p><span class="math display">\[
 \dot{x} = x^2-1
 \]</span></p>
-<p>I should have <strong>known (!!)</strong> that the integral corresponding to that ODE, the one that negates the gradient hereby represented, is in fact:</p>
+<p>I should have <strong>known (!!)</strong> that the potential function corresponding to that ODE, the one that negates the gradient hereby represented, is in fact:</p>
 <p><span class="math display">\[
 \int -(x^2-1) = -(x^3/3-x+C)
 \]</span></p>
 <p>That was ALL I needed to understand to <strong>see</strong> where I had made a (conceptual) mistake.</p>
 <p>And it finally clicked when that friend gave me that key. Sometimes, you need help. I’m just glad I know a few people that can answer such questions.</p>
+<p>Edit: I also keep getting confused by trying to “solve the ODE” and getting to the potential function.</p>
+<p>Here is the clarification I need to keep in mind, for first order ODE.</p>
+<p>Solving the ODE analytically means solving:</p>
+<p><span class="math display">\[
+\dot{x} = f(x) = dx/dt \rightarrow\int{{1\over{f(x)}} dx}=\int{dt}
+\]</span></p>
+<p>Which should lead to an expression <span class="math inline">\(x(t)\)</span>, which is related to <span class="math inline">\(t\)</span> for a specifically given <span class="math inline">\(x(0)\)</span>.</p>
+<p>Whereas the potential function is given by:</p>
+<p><span class="math display">\[
+\dot{x} = f(x) = {-dV\over{}dx}
+\]</span></p>
+<p>Which is where one can “see” the negative of the derivative… Which was the gradient descent all along. I just didn’t grab the distinction :(</p>
+<p>Actually, that also makes it clear that “solving” analytically what looked like a simple ODE is in fact a real pain… And why one would prefer to use geometric approaches.</p>
+<p>Anyhow, I’m still not 100% clear on what the “solving analytically the ODE” means: I can understand how the first order ODE itself expresses a change over time for a given initial condition. Which is why I can understand the next section. But I guess I still need to wrap my head <strong>conceptually</strong> around what “solving it” means.</p>
 </section>
 </section>
 <section id="slopes-field" class="level2">
