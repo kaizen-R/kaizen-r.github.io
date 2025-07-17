@@ -232,7 +232,7 @@ That was ALL I needed to understand to **see** where I had made a (conceptual) m
 
 And it finally clicked when that friend gave me that key. Sometimes, you need help. I'm just glad I know a few people that can answer such questions.
 
-Edit: I also keep getting confused by trying to "solve the ODE" and getting to the potential function.
+**Edit:** I kept getting confused by trying to "solve the ODE" and getting to the potential function.
 
 Here is the clarification I need to keep in mind, for first order ODE.
 
