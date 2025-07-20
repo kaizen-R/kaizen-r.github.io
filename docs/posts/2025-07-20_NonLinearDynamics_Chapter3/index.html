@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nico">
+<meta name="dcterms.date" content="2025-07-20">
+
+<title>Nonlinear Dynamics: on Bifurcations – Kaizen-R.com new home</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Kaizen-R.com new home</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/kaizen-R"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Nonlinear Dynamics: on Bifurcations</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">math</div>
+                <div class="quarto-category">code</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Nico </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 20, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="new-intro" class="level2">
+<h2 class="anchored" data-anchor-id="new-intro">New Intro</h2>
+<p>It turns out, back in February 2022, I published on the “old” Blog an entry on the Logistic Map.</p>
+<p>As I was reading through Chapter 2 last week, it was mentioned. This week, I browsed through Chapter 3 (that one will take time to fully follow), which discusses Bifurcations.</p>
+<p>As the math was getting complicated, with “supercritical pitchfork” bifurcations, or “cusp catastrophe” including an imperfection parameter and hence play with 2 independent variables (forcing us to look at things as folded surfaces in 3D).</p>
+<p>Long story short, it was a bit overwhelming, and so at one point I disconnected and thought I’d browse a bit through all the chapters to get a sense of what was ahead, which I did this morning.</p>
+<p>And sure enough, chapter 10 is about one-dimensional maps and it comes after the introduction of chaos with the Lorenz equations.</p>
+<p>Well, I’m not re-writing what I wrote some time ago, so instead I hereby reproduce the old entry, only updating pointers to images.</p>
+<p>But I will say, the <a href="https://kaizen-r.github.io/posts/2025-07-13_Studying_NonLinear_Dynamics_FirstDay/">new book</a> mentioned last week does put things in perspective, beyond “reproducing” the code and math, and that is quite exactly what I wanted in the first place.</p>
+</section>
+<section id="the-original-post-reproduced" class="level2">
+<h2 class="anchored" data-anchor-id="the-original-post-reproduced">The original Post, reproduced</h2>
+<section id="some-context" class="level3">
+<h3 class="anchored" data-anchor-id="some-context">Some Context</h3>
+<p>This was written while I was taking a course within the scope of my last MSc, which explains the reference to the course, next.</p>
+</section>
+</section>
+<section id="old-intro" class="level2">
+<h2 class="anchored" data-anchor-id="old-intro">OLD Intro</h2>
+<p>So I took a course in “Numerical Methods”, and (somehow) passed (I loved every bit of it, although it was <strong>HARD</strong>!).</p>
+<p>But then of course, taking a course doesn’t make me “proficient” at the subject matter. At best, it has exposed me to it and given me some confidence that I in fact can understand its concepts and solve problems – even if I’m not too fast… I simply feel there is SO MUCH MORE to it, and indeed I have several books on the subject to confirm it: <strong>I still have plenty to learn</strong>. Which is why I want to keep digging into it on my own.</p>
+<p>If anything, I did get a good dose of Engineering-level Maths exposure, and I needed that (after a few years working in Cyber – and I guess in most jobs – one might tend to forget about matrices or how/why to differentiate equations, and many white-collar workers will simply spend their days using Outlook, PowerPoint and maybe Excel…).</p>
+<p>Anyhow, <strong>I was thrilled I took that course</strong>. And I am looking forward for more similar courses (the Master continues, for me spread over three years…). But while that comes, I was particularly interested in some ideas of non-linear equations, differential equations, and Chaos Theory. We did do an exercise about Lorenz’s typical differential equations, and I saw the strange-attractors and the “butterfly-like” drawing come to life from my own implementation (in Matlab) of these 3 simple equations, and I kind of fell in love with it.</p>
+<p>Let me be clear: I am not a mathematician, and I know I don’t fully grasp the ideas (far from it, in fact!). But I keep reading about it. While reading “Chaos” by James Gleick (a reference on the subject), I came across the chapter about Ecology and the “Logistic Map”. And I thought: <strong>This is BEAUTIFUL</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Chaos_Logistic_Map_RStudio-768x380.png" class="img-fluid figure-img"></p>
+<figcaption>Playing with Logistic Map</figcaption>
+</figure>
+</div>
+<p>Last note for the Intro: The below has been done MANY TIMES, I am not inventing the wheel. I will just write my own R code to play around the simple equation and see its magic. I found references, particularly <a href="https://geoffboeing.com/2015/03/chaos-theory-logistic-map/">one that I will mention, that HEAVILY inspired this post</a> (although I’m creating my own code – and doing it in R), on top of the book. Please do have a look at both if you have any interest.</p>
+<section id="the-logistic-map" class="level3">
+<h3 class="anchored" data-anchor-id="the-logistic-map">The Logistic Map</h3>
+<p>So I’m not the right person to explain it in details, but the below is basically a mathematical expression of the evolution of a supposed population (say of fish), that considers a “growth rate” r, an initial population x0, and then tries to estimate the population say one year later (x1), and then the year after that (x2), etc. <strong>The following short equation – the “logistic map” – is all you need to produce the graph from the introduction!</strong></p>
+<p><span class="math display">\[
+x_{k+1} = rx_k (1-x_k)
+\]</span></p>
+<p>If you consider a limited environment, the typical example being a pond with fish, you need to consider that maybe a predator-prey thing might happen: If a population grows too much, it will deplete its resources (food, space…), and then will have to reduce its population so as to adapt to the available resources. This is the “* (1-x)” part of the equation: If there is too much fish, there won’t be enough food, space or oxygen. Hence the population would decrease. The decrease would leave more resources available, so that the fish population would be able to increase again (but in cycles, not continuously, as we can suppose the fish doesn’t reproduce and die instantaneously).</p>
+<p>For the sake of the example, let’s assume an initial population x0 of 0.5. (Here x is set between 0 and 1, so that things work as expected).</p>
+</section>
+<section id="back-to-the-graph-of-the-introduction" class="level3">
+<h3 class="anchored" data-anchor-id="back-to-the-graph-of-the-introduction">Back to the graph of the introduction</h3>
+<p>So what is the graph&nbsp; in the intro all about?</p>
+<p>It’s called a Bifurcation Diagram. It shows the evolution of the theoretical population over several generation (each dot is one value of the population at a given generation), as described above, but with different values for the growth ratio, after say 1000 generations.</p>
+<p>On the x axis, different values of our growth ratio, and on the y axis, the number of individuals in the population. For a growth ratio below 1, as can be expected, the population tends to grow smaller and smaller and hence tends to decrease to 0. That’s the left part of the blue line, after 100 generations, the population is 0 in these cases.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Logistic_Map_Bifurcation_r08_31-768x522.png" class="img-fluid figure-img"></p>
+<figcaption>finding bifurcations</figcaption>
+</figure>
+</div>
+<p>What’s interesting is that for growth ratios between 1 and 3.0, the population tends to stabilize to one specific value, which is why we see how the line grows somewhat but appears as a line: For each growth ratio in that range, the population stabilizes to one value. (What you can’t really see is that, in fact, there are many dots on each position of the line, one for each generation: For a given growth ratio, the population is stable at that particular value).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Logistic_Map_Bifurcation_r28_4-1536x1043.png" class="img-fluid figure-img"></p>
+<figcaption>onset of chaos</figcaption>
+</figure>
+</div>
+<p>&nbsp;</p>
+<p>From 3.0 to roughly 3.4, it turns out that the population oscillates between two values! That is: Either they have enough resources (population grows to a specific value) or not (the population decreases to another specific value), and each generation, it cycles to one of those two values.</p>
+<p>After that it gets weirder:</p>
+<p>Before a growth of&nbsp; ~3.45, more possible values appear, then again at ~3.54. But then the number of individuals in each generation seems to become “random”, and takes any value within some ranges, which is why we don’t see “lines” anymore, but rather clouds of points.</p>
+<p>With a growth ratio of 3.999, it would seem each generation has a different number of individual, ranging basically from 0 to 1 (all possible values!), seemingly random!</p>
+</section>
+<section id="interlude" class="level3">
+<h3 class="anchored" data-anchor-id="interlude">Interlude</h3>
+<p>Randomness is important in cybersecurity. So having an equation THAT SIMPLE generating seemingly random numbers sounds appealing. It’s not much more complex than the “<a href="https://en.wikipedia.org/wiki/Linear_congruential_generator">linear congruential generator</a>“, in fact. Maybe we could compare those two?</p>
+<p>So let’s implement a simplistic generator of random number:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear congruential generator</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>random_numbers_vector <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>X0 <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="co"># seed</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">36</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">3583</span> <span class="co"># also, this one is prime</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>max_iterations <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Xi_plus_1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">current_iter =</span> <span class="dv">0</span>, <span class="at">max_iter =</span> max_iterations) {</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  random_numbers_vector[current_iter<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;&lt;-</span> x</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(current_iter <span class="sc">==</span> max_iter) <span class="fu">return</span>(x)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Xi_plus_1</span>( (a <span class="sc">*</span> x <span class="sc">+</span> c) <span class="sc">%%</span> m, current_iter<span class="sc">+</span><span class="dv">1</span>, max_iter)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>random_numbers_vector <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, max_iterations)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">Xi_plus_1</span>(X0)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># scale to have values between 0 and 1</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>random_numbers_vector <span class="ot">&lt;-</span> random_numbers_vector<span class="sc">/</span><span class="fu">max</span>(random_numbers_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then, for comparison, let’s generate our population values with a growth rate of 3.999, for the same amount of generations:</p>
+<p># Recursive version of our Logistic Map function<br>
+logistic_numbers_vector &lt;- rep(0.5, max_iterations)</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>my_logistic_map3 <span class="ot">&lt;-</span> <span class="cf">function</span>(my_r, x, <span class="at">current_iter =</span> <span class="dv">0</span>, <span class="at">max_iter =</span> max_iterations) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  logistic_numbers_vector[current_iter<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;&lt;-</span> x</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(current_iter <span class="sc">==</span> max_iter) <span class="fu">return</span>(x)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">my_logistic_map3</span>(my_r, my_r <span class="sc">*</span> x <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>x), current_iter<span class="sc">+</span><span class="dv">1</span>, max_iter)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">my_logistic_map3</span>(<span class="fl">3.999</span>, <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then let’s compare two consecutive values, from each set of generated numbers:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>comparator_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">generation =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">200</span>, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">logistic_map_num =</span> logistic_numbers_vector, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">random_num =</span> random_numbers_vector)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>comparator_df <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">"num"</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">names_to =</span> <span class="st">"generator"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>   <span class="at">values_to =</span> <span class="st">"vals"</span>) <span class="ot">-&gt;</span> for_plot</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(for_plot[for_plot<span class="sc">$</span>generation <span class="sc">%in%</span> <span class="dv">30</span><span class="sc">:</span><span class="dv">50</span>,], <span class="fu">aes</span>(<span class="at">x =</span> generation, <span class="at">y =</span> vals, <span class="at">colour =</span> generator)) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>And they seem rather “random” at first sight, both of them, wouldn’t you say?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/seemingly_random_numbers-768x522.png" class="img-fluid figure-img"></p>
+<figcaption>seemingly random numbers</figcaption>
+</figure>
+</div>
+<p>Me at least, at first sight, I wouldn’t be able to tell which one is random, and which one isn’t (but is chaotic).</p>
+<p>But HERE IS THE KEY: The logistic map is NOT at all random, but rather perfectly deterministic (well, to be fair, our pseudo-random number generator is deterministic too, but it behaves more as expected).</p>
+<p>So how can we tell the difference? Here the “horse-shoe” figure makes its entrance. In the above graph, we could have thought that both generators gave back random numbers.</p>
+<p>BUT if we graph the values from two consecutive generations against each other (apparently that’s called a Phase Diagram), the magic appears:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>comparator_df<span class="sc">$</span>logistic_map_num1 <span class="ot">&lt;-</span> <span class="fu">c</span>(comparator_df<span class="sc">$</span>logistic_map_num[<span class="dv">2</span><span class="sc">:</span><span class="fu">nrow</span>(comparator_df)],<span class="dv">0</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>comparator_df<span class="sc">$</span>random_num1 <span class="ot">&lt;-</span> <span class="fu">c</span>(comparator_df<span class="sc">$</span>random_num[<span class="dv">2</span><span class="sc">:</span><span class="fu">nrow</span>(comparator_df)],<span class="dv">0</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Finally, the beauty!</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comparator_df) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> logistic_map_num, <span class="at">y =</span> logistic_map_num1, <span class="at">colour =</span> <span class="st">"logistic_map"</span>)) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> random_num, <span class="at">y =</span> random_num1, <span class="at">colour =</span> <span class="st">"pseudo_random"</span>)) <span class="sc">+</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"logistic_map"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="st">"pseudo_random"</span> <span class="ot">=</span> <span class="st">"red"</span>))<span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Comparing Logistic Map and Pseudo-Random Generator"</span>)<span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"'Generation N'"</span>) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"'Generation N+1'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Structure_in_Chaos-1536x869.png" class="img-fluid figure-img"></p>
+<figcaption>structure in chaos</figcaption>
+</figure>
+</div>
+<p>And, to me, that’s absolutely &amp; simply wonderful. I can’t avoid but to feel impressed by the structure appearing there, from something that anyone would otherwise have reasonably assumed is complete “chaos”… (And it is 😀 Structure in Chaos, I suppose that’s where this came from… Although I haven’t read enough yet :D)</p>
+</section>
+<section id="the-code" class="level3">
+<h3 class="anchored" data-anchor-id="the-code">The code</h3>
+<p>Of course, the above is done in R… I leave the <a href="https://github.com/kaizen-R/R/blob/master/Sample/demos/testing_logistic_map_chaos.R">demo code on my GitHub account</a> for reference.</p>
+<p>Let’s just say, it involves a few loops applying the very simple equation above, but with different growth rates, for a certain number of generations (at one point, we’re talking of about ~4 million points).</p>
+<p>In the spirit of “Numerical Methods”, and taking advantage of our computer, we can repeat the calculations many times. In this case, the “apply()” family of functions were not too helpful, as the equation is recurrent, so we need one result before we can calculate the next (we could probably trick it, but that’s not the point for today).</p>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>I just loved this example: One of the simplest of equations (it doesn’t look that scary, does it), and yet <strong>so much can happen from one small change in one parameter!</strong></p>
+<p>To me, this is a thing of wonder. But then, maybe I am a bit of a geek for math after all (while <strong>not at all good</strong> at it).</p>
+<p>There is of course MUCH MORE to it all. But I really wanted to implement this exercise for myself and reproduce it.</p>
+</section>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references">References</h3>
+<p><a href="https://geoffboeing.com/2015/03/chaos-theory-logistic-map/">Someone did all the above (and better/more) in Python</a></p>
+<p><a href="https://www.amazon.com/Chaos-Making-Science-James-Gleick/dp/0143113453">The book (I don’t earn anything from the link, buy it where you like best)</a></p>
+<p><a href="https://github.com/kaizen-R/R/blob/master/Sample/demos/testing_logistic_map_chaos.R">My code on GitHub</a></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
