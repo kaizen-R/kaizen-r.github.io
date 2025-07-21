@@ -25,19 +25,19 @@ Interpolation is about finding a distribution *in between known points*. So not 
 
 “For a given set of N+1 data points, we want to find the coefficients of an Nth-degree polynomial function to match them \[…\]”
 
-![](https://www.kaizen-r.com/wp-content/uploads/2024/10/lagrange_poly.png){alt=""}
+![](lagrange_poly.png){alt=""}
 
 Lagrange polynomials are somewhat intuitive because each term x_m can rather easily be shown to correspond exactly to y_m (by definition of L\_{N, m} above).
 
 Alright, and the math above leads me to the following R code (my own, but not saying “perfect”, of course :D):
 
-![](https://www.kaizen-r.com/wp-content/uploads/2024/10/interpolation_lagrange_r_v001-1024x809.png){alt=""}
+![](interpolation_lagrange_r_v001-1024x809.png){alt=""}
 
 (The [source code can be found here](https://github.com/kaizen-R/R/blob/master/Sample/math/interpolation_lagrange_poly_v001.R))
 
 And to validate that, I take the same example points as that of the reference book, and we can plot the results:
 
-![](https://www.kaizen-r.com/wp-content/uploads/2024/10/lagrange_poly_result_plot-1024x605.png){alt=""}
+![](lagrange_poly_result_plot-1024x605.png){alt=""}
 
 So we see a POSSIBLE approach here, which “looks” sensible (but MIGHT VERY WELL be wrong).
 

@@ -1,0 +1,50 @@
+---
+title: "Testing LLMs locally on basic Apple Silicon"
+author: "Nico"
+date: "2024-10-12"
+categories: [ML]
+---
+
+## NEW Intro
+
+I have learned since. But back in October 2024, I did run the following test.
+
+Nowadays, I prefer Meta's OLlama for its simplicity - although I still haven't tested it on Apple Silicon, that's true too. (And I'm no fan of Meta, but OLl![](first_test_local_llm-1024x153.png)ama is easy to use, runs locally, and my tests thus far were quite good. You have to admit the good, sometimes, too).
+
+This entry is reproduced from the "old" blog.
+
+## OLD Intro
+
+Fair enough, I keep criticizing the GenAI hype. But in order to criticize something, I guess I believe I have to have SOME kind of understanding of what happens (silly me I guess for thinking like that).
+
+After brushing up on AI these past few weeks, mostly through readings, including what others might consider the “less fun stuff” (which I personally find fascinating, though) such as “words embeddings”, transformers architecture (still not 100% clear on these), Recurrent NeuralNets, “Word2Vec” (very cool!), it was time I moved on to the actual fun: Testing an LLM.
+
+And I have had a worry: Being a **MacBook** (Air, M1) user, is there any way I can **test using an LLM and make it work locally**?
+
+There sure is. I did it the other day.
+
+## MLX-LM
+
+That’s the name for it. Think Apple’s version of things to use its GPU for (in this case) GenAI (more generally: MLX is for ML… Duh!).
+
+Just a few things to set up. This post is not about me being clever or coding much, instead I’m **just testing the thing**. I just want to KNOW it works. No NVidia GPU, no crazy resources, no Internet connection…
+
+And to achieve that, I only had to follow a mix of a couple of resources (see Resources section).
+
+With a Python3 venv, some pip, the mlx-ml, a HuggingFace account (for login, and then to download Mistral-7B), and of course a MacBook Air (M1, in my case), I just was able to generate 100 tokens out of a simple prompt, WHILE OFFLINE:
+
+![Asking a local LLM to answer a simple question](https://www.kaizen-r.com/wp-content/uploads/2024/10/first_test_local_llm-1024x153.png){alt="Asking a local LLM to answer a simple question"}
+
+And that’s about it!
+
+## Conclusion
+
+All that is not to say my laptop is well suited for any of this. I’d have to consider training things a bit to learn more, just “generating answers” is not a use-case that would justify worrying so much. But I **really wanted to try it for myself**, and make it work **OFFLINE** (which to me is very important, go figure). There would be much more to this, but it’s a good start, and I’ll leave it at that for now.
+
+### Resources
+
+[It started here](https://medium.com/@manuelescobar-dev/running-large-language-models-llama-3-on-apple-silicon-with-apples-mlx-framework-4f4ee6e15f31) (But then me signing licenses for this one test was silly, so I moved away from Llama-3-8B…)
+
+[This resource made the day](https://github.com/ml-explore/mlx-examples/blob/main/llms/README.md)
+
+And HuggingFace is COOL. [I read a bit through this, for instance.](https://huggingface.co/docs/hub/en/mlx)

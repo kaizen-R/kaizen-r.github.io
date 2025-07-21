@@ -11,6 +11,8 @@ I discussed an unsupervised clustering algorithm, DBScan. We used multi-dimensio
 
 Enters the concept of **embedding**.
 
+![](images/2D_All_Wiki_Clusters-768x488.png)
+
 ## Conceptual understanding
 
 Once again, who am I to “teach” you what an embedding is, hu? It’s probably better to go to [the definition](https://en.wikipedia.org/wiki/Word_embedding), which hopefully, thanks to the context provided in the last entry, can help intuit where we’re going with all this:
@@ -43,7 +45,7 @@ Now one important concept for Machine Learning: **“Garbage IN? Garbage OUT!”
 
 Let’s say I consider the Wikipedia to hold “good” text about some IT and Cybersecurity concepts. If so, I could use for instance the R Package wikipediR. (At least that’s the one I used for today)
 
-``` R
+``` r
 library(WikipediR) # Get Wiki data
 ## Simple wrapper
 my_page_content <- function(keywords) {
@@ -69,7 +71,7 @@ The next step will be to use our data. Here I’m not going to implement anythin
 
 Now we can use R to train our own Word2Vec Neural Network, with Bag Of Words, on our sample text (692 small blocks of text) and ask it to come up with vectors of 30 dimensions as embeddings for the main keywords found in the text.
 
-``` R
+``` r
 ## Lets' move on to something more... Substantial:
 full_text <- c(
   switch_wiki,
@@ -89,15 +91,15 @@ embeddings
 And yes, it requires a few things (the “word2vec” R package, for one), a bit of understanding (or trial and error, but understanding is better!). But if all goes as planned you’ll get something like this:
 
 \
-![](https://www.kaizen-r.com/wp-content/uploads/2024/10/embeddings_screenshot_1-1024x119.png){alt=""}
+![](images/embeddings_screenshot_1-2048x237.png){alt=""}
 
-![](https://www.kaizen-r.com/wp-content/uploads/2024/10/embeddings_dims.png){alt=""}
+![](images/embeddings_dims.png){alt=""}
 
 So 970 words have been transformed into their corresponding 30-dimensional vectors! Good!
 
 30 dimensions is going to be hard to “look at”, but let’s do it anyway. What we really want is **to understand the similarity of things here**. So for instance, FROM OUR SELECTED WIKI text (very small sample, if you ask me, and yet…):
 
-![](https://www.kaizen-r.com/wp-content/uploads/2024/10/lookslike_5.png){alt=""}
+![](images/lookslike_5.png){alt=""}
 
 Now I wouldn’t necessarily agree that “pix” is the best nearest word for “firewall” but… That’s what our sample text says, it would seem. Anyhow, it doesn’t sound completely crazy either. (e.g. “Restaurant”, had it been in the sample text, hopefully wouldn’t appear in the top 5 “nearest” terms for Firewall…)
 
@@ -111,11 +113,11 @@ I’m going to finish this with one visualization, and then hopefully everything
 
 But here is the **key of all the conversation for today**:
 
-![Projecting Embeddings onto 2D plot](https://www.kaizen-r.com/wp-content/uploads/2024/10/embeddings_2D-1024x495.png){alt="Projecting Embeddings onto 2D plot"}
+![Projecting Embeddings onto 2D plot](images/embeddings_2D-1536x742.png)
 
 We’ve done it! We have visualized our words, not without **first creating embeddings for them**, and then projecting into 2 Dimensions.
 
-And let’s have a look at what is where…![](https://www.kaizen-r.com/wp-content/uploads/2024/10/firewall_2D-1024x683.png){alt=""}
+And let’s have a look at what is where…![](images/firewall_2D-1536x1025.png){alt=""}
 
 Not bad, “firewalls” is near “firewall” (pfiu!). So are filter, traffic… And maybe the rest is not great, but that’s what we came up with from (again) very little sample text.
 
@@ -123,11 +125,11 @@ Not bad, “firewalls” is near “firewall” (pfiu!). So are filter, traffic�
 
 Last week, I [published a (simplistic) entry about DBScan](https://www.kaizen-r.com/2024/10/ml-concepts-unsupervised-learning-clustering-dbscan/) as an algorithm to cluster things. WHY NOT apply that here?!
 
-![](https://www.kaizen-r.com/wp-content/uploads/2024/11/2D_All_Wiki_Clusters-1024x650.png){alt=""}
+![](images/2D_All_Wiki_Clusters.png){alt=""}
 
 Could we have a look at one cluster, maybe one that contains the word “Virus”?
 
-![](https://www.kaizen-r.com/wp-content/uploads/2024/11/virus_clust-1024x812.png){alt=""}
+![](images/virus_clust-1536x1218.png){alt=""}
 
 Things like “infection”, “executable”, “scanner”, “malicious” are all in the area… And with the same color!
 
@@ -135,7 +137,7 @@ With more text and better cleanup… I’m convinced the approach has its merits
 
 As per 3D visuals, this time using Multi-dimensional Scaling (another algorithm that uses distances!) to project onto 3 dimensions, well it works, but there is a bit too much data, and maybe it’s not super super useful… Still:
 
-![](https://www.kaizen-r.com/wp-content/uploads/2024/11/wiki_MDS_3D-300x245.png){alt=""}
+![](images/wiki_MDS_3D-768x627.png){alt=""}
 
 ## Applications
 

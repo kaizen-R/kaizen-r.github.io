@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -37,10 +37,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -95,12 +95,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://github.com/kaizen-R"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -169,13 +164,13 @@ ul.task-list li input[type="checkbox"] {
 <section id="lagrange-polynomials" class="level2">
 <h2 class="anchored" data-anchor-id="lagrange-polynomials">Lagrange Polynomials</h2>
 <p>“For a given set of N+1 data points, we want to find the coefficients of an Nth-degree polynomial function to match them […]”</p>
-<p><img src="https://www.kaizen-r.com/wp-content/uploads/2024/10/lagrange_poly.png" class="img-fluid" alt=""></p>
+<p><img src="lagrange_poly.png" class="img-fluid" alt=""></p>
 <p>Lagrange polynomials are somewhat intuitive because each term x_m can rather easily be shown to correspond exactly to y_m (by definition of L_{N, m} above).</p>
 <p>Alright, and the math above leads me to the following R code (my own, but not saying “perfect”, of course :D):</p>
-<p><img src="https://www.kaizen-r.com/wp-content/uploads/2024/10/interpolation_lagrange_r_v001-1024x809.png" class="img-fluid" alt=""></p>
+<p><img src="interpolation_lagrange_r_v001-1024x809.png" class="img-fluid" alt=""></p>
 <p>(The <a href="https://github.com/kaizen-R/R/blob/master/Sample/math/interpolation_lagrange_poly_v001.R">source code can be found here</a>)</p>
 <p>And to validate that, I take the same example points as that of the reference book, and we can plot the results:</p>
-<p><img src="https://www.kaizen-r.com/wp-content/uploads/2024/10/lagrange_poly_result_plot-1024x605.png" class="img-fluid" alt=""></p>
+<p><img src="lagrange_poly_result_plot-1024x605.png" class="img-fluid" alt=""></p>
 <p>So we see a POSSIBLE approach here, which “looks” sensible (but MIGHT VERY WELL be wrong).</p>
 </section>
 <section id="conclusions" class="level2">
@@ -275,8 +270,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -387,7 +380,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

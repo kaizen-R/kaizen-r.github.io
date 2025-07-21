@@ -1,0 +1,106 @@
+---
+title: "First Entry: Variables"
+author: "Nico"
+date: "2020-06-20"
+categories: [code]
+---
+
+## Let’s start with the most basic of concepts (maybe):
+
+## NOTE: First post ever, reproduced
+
+This one was my first-ever Blog post on the original kaizen-r.com site. I'm just reproducing it here out of... Nostalgia, I guess.
+
+Anyway... Onward!
+
+![](variable_x2.png){fig-align="center" width="500"}
+
+## Variables
+
+Variables are sometimes overseen as “obvious”. Or at least, “how to name them”.
+
+But after some time programming on your own, particularly in languages like R (from my experience at least), you find you could make mistakes. And after a while, you kind of re-use the same variable names, not necessarily for a reason.
+
+For me, it was:
+
+``` r
+mydf
+```
+
+That I read in a book one day (some years ago now) when I was beginning my programming in R, and it just stuck, from the very first few exercises onwards. There is nothing particularly wrong with that… Or is there?
+
+It’s also easy to use a variable called “a” for a quick script. Then obviously you end up using: “b”, “c”…
+
+``` r
+a <- 1
+b <- 2
+c <- "a string"
+```
+
+But wait. c() is actually a function in R (a pretty important one at that). You actually CAN use “c” as a variable name, but maybe you shouldn’t…
+
+Yes, this is a basic concept, but even then, you must be careful. I created a “factorial” variable not long ago to demo how to program a factorial calculation using a while loop… Only to find out later on that, duh!, factorial() is also a function in R… (One that wasn’t useful in that particular case as the goal was to demo while loops, but… I had never used “factorial(n)” before in R, I simply never had had the need… Anyway!)
+
+## So how DO I name a variable? And a function? And (why not) a file?
+
+Let’s try to answer the first one for now.
+
+Variables can be named almost anything in R. Well, mostly, alfa-numerics, plus dot(.) and underscore are allowed. Some exceptions apply:
+
+``` r
+.1myvariable
+```
+
+That would not work. More to the point, I would not recommend it 🙂
+
+Other considerations, besides what’s permitted or not, might be:
+
+-   Long variable names end up being heavy on the eye, particularly when you do things like (in R):
+
+``` r
+mylongdataframename[mylongdataframename$somevariablenameinthedataframe == 1,]
+```
+
+That happens a lot. Yes, it did happen to me (more than I care to admit).
+
+-   You also might want to consider that others might want to read your code, and so variables like “x”, or “tdffwd” might not be too good either.
+
+-   Then you come across recommendations out there: camelCase, dot (.) separator, underscores… Each of which have pros and cons. Too much literature on the topic to be convinced – one way or another, with good arguments for or against any of these.
+
+-   Variable names might include object information: Is it a string, so I can end my variable name with \_s? a data frame, \_df? But then this goes against the idea of making variables “short”, or, at least, “concise”.
+
+-   Moreover, you might want to choose one way to go for ALL the coding languages you use (or, well, as many as possible). So in Python (usually Python is “right there” when you talk about R), calling an object’s method uses the dot (.), which in turn might push you away from it for your day-to-day variable naming conventions.
+
+At the end of the day, I chose the following:
+
+-   I use **underscore (\_)**, to separate words in the variable names. This is subject to debate out there, but that’s just my choice 🙂
+
+-   I use **all lower-case** for all variable names, and for functions. This is not a recommendation, you can come up with your own system of course. I can differentiate simply because if I’m calling a function, there will be a () after it (duh!)
+
+-   I try to use real complete words, or “stems” where it makes sense, to keep it short.
+
+-   I agree with the concept of **“nouns” for variable names, and “verbs” for functions**.
+
+-   I have “shortcuts”: For example, I use “n” for a number, usually a quantity/count.
+
+## Conclusion
+
+As you can see, this post is extremely “basic” in concept. 
+
+But I found that this kind of details, overtime, can impact your code, how readable it is, how fast you can program… How much you have to think about how to name a variable is surprisingly full of impact on the resulting code. And maybe it is, partly at least, an art, more than science. Either way, every programmer has had these concepts in mind at some point. Those that have thought about it might be, arguably, one step ahead. “The devil lies in the details”, or so they say.
+
+TO BE CONTINUED…
+
+## References
+
+https://www.r-bloggers.com/r-code-best-practices/
+
+https://style.tidyverse.org/syntax.html#object-names
+
+https://stackoverflow.com/questions/1944910/what-is-your-preferred-style-for-naming-variables-in-r
+
+*Somewhat related references:*
+
+https://www.r-bloggers.com/r-best-practices-r-you-writing-the-r-way/
+
+https://google.github.io/styleguide/Rguide.html

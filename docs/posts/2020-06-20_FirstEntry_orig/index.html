@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2024-11-02">
+<meta name="dcterms.date" content="2020-06-20">
 
-<title>ML Concepts: Word Embeddings – Kaizen-R.com new home</title>
+<title>First Entry: Variables – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -144,10 +144,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">ML Concepts: Word Embeddings</h1>
+      <h1 class="title">First Entry: Variables</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">ML</div>
-                <div class="quarto-category">NLP</div>
+                <div class="quarto-category">code</div>
               </div>
                   </div>
   </div>
@@ -165,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 2, 2024</p>
+        <p class="date">June 20, 2020</p>
       </div>
     </div>
     
@@ -184,122 +183,74 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="continuing-on-text-for-cybersecurity-ml" class="level2">
-<h2 class="anchored" data-anchor-id="continuing-on-text-for-cybersecurity-ml">Continuing on text for Cybersecurity ML</h2>
-<p>I discussed an unsupervised clustering algorithm, DBScan. We used multi-dimensional points (coordinates) in space. But what if our data is text? That’s common in “general”, but also in Cybersecurity. So the question becomes: Can we treat “text” as points on which to apply such (or similar) algorithms?</p>
-<p>Enters the concept of <strong>embedding</strong>.</p>
-<p><img src="images/2D_All_Wiki_Clusters-768x488.png" class="img-fluid"></p>
+<section id="lets-start-with-the-most-basic-of-concepts-maybe" class="level2">
+<h2 class="anchored" data-anchor-id="lets-start-with-the-most-basic-of-concepts-maybe">Let’s start with the most basic of concepts (maybe):</h2>
 </section>
-<section id="conceptual-understanding" class="level2">
-<h2 class="anchored" data-anchor-id="conceptual-understanding">Conceptual understanding</h2>
-<p>Once again, who am I to “teach” you what an embedding is, hu? It’s probably better to go to <a href="https://en.wikipedia.org/wiki/Word_embedding">the definition</a>, which hopefully, thanks to the context provided in the last entry, can help intuit where we’re going with all this:</p>
-<p><em>“In&nbsp;natural language processing, a&nbsp;<strong>word embedding</strong>&nbsp;is a representation of a word. The embedding is used in text analysis. Typically, the representation is a&nbsp;real-valued&nbsp;vector that encodes the meaning of the word in such a way that the words that are closer in the vector space are expected to be similar in meaning.”</em></p>
-<p>So two things: Today is actually about <em>Natural Language Processing</em>, or NLP in short. Not a new topic in this Blog, but hey.</p>
-<p>Second, we’re looking for a representation of a word as a “real-valued vector”. So think of it like so: A “vector” can represent many things, but today we’re going to consider it a set of coordinates.</p>
-<p>So in 3 dimensions (3D), a word embedding would represent <em>a word as 3 numbers</em>, representing <em>each a coordinate of the (x, y, z) space</em>. Sounds familiar? Check again the entry on Clustering if not, please, it makes more sense to consider both entries together…</p>
-<p>You’re back?</p>
-<p>OK. For very large text, maybe the information of a word with only 3 dimensions is not enough to “encode” its relationship to other words. So you would go into higher dimensions, say 15, 30 or 1000 dimensions (again, why not? You and I can’t visualize 30 dimensions in our heads, but it’s easy for a computer… Fun, ain’t it?)</p>
-<p>And so with a set of vectors, each representing a word, we get in fact a set of points in an N-dimensional space. And then…</p>
-<p><strong>Why not</strong> use algorithms on these “embeddings”, say the DBScan algorithm?</p>
-</section>
-<section id="in-practice-embedding-from-texts" class="level2">
-<h2 class="anchored" data-anchor-id="in-practice-embedding-from-texts">In practice: Embedding from text(s)</h2>
-<p>We’re not going to discuss the current algorithms for embeddings in detail. They use… Neural Networks, of all things. The general accepted version of Word2Vec for instance in essence takes pairs of words (out of “training text”) and transforms the “words” into vectors of 300 dimensions (if I remember correctly). Better even, you can get the embeddings, so you need not train anything yourself (thanks Google AI!).</p>
-<p>But for today, we might just want to go ahead and actually train our own embeddings. Let’s go for it!</p>
-<p>By the way: <a href="https://github.com/kaizen-R/R/blob/master/Sample/NLP/word_embedding_cyber_wiki_v001.R">Here the code for today.</a></p>
-<p>Now one important concept for Machine Learning: <strong>“Garbage IN? Garbage OUT!”</strong> So IF I use cra*py (pardon my french) text as input, I shouldn’t expect much of a result as an output.&nbsp;</p>
-<p>Let’s say I consider the Wikipedia to hold “good” text about some IT and Cybersecurity concepts. If so, I could use for instance the R Package wikipediR. (At least that’s the one I used for today)</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(WikipediR) <span class="co"># Get Wiki data</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Simple wrapper</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>my_page_content <span class="ot">&lt;-</span> <span class="cf">function</span>(keywords) {</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">page_content</span>(<span class="at">language =</span> <span class="st">"en"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">project =</span> <span class="st">"wikipedia"</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">page_name =</span> keywords,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">as_wikitext =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">clean_response =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_text_set</span>()</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Explicitly for explanation:</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>firewall_wiki <span class="ot">&lt;-</span> <span class="fu">my_page_content</span>(<span class="st">"firewall (computing)"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>firewall_wiki <span class="ot">&lt;-</span> firewall_wiki[<span class="dv">1</span><span class="sc">:</span><span class="dv">82</span>]</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>switch_wiki <span class="ot">&lt;-</span> <span class="fu">my_page_content</span>(<span class="st">"network switch"</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>switch_wiki <span class="ot">&lt;-</span> switch_wiki[<span class="dv">2</span><span class="sc">:</span><span class="dv">96</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>And it goes on, with a few other keywords of interest (say “router”, “hacker”…). You have the details of this example in the code.</p>
-<p>Why I filter and keep only 82 paragraphs of the Firewall entry? Just a matter of cleaner stuff, the way I parse the Wiki entries (which is detailed in “clean_text_set()” function), some lines contain a bit of only pairs of words, others a few references with proper Names, etc.&nbsp; Consider this a manual process in this case because I’m lazy. In the real world, I would look for the key words that mark the section of the Wiki Entry that do not interest me, and keep the ones above that only. And clean those. Like it or not, in this case, I needed to extract meaningful sentences of some HTML pages. It requires a bit of work (my “cleant_text_set()” function, created for today’s exercise specifically, hopefully can show how one has to work, it’s not always as simple as running a function call…). All in all, after pre-processing, I’ll end up with 692 sentences. <strong>In traditional ML, a good part of the work is about getting the right data in the right format.</strong> And that’s all I say about that today. Moving on.</p>
-<p>The next step will be to use our data. Here I’m not going to implement anything myself, it’s beyond my point. Suffice to say I’m going to use the “Continuous Bag of Words”, that looks at words AROUND one word to assign positions in space. In concept and simplifying a lot, we’re seeing if “block” and “firewall” appear in the training text near one another more often than “restaurant” and “firewall”. (I’d guess that’s about right :D)</p>
-<p>Now we can use R to train our own Word2Vec Neural Network, with Bag Of Words, on our sample text (692 small blocks of text) and ask it to come up with vectors of 30 dimensions as embeddings for the main keywords found in the text.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Lets' move on to something more... Substantial:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>full_text <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  switch_wiki,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  router_wiki,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  firewall_wiki,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  hacker_wiki,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  computer_wiki,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  cpu_wiki,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  virus_wiki</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">word2vec</span>(full_text, <span class="at">type=</span><span class="st">"cbow"</span>, <span class="at">dim=</span><span class="dv">30</span>, <span class="at">iter =</span> <span class="dv">50</span>)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>embeddings <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(model)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>embeddings</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>And yes, it requires a few things (the “word2vec” R package, for one), a bit of understanding (or trial and error, but understanding is better!). But if all goes as planned you’ll get something like this:</p>
-<p><br>
-<img src="images/embeddings_screenshot_1-2048x237.png" class="img-fluid" alt=""></p>
-<p><img src="images/embeddings_dims.png" class="img-fluid" alt=""></p>
-<p>So 970 words have been transformed into their corresponding 30-dimensional vectors! Good!</p>
-<p>30 dimensions is going to be hard to “look at”, but let’s do it anyway. What we really want is <strong>to understand the similarity of things here</strong>. So for instance, FROM OUR SELECTED WIKI text (very small sample, if you ask me, and yet…):</p>
-<p><img src="images/lookslike_5.png" class="img-fluid" alt=""></p>
-<p>Now I wouldn’t necessarily agree that “pix” is the best nearest word for “firewall” but… That’s what our sample text says, it would seem. Anyhow, it doesn’t sound completely crazy either. (e.g.&nbsp;“Restaurant”, had it been in the sample text, hopefully wouldn’t appear in the top 5 “nearest” terms for Firewall…)</p>
-<p>30 dimensions is going to be hard to “look at”, but let’s do it anyway. What we really want is <strong>to understand the similarity of things here</strong>. So for instance, FROM OUR SELECTED WIKI text (very small sample, if you ask me, and yet…):</p>
-<p>Now I wouldn’t necessarily agree that “pix” is the best nearest word for “firewall” but… That’s what our sample text says, it would seem. Anyhow, it doesn’t sound completely crazy either. (e.g.&nbsp;“Restaurant”, had it been in the sample text, hopefully wouldn’t appear in the top 5 “nearest” terms for Firewall…)</p>
-</section>
-<section id="going-2d-and-hint-for-the-future" class="level2">
-<h2 class="anchored" data-anchor-id="going-2d-and-hint-for-the-future">Going 2D and hint for the future</h2>
-<p>I’m going to finish this with one visualization, and then hopefully everything will come together. Now I’ll say this first: I know you can bring 30 dimensions into 2, yes. I was going to try “multi-dimensional scaling” (as PCA is probably too lossy for such a reduction), or look into some algorithm for that. <a href="https://www.rdocumentation.org/packages/word2vec/versions/0.4.0">But then I came across examples here</a>, and heck, dimensionality reduction was beyond the point for today, and so <em>I skipped doing it myself.</em> (To this day, I haven’t looked at how the umap() function works. I know, shame on me.)</p>
-<p>But here is the <strong>key of all the conversation for today</strong>:</p>
+<section id="note-first-post-ever-reproduced" class="level2">
+<h2 class="anchored" data-anchor-id="note-first-post-ever-reproduced">NOTE: First post ever, reproduced</h2>
+<p>This one was my first-ever Blog post on the original kaizen-r.com site. I’m just reproducing it here out of… Nostalgia, I guess.</p>
+<p>Anyway… Onward!</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/embeddings_2D-1536x742.png" class="img-fluid figure-img"></p>
-<figcaption>Projecting Embeddings onto 2D plot</figcaption>
+<p><img src="variable_x2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="500"></p>
 </figure>
 </div>
-<p>We’ve done it! We have visualized our words, not without <strong>first creating embeddings for them</strong>, and then projecting into 2 Dimensions.</p>
-<p>And let’s have a look at what is where…<img src="images/firewall_2D-1536x1025.png" class="img-fluid" alt=""></p>
-<p>Not bad, “firewalls” is near “firewall” (pfiu!). So are filter, traffic… And maybe the rest is not great, but that’s what we came up with from (again) very little sample text.</p>
 </section>
-<section id="mixing-things-up" class="level2">
-<h2 class="anchored" data-anchor-id="mixing-things-up">Mixing things up!</h2>
-<p>Last week, I <a href="https://www.kaizen-r.com/2024/10/ml-concepts-unsupervised-learning-clustering-dbscan/">published a (simplistic) entry about DBScan</a> as an algorithm to cluster things. WHY NOT apply that here?!</p>
-<p><img src="images/2D_All_Wiki_Clusters.png" class="img-fluid" alt=""></p>
-<p>Could we have a look at one cluster, maybe one that contains the word “Virus”?</p>
-<p><img src="images/virus_clust-1536x1218.png" class="img-fluid" alt=""></p>
-<p>Things like “infection”, “executable”, “scanner”, “malicious” are all in the area… And with the same color!</p>
-<p>With more text and better cleanup… I’m convinced the approach has its merits 🙂</p>
-<p>As per 3D visuals, this time using Multi-dimensional Scaling (another algorithm that uses distances!) to project onto 3 dimensions, well it works, but there is a bit too much data, and maybe it’s not super super useful… Still:</p>
-<p><img src="images/wiki_MDS_3D-768x627.png" class="img-fluid" alt=""></p>
+<section id="variables" class="level2">
+<h2 class="anchored" data-anchor-id="variables">Variables</h2>
+<p>Variables are sometimes overseen as “obvious”. Or at least, “how to name them”.</p>
+<p>But after some time programming on your own, particularly in languages like R (from my experience at least), you find you could make mistakes. And after a while, you kind of re-use the same variable names, not necessarily for a reason.</p>
+<p>For me, it was:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mydf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>That I read in a book one day (some years ago now) when I was beginning my programming in R, and it just stuck, from the very first few exercises onwards. There is nothing particularly wrong with that… Or is there?</p>
+<p>It’s also easy to use a variable called “a” for a quick script. Then obviously you end up using: “b”, “c”…</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="st">"a string"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>But wait. c() is actually a function in R (a pretty important one at that). You actually CAN use “c” as a variable name, but maybe you shouldn’t…</p>
+<p>Yes, this is a basic concept, but even then, you must be careful. I created a “factorial” variable not long ago to demo how to program a factorial calculation using a while loop… Only to find out later on that, duh!, factorial() is also a function in R… (One that wasn’t useful in that particular case as the goal was to demo while loops, but… I had never used “factorial(n)” before in R, I simply never had had the need… Anyway!)</p>
 </section>
-<section id="applications" class="level2">
-<h2 class="anchored" data-anchor-id="applications">Applications</h2>
-<p>What if instead of Wiki entries from the internet, we <strong>had taken CVE text</strong> (maybe along with their CVSS (or whatever scoring system you prefer))? We could probably do some sort of regression once we encode the text (maybe even mixing things up with other algorithms) and maybe estimate the score?</p>
-<p>How about <strong>classifying threat alerts into groups</strong>?</p>
-<p>What if we had taken <strong>logs from a machine</strong>. Could we maybe use all this and find specially <strong>anomalous</strong> logs, from the complete log file? (Imagine thousands of lines reviewed in seconds by your laptop like so…)</p>
-<p>And consider this: Over this and the last Blog entry, we’ve discussed enough to do some <strong>basic ML</strong>. But there is <strong>much more than Clustering applied to text</strong>. I just hope this helps give a <strong>hint of the possibilities</strong>. 🙂</p>
+<section id="so-how-do-i-name-a-variable-and-a-function-and-why-not-a-file" class="level2">
+<h2 class="anchored" data-anchor-id="so-how-do-i-name-a-variable-and-a-function-and-why-not-a-file">So how DO I name a variable? And a function? And (why not) a file?</h2>
+<p>Let’s try to answer the first one for now.</p>
+<p>Variables can be named almost anything in R. Well, mostly, alfa-numerics, plus dot(.) and underscore are allowed. Some exceptions apply:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>.<span class="dv">1</span>myvariable</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>That would not work. More to the point, I would not recommend it 🙂</p>
+<p>Other considerations, besides what’s permitted or not, might be:</p>
+<ul>
+<li>Long variable names end up being heavy on the eye, particularly when you do things like (in R):</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mylongdataframename[mylongdataframename<span class="sc">$</span>somevariablenameinthedataframe <span class="sc">==</span> <span class="dv">1</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>That happens a lot. Yes, it did happen to me (more than I care to admit).</p>
+<ul>
+<li><p>You also might want to consider that others might want to read your code, and so variables like “x”, or “tdffwd” might not be too good either.</p></li>
+<li><p>Then you come across recommendations out there: camelCase, dot (.) separator, underscores… Each of which have pros and cons. Too much literature on the topic to be convinced – one way or another, with good arguments for or against any of these.</p></li>
+<li><p>Variable names might include object information: Is it a string, so I can end my variable name with _s? a data frame, _df? But then this goes against the idea of making variables “short”, or, at least, “concise”.</p></li>
+<li><p>Moreover, you might want to choose one way to go for ALL the coding languages you use (or, well, as many as possible). So in Python (usually Python is “right there” when you talk about R), calling an object’s method uses the dot (.), which in turn might push you away from it for your day-to-day variable naming conventions.</p></li>
+</ul>
+<p>At the end of the day, I chose the following:</p>
+<ul>
+<li><p>I use <strong>underscore (_)</strong>, to separate words in the variable names. This is subject to debate out there, but that’s just my choice 🙂</p></li>
+<li><p>I use <strong>all lower-case</strong> for all variable names, and for functions. This is not a recommendation, you can come up with your own system of course. I can differentiate simply because if I’m calling a function, there will be a () after it (duh!)</p></li>
+<li><p>I try to use real complete words, or “stems” where it makes sense, to keep it short.</p></li>
+<li><p>I agree with the concept of <strong>“nouns” for variable names, and “verbs” for functions</strong>.</p></li>
+<li><p>I have “shortcuts”: For example, I use “n” for a number, usually a quantity/count.</p></li>
+</ul>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>At this stage, I truly hope we understand what it means for us to be able to put words (or texts, they could be each files… why not!) into vectors (i.e.&nbsp;points in N-dimensional space), to be projected (or not) and <em>for which distances can be calculated to other words/texts</em>.</p>
-<p>With that, we open a world of possibilities: <em>Topic Modelling, Sentiment Analysis</em>, etc. can all be done using distances between points 🙂 (There is <strong>more to NLP</strong>, though, and NOT only LLMs, please. More simple/traditional stuff is out there! One example I wrote about forever ago was <a href="https://www.kaizen-r.com/2021/08/nlp-3-n-parts-of-speech-tagging/">part of speech tagging</a>, for instance. Another time I used <a href="https://www.kaizen-r.com/2021/02/logs-classification-using-ml-2-2/">TF-IDF to model a classifier of log files with supervised learning</a>…) Maybe in a future post I’ll discuss more of these concepts, but I’d be very happy for now if somehow I helped someone out there understand a bit better how these things could actually work.</p>
-<p><strong>By the by:</strong> <strong>GenAI</strong> essentially does <strong>self-supervised</strong> learning on word embeddings. (WOW! What a bomb to leave at the end of a blog entry, “self-supervised”???).</p>
+<p>As you can see, this post is extremely “basic” in concept.&nbsp;</p>
+<p>But I found that this kind of details, overtime, can impact your code, how readable it is, how fast you can program… How much you have to think about how to name a variable is surprisingly full of impact on the resulting code. And maybe it is, partly at least, an art, more than science. Either way, every programmer has had these concepts in mind at some point. Those that have thought about it might be, arguably, one step ahead. “The devil lies in the details”, or so they say.</p>
+<p>TO BE CONTINUED…</p>
 </section>
-<section id="bonus-a-word-about-genai" class="level2">
-<h2 class="anchored" data-anchor-id="bonus-a-word-about-genai">Bonus: A word about GenAI</h2>
-<p>OK, OK, OK… But real quick then.</p>
-<p>First: <strong>I don’t particularly like</strong> GenAI as a topic because – mostly – of the <strong>hype, misunderstanding, risks</strong>… but otherwise is undoubtedly incredibly powerful and I’ll admit it must have some cool applications… <strong>For expert users!</strong> And although very slowly, I myself am <em>considering</em> using it as an assistant R-coder… I have done tests and it’s not bad at all, and it WOULD make me much faster… But I’m mostly resisting for now: Coding and thinking how to approach a problem is what I like, so why externalize that… Unless I really HAVE to…</p>
-<p>That said… What the heck is “self-supervised” learning?&nbsp;</p>
-<p>Supervised learning needs to have a means of knowing whether it’s doing a good job to rectify its own behaviour while in training.</p>
-<p>If your job is to predict the best next word for a given text… All you need is to <strong>try to predict it, and then read the next word</strong> (or “token”). If you guessed wrong, you rectify your behaviour for your next guess. <strong>Then you read the next word</strong>… And iterate. And in the above scenario, <strong>nobody needs to “tag” anything</strong>, the information is self-contained! So you just ingest text one “token” at a time (don’t worry, say “one word at a time”, and more or less you’re good). All you need is text (and “attention”, but that’s WAY beyond today’s objectives :D).</p>
-<p>The more text, the more training examples you get 🙂</p>
-<p>And yes: Your words/tokens, are <strong>presented to your GenAI (well, LLMs, really) as… Embbedings.</strong></p>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>https://www.r-bloggers.com/r-code-best-practices/</p>
+<p>https://style.tidyverse.org/syntax.html#object-names</p>
+<p>https://stackoverflow.com/questions/1944910/what-is-your-preferred-style-for-naming-variables-in-r</p>
+<p><em>Somewhat related references:</em></p>
+<p>https://www.r-bloggers.com/r-best-practices-r-you-writing-the-r-way/</p>
+<p>https://google.github.io/styleguide/Rguide.html</p>
 
 
 </section>
