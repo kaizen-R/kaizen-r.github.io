@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2023-08-06">
+<meta name="dcterms.date" content="2022-07-10">
 
-<title>Optimization (4/n): Genetic Algorithm(s) (2/2) – Kaizen-R.com new home</title>
+<title>A quick look at CISA KEV – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -41,8 +75,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../../site_libs/quarto-contrib/videojs/video.min.js"></script>
-<link href="../../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -112,9 +144,9 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Optimization (4/n): Genetic Algorithm(s) (2/2)</h1>
+      <h1 class="title">A quick look at CISA KEV</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">Optimization</div>
+                <div class="quarto-category">cyber</div>
               </div>
                   </div>
   </div>
@@ -132,7 +164,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">August 6, 2023</p>
+        <p class="date">July 10, 2022</p>
       </div>
     </div>
     
@@ -151,21 +183,125 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="intro" class="level2">
-<h2 class="anchored" data-anchor-id="intro">Intro</h2>
-<p>This week, I’ll make it short, and instead of boring with code and explanations, I thought I’d just show an example output…</p>
-<section id="results" class="level3">
-<h3 class="anchored" data-anchor-id="results">Results</h3>
-<p>This is a genetic algorithm in action: A population “evolves” (reproduces, “selection of the fittest”, iterate) towards an objective. Complexity of many local minima don’t seem to be an issue for this algorithm. The below shows population over 5 frames extracted from 50 generations at regular intervals.</p>
-<div class="quarto-video"><video id="video_shortcode_videojs_video1" width="500" height="350" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="GA searching optimization in complex surface"><source src="Genetic_Algo_v002.mp4"></video></div>
+<section id="intro" class="level3">
+<h3 class="anchored" data-anchor-id="intro">Intro</h3>
+<p>I keep hearing about it, so it was time I had a look at that famous CISA “Known Exploited Vulnerability” dataset. Also, it’s been a while since I did something more directly related to IT Security, so this is good.</p>
+<p>It turns out, it’s quite… Simple (the dataset), and even clean, which makes things rather easy. So we’ll be quick about it.</p>
 </section>
-<section id="notes" class="level3">
-<h3 class="anchored" data-anchor-id="notes">Notes</h3>
-<p>This example is quite simple, really. I have yet to implement “mutations”, and I chose one of many possible mixes of parents selection, as well as the most simple crossing of parents to create children.</p>
-<p>But it still works 🙂</p>
+<section id="looking-for-a-codebook" class="level2">
+<h2 class="anchored" data-anchor-id="looking-for-a-codebook">Looking for a “Codebook”</h2>
+<p>So first, let’s have a look <a href="https://www.cisa.gov/known-exploited-vulnerabilities">here to understand what this dataset is</a>. (Looking at data without having any background sometimes needs to happen, but whenever possible, let’s avoid that)</p>
+<p>There is not exactly a “codebook” that I could find, describing the dataset column by column, but as it is quite straightforward, the provided background is probably sufficient.</p>
+</section>
+<section id="getting-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="getting-the-data">Getting the data</h2>
+<p>Today the code won’t be that complicated at all. We’ll first get the data, in JSON, and put it into a dataframe.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite) <span class="co">#fromJSON -&gt; data.frame</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr) <span class="co"># GET/POST</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>cisa_response <span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">GET</span>(<span class="at">url =</span> <span class="st">"https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">content_type_json</span>(), <span class="fu">accept_json</span>())</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(<span class="fu">rawToChar</span>(cisa_response<span class="sc">$</span>content))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>kev_list <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="at">txt =</span> <span class="fu">rawToChar</span>(cisa_response<span class="sc">$</span>content))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>kev_df <span class="ot">&lt;-</span> kev_list[[<span class="st">'vulnerabilities'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>And that’s about it.</p>
+</section>
+<section id="about-prevalence" class="level2">
+<h2 class="anchored" data-anchor-id="about-prevalence">About Prevalence</h2>
+<p>So if we look (again: real quick) at the dataset, we easily get a feeling Microsoft, Google, Apple, Adobe… A few familiar names appear more often than others. Let’s check that assumption (not all results shown there, but you get the idea), and no need to be fancy, a simple table will do:<br>
+<img src="KEV_vendors_prevalence.png" class="img-fluid" alt=""></p>
+<p>So yes, there is something there. But this time around, let’s use our understanding of the so-called “domain knowledge”: So the bad guys they really want to have tools that get them into systems (to get data) that are… used, by their targets.</p>
+<p>This can be checked against things like (random search results for OS and software prevalence):</p>
+<ul>
+<li><p><a href="https://gs.statcounter.com/os-market-share" class="uri">https://gs.statcounter.com/os-market-share</a></p></li>
+<li><p><a href="https://www.muchskills.com/blog/top-software-technical-tools-muchskills" class="uri">https://www.muchskills.com/blog/top-software-technical-tools-muchskills</a></p></li>
+<li><p><a href="https://statisticsanddata.org/data/most-popular-pc-software/" class="uri">https://statisticsanddata.org/data/most-popular-pc-software/</a></p></li>
+<li><p>…</p></li>
+</ul>
+<p>So it makes sense that the “known exploited vulnerabilities” affect often used products, say such as Microsoft (Windows, Office, etc.), Google (Chrome, Android…) or Apple (mostly iOS stuff). That’s not necessarily to say those products have more vulnerabilities than other products (although, the more complex the software…). No, not <em>necessarily</em>. It does say that more people (and organizations) use Windows, Chrome and iPhones, than say Firefox, though, but Firefox is still definitely in the short list.</p>
+<p>Well, it’s probably really a mix of a few aspects: Prevalence (hackers interest), complexity (possibility to make mistakes), and due diligence (how much you care about the security of your software in the first place).&nbsp;</p>
+<p>But let’s keep going.</p>
+</section>
+<section id="patch-your-systems" class="level2">
+<h2 class="anchored" data-anchor-id="patch-your-systems">Patch your systems</h2>
+<p>When looking at the recommended actions, we get few options, and really given the nature of the data provided here, it makes sense.</p>
+<p><img src="KEV_actions_table.png" class="img-fluid" alt=""></p>
+<p>So it really boils down to this:</p>
+<ul>
+<li><p>Patch your software</p></li>
+<li><p>Remove unsupported software</p></li>
+</ul>
+<p>Note: Patching implicitly supposes you have a license, where applicable. But that’s a different story.</p>
+<p>How did I get the above tables, you ask? I’m surprised you would care, but here goes some sample code:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kev_actions_freqs <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(kev_df<span class="sc">$</span>requiredAction))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(kev_actions_freqs)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"Rec_Action"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(kev_actions_freqs <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Freq)))&nbsp;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="making-it-a-coding-exercise" class="level2">
+<h2 class="anchored" data-anchor-id="making-it-a-coding-exercise">Making it a coding exercise</h2>
+<p>So far, no real coding challenge. But when trying to make sense of the “Vulnerability Names”, it became a bit more interesting.</p>
+<p>While looking (manually) at the data first, I found out that most vulnerability names end with 2-3 words that somehow help categorize them. Things like “memory corruption vulnerability”, “adobe flash player”, “directory traversal vulnerability”…</p>
+<p>OK so how can we have a look at the most commonly found 3-words occurrences among the vulnerability names? Using “N-grams”.</p>
+<p>In text analysis and “Natural Language Processing”, <a href="https://en.wikipedia.org/wiki/N-gram">N-grams</a> are basically that: things (letters, words…) that occur together in the text. This is very useful for validating texts, propose next words to be typed, things like that.</p>
+<p>Anyway, in our case, we’ll look for most common strings of “3 words” happening in our vulnerability names (just for fun). And for the visualization, although it’s more “fun” than “useful” (a table, like those above, would probably do better for serious work…), we’ll use a wordcloud (I mean, for this exercise, why not?)</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ngram)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ng_words_seq <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">unlist</span>(<span class="fu">strsplit</span>(<span class="fu">tolower</span>(kev_df<span class="sc">$</span>vulnerabilityName), <span class="st">" "</span>)), <span class="at">collapse =</span> <span class="st">" "</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ng_list <span class="ot">&lt;-</span> <span class="fu">ngram</span>(ng_words_seq, <span class="at">n =</span> <span class="dv">3</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud2</span>(<span class="fu">get.phrasetable</span>(ng_list)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(freq <span class="sc">&gt;</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>That’s it (it looks easy, but as it was the first time ever I used that ngram package, I had to <a href="https://cran.r-project.org/web/packages/ngram/vignettes/ngram-guide.pdf">read the documentation</a> a bit :)).</p>
+<p>And here the results:</p>
+<p><img src="KEV_Vuln_types_wordcloud-1024x644.png" class="img-fluid" alt=""></p>
+<p>You can tell some things occur more than others (also see Prevalence as explained earlier ;)).</p>
+<p>“Buffer Overflow”, “Memory Corruption”, “Command Injection”, “Privilege Escalation”, “Improper input validation”, “Directory Traversal”, “Type Confusion”, “Access Control”…</p>
+<p>Well, maybe a 2 words N-gram was a better idea after all (and removing “vulnerability”). Let’s try that (just for fun):</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ng_words_seq <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"vulnerability"</span>, <span class="st">""</span>, ng_words_seq)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ng_list <span class="ot">&lt;-</span> <span class="fu">ngram</span>(ng_words_seq, <span class="at">n =</span> <span class="dv">2</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud2</span>(<span class="fu">get.phrasetable</span>(ng_list)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(freq <span class="sc">&gt;</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="KEV_Vuln_types_wordcloud2-1024x640.png" class="img-fluid" alt=""></p>
+<p>It’s not much better. So maybe this is not the best approach, but fair enough, a good, quick exercise for today.</p>
+</section>
+<section id="what-kev-does-not-say" class="level2">
+<h2 class="anchored" data-anchor-id="what-kev-does-not-say">What KEV does not say</h2>
+<p>I’ve seen it, more than once, so I’m going to say it: It’s <strong>“NOT THAT EASY” to match two datasets of software names and versions</strong>. It turns out that some inventory (like this KEV thing) and security products (say some vulnerability management tool for example) will list the SAME SOFTWARE with DIFFERENT NAMES.</p>
+<p>It sounds ridiculous, I know, but it goes like this, for instance: One might say “Microsoft Windows”, another one might say “MS Win Server 2019”. This very simple example, times the number of vendors of software, their product names, and versions names, times the number of possible ideas each product vendor comes up with… It rapidly becomes rather difficult (for an automated approach…).</p>
+<p><strong>One solution is to use the “CPE”</strong> (Common Platform Enumeration – which incidentally was created for just this purpose, see <a href="https://nvd.nist.gov/products/cpe">here</a>) where possible.</p>
+<p>For example, the KEV dataset mentions “CVE-2020-1350”, applicable to <em>Vendor: Microsoft, Product: Windows</em>. That’s a bit too generic for my taste, most companies have MANY Windows machines… Does this vulnerability affect servers, clients…?</p>
+<p>One would then need to pivot somewhat, so if you search for the CVE, you easily end up on the MITRE page for it:</p>
+<p><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-1350" class="uri">https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-1350</a></p>
+<p>That still doesn’t give you the info you need, then you keep clicking links from there, and maybe you end up finding what you need here for example:</p>
+<p><a href="https://nvd.nist.gov/vuln/detail/CVE-2020-1350" class="uri">https://nvd.nist.gov/vuln/detail/CVE-2020-1350</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="KEV_CVE_CPE-204x300.png" class="img-fluid figure-img"></p>
+<figcaption>CPE for CVE</figcaption>
+</figure>
+</div>
+<p>&nbsp;</p>
+<p>Finally: This CVE affects certain (most, recent) versions of Windows Server. Now we’re able to leverage this information and go looking for servers in our network that match this and make sure these are patched.</p>
+<p>I’m pretty sure there will be a downloadable CVE database (actually there seems to be an API from the NIST NVD, so <a href="https://nvd.nist.gov/vuln/data-feeds#APIS">there</a> would be a good place to start… Maybe I’ll have some time to look into it in upcoming weeks.), but in the worst case scenario you can always crawl (one-by-one, no brute-forcing there, please, that would be against ethical use of their service) the pages referencing each CVE as you need them. Anyhow.</p>
+</section>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>First of: No “big surprise” anywhere with this dataset. As said, it’s clean, clearcut, and just for that I’m thankful 😀</p>
+<p>Second of all, we could keep going (there is a column of description, and one of dates… So we might want to use that maybe to extrapolate how much active the bad guys are by month, for example – although there are again too many confounding variables to conclude much there from just this dataset…)</p>
+<p>The <strong>key aspect</strong> however of the CISA KEV dataset is its <strong>purpose</strong>: to help organizations (or anyone with some IT gear) to, as they put it on the website, <strong>“prioritize remediation”.</strong></p>
+<p>And that’s already an important aspect, as it’s easy in a company to have thousands of devices, with quite a few software products on each… Knowing what to take care of first is a good helping hand.</p>
+<p>So once you have the KEV dataset, you’ll need to find the machines that are affected by each corresponding CVE, so that you can actually patch those first.</p>
+<p>And as you’ll want to patch ALL your systems at some point, you might ask “why not do that directly”? Well, sometimes applying patches break stuff. So out of precaution, companies usually patch things in waves, usually by importance/business risk (say “Critical patches first, focus on Dev environment first, then low-business-criticality servers…”).</p>
+<p>All this is saying is: you might want to review your patch waves to make sure you patch the systems affected by any of the CVEs in the KEV list sooner rather than later, somehow.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>Quite a few today, but the main ones were:</p>
+<p><a href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog">CISA Known Exploited Vulnerabilities</a></p>
+<p><a href="https://cve.mitre.org/">MITRE CVE</a></p>
+<p><a href="https://nvd.nist.gov/vuln/data-feeds">NIST NVD API</a></p>
+<p><a href="https://cran.r-project.org/web/packages/ngram/vignettes/ngram-guide.pdf">R Package ngram Documentation</a></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -587,7 +723,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>videojs(video_shortcode_videojs_video1);</script>
 
 
 
