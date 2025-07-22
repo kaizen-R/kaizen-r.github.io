@@ -177,6 +177,7 @@ window.Quarto = {
                                 <div class="quarto-categories">
                 <div class="quarto-category">math</div>
                 <div class="quarto-category">code</div>
+                <div class="quarto-category">complexity</div>
               </div>
                   </div>
   </div>
@@ -239,8 +240,7 @@ window.Quarto = {
 <p>Let me be clear: I am not a mathematician, and I know I don’t fully grasp the ideas (far from it, in fact!). But I keep reading about it. While reading “Chaos” by James Gleick (a reference on the subject), I came across the chapter about Ecology and the “Logistic Map”. And I thought: <strong>This is BEAUTIFUL</strong>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/Chaos_Logistic_Map_RStudio-768x380.png" class="img-fluid figure-img"></p>
-<figcaption>Playing with Logistic Map</figcaption>
+<p><img src="images/Chaos_Logistic_Map_RStudio-768x380.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>Last note for the Intro: The below has been done MANY TIMES, I am not inventing the wheel. I will just write my own R code to play around the simple equation and see its magic. I found references, particularly <a href="https://geoffboeing.com/2015/03/chaos-theory-logistic-map/">one that I will mention, that HEAVILY inspired this post</a> (although I’m creating my own code – and doing it in R), on top of the book. Please do have a look at both if you have any interest.</p>
@@ -260,17 +260,11 @@ x_{k+1} = rx_k (1-x_k)
 <p>On the x axis, different values of our growth ratio, and on the y axis, the number of individuals in the population. For a growth ratio below 1, as can be expected, the population tends to grow smaller and smaller and hence tends to decrease to 0. That’s the left part of the blue line, after 100 generations, the population is 0 in these cases.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/Logistic_Map_Bifurcation_r08_31-768x522.png" class="img-fluid figure-img"></p>
-<figcaption>finding bifurcations</figcaption>
+<p><img src="images/Logistic_Map_Bifurcation_r08_31-768x522.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>What’s interesting is that for growth ratios between 1 and 3.0, the population tends to stabilize to one specific value, which is why we see how the line grows somewhat but appears as a line: For each growth ratio in that range, the population stabilizes to one value. (What you can’t really see is that, in fact, there are many dots on each position of the line, one for each generation: For a given growth ratio, the population is stable at that particular value).</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/Logistic_Map_Bifurcation_r28_4-1536x1043.png" class="img-fluid figure-img"></p>
-<figcaption>onset of chaos</figcaption>
-</figure>
-</div>
+<p><img src="images/Logistic_Map_Bifurcation_r28_4-1536x1043.png" class="img-fluid"></p>
 <p>&nbsp;</p>
 <p>From 3.0 to roughly 3.4, it turns out that the population oscillates between two values! That is: Either they have enough resources (population grows to a specific value) or not (the population decreases to another specific value), and each generation, it cycles to one of those two values.</p>
 <p>After that it gets weirder:</p>
@@ -318,8 +312,7 @@ logistic_numbers_vector &lt;- rep(0.5, max_iterations)</p>
 <p>And they seem rather “random” at first sight, both of them, wouldn’t you say?</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/seemingly_random_numbers-768x522.png" class="img-fluid figure-img"></p>
-<figcaption>seemingly random numbers</figcaption>
+<p><img src="images/seemingly_random_numbers-768x522.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>Me at least, at first sight, I wouldn’t be able to tell which one is random, and which one isn’t (but is chaotic).</p>
@@ -336,12 +329,7 @@ logistic_numbers_vector &lt;- rep(0.5, max_iterations)</p>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Comparing Logistic Map and Pseudo-Random Generator"</span>)<span class="sc">+</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"'Generation N'"</span>) <span class="sc">+</span></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"'Generation N+1'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/Structure_in_Chaos-1536x869.png" class="img-fluid figure-img"></p>
-<figcaption>structure in chaos</figcaption>
-</figure>
-</div>
+<p><img src="images/Structure_in_Chaos-1536x869.png" class="img-fluid"></p>
 <p>And, to me, that’s absolutely &amp; simply wonderful. I can’t avoid but to feel impressed by the structure appearing there, from something that anyone would otherwise have reasonably assumed is complete “chaos”… (And it is 😀 Structure in Chaos, I suppose that’s where this came from… Although I haven’t read enough yet :D)</p>
 </section>
 <section id="the-code" class="level3">

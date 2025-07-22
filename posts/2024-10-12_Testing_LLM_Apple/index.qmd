@@ -9,7 +9,7 @@ categories: [ML]
 
 I have learned since. But back in October 2024, I did run the following test.
 
-Nowadays, I prefer Meta's OLlama for its simplicity - although I still haven't tested it on Apple Silicon, that's true too. (And I'm no fan of Meta, but OLl![](first_test_local_llm-1024x153.png)ama is easy to use, runs locally, and my tests thus far were quite good. You have to admit the good, sometimes, too).
+Nowadays, I prefer Meta's OLlama for its simplicity - although I still haven't tested it on Apple Silicon, that's true too. (And I'm no fan of Meta, but OLlama is easy to use, runs locally, and my tests thus far were quite good. You have to admit the good, sometimes, too).
 
 This entry is reproduced from the "old" blog.
 
@@ -33,7 +33,7 @@ And to achieve that, I only had to follow a mix of a couple of resources (see Re
 
 With a Python3 venv, some pip, the mlx-ml, a HuggingFace account (for login, and then to download Mistral-7B), and of course a MacBook Air (M1, in my case), I just was able to generate 100 tokens out of a simple prompt, WHILE OFFLINE:
 
-![Asking a local LLM to answer a simple question](https://www.kaizen-r.com/wp-content/uploads/2024/10/first_test_local_llm-1024x153.png){alt="Asking a local LLM to answer a simple question"}
+![Asking a local LLM to answer a simple question](first_test_local_llm-1024x153.png)
 
 And that’s about it!
 

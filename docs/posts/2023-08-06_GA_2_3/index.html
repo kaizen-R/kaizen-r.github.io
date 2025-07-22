@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2025-07-13">
+<meta name="dcterms.date" content="2023-08-06">
 
-<title>Studying Nonlinear Dynamics: Day 1 – Kaizen-R.com new home</title>
+<title>Optimization (4/n): Genetic Algorithm(s) (2/3) – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -75,6 +41,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="../../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -103,35 +71,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -173,11 +112,9 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Studying Nonlinear Dynamics: Day 1</h1>
+      <h1 class="title">Optimization (4/n): Genetic Algorithm(s) (2/3)</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">math</div>
-                <div class="quarto-category">code</div>
-                <div class="quarto-category">complexity</div>
+                <div class="quarto-category">Optimization</div>
               </div>
                   </div>
   </div>
@@ -195,7 +132,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">July 13, 2025</p>
+        <p class="date">August 6, 2023</p>
       </div>
     </div>
     
@@ -214,181 +151,21 @@ window.Quarto = {
 
 
 
-<section id="i-really-want-to-understand" class="level2">
-<h2 class="anchored" data-anchor-id="i-really-want-to-understand">I really want to understand…</h2>
-<p>Math. More specifically, Ordinary Differential Equations. More specifically, in fact, probably things related with evolution in time. Although not only.</p>
-<p>I just want to <strong>really</strong> understand mathematical models used for simulating things.</p>
-<p>And ODEs are just the thing.</p>
-<p>Physics, Chemistry, etc. maybe are beyond the point. Simulating interactions of… Well, agents, that’s what got me curious. Or populations growth (i.e.&nbsp;the Logistic Model…). That kind of things.</p>
-<p>Anyhow, that’s the why for today’s post.</p>
+<section id="intro" class="level2">
+<h2 class="anchored" data-anchor-id="intro">Intro</h2>
+<p>This week, I’ll make it short, and instead of boring with code and explanations, I thought I’d just show an example output…</p>
+<section id="results" class="level3">
+<h3 class="anchored" data-anchor-id="results">Results</h3>
+<p>This is a genetic algorithm in action: A population “evolves” (reproduces, “selection of the fittest”, iterate) towards an objective. Complexity of many local minima don’t seem to be an issue for this algorithm. The below shows population over 5 frames extracted from 50 generations at regular intervals.</p>
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" width="500" height="350" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="GA searching optimization in complex surface"><source src="Genetic_Algo_v002.mp4"></video></div>
 </section>
-<section id="the-book" class="level2">
-<h2 class="anchored" data-anchor-id="the-book">The book</h2>
-<p>I have done exercises about ODE in the past, but being able to follow the math, and being able to understand the math, are, to me, two different things. My goal here is to understand, not just copy and paste.</p>
-<p>After reading some comments online, I came across this book, highly recommended in its approach to the topic:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="IMG_6595.jpg" class="img-fluid figure-img"></p>
-<figcaption>The reference book that I hope will change things</figcaption>
-</figure>
-</div>
-</section>
-<section id="day-1" class="level2">
-<h2 class="anchored" data-anchor-id="day-1">“Day 1”</h2>
-<p>Actually, Day 2. Day 1, I went through Chapter 1 (Overview) which confirmed this looked promising.</p>
-<p>So Day 2. Chapter 2. Well, that took me the whole day, yesterday. And a hard day of thinking about the math, too. And that didn’t even include none of the whole section of exercises, either. But no one said it would be easy, hu?</p>
-<p>So I did go through the whole theory of the chapter in the end, but in the middle, I made a detour of sorts, when reaching “example 2.2.1”. This was the provided information:</p>
-<p><span class="math display">\[
-\dot{x} = x^2-1
-\]</span></p>
-<p>That seemed innocuous enough, right? You would look for roots, fair enough: (-1, 1). Then where <span class="math inline">\(\dot{x} &gt; 0\)</span>, you know the “flow” will move to the right, and to the left when negative, so you can draw the vector field.</p>
-<p>Obviating the “arrows” of the vector field, I just put a “full dot” for stable equilibrium, and “empty dot” for unstable equilibrium.</p>
-<p>It looks like so (and that was not the part that got me stumbling). One thing I did, is code the whole thing (in R, obviously) and so here I am generating a phase portrait for that scenario:</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>But then something came up. See, one argument of the methods presented in the book (thus far, anyway) is to get a “geometric” sense of what happens with nonlinear equations that are hard to solve analytically.</p>
-<p>This one example ODE was easy to “integrate”, so I could visualize the “potential function” that leads to this. That’s where I made a conceptual mistake that got me wondering what was wrong…</p>
-<section id="just-integrate" class="level3">
-<h3 class="anchored" data-anchor-id="just-integrate">Just integrate?</h3>
-<p>Well, if you integrate the above, you get:</p>
-<p><span class="math display">\[f(x) = x^3/3-x+C\]</span></p>
-<p>But when you draw that, you get quite exactly the <strong>opposite</strong> of what you’d expect. Why? Why is it, when I integrate the ODE directly, I get the opposite function of what I’d expect?</p>
-<p>I could <strong>see</strong> that what you want for this example, what fits nicely with the ODE, is <strong>in fact</strong> the following:</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>That is the same thing, but multiplied by -1.</strong></p>
-</section>
-<section id="the-key" class="level3">
-<h3 class="anchored" data-anchor-id="the-key">The Key</h3>
-<blockquote class="blockquote">
-<p><strong>“A first order ODE can be understood as gradient descent of its potential function.”</strong></p>
-</blockquote>
-<p>That’s what clicked for me and fixed a conceptual problem that got me worried for… Hours? Until I asked a friend (thanks Omar) and at long last, it all made sense.</p>
-<p>So here is the concept of the whole exercise. Let’s go back and go step-by-step. So, again, this:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">draw_phase_portrait</span>(dot_x, x_min, x_max)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>How I can make an intuition of that phase portrait and the vector field for it is:</p>
-<p>With the passing of time:</p>
-<ul>
-<li><p>a particle ‘landing’ near x=-1 will tend to move towards, and then stay, at x=-1.</p></li>
-<li><p>a particle ‘landing’ between x=-1 and x=1 will tend to go to the left until it stabilizes at x=-1.</p></li>
-<li><p>a particle ‘landing’ on the right of x=1 will move <strong>away</strong> from 1, and it will move ever <strong>faster</strong>.</p></li>
-<li><p>a particle ‘landing’ <strong>precisely</strong> at x=1 will stay there, but any perturbation to it, however small, will push it away from that “equilibrium”.</p></li>
-</ul>
-<p>I could <strong>see</strong> that here: The concept I understand is, if you consider some sort of a particle (ball? flow? no matter) that falls vertically onto this next curve, see below (which you have to imagine is “covered in some dense fluid, say honey or similar”, thereby eliminating the possibility of overshooting a stable equilibrium because of previous horizontal inertia…), it will indeed behave as described above, right?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(orig_points, <span class="at">type=</span><span class="st">"l"</span>, <span class="at">main=</span><span class="st">"original function (C=0)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Right? Now I had missed a step in the logic of the ODE. Because what I just described is the “gradient descent”.</p>
-<p><strong>Heck! But I know that one! Why could I not “see” the solution?</strong></p>
-<p>Gradient descent is, by <strong>definition</strong>, the <strong>negated</strong> derivative!!</p>
-<p>So if I am given:</p>
-<p><span class="math display">\[
-\dot{x} = x^2-1
-\]</span></p>
-<p>I should have <strong>known (!!)</strong> that the potential function corresponding to that ODE, the one that negates the gradient hereby represented, is in fact:</p>
-<p><span class="math display">\[
-\int -(x^2-1) = -(x^3/3-x+C)
-\]</span></p>
-<p>That was ALL I needed to understand to <strong>see</strong> where I had made a (conceptual) mistake.</p>
-<p>And it finally clicked when that friend gave me that key. Sometimes, you need help. I’m just glad I know a few people that can answer such questions.</p>
-<p><strong>Edit:</strong> I kept getting confused by trying to “solve the ODE” and getting to the potential function.</p>
-<p>Here is the clarification I need to keep in mind, for first order ODE.</p>
-<p>Solving the ODE analytically means solving:</p>
-<p><span class="math display">\[
-\dot{x} = f(x) = dx/dt \rightarrow\int{{1\over{f(x)}} dx}=\int{dt}
-\]</span></p>
-<p>Which should lead to an expression <span class="math inline">\(x(t)\)</span>, which is related to <span class="math inline">\(t\)</span> for a specifically given <span class="math inline">\(x(0)\)</span>.</p>
-<p>Whereas the potential function is given by:</p>
-<p><span class="math display">\[
-\dot{x} = f(x) = {-dV\over{}dx}
-\]</span></p>
-<p>Which is where one can “see” the negative of the derivative… Which was the gradient descent all along. I just didn’t grab the distinction :(</p>
-<p>Actually, that also makes it clear that “solving” analytically what looked like a simple ODE is in fact a real pain… And why one would prefer to use geometric approaches.</p>
-<p>Anyhow, I’m still not 100% clear on what the “solving analytically the ODE” means: I can understand how the first order ODE itself expresses a change over time for a given initial condition. Which is why I can understand the next section. But I guess I still need to wrap my head <strong>conceptually</strong> around what “solving it” means.</p>
-</section>
-</section>
-<section id="slopes-field" class="level2">
-<h2 class="anchored" data-anchor-id="slopes-field">Slopes Field</h2>
-<p>On to the last piece of the puzzle, visualizing the “field” of that equation.</p>
-<p>One “cool thing” about this whole concept is you can visualize “all” initial positions and effect of the passing of time for the above “potential” equation, that is, all the possible behaviours of a “particle falling onto the curve”. That’s called a slopes field.</p>
-<p>And you only need the ODE (here, first order) for that!</p>
-<p>The only real difficulty I had there was to draw the “arrows”. I know it shows the “slopes” at some given points. Which, well, is the definition of the derivative, so yes, the ODE is the key. As per each <span class="math inline">\(x0\)</span>, that’s easy too. And generating the positions over time, well…</p>
-<p>I used the (simple, far from ideal but sufficient for today) Euler method for getting a numerical solution for each <span class="math inline">\(x0\)</span>, iterating with small <span class="math inline">\(\Delta t\)</span>. Then I extract a subset of each possible <span class="math inline">\(t\)</span> positions, and thereby space a bit the arrows so that it can be visualized.</p>
-<p>One thing I still don’t quite understand: the cos, tan, and all that trigonometry stuff <strong>required to draw the arrows</strong>. So yeah, I’ll admit: I just copied that part of the code from <a href="https://stackoverflow.com/questions/47984874/how-to-create-a-slope-field-in-r">here</a>.</p>
-<p>Aside from that slight difficulty of the drawing of the arrows, I’m quite happy with the outcome!</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>You can <strong>see what the vector field predicted!</strong></p>
-</section>
-<section id="this-makes-me-happy" class="level2">
-<h2 class="anchored" data-anchor-id="this-makes-me-happy">This makes me happy</h2>
-<p>At long last, I have a <strong>conceptual</strong> understanding of what a given (simple, first order) ODE represents, in a mathematical sense, but also as an intuition.</p>
-<p>This book, I will say, is <strong>very</strong> promising… But it’s also very <strong>dense</strong> with concepts to be understood. Here is me “reading” chapter 2:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/IMG_6597.jpg" class="img-fluid figure-img"></p>
-<figcaption>Does it make sense to underline EVERYTHING? :D</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/IMG_6596 copy.jpeg" class="img-fluid figure-img"></p>
-<figcaption>Wrapping my head around vector fields</figcaption>
-</figure>
-</div>
-</section>
-<section id="conclusions" class="level2">
-<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>Well, that was… Challenging.</p>
-<p>At the rythm of one full day of work per chapter, <strong>just to read the theory</strong>, and 13 such chapters, notwithstanding that doing some exercises might very well add another day or two for each of the chapters (at least), and considering this is not something I can do on a workday (no way, this requires waaaaay too much focus of me), so considering one such effective day per week, we’re looking at… 26 weeks, at best?</p>
-<p>Half a year. For this one book.</p>
-<p>And that is, if I keep the focus on that one book (that’s something I do wrong: <strong>I jump from book to book, all the time</strong>. Too many interesting things to learn, what can I say…)</p>
-<p>I should really consider reading short novels, instead :D</p>
-<p>On the other hand: The satisfaction of getting the intuition behind the math is <strong>incredibly fulfilling</strong>. So maybe it’s worth it, after all…</p>
-</section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<p><a href="https://a.co/d/8yTxgbY">“Nonlinear Dynamics and Chaos (…)”, by S. Strogatz (CRC Press)</a></p>
-<p>Drawing the Slopes Field, I was initially not sure about how to draw the arrows, <a href="https://stackoverflow.com/questions/47984874/how-to-create-a-slope-field-in-r">this helped</a>.</p>
+<section id="notes" class="level3">
+<h3 class="anchored" data-anchor-id="notes">Notes</h3>
+<p>This example is quite simple, really. I have yet to implement “mutations”, and I chose one of many possible mixes of parents selection, as well as the most simple crossing of parents to create children.</p>
+<p>But it still works 🙂</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -810,6 +587,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<script>videojs(video_shortcode_videojs_video1);</script>
 
 
 

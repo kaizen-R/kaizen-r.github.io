@@ -1,0 +1,44 @@
+---
+title: "Summer fun: Testing Optimization Algorithms (1/n)"
+author: "Nico"
+date: "2023-07-09"
+categories: [Optimization]
+---
+
+### Intro
+
+I have some more spare time for the upcoming few weeks, and I haven’t had the opportunity to take the “Metaheuristics” course in the Master, and so I feel I’m missing out a bit… But then, what precludes me from learning on my own?
+
+So I came across a book (I spend a bit too much time in book stores just “browsing”… Or buying books online) about “Optimisation” in Matlab. As it turns out, this appears to be in fact a great book to understand a few algorithms of the field of “Metaheuristics”.
+
+### First thing First
+
+Before I start with optimization per-se, as the books relies somewhat heavily on two visualizations, Contours and 3D perspectives of bi-variate functions, I have to get acquainted with the necessary R code for just that.
+
+[The code for that is all in here](https://github.com/kaizen-R/R/blob/master/Sample/OR/MetaHeuristics/3d_vis_test_v001.R).
+
+Aside from learning that the base graphics in R are very capable, with “*contour()*” and “*persp()*” readily available, I’ve had to learn what Azimuth meant… Thankfully given the context, it wasn’t hard, and the Wikipedia is always helpful.
+
+Here the results for today. I generate a 3D cone, and then we visualize through a couple of drawings that will be helpful later on.
+
+A contour plot will show altitudes in 2D, which can be helpful when visualizing say “where is the minimum altitude”:
+
+![A Contour Plot](a_contour_plot-300x195.png){alt="A Contour Plot"}
+
+A Contour Plot
+
+Then the 3D perspective visualization can be as bad as this:
+
+![Bad perspective for 3D](bad_perspective_3d-300x300.png){alt="Bad perspective"}
+
+Or a bit nicer, like so:
+
+![Better 3D visualization](simple_cone_3d-300x241.png){alt="Better 3D visualization"}
+
+### Next time
+
+In the next blog entry, I will be discussing one of the first algorithms the book comments: Gradient Descent.
+
+### References
+
+[About persp and the cone](https://www.geeksforgeeks.org/creating-3d-plots-in-r-programming-persp-function/amp/)

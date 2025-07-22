@@ -2,7 +2,7 @@
 title: "Classic Computational Social Model: Schelling's Segregation"
 author: "Nico"
 date: "2025-06-08"
-categories: [Decisions, Optimization, visualization]
+categories: [Decisions, Optimization, visualization, complexity]
 ---
 
 ## I was reading about "Complex Adaptive Systems"

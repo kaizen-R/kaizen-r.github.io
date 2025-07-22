@@ -1,0 +1,18 @@
+---
+title: "Interlude"
+author: "Nico"
+date: "2023-11-07"
+categories: [complexity]
+---
+
+## I said I wouldn’t code… and I didn’t.
+
+But then… I finished this book, and I liked it, and I thought I would recommend it.
+
+![](IMG_0722-225x300.jpeg){alt=""}
+
+I don’t know how something not at the level of “introduction” would look like, but this was just sooo in line with my MSc dissertation… Funny I hadn’t read it before!
+
+Also, code in there is in Python, I’m sure many would appreciate that.
+
+So there. A book recommendation.

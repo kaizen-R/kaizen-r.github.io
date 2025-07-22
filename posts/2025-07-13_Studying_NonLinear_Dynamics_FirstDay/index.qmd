@@ -2,7 +2,7 @@
 title: "Studying Nonlinear Dynamics: Day 1"
 author: "Nico"
 date: "2025-07-013"
-categories: [math, code]
+categories: [math, code, complexity]
 ---
 
 ## I really want to understand...

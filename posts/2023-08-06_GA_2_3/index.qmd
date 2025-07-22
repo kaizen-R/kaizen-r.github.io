@@ -1,0 +1,22 @@
+---
+title: "Optimization (4/n): Genetic Algorithm(s) (2/2)"
+author: "Nico"
+date: "2023-08-06"
+categories: [Optimization]
+---
+
+## Intro
+
+This week, I’ll make it short, and instead of boring with code and explanations, I thought I’d just show an example output…
+
+### Results
+
+This is a genetic algorithm in action: A population “evolves” (reproduces, “selection of the fittest”, iterate) towards an objective. Complexity of many local minima don’t seem to be an issue for this algorithm. The below shows population over 5 frames extracted from 50 generations at regular intervals.
+
+{{< video Genetic_Algo_v002.mp4 title="GA searching optimization in complex surface" width="500" height="350">}}
+
+### Notes
+
+This example is quite simple, really. I have yet to implement “mutations”, and I chose one of many possible mixes of parents selection, as well as the most simple crossing of parents to create children.
+
+But it still works 🙂

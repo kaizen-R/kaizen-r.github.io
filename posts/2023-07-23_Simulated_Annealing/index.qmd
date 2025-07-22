@@ -1,0 +1,26 @@
+---
+title: "Optimization (3/n): Simulated Annealing"
+author: "Nico"
+date: "2023-07-23"
+categories: [Optimization]
+---
+
+## Intro
+
+Continuing with this simple “series” (see [here](https://www.kaizen-r.com/2023/07/optimization-2-n-gradient-descent/) and [here](https://www.kaizen-r.com/2023/07/summer-fun-testing-optimization-algorithms-1-n/)), I implement the next algorithm proposed [by the reference book](https://www.amazon.es/Optimizaci%C3%B3n-Algoritmos-programados-MATLAB-ACCESO/dp/8426724116/ref=sr_1_1?__mk_es_ES=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=16NL82GUQEFPH&keywords=optimizaci%C3%B3n+algoritmos+programados+con+matlab&qid=1688569896&sprefix=optimizaci%C3%B3n+algoritmos+programados+con+matlab%2Caps%2C83&sr=8-1), but in R.
+
+This time around, it’s the turn of “Simulated Annealing”.
+
+### Nice parallel
+
+I like how the concept of molecules excitement and temperatures is used for this algorithm. All in all, it’s a bit different from Gradient Descent in that it allows to keep going with WORSE results in some cases, proportional to the progress, so that it explores better the overall range of possible values. This is supposed to ensure that this algorithm will in fact avoid falling in local minimum, and so this is better for situations where there are multiple minima.
+
+That said, [here the code for this algorithm](https://github.com/kaizen-R/R/blob/master/Sample/OR/MetaHeuristics/3d_optim_simulated_annealing_v001.R). I haven’t made any effort to make this implementation “good” or fast, mind you, but it’s valid for a bi-variate function.
+
+And here the results. This was not surprising after the algorithm was understood, but still, one can tell it was off-track in this example iteration, and still got to the right results in the end.
+
+![Simulated Annealing Contour](simulated_annealing_contour-1024x572.png){alt="Simulated Annealing Contour"} ![Simulated Annealing 3D](simulated_annealing_persp-300x243.png){alt="Simulated Annealing 3D"}
+
+### Conclusions
+
+At this point, we might want to look into optimization that work also for non-differentiable functions (maybe). That’s a probable future post 🙂

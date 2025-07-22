@@ -1,0 +1,36 @@
+---
+title: "Optimization (2/n): Gradient Descent"
+author: "Nico"
+date: "2023-07-16"
+categories: [Optimization, math]
+---
+
+### Intro
+
+So I keep going with the reference book for a while. BTW, [the book can be found here](https://www.amazon.es/Optimizaci%C3%B3n-Algoritmos-programados-MATLAB-ACCESO/dp/8426724116/ref=sr_1_1?__mk_es_ES=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=16NL82GUQEFPH&keywords=optimizaci%C3%B3n+algoritmos+programados+con+matlab&qid=1688569896&sprefix=optimizaci%C3%B3n+algoritmos+programados+con+matlab%2Caps%2C83&sr=8-1) (NOT a referral or anything, I don’t make money out of this, it’s just a pointer to one place you can find it). And yes, the book is in Spanish…
+
+So one of the first algorithms (beyond “random search”, I guess) is the well known Gradient Descent. Let’s implement that in R.
+
+### R-based Gradient Descent for bi-variate function
+
+[The code for today can be found here](https://github.com/kaizen-R/R/blob/master/Sample/OR/MetaHeuristics/3d_optim_gradient_descent_v001.R).
+
+The Gradient Descent method (to look for a minimum value, say) is fine for mono-modal (convex) functions that are twice differentiable (in theory at least), in spite of being reasonably slow in converging.
+
+A numerical method is easy to implement in this case. Let’s have a look at what it looks like:
+
+![Gradient Descent Contour](gradient_desc_contour-300x168.png)
+
+![Gradient Descent Perspective](gradient_desc_persp-300x238.png)
+
+Why is Gradient Method important, you ask? Well, at least for what I learnt some time ago, let’s just say it’s used in ML for instance to tune neural network through back-propagation. And of course that’s just one example (but a very common application these days). One could also use it to minimize (or well, maximize) any compatible functions, of course, and so this has application in Operations Research at large, obviously.
+
+### One draw-back
+
+One of the limitations of the Gradient Descent method is that it works fine for mono-modal functions (in the search space at least, that is), but it can’t avoid falling into local minima if the starting point goes in that direction…
+
+![Falling in local minima](gradient_desc_local_minima-300x238.png)
+
+### Next time
+
+I’ll try and implement the next proposed algorithm, “Simulated Annealing”, that helps with looking for global minima.

@@ -2,7 +2,7 @@
 title: "Nonlinear Dynamics: on Bifurcations"
 author: "Nico"
 date: "2025-07-20"
-categories: [math, code]
+categories: [math, code, complexity]
 ---
 
 ## New Intro
@@ -39,7 +39,7 @@ Anyhow, **I was thrilled I took that course**. And I am looking forward for more
 
 Let me be clear: I am not a mathematician, and I know I don’t fully grasp the ideas (far from it, in fact!). But I keep reading about it. While reading “Chaos” by James Gleick (a reference on the subject), I came across the chapter about Ecology and the “Logistic Map”. And I thought: **This is BEAUTIFUL**.
 
-![Playing with Logistic Map](images/Chaos_Logistic_Map_RStudio-768x380.png){alt="" fig-align="center"}
+![](images/Chaos_Logistic_Map_RStudio-768x380.png){fig-align="center"}
 
 Last note for the Intro: The below has been done MANY TIMES, I am not inventing the wheel. I will just write my own R code to play around the simple equation and see its magic. I found references, particularly [one that I will mention, that HEAVILY inspired this post](https://geoffboeing.com/2015/03/chaos-theory-logistic-map/) (although I’m creating my own code – and doing it in R), on top of the book. Please do have a look at both if you have any interest.
 
@@ -63,11 +63,11 @@ It’s called a Bifurcation Diagram. It shows the evolution of the theoretical p
 
 On the x axis, different values of our growth ratio, and on the y axis, the number of individuals in the population. For a growth ratio below 1, as can be expected, the population tends to grow smaller and smaller and hence tends to decrease to 0. That’s the left part of the blue line, after 100 generations, the population is 0 in these cases.
 
-![finding bifurcations](images/Logistic_Map_Bifurcation_r08_31-768x522.png){alt="" fig-align="center"}
+![](images/Logistic_Map_Bifurcation_r08_31-768x522.png){fig-align="center"}
 
 What’s interesting is that for growth ratios between 1 and 3.0, the population tends to stabilize to one specific value, which is why we see how the line grows somewhat but appears as a line: For each growth ratio in that range, the population stabilizes to one value. (What you can’t really see is that, in fact, there are many dots on each position of the line, one for each generation: For a given growth ratio, the population is stable at that particular value).
 
-![onset of chaos](images/Logistic_Map_Bifurcation_r28_4-1536x1043.png){alt=""}
+![](images/Logistic_Map_Bifurcation_r28_4-1536x1043.png)
 
  
 
@@ -133,7 +133,7 @@ ggplot(for_plot[for_plot$generation %in% 30:50,], aes(x = generation, y = vals, 
 
 And they seem rather “random” at first sight, both of them, wouldn’t you say?
 
-![seemingly random numbers](images/seemingly_random_numbers-768x522.png){alt="" fig-align="center"}
+![](images/seemingly_random_numbers-768x522.png){fig-align="center"}
 
 Me at least, at first sight, I wouldn’t be able to tell which one is random, and which one isn’t (but is chaotic).
 
@@ -156,7 +156,7 @@ ggplot(comparator_df) +
   ylab("'Generation N+1'")
 ```
 
-![structure in chaos](images/Structure_in_Chaos-1536x869.png){alt=""}
+![](images/Structure_in_Chaos-1536x869.png)
 
 And, to me, that’s absolutely & simply wonderful. I can’t avoid but to feel impressed by the structure appearing there, from something that anyone would otherwise have reasonably assumed is complete “chaos”… (And it is 😀 Structure in Chaos, I suppose that’s where this came from… Although I haven’t read enough yet :D)
 

@@ -1,0 +1,36 @@
+---
+title: "MSC Thesis delivered"
+author: "Nico"
+date: "2024-06-15"
+categories: [math]
+---
+
+## From the old blog
+
+In the old blog, I did comment/discuss a **lot** about the latest Master Thesis I was working on.
+
+Instead of reproducing every single entry, I thought I'd just link to the resulting paper, and reproduce the last entry on the topic.
+
+Here goes:
+
+[Thesis Link](https://openaccess.uoc.edu/items/ae73bc33-bf6d-4dd7-9a25-d81bba50aeda#page=1)
+
+![](thesis_front.png){fig-align="center"}
+
+And the last Blog entry said...
+
+## Old entry
+
+"It’s done.
+
+The thesis was successfully defended.
+
+It has been a great almost 3 years. I’ve learnt many things, re-discovered others. It has opened up new topics to dive in.
+
+And now comes a period I should use to slow down a bit, as the last few weeks have been a bit intense.
+
+But I very much liked this Master and if anything, I would take more courses of it if I could…
+
+Anyhow. This is the end of a 3 years studies period, and I will start thinking more seriously about what’s next. In a few weeks.
+
+In the meantime, I will read, I have lots of reading in the backlog. (Already started 😌)"
