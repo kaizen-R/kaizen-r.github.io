@@ -1,0 +1,58 @@
+---
+title: "RLCS: Less sequential?"
+author: "Nico"
+date: "2025-07-25"
+categories: [RLCS, code]
+---
+
+## I always say it's slow because it's inherently sequential, but what if...
+
+I've let time pass lately as I looked into other topics (ODE and migrating content from the old Blog).
+
+But I do not forget about my side-project of the RLCS package.
+
+Recently I mentioned I had it working "as a package", which to me was an important step (and a useful experiment too, as I have several small R projects that will become easier in the future if I make them into personal R packages...).
+
+And one key aspect of my package is, little to no dependencies. I insist on that.
+
+However...
+
+## What if I could de-couple part of it?
+
+So I have used already %dopar% to run some training in parallel, with some effort on the part of the user (me, in this case), and the corresponding dependencies.
+
+One thing I have tested is separating the training data in subsets, and train separate LCS, then combining them, and then iterating.
+
+Well, what if instead, I separated the ruleset consolidation?
+
+The LCS algorithm assumes you expose it to new environment instances, and every now and then you apply subsumption, compaction, deletion and whatever other "consolidation" processes to the ruleset.
+
+Importantly, it assumes you do it sequentially.
+
+Well, what if you didn't?
+
+What if every now and then you copied the complete current ruleset, and in a **separate** subprocess, you had a go at consolidating it?
+
+Then, once consolidated, you can replace the ruleset used with the cleaner one and keep going. Said replacement would be next to instantaneous. So effectively you would run the consolidation in a separate process in parallel.
+
+Although matching is more costly, consolidation is expensive too. And even though it happens only ever so often, well.
+
+## Caveats
+
+Sure, it's not as easy as that. Parallelizing means, while you're consolidating a ruleset, copy of the original, in a separate process, the original gets updated!
+
+So you potentially could loose track of changes.
+
+However... Well, you can replace the new with the old and add only the rules that weren't part of the original while consolidating. That is, after consolidation, you would be adding back the new rules that have appeared (typically through mutations and rule-discovery).
+
+But these will be taken care of in the next consolidation, so you're only delaying the cleaning of the new ruleset (if cleaning is needed).
+
+So this is not perfect, indeed. But it feels like it might be helpful.
+
+## Conclusions
+
+I'm not 100% convinced here. But it seems, for slower cases, say big datasets or long binary strings in the environment (i.e. bigger search space) this decoupling could help, if consolidation per-se is expensive.
+
+It might not always make sense, and I'm actually adding a dependency on parallelizing libraries...
+
+Still, it sounds like an interesting idea.
