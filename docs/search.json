@@ -2539,5 +2539,12 @@
     "title": "RLCS with the mirai package",
     "section": "Conclusion",
     "text": "Conclusion\nPopulation consolidation was never the biggest bottleneck. But it is a slow process in cases of large populations. And the overall matching efforts benefit from a more compact population, so more frequent clean-ups might prove very useful sometimes…\nI have yet to test this with my images classifier or the RLCS RL demo use-case. There, I expect to see some more value out of these efforts.\nAt this time and with the tests I ran this afternoon (rather simple ones with not_bit4, mux6 and the iris dataset), is it worth it? Well… Not really.\nBut depending on the configurations, I could (I did) get roughly 40% time savings. Not too shabby.\nSo the balance between cleaner code, one-less-dependency (mirai, which is also a complex dependency, for a package, as I would have to decide how I let my user manage that or not…), and not awfully slow run-times, or slightly better run-times with less readable code, but possibly a key improvement in larger cases…\nI’m not 100% sold. I’ll have to keep running tests."
+  },
+  {
+    "objectID": "posts/2025-08-10_RLCS_MIRAI/index.html#reference",
+    "href": "posts/2025-08-10_RLCS_MIRAI/index.html#reference",
+    "title": "RLCS with the mirai package",
+    "section": "Reference",
+    "text": "Reference\nI looked for things for a while, but last week this showed up. You have to love the R community for these things."
   }
 ]
