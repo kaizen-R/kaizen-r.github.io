@@ -23,7 +23,7 @@ Now (and again, this is stupid as a model I suppose, it is just me warming up to
 
 I coded a very very simplistic (and absolutely zero-optimized, nor probably even quite correct) thing to represent this, which looks at the "current stock" of each company (and well, the general population).
 
-Why not visualize that as a basic network graph (or graph, which I prefer):
+Why not visualize that as a basic network graph (or simply "graph", which I prefer):
 
 ![simple scenario - starting setup](Scenario_start.png)
 
