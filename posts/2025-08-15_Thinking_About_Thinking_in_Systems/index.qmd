@@ -46,12 +46,6 @@ Again, I'm making stuff up as I go here, so... For instance, I add some randomne
 So it could look like so:
 
 ``` r
-add_to_stock <- function(stock) {
-    ## Yes, unnecessarily complicated...
-    stock$current_stock <- stock$current_stock + 1
-    stock
-}
-
 consume_from_population <- function(stocks, consumer_stock_num) {
     ## Add some level of randomness
     if(runif(1) > 0.4)

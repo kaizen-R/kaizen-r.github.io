@@ -217,25 +217,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Each “stock” in turn can evolve with the (discrete) passing of time (how much time will be important as we’ll see in a moment), and I choose to represent that as “in-flows” and “out-flows” volume, which in turn are supposed here to represent the corresponding “policy” of each company.</p>
 <p>Again, I’m making stuff up as I go here, so… For instance, I add some randomness to the process (just for the fun of it) so that at time step X, company 1 with inflow 3 would try to “hire” 3 employees, <strong>but</strong> I add a probability of 40% whereby the company at that particular time-step X decides to hire someone. The same goes for firing (in the case of company 1, the policy says “fire 2”). And all that applies exactly the same for company 2, with its own policy.</p>
 <p>So it could look like so:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>add_to_stock <span class="ot">&lt;-</span> <span class="cf">function</span>(stock) {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="do">## Yes, unnecessarily complicated...</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    stock<span class="sc">$</span>current_stock <span class="ot">&lt;-</span> stock<span class="sc">$</span>current_stock <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    stock</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>consume_from_population <span class="ot">&lt;-</span> <span class="cf">function</span>(stocks, consumer_stock_num) {</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="do">## Add some level of randomness</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&gt;</span> <span class="fl">0.4</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(stocks[[<span class="dv">1</span>]]<span class="sc">$</span>current_stock <span class="sc">&gt;</span> <span class="dv">0</span>) { </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            <span class="do">## stocks[[1]] is the general population...</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>            consumable <span class="ot">&lt;-</span> <span class="fu">min</span>(stocks[[<span class="dv">1</span>]]<span class="sc">$</span>current_stock, stocks[[consumer_stock_num]]<span class="sc">$</span>inflow)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            stocks[[<span class="dv">1</span>]]<span class="sc">$</span>current_stock <span class="ot">&lt;-</span> stocks[[<span class="dv">1</span>]]<span class="sc">$</span>current_stock <span class="sc">-</span> consumable</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            stocks[[consumer_stock_num]]<span class="sc">$</span>current_stock <span class="ot">&lt;-</span> stocks[[consumer_stock_num]]<span class="sc">$</span>current_stock <span class="sc">+</span> consumable</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    stocks</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>consume_from_population <span class="ot">&lt;-</span> <span class="cf">function</span>(stocks, consumer_stock_num) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="do">## Add some level of randomness</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&gt;</span> <span class="fl">0.4</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(stocks[[<span class="dv">1</span>]]<span class="sc">$</span>current_stock <span class="sc">&gt;</span> <span class="dv">0</span>) { </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>            <span class="do">## stocks[[1]] is the general population...</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            consumable <span class="ot">&lt;-</span> <span class="fu">min</span>(stocks[[<span class="dv">1</span>]]<span class="sc">$</span>current_stock, stocks[[consumer_stock_num]]<span class="sc">$</span>inflow)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            stocks[[<span class="dv">1</span>]]<span class="sc">$</span>current_stock <span class="ot">&lt;-</span> stocks[[<span class="dv">1</span>]]<span class="sc">$</span>current_stock <span class="sc">-</span> consumable</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            stocks[[consumer_stock_num]]<span class="sc">$</span>current_stock <span class="ot">&lt;-</span> stocks[[consumer_stock_num]]<span class="sc">$</span>current_stock <span class="sc">+</span> consumable</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    stocks</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The general population starts off with 100 individuals, and is not limiting in that it could potentially gather “people” from - or pour into - the companies at a rate much higher than what the companies would do.</p>
 </section>
 <section id="simulating-the-passing-of-time" class="level2">
