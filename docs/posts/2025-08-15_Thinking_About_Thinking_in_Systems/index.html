@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2025-08-10">
+<meta name="dcterms.date" content="2025-08-15">
 
-<title>RLCS with the mirai package – Kaizen-R.com new home</title>
+<title>Thinking about Systems – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,6 +75,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="../../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -144,10 +146,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">RLCS with the mirai package</h1>
+      <h1 class="title">Thinking about Systems</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">RLCS</div>
-                <div class="quarto-category">code</div>
+                <div class="quarto-category">complexity</div>
+                <div class="quarto-category">ABM</div>
+                <div class="quarto-category">systems</div>
               </div>
                   </div>
   </div>
@@ -165,7 +168,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">August 10, 2025</p>
+        <p class="date">August 15, 2025</p>
       </div>
     </div>
     
@@ -184,84 +187,126 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="i-hinted-at-the-idea-last-time-and-well" class="level2">
-<h2 class="anchored" data-anchor-id="i-hinted-at-the-idea-last-time-and-well">I hinted at the idea last time, and well…</h2>
-<p>I have actually now have had the time to evaluate (only briefly) the use of the mirai R package and it’s… interesting.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="installing_mirai.png" class="img-fluid figure-img"></p>
-<figcaption>installing mirai package</figcaption>
-</figure>
-</div>
-<p>Applied to the RLCS (because, why not), I thought I’d give it a go and use it where I thought it would make a difference… My use-case for today was to address the population cleaning process of the RLCS package, that is (just a bit) slow and very necessary.</p>
-<p>But the thing is… Nuanced.</p>
+<section id="i-keep-coming-back-to-these-ideas" class="level2">
+<h2 class="anchored" data-anchor-id="i-keep-coming-back-to-these-ideas">I keep coming back to these ideas</h2>
+<p>I did <a href="https://kaizen-r.github.io/posts/2025-06-09_Notes_to_Self/">mention some of it a while back</a>, but also I am re-reading “<a href="https://a.co/d/0hDAWNv">Thinking in Systems</a>” by D. H. Meadows.</p>
+<p>Well, I still truly do NOT know how I will go about it (if and when I decide to put more efforts into coding these things), but for the time being, I thought I’d run some extremely simplistic - and absolutely incorrect and personal - approach to it all.</p>
 </section>
-<section id="the-question-is-how-much-i-gain-with-it" class="level2">
-<h2 class="anchored" data-anchor-id="the-question-is-how-much-i-gain-with-it">The question is how much I gain with it</h2>
-<p>Launching a parallel dedicated process like so:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mirai<span class="sc">::</span><span class="fu">daemon</span>(<span class="dv">1</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>mirai<span class="sc">::</span><span class="fu">mirai</span>({ <span class="sc">&lt;</span>do something here<span class="sc">&gt;</span>; }, <span class="at">dependency1=</span>dependency1...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Sounds easy enough, but it becomes quickly complicated to decide when to wait for the result, why, how to sync things… Things of parallel computation that are always fun. But it’s not all.</p>
+<section id="about-stocks" class="level2">
+<h2 class="anchored" data-anchor-id="about-stocks">About “stocks”</h2>
+<p>One topic that appears a bit in the referenced book is the idea of stock, as in “storage buffers” of “flows” (that’s how I understood it anyway). Think bathtub, faucet and drain.</p>
+<p>So how about this for a simplistic idea. Two companies compete to “grow” with two different HR policies, one more focused on improving hiring, the other on retention.</p>
+<p>Both have supposedly “good policies” towards an objective of growth, in that their respective policies seem “positive”, more “in-flow” that “out-flow”.</p>
+<p>Now (and again, this is stupid as a model I suppose, it is just me warming up to the concepts), what if there was a limited “pool” of potential employees, a “general population” from which to hire from (or “fire into”).</p>
+<p>I coded a very very simplistic (and absolutely zero-optimized, nor probably even quite correct) thing to represent this, which looks at the “current stock” of each company (and well, the general population).</p>
+<p>Why not visualize that as a basic network graph (or graph, which I prefer):</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="dedicated_local_daemon.png" class="img-fluid figure-img"></p>
-<figcaption>creating a local daemon to receive processing request, avoiding a bit the overhead</figcaption>
+<p><img src="Scenario_start.png" class="img-fluid figure-img"></p>
+<figcaption>simple scenario - starting setup</figcaption>
 </figure>
 </div>
-<p>And yet, supposing I manage (I did, I did), I ran some tests and (duh!) it’s not as simple as it might seem upfront.</p>
-<p>So here is the thing:</p>
-<p>For <strong>large populations</strong>, a process to reduce population size (be it sumbsumption, deletion, compaction or what-not) is a bit slower. For small populations however, it is rather fast.</p>
-<p>In proportion then, <strong>you would want to use a separate process for population size control only if</strong>:</p>
+<p>In the following, for all results, I always initialize the simulation scenario as follows:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>stocks <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Let's work with two stocks</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## First will be the unemployed population, with "big" capacity to consume/pour flows:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>stocks <span class="ot">&lt;-</span> <span class="fu">add_stock</span>(stocks, <span class="at">stock_name =</span> <span class="st">"population"</span>, <span class="at">initial_stock=</span><span class="dv">100</span>, <span class="at">inflow=</span><span class="dv">1000</span>, <span class="at">outflow=</span><span class="dv">1000</span>) </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>stocks <span class="ot">&lt;-</span> <span class="fu">add_stock</span>(stocks, <span class="at">stock_name =</span> <span class="st">"company1"</span>, <span class="at">initial_stock=</span><span class="dv">20</span>, <span class="at">inflow=</span><span class="dv">3</span>, <span class="at">outflow=</span><span class="dv">2</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>stocks <span class="ot">&lt;-</span> <span class="fu">add_stock</span>(stocks, <span class="at">stock_name =</span> <span class="st">"company2"</span>, <span class="at">initial_stock=</span><span class="dv">20</span>, <span class="at">inflow=</span><span class="dv">7</span>, <span class="at">outflow=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Each “stock” in turn can evolve with the (discrete) passing of time (how much time will be important as we’ll see in a moment), and I choose to represent that as “in-flows” and “out-flows” volume, which in turn are supposed here to represent the corresponding “policy” of each company.</p>
+<p>Again, I’m making stuff up as I go here, so… For instance, I add some randomness to the process (just for the fun of it) so that at time step X, company 1 with inflow 3 would try to “hire” 3 employees, <strong>but</strong> I add a probability of 40% whereby the company at that particular time-step X decides to hire someone. The same goes for firing (in the case of company 1, the policy says “fire 2”). And all that applies exactly the same for company 2, with its own policy.</p>
+<p>So it could look like so:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>add_to_stock <span class="ot">&lt;-</span> <span class="cf">function</span>(stock) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="do">## Yes, unnecessarily complicated...</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    stock<span class="sc">$</span>current_stock <span class="ot">&lt;-</span> stock<span class="sc">$</span>current_stock <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    stock</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>consume_from_population <span class="ot">&lt;-</span> <span class="cf">function</span>(stocks, consumer_stock_num) {</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="do">## Add some level of randomness</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&gt;</span> <span class="fl">0.4</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(stocks[[<span class="dv">1</span>]]<span class="sc">$</span>current_stock <span class="sc">&gt;</span> <span class="dv">0</span>) { </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            <span class="do">## stocks[[1]] is the general population...</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>            consumable <span class="ot">&lt;-</span> <span class="fu">min</span>(stocks[[<span class="dv">1</span>]]<span class="sc">$</span>current_stock, stocks[[consumer_stock_num]]<span class="sc">$</span>inflow)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            stocks[[<span class="dv">1</span>]]<span class="sc">$</span>current_stock <span class="ot">&lt;-</span> stocks[[<span class="dv">1</span>]]<span class="sc">$</span>current_stock <span class="sc">-</span> consumable</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            stocks[[consumer_stock_num]]<span class="sc">$</span>current_stock <span class="ot">&lt;-</span> stocks[[consumer_stock_num]]<span class="sc">$</span>current_stock <span class="sc">+</span> consumable</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    stocks</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The general population starts off with 100 individuals, and is not limiting in that it could potentially gather “people” from - or pour into - the companies at a rate much higher than what the companies would do.</p>
+</section>
+<section id="simulating-the-passing-of-time" class="level2">
+<h2 class="anchored" data-anchor-id="simulating-the-passing-of-time">Simulating the passing of time</h2>
+<p>Quite simply, this is the core of the simulation, really:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(current_time <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_time_steps) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="do">## flows processing: circle through the companies</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(node_id <span class="cf">in</span> <span class="fu">sample</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">2</span>, <span class="at">replace =</span> F)) {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="do">## SIMPLISTIC, probably BAD, I know</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        stocks <span class="ot">&lt;-</span> <span class="fu">consume_from_population</span>(stocks, node_id)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        stocks <span class="ot">&lt;-</span> <span class="fu">loose_to_population</span>(stocks, node_id)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Right now, I only throw graph-related code to show current size of each in number of employees:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>size <span class="ot">&lt;-</span> <span class="fu">sapply</span>(stocks, \(x) x<span class="sc">$</span>current_stock)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Pretty basic stuff, very “algorithmic”, and again, not much thinking went into doing this “right”.</p>
+<p>This is what it looks like for one simulation then:</p>
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" width="500" height="350" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="Running one simulation"><source src="1_sim_vid_001.mov"></video></div>
+</section>
+<section id="some-results" class="level2">
+<h2 class="anchored" data-anchor-id="some-results">Some results</h2>
+<p>While all the above is pretty simplistic, it does suggest “agent-based modeling” stuff, simulations, etc.</p>
+<p>And even for such a simple approach, not realistic in the least, let’s have a look at some conclusions…</p>
+<p>Because I added some stochastic parameters in there (the 40% thing), I would need to run several simulations per scenario to get a sense of what really is happening.</p>
+<p>Today I’ll focus on <strong>how long I run the simulation</strong> and the impact of <strong>limited general population</strong>. It’s not rocket science, really, so let’s break it down.</p>
+<p>In all cases, I run one scenario 50 times (and then I’ll use that to average results). In all scenarios I start with the same configuration.</p>
+<p>Then I decide to run each scenario a number of steps:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n_time_steps_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">500</span>, <span class="dv">1000</span>, <span class="dv">5000</span>, <span class="dv">10000</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(n_time_steps <span class="cf">in</span> n_time_steps_vec) {</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>) { <span class="do">## Let's do this simulation a few times, shall we? MC-like</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        ...</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>I’ll show in the next graphics the following, for each company:</p>
 <ul>
-<li><p>it is <strong>slow</strong> (e.g.&nbsp;large populations)</p></li>
-<li><p>OR it happens <strong>often</strong></p></li>
-<li><p><strong>(or ideally both)</strong></p></li>
+<li><p>After 50 simulations of one scenario, what was the resulting size of the company (in number of employee) in each scenario, when the scenario was run 100 time steps.</p></li>
+<li><p>Save the resulting 50 simulations per scenario, but run it 100, 500, 1000, 5000 and 10000 time steps. Average (blue line) the resulting size of the company. (Green line: the companies start with 20 employees each)</p></li>
 </ul>
-<p>The trick with this is then that choosing to separate that process into another core/thread is a balancing exercise that can (very easily) prove counter-productive. I know all this because I have just spent half my Sunday afternoon running some tests (profvis and microbenchmark, both handy).</p>
-<p>Plus, to be clear, the code is quite a bit messier (yes, even more :D). That said, I <strong>do</strong> feel it was a very interesting exercise.</p>
-</section>
-<section id="so-why-bother" class="level2">
-<h2 class="anchored" data-anchor-id="so-why-bother">So why bother?</h2>
-<p>Well, here is the thing: Having that separated sub-process run in parallel allows me to <strong>decide to run subsumption quite a bit more often</strong>, without a real impact to the runtimes.</p>
-<p>This means, in the long run, and depending on other parameters (…), smaller populations for matching, and overall faster runtimes then.</p>
-<p>But well, it’s not perfect.</p>
-</section>
-<section id="some-pictures-to-support-the-claims" class="level2">
-<h2 class="anchored" data-anchor-id="some-pictures-to-support-the-claims">Some pictures to support the claims</h2>
+<p>Show that for both companies (1 on top, 2 at the bottom).</p>
+<p>So what does this say?</p>
+<p>Well, there is something I am not showing above: The general population!</p>
+<p>See, as long as the general population has people to hire, both companies grow, one more than the other, as expected per their respective policies. That is: Company 2 hires even more than it fires people, comparatively, in spite of being less careful with loosing people than Company 1.</p>
+<p>However, <strong>when the population of candidates is depleted</strong>, Company 1, which is less aggressive in hiring but more conservative when it comes to loosing people (i.e.&nbsp;possibly better culture, while maybe less “attractive” to the market “upfront”, say maybe it pays a little less than company 2… Whatever the reason!)…</p>
+<p>Right, so <strong>when the “general population” is depleted, the policy of the first company pays off!</strong></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="slight_gains.png" class="img-fluid figure-img"></p>
-<figcaption>one CAN get small gains, for say mux6(), but it is highly dependent on parameters/use-case</figcaption>
+<p><img src="simulations_results.png" class="img-fluid figure-img"></p>
+<figcaption>What happens if you prolong the simulations</figcaption>
 </figure>
 </div>
-<p>Here is an example with the Iris dataset, whereby I set things to do a population cleanup every 8th generation. I ran both the new version and the old. Here another screenshot:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="12_instead_of_8.png" class="img-fluid figure-img"></p>
-<figcaption>difference in delay</figcaption>
-</figure>
-</div>
-<p>So what happening above is: I <strong>launch</strong> subsumption and deletion processes at every 8th epoch in both cases.</p>
-<p>But <strong>with a mirai process</strong>, I <strong>delay consolidation</strong> of my population for <strong>after the cleanup is finished</strong>, <strong>and I keep running discovery of new rules in the meatime</strong> (roughly, this goes on for 3 or 4 epochs), and <strong>then only</strong> do I <strong>consolidate with the cleaned-up population</strong> from 3 (or 4) epochs ago (which is made a bit more complicated, as you might guess, by the rules that might have been discovered in the meantime, which also explains that “Final Population Cleanup (sequential):” message in there).</p>
-<p>Where <strong>withouth mirai</strong>, I have to wait for the same cleanup process to happen before I can continue.</p>
-<p>If you stop and review the convoluted explanation above, you might see that: <strong>If I “save” 3-4 epochs</strong> of processing time associated to the population cleanup, and I clean the population often (say, like here, <strong>every 8th epoch</strong>), and suppose I want to run this process for a very high number of epochs (which might in some corner cases be warranted), <strong>here I’d be saving 3-4 steps every 11-12 steps</strong>. Which is a <strong>big gain</strong>!</p>
-<p><em>Incorrect</em>, though, as <strong>I do have an overhead for reconciliation of the two parallel populations</strong> (and to be perfectly clear, and honest, right now my implementation also makes some educated simplifications in there).</p>
-<p>But <strong>what matters to me here is the order of magnitude</strong>. 30%. Or say “only” 20%, to account for the overhead of reconciliation (it’s not that hard). That’s not a lot <strong>unless</strong> you have a very long running process. <strong>Then you might start to appreciate it</strong>.</p>
-<p>(Note: In the case of an iris classifier as above with some chosen hyperparameters, I get 9.96 seconds <strong>without</strong> mirai, and 7.17 seconds <strong>with</strong>… Not too bad.)</p>
+<p>It makes sense, right? <strong>If hiring isn’t an option, well, you better make efforts towards retaining your talent.</strong></p>
+<p>Company 1 has a better policy <strong>when</strong> it <strong>directly</strong> competes with Company 2 for its resources, <em>instead of consuming from a large pool of candidates</em>.</p>
+<p>In other words, <strong>if a resource is scarce, and you’re competing directly with others, maybe you should focus on saving that resource, more so than getting more</strong>.</p>
+<p>And maybe it’s wrong, but this simplistic simulation scenario hints at such a conclusion.</p>
 </section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>Population consolidation <strong>was never the biggest bottleneck</strong>. But it is a slow process in cases of large populations. And the overall matching efforts benefit from a more compact population, so more frequent clean-ups might prove very useful sometimes…</p>
-<p>I have yet to test this with my images classifier or the RLCS RL demo use-case. There, <strong>I expect to see some more value</strong> out of these efforts.</p>
-<p>At this time and <strong>with the tests I ran this afternoon</strong> (rather simple ones with not_bit4, mux6 and the iris dataset), is it worth it? Well… <strong>Not really</strong>.</p>
-<p>But <strong>depending on the configurations</strong>, I <strong>could</strong> (I did) get roughly <strong>40% time savings</strong>. Not too shabby.</p>
-<p>So the balance between cleaner code, one-less-dependency (mirai, which is also a complex dependency, <em>for a package</em>, as I would have to decide how I let my user manage that or not…), and not awfully slow run-times, or slightly better run-times with less readable code, but <strong>possibly a key improvement in larger cases</strong>…</p>
-<p><strong>I’m not 100% sold. I’ll have to keep running tests.</strong></p>
+<section id="limitations" class="level2">
+<h2 class="anchored" data-anchor-id="limitations">Limitations</h2>
+<p>Well, to begin with, I don’t know whether my code even makes sense, for example I simply loop through a list of companies, and the “graph” structure really is just used for visualization (maybe I could use some adjacency matrix multiplications instead? Ashby’s Cybernetics book hinted at that… But for states… IDK, right now, no matter).</p>
+<p>This is also all very static, too. Both companies stick to their policies no matter what. Not realistic in the least.</p>
+<p>And yes, the population is limited. Like a bounded resource. It feels wrong, or at least very incomplete (if that ever happened, people would rush to train themselves to compete to get hired in that market, wouldn’t they?).</p>
+<p>Plus, the “40%” decision for hiring/firing at any given time step makes no sense whatsoever, either.</p>
+<p>And a long etc. Then again, “<strong>all models are wrong</strong>”… Well, this one is very wrong. Anyhow, this was just for the fun of the exercise!</p>
 </section>
-<section id="reference" class="level2">
-<h2 class="anchored" data-anchor-id="reference">Reference</h2>
-<p>I looked for things for a while, but <a href="https://youtu.be/sGLD8oVquho?feature=shared">last week this showed up</a>. You have to love the R community for these things.</p>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>I know, too simplistic, not realistic at all. Even poor algorithmic approach, for sure, I don’t know. The goal here was never to go for perfect, but to try out my hand at simulating flows and stocks and a simple interaction scenario.</p>
+<p>And <strong>yet, some conclusions can come out of it</strong>, somewhat in the spirit of “Systems Thinking”.</p>
+<p>And that is more than enough for me <strong>for now.</strong></p>
+<p>It does tell me, once I shift my focus onto a new project <em>for next year</em> (just an idea I have for myself, because I want to work on something that interests me like that, say like the RLCS project these past few months…)… In between ODE and ABM and FSMs, yes…</p>
+<p><strong>Yes, maybe that’s where I’ll keep looking for fun stuff to learn</strong>.</p>
 
 
 </section>
@@ -685,6 +730,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<script>videojs(video_shortcode_videojs_video1);</script>
 
 
 

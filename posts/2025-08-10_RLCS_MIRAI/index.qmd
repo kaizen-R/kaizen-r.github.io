@@ -9,6 +9,8 @@ categories: [RLCS, code]
 
 I have actually now have had the time to evaluate (only briefly) the use of the mirai R package and it's... interesting.
 
+![installing mirai package](installing_mirai.png)
+
 Applied to the RLCS (because, why not), I thought I'd give it a go and use it where I thought it would make a difference... My use-case for today was to address the population cleaning process of the RLCS package, that is (just a bit) slow and very necessary.
 
 But the thing is... Nuanced.
