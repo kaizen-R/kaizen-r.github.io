@@ -17,7 +17,7 @@ And so [this repo](https://github.com/kaizen-R/complex_systems_studies) was born
 
 ## On the issue of generating animations
 
-One thing I still struggle with is generating animations in 2D that are visually pleasant and particulary, that are not slow.
+One thing I still struggle with is generating animations in 2D that are visually pleasant and particulary, that are not slow. (Yes, this is related to the above, as I want to be able to "show" agent-based modelling simulations.)
 
 Using RStudio Viewer and image() to follow the evolution of the cellular automata in past exercises has often required, for niceness, for me to edit a video screenshot and accelerate it.
 
