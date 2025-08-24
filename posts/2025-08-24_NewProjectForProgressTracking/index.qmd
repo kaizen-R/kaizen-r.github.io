@@ -1,0 +1,53 @@
+---
+title: "Organizing a bit for future work/exercises"
+author: "Nico"
+date: "2025-08-24"
+categories: [code,math,systems,Optimization,Decisions,ABM,Information,complexity]
+---
+
+## Collecting thoughts and code for future project
+
+I have dedicated a bit of my spare time to the RLCS package creation. And it's still very much ongoing. But as I give myself until end of 2025 to have a first "shared" version of the package, well, I am looking into future work. Something to keep my head busy for 2026, if you will.
+
+## New GitHub Repo
+
+Just because I am slowly getting used to sharing my code more and more (in spite of the shame it supposes sometimes, my code being... Well, far from perfect), I thought I'd help myself by setting up a new project early on to collect some ideas.
+
+And so [this repo](https://github.com/kaizen-R/complex_systems_studies) was born earlier today.
+
+## On the issue of generating animations
+
+One thing I still struggle with is generating animations in 2D that are visually pleasant and particulary, that are not slow.
+
+Using RStudio Viewer and image() to follow the evolution of the cellular automata in past exercises has often required, for niceness, for me to edit a video screenshot and accelerate it.
+
+I just can't seem to get past the 10 FPS mark, whatever I do, and that's for pre-computed matrices, of reasonable size.
+
+However, if you use the animation package like I did at the end of the code [here](https://github.com/kaizen-R/complex_systems_studies/blob/main/plotting_matrices/speed_tests_v001.R), for instance:
+
+``` r
+## Not in RStudio/so post-processing visualization, but can be made fast:
+library(animation)
+# Create the animation
+saveHTML({ ## This one also offers speed controls...
+  for (i in 1:100) { ## Careful, it generates one PNG per matrix, and JS/CSS/HTML stuff...
+    image(world[[i]], axes=FALSE, useRaster = TRUE, col = grey.colors(256))
+    ani.options(interval = 0.02) ## Key to actual visual speed here
+  }
+},
+htmlfile = "random_points.html",
+ani.width = 500,
+ani.height = 500)
+```
+
+Well, the results are nicer.
+
+Applying this approach to a past exercise on Fire Spread simulation, you get to this result here:
+
+{{< video fire_spread_nice_animation_lowres.mp4 title="A group of independent agents 'working' together..." width="500" height="350">}}
+
+(It's actually a cut-down version with low resolution as the original capture of it was 26MB big...)
+
+## Conclusions
+
+I should really be working on finishing the RLCS project, but I am looking into future work instead, just to keep myself entertained really.
