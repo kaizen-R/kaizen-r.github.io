@@ -205,20 +205,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="on-the-issue-of-generating-animations">On the issue of generating animations</h2>
 <p>One thing I still struggle with is generating animations in 2D that are visually pleasant and particulary, that are not slow. (Yes, this is related to the above, as I want to be able to “show” agent-based modelling simulations.)</p>
 <p>Using RStudio Viewer and image() to follow the evolution of the cellular automata in past exercises has often required, for niceness, for me to edit a video screenshot and accelerate it.</p>
-<p>I just can’t seem to get past the 10 FPS mark, whatever I do, and that’s for pre-computed matrices, of reasonable size.</p>
+<p>Also, using image(), this is the fastest way I’ve found during my tests:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## From past exercise with Schelling Seggregation Model, I had this:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tf <span class="ot">&lt;-</span> <span class="cf">function</span>(m) <span class="fu">t</span>(m)[, <span class="fu">nrow</span>(m)<span class="sc">:</span><span class="dv">1</span>]</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>imageM <span class="ot">&lt;-</span> <span class="cf">function</span>(m, <span class="at">grid =</span> <span class="fu">max</span>(<span class="fu">dim</span>(m)) <span class="sc">&lt;=</span> <span class="dv">25</span>, <span class="at">asp =</span> (<span class="fu">nrow</span>(m)<span class="sc">-</span><span class="dv">1</span>)<span class="sc">/</span>(<span class="fu">ncol</span>(m)<span class="sc">-</span><span class="dv">1</span>), ...) {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">image</span>(<span class="fu">tf</span>(m), <span class="at">asp=</span>asp, <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">useRaster=</span><span class="cn">TRUE</span>, ...)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>t_start <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">imageM</span>(world[[i]])</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Sys.sleep</span>(.<span class="dv">2</span>) <span class="do">## Renders, but runtime goes to 2.22secs for 100*100px.</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Not awful, but not great.</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>() <span class="sc">-</span> t_start</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>However I try… I just can’t seem to get past the 10 FPS mark, (i.e.&nbsp;reduce the Sys.sleep() there) whatever I do, and that’s only for pre-computed matrices, of reasonable size.</p>
 <p>However, if you use the animation package like I did at the end of the code <a href="https://github.com/kaizen-R/complex_systems_studies/blob/main/plotting_matrices/speed_tests_v001.R">here</a>, for instance:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Not in RStudio/so post-processing visualization, but can be made fast:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(animation)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the animation</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">saveHTML</span>({ <span class="do">## This one also offers speed controls...</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) { <span class="do">## Careful, it generates one PNG per matrix, and JS/CSS/HTML stuff...</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">image</span>(world[[i]], <span class="at">axes=</span><span class="cn">FALSE</span>, <span class="at">useRaster =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="fu">grey.colors</span>(<span class="dv">256</span>))</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ani.options</span>(<span class="at">interval =</span> <span class="fl">0.02</span>) <span class="do">## Key to actual visual speed here</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>},</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">htmlfile =</span> <span class="st">"random_points.html"</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">ani.width =</span> <span class="dv">500</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">ani.height =</span> <span class="dv">500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Not in RStudio/so post-processing visualization, but can be made fast:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(animation)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the animation</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">saveHTML</span>({ <span class="do">## This one also offers speed controls...</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) { <span class="do">## Careful, it generates one PNG per matrix, and JS/CSS/HTML stuff...</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">image</span>(world[[i]], <span class="at">axes=</span><span class="cn">FALSE</span>, <span class="at">useRaster =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="fu">grey.colors</span>(<span class="dv">256</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ani.options</span>(<span class="at">interval =</span> <span class="fl">0.02</span>) <span class="do">## Key to actual visual speed here</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>},</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">htmlfile =</span> <span class="st">"random_points.html"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">ani.width =</span> <span class="dv">500</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">ani.height =</span> <span class="dv">500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Well, the results are nicer.</p>
 <p>Applying this approach to a past exercise on Fire Spread simulation, you get to this result here:</p>
 <div class="quarto-video"><video id="video_shortcode_videojs_video1" width="500" height="350" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="A group of independent agents 'working' together..."><source src="fire_spread_nice_animation_lowres.mp4"></video></div>

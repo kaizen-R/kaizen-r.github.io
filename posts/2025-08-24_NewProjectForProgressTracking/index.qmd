@@ -21,7 +21,25 @@ One thing I still struggle with is generating animations in 2D that are visually
 
 Using RStudio Viewer and image() to follow the evolution of the cellular automata in past exercises has often required, for niceness, for me to edit a video screenshot and accelerate it.
 
-I just can't seem to get past the 10 FPS mark, whatever I do, and that's for pre-computed matrices, of reasonable size.
+Also, using image(), this is the fastest way I've found during my tests:
+
+``` r
+## From past exercise with Schelling Seggregation Model, I had this:
+tf <- function(m) t(m)[, nrow(m):1]
+imageM <- function(m, grid = max(dim(m)) <= 25, asp = (nrow(m)-1)/(ncol(m)-1), ...) {
+  image(tf(m), asp=asp, axes = FALSE, useRaster=TRUE, ...)
+}
+
+t_start <- Sys.time()
+for(i in 1:10) {
+  imageM(world[[i]])
+  Sys.sleep(.2) ## Renders, but runtime goes to 2.22secs for 100*100px.
+  ## Not awful, but not great.
+}
+Sys.time() - t_start
+```
+
+However I try... I just can't seem to get past the 10 FPS mark, (i.e. reduce the Sys.sleep() there) whatever I do, and that's only for pre-computed matrices, of reasonable size.
 
 However, if you use the animation package like I did at the end of the code [here](https://github.com/kaizen-R/complex_systems_studies/blob/main/plotting_matrices/speed_tests_v001.R), for instance:
 
