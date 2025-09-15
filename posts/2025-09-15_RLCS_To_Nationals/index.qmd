@@ -1,0 +1,42 @@
+---
+title: "RLCS goes to the National R Congress!"
+author: "Nico"
+date: "2025-09-16"
+categories: [RLCS, code]
+---
+
+## I am so happy about this!
+
+I received the news that my proposal to present the RLCS work to the yearly Spanish R congress was accepted!
+
+And so, I am re-shifting my focus onto the RLCS project a bit for the upcoming weeks :)
+
+First off: I'm re-creating the new "R Package" from scratch, so that it has the right name, the right files...
+
+It will be a simple version:
+
+-   No parallel computing stuff
+
+-   Simple demos included only
+
+-   And the Reinforcement Learning will be included, but slightly more hidden than the rest.
+
+## A bit of cleaning up and testing...
+
+In order to make it available on my GitHub (it's unfortunate, but I doubt I would get it published on CRAN in the upcoming month and a half, although, who knows...), anyhow, I need to clean it up. Too many prints and too many functions exposed.
+
+Then I need to test it (once uploaded to my GitHub) from a different environment (say, a Windows).
+
+Then I need to make sure I document the key parts.
+
+## The presentation needs a review too
+
+I have had the presentation "slides" ready and shown in the past, but the goal now is to allow the audience to "follow along" while I do the demos.
+
+I "only" have about a month left to work on all that, and I won't have as many hours as I would like, but I am confident it will all turn out OK.
+
+## Conclusion
+
+Lots of work, but a bit more focused now that I have a new deadline.
+
+And although this is a very small audience for sure, being a simple independent enthusiast, I am still quite proud of myself here.
