@@ -555,21 +555,25 @@ make_pop_printable <- function(classifier) {
 
 ## Examples
 
-After - S3 object (dependency! plyr::rbind.fill)
+After - S3 object
 
 ``` r
-print.rlcs_population <- function(pop) {
-  if(length(pop) == 0) return(NULL)
-  
-  pop <- lcs_best_sort_sl(pop)
-  pop <- unclass(pop)
-  plyr::rbind.fill(lapply(1:length(pop), \(i) {
-    t_c <- pop[[i]]
+print.rlcs_population <- function(x, ...) {
+  if(length(x) == 0) return(NULL)
+  x <- .lcs_best_sort_sl(x)
+  x <- unclass(x)
+  l <- lapply(1:length(x), \(i) {
+    t_c <- x[[i]]
     data.frame(condition = t_c$condition_string, action = t_c$action,
                match_count = t_c$match_count, correct_count = t_c$correct_count,
                accuracy = t_c$accuracy, numerosity = t_c$numerosity,
-               first_seen = t_c$first_seen)
-  }))
+               reward = t_c$total_reward, first_seen = t_c$first_seen)
+  })
+  # plyr::rbind.fill(l) ## Faster, but adds plyr dependency :(
+  ## Slower, but no dependency:
+  df <- data.frame(matrix(unlist(l), nrow=length(l), byrow=TRUE))
+  names(df) <- c("condition", "action", "match_count", "correct_count", "accuracy", "numerosity", "reward", "first_seeen")
+  df
 }
 ```
 

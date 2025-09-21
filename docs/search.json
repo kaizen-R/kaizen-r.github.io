@@ -1418,7 +1418,7 @@
     "href": "others/RLCS_documentation.html#examples-6",
     "title": "RLCS: An Introduction",
     "section": "Examples",
-    "text": "Examples\nAfter - S3 object (dependency! plyr::rbind.fill)\nprint.rlcs_population &lt;- function(pop) {\n  if(length(pop) == 0) return(NULL)\n  \n  pop &lt;- lcs_best_sort_sl(pop)\n  pop &lt;- unclass(pop)\n  plyr::rbind.fill(lapply(1:length(pop), \\(i) {\n    t_c &lt;- pop[[i]]\n    data.frame(condition = t_c$condition_string, action = t_c$action,\n               match_count = t_c$match_count, correct_count = t_c$correct_count,\n               accuracy = t_c$accuracy, numerosity = t_c$numerosity,\n               first_seen = t_c$first_seen)\n  }))\n}\n\nprint(example_lcs_population)"
+    "text": "Examples\nAfter - S3 object\nprint.rlcs_population &lt;- function(x, ...) {\n  if(length(x) == 0) return(NULL)\n  x &lt;- .lcs_best_sort_sl(x)\n  x &lt;- unclass(x)\n  l &lt;- lapply(1:length(x), \\(i) {\n    t_c &lt;- x[[i]]\n    data.frame(condition = t_c$condition_string, action = t_c$action,\n               match_count = t_c$match_count, correct_count = t_c$correct_count,\n               accuracy = t_c$accuracy, numerosity = t_c$numerosity,\n               reward = t_c$total_reward, first_seen = t_c$first_seen)\n  })\n  # plyr::rbind.fill(l) ## Faster, but adds plyr dependency :(\n  ## Slower, but no dependency:\n  df &lt;- data.frame(matrix(unlist(l), nrow=length(l), byrow=TRUE))\n  names(df) &lt;- c(\"condition\", \"action\", \"match_count\", \"correct_count\", \"accuracy\", \"numerosity\", \"reward\", \"first_seeen\")\n  df\n}\n\nprint(example_lcs_population)"
   },
   {
     "objectID": "others/RLCS_documentation.html#how-did-i-approach-the-thing",
