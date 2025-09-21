@@ -1453,7 +1453,7 @@
     "href": "others/RLCS_documentation.html#execution-speed",
     "title": "RLCS: An Introduction",
     "section": "Execution Speed",
-    "text": "Execution Speed\nFor instance, this is a “slow” algorithm. Option: RCpp for Matching? (under testing right now!)\n\nprofviz"
+    "text": "Execution Speed\nFor instance, this is a “slow” algorithm. Option: Rcpp for Matching\n\nprofviz"
   },
   {
     "objectID": "others/RLCS_documentation.html#because-text-and-code-wont-make-it-popular",
@@ -1698,7 +1698,7 @@
     "href": "others/RLCS_documentation.html#parallel-computing",
     "title": "RLCS: An Introduction",
     "section": "Parallel Computing",
-    "text": "Parallel Computing\nParallel computing? %dopar% was tested (it works, but…)\n\n\nvertical and horizontal partitioning\n\nBreak data set (vertical). Two options\n\ninstances subsets (reduce population covered per thread/core)\nSubstrings of states (reduce search space)\nboth are “risky”\n\nrun fewer iterations (epochs) on full dataset, but on several cores in parallel"
+    "text": "Parallel Computing\nParallel computing? %dopar%, mirai were tested (it all works, but…)\n\n\nvertical and horizontal partitioning\n\nBreak data set (vertical). Two options\n\ninstances subsets (reduce population covered per thread/core)\nSubstrings of states (reduce search space)\nboth are “risky”\n\nrun fewer iterations (epochs) on full dataset, but on several cores in parallel"
   },
   {
     "objectID": "others/RLCS_documentation.html#parallel-computing-1",
@@ -2762,14 +2762,14 @@
     "href": "others/RLCS_documentation.html#binary-input-do-not-worry",
     "title": "RLCS: An Introduction",
     "section": "Binary input?! DO NOT WORRY",
-    "text": "Binary input?! DO NOT WORRY\nAny data point can be encoded into binary strings.\n\n\nrlcs_rosetta_stone()\nA (simplistic) function is actually provided to make this a bit more transparent.\n(for numerical data, for now… work-in-progress :))"
+    "text": "Binary input?! DO NOT WORRY\nAny data point can be encoded into binary strings.\n\n\nrlcs_rosetta_stone()\nA (simplistic) function is actually provided to make this a bit more transparent. Not necessarily the best approach! Just an “illustration”, really.\n(for numerical data, for now… work-in-progress :))"
   },
   {
     "objectID": "others/RLCS_documentation.html#binary-input-example",
     "href": "others/RLCS_documentation.html#binary-input-example",
     "title": "RLCS: An Introduction",
     "section": "Binary input: Example",
-    "text": "Binary input: Example\n4-bits with Gray encoding of “double quartiles” per variable, we can create binary string:\n&gt; head(iris, n=3)\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          5.1         3.5          1.4         0.2  setosa\n2          4.9         3.0          1.4         0.2  setosa\n3          4.7         3.2          1.3         0.2  setosa\n&gt; rlcs_iris &lt;- rlcs_rosetta_stone(iris, class_col=5) ## NOT part of LCS\n&gt; head(rlcs_iris, n=3)\n  rlcs_Sepal.Length rlcs_Sepal.Width rlcs_Petal.Length rlcs_Petal.Width  class            state\n1              0010             1111              0011             0010 setosa 0010111100110010\n2              0011             0101              0011             0010 setosa 0011010100110010\n3              0000             1101              0000             0010 setosa 0000110100000010\nNote: with some data loss :S"
+    "text": "Binary input: Example\n\nRosetta Stone “binning” for numerical variables (2 bits explanation)"
   },
   {
     "objectID": "others/RLCS_documentation.html#the-input-binary-encoding",
@@ -2804,7 +2804,7 @@
     "href": "others/RLCS_documentation.html#did-you-guess-right",
     "title": "RLCS: An Introduction",
     "section": "Did you guess right?",
-    "text": "Did you guess right?\n&gt; demo_params &lt;- RLCS_hyperparameters(n_epochs = 280, deletion_trigger = 40, deletion_threshold = 0.9)\n&gt; rlcs_model1 &lt;- rlcs_train_sl(demo_env1, demo_params, NULL, F)\n[1] \"Epoch: 40 Progress Exposure: 1280 Classifiers Count: 14\"\n[1] \"Epoch: 80 Progress Exposure: 2560 Classifiers Count: 8\"\n[1] \"Epoch: 120 Progress Exposure: 3840 Classifiers Count: 2\"\n[1] \"Epoch: 160 Progress Exposure: 5120 Classifiers Count: 2\"\n[1] \"Epoch: 200 Progress Exposure: 6400 Classifiers Count: 2\"\n[1] \"Epoch: 240 Progress Exposure: 7680 Classifiers Count: 2\"\n[1] \"Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2\"\n\n\n&gt; print(rlcs_model1)\n  condition action match_count correct_count accuracy numerosity reward first_seen\n1     ###1#      0        3560          3560        1        122      5       1843\n2     ###0#      1        2770          2770        1         94      5       3421"
+    "text": "Did you guess right?\n&gt; demo_params &lt;- RLCS_hyperparameters(n_epochs = 280, deletion_trigger = 40, deletion_threshold = 0.9)\n&gt; rlcs_model1 &lt;- rlcs_train_sl(demo_env1, demo_params, NULL, F)\n[1] \"Epoch: 40 Progress Exposure: 1280 Classifiers Count: 14\"\n[1] \"Epoch: 80 Progress Exposure: 2560 Classifiers Count: 8\"\n[1] \"Epoch: 120 Progress Exposure: 3840 Classifiers Count: 2\"\n[1] \"Epoch: 160 Progress Exposure: 5120 Classifiers Count: 2\"\n[1] \"Epoch: 200 Progress Exposure: 6400 Classifiers Count: 2\"\n[1] \"Epoch: 240 Progress Exposure: 7680 Classifiers Count: 2\"\n[1] \"Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2\"\n\n\n&gt; print(rlcs_model1)\n  condition action match_count correct_count accuracy numerosity reward first_seen\n1     ###1#      0        3560          3560        1        122      5       1843\n2     ###0#      1        2770          2770        1         94      5       3421\nThe model expresses: “Not bit 4”"
   },
   {
     "objectID": "others/RLCS_documentation.html#download-and-install-rlcs",
@@ -2819,5 +2819,19 @@
     "title": "RLCS: An Introduction",
     "section": "Run your first tests of RLCS",
     "text": "Run your first tests of RLCS\nlibrary(RLCS)\ndemo_params &lt;- RLCS_hyperparameters(n_epochs = 400, deletion_trigger = 40, deletion_threshold = 0.9)\ndemo_env2 &lt;- rlcs_example_secret2()\nprint(demo_env2, row.names = F)\nrlcs_model2 &lt;- rlcs_train_sl(demo_env2, demo_params, NULL, F)\nprint(rlcs_model2)\nplot(rlcs_model2)"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#binary-input-example-1",
+    "href": "others/RLCS_documentation.html#binary-input-example-1",
+    "title": "RLCS: An Introduction",
+    "section": "Binary input: Example",
+    "text": "Binary input: Example\nRosetta Stone: 16 values, 4-bits, “double-quartiles” w/ Gray-binary encoding, per variable:\n&gt; head(iris, n=3)\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          5.1         3.5          1.4         0.2  setosa\n2          4.9         3.0          1.4         0.2  setosa\n3          4.7         3.2          1.3         0.2  setosa\n&gt; rlcs_iris &lt;- rlcs_rosetta_stone(iris, class_col=5) ## NOT part of LCS\n&gt; head(rlcs_iris, n=3)\n  rlcs_Sepal.Length rlcs_Sepal.Width rlcs_Petal.Length rlcs_Petal.Width  class            state\n1              0010             1111              0011             0010 setosa 0010111100110010\n2              0011             0101              0011             0010 setosa 0011010100110010\n3              0000             1101              0000             0010 setosa 0000110100000010\nNote: with some data loss :S"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#the-input",
+    "href": "others/RLCS_documentation.html#the-input",
+    "title": "RLCS: An Introduction",
+    "section": "The input",
+    "text": "The input\nBefore we dive in:\nNeural Networks accept numerical vectors for inputs.\nOther algorithms accept factors, or mixed-input.\nWell…\n\nThe RLCS package (specific/current implementation) expects binary strings for its input."
   }
 ]

@@ -112,6 +112,8 @@ I found such a thing last November 2024. But let's go back for a minute.
 2     ###0#      1        2770          2770        1         94      5       3421
 ```
 
+The model expresses: "Not bit 4"
+
 ## The model: the Ternary Alphabet
 
 <br/>A **Population of Classifiers** is produced.
@@ -126,7 +128,21 @@ Each classifier includes a **rule** that encodes a match for states that can be 
 | 1   | Yes/True/present     |
 | \#  | "Don't care"         |
 
-# RLCS Pre-requisite
+# RLCS PRE-requisite
+
+## The input
+
+**Before we dive in:**
+
+Neural Networks accept numerical vectors for inputs.
+
+Other algorithms accept factors, or mixed-input.
+
+Well...
+
+. . .
+
+<br/>The RLCS package (**specific**/current implementation) expects **binary strings** for its input.
 
 ## The input: Binary encoding
 
@@ -151,13 +167,17 @@ Each classifier includes a **rule** that encodes a match for states that can be 
 
 **rlcs_rosetta_stone()**
 
-<br/>A (simplistic) function is actually provided to make this a bit more transparent.
+<br/>A (simplistic) function is actually provided to make this a bit more transparent. **Not necessarily the best approach!** Just an "illustration", really.
 
 (for numerical data, for now... work-in-progress :))
 
 ## Binary input: Example
 
-4-bits with Gray encoding of "double quartiles" per variable, we can create binary string:
+![Rosetta Stone "binning" for numerical variables (2 bits explanation)](images/demo_encoding_two_bits.jpg)
+
+## Binary input: Example
+
+Rosetta Stone: 16 values, 4-bits, "double-quartiles" w/ Gray-binary encoding, per variable:
 
 ``` r
 > head(iris, n=3)
@@ -607,13 +627,13 @@ It's "complex"
 
 ## Execution Speed
 
-For instance, this is a "slow" algorithm. Option: RCpp for Matching? (under testing right now!)
+For instance, this is a "slow" algorithm. Option: Rcpp for Matching
 
-![profviz](images/profiling_monothread_runtimes.jpg){alt="profviz" fig-align="center"}
+![profviz](images/profiling_monothread_runtimes.jpg){fig-align="center"}
 
 ## Parallel Computing
 
-Parallel computing? %dopar% was tested (it works, but...)
+Parallel computing? %dopar%, mirai were tested (it all works, but...)
 
 ::: incremental
 -   vertical and horizontal partitioning

@@ -305,6 +305,7 @@
 <span id="cb3-2"><a></a>  condition action match_count correct_count accuracy numerosity reward first_seen</span>
 <span id="cb3-3"><a></a><span class="dv">1</span>     <span class="do">###1#      0        3560          3560        1        122      5       1843</span></span>
 <span id="cb3-4"><a></a><span class="dv">2</span>     <span class="do">###0#      1        2770          2770        1         94      5       3421</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The model expresses: “Not bit 4”</p>
 </div>
 </section>
 <section id="the-model-the-ternary-alphabet" class="slide level2">
@@ -331,8 +332,18 @@
 </section></section>
 <section>
 <section id="rlcs-pre-requisite" class="title-slide slide level1 center">
-<h1>RLCS Pre-requisite</h1>
+<h1>RLCS PRE-requisite</h1>
 
+</section>
+<section id="the-input" class="slide level2">
+<h2>The input</h2>
+<p><strong>Before we dive in:</strong></p>
+<p>Neural Networks accept numerical vectors for inputs.</p>
+<p>Other algorithms accept factors, or mixed-input.</p>
+<p>Well…</p>
+<div class="fragment">
+<p><br>The RLCS package (<strong>specific</strong>/current implementation) expects <strong>binary strings</strong> for its input.</p>
+</div>
 </section>
 <section id="the-input-binary-encoding" class="slide level2">
 <h2>The input: Binary encoding</h2>
@@ -358,13 +369,17 @@
 <div class="fragment">
 <p><br></p>
 <p><strong>rlcs_rosetta_stone()</strong></p>
-<p><br>A (simplistic) function is actually provided to make this a bit more transparent.</p>
+<p><br>A (simplistic) function is actually provided to make this a bit more transparent. <strong>Not necessarily the best approach!</strong> Just an “illustration”, really.</p>
 <p>(for numerical data, for now… work-in-progress :))</p>
 </div>
 </section>
 <section id="binary-input-example" class="slide level2">
 <h2>Binary input: Example</h2>
-<p>4-bits with Gray encoding of “double quartiles” per variable, we can create binary string:</p>
+
+<img data-src="images/demo_encoding_two_bits.jpg" class="r-stretch quarto-figure-center"><p class="caption">Rosetta Stone “binning” for numerical variables (2 bits explanation)</p></section>
+<section id="binary-input-example-1" class="slide level2">
+<h2>Binary input: Example</h2>
+<p>Rosetta Stone: 16 values, 4-bits, “double-quartiles” w/ Gray-binary encoding, per variable:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="sc">&gt;</span> <span class="fu">head</span>(iris, <span class="at">n=</span><span class="dv">3</span>)</span>
 <span id="cb4-2"><a></a>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
 <span id="cb4-3"><a></a><span class="dv">1</span>          <span class="fl">5.1</span>         <span class="fl">3.5</span>          <span class="fl">1.4</span>         <span class="fl">0.2</span>  setosa</span>
@@ -785,12 +800,12 @@
 </section>
 <section id="execution-speed" class="slide level2">
 <h2>Execution Speed</h2>
-<p>For instance, this is a “slow” algorithm. Option: RCpp for Matching? (under testing right now!)</p>
+<p>For instance, this is a “slow” algorithm. Option: Rcpp for Matching</p>
 
 <img data-src="images/profiling_monothread_runtimes.jpg" class="r-stretch quarto-figure-center"><p class="caption">profviz</p></section>
 <section id="parallel-computing" class="slide level2">
 <h2>Parallel Computing</h2>
-<p>Parallel computing? %dopar% was tested (it works, but…)</p>
+<p>Parallel computing? %dopar%, mirai were tested (it all works, but…)</p>
 <div>
 <ul>
 <li class="fragment">vertical and horizontal partitioning
