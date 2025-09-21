@@ -1,0 +1,52 @@
+---
+title: "RLCS is now published!"
+author: "Nico"
+date: "2025-09-21"
+categories: [RLCS, code]
+---
+
+## A milestone for this project
+
+About a year ago (my first post on this topic was published in December 2024) I decided to look into developing my **first R package** for an (almost) unknown Machine Learning algorithm, John H. Holland's "Learning Classifier System".
+
+Well, it is now a real thing. The project is [published and available on my GitHub](https://github.com/kaizen-R/RLCS).
+
+![First Description of the Help for RLCS](package_help_screenshot.jpg)
+
+Now this means a few things for me:
+
+-   I am now "capable" of coding an R Package, and share it. (Granted, there is still some work to be done, but heck, it's a milestone for me regardless).
+
+-   I took a description of an algorithm, and made it into an R Package from scratch.
+
+-   I am making a dent in the World of ML in the sense that this particular algorithm is **symbolic and interpretable/explainable**. I feel rather strongly about this aspect.
+
+Yes, I am a bit proud. Even though this thing is very "niche".
+
+Also, publishing the package was a pre-requisite for the upcoming November presentation, where the audience is meant to be able to test it themselves, and I was worried anything would go wrong on the road to making the code available. It didn't. I have tested the whole process from the GitHub a couple of times, from Windows and from MacOSX. Provided you have the right version of Rcpp, things are working fine.
+
+I can now demo the thing **and get the (R enthusiasts) audience to follow along**. So yeah, I'm good with this right now.
+
+## Status summary
+
+It is still a simple version:
+
+-   In practice, I still only accept "binary strings" for the input states. I will keep working on the "Rosetta Stone" function to get everyone to see this is just a "conceptual" limitation.
+
+-   The more important limitation is that of **speed**, when comparing with other algorithms. This is alright, I consider it a **trade-off for the interpretability** of the output. That said, I have done some tests to make it work in **parallel processing** settings (and it does **work**). But that's really making it more "complex" and I do **not** include the parallel stuff in the Package quite on purpose, mainly because of additional **dependencies that I want to avoid**. I will probably make some demos available. Maybe in the future I create a **separate** package that adds the dependencies and wraps things so that parallel processing is made more transparent. But not for now.
+
+-   Simple demos included only, for now. I will make sure to share **three examples in the end**: Binary rules "**data mining**" (the simplest example), some **numerical dataset supervised classification** (e.g. iris), and **some image stuff** (my working example of MNIST 0-1 classifier would suffice, but I need to make it easier to try out).
+
+-   **Reinforcement Learning**. This is something I dedicated quite some effort to. And I want to show it to the World. I am just struggling with the how to "wrap" it into the package so that the interaction with a theoretical environment can be shown while not making the user worry about every step. This **might take a bit**.
+
+## Conclusion
+
+It is not "finished". It might well never be...
+
+But right now, I need to shift focus to **re-working the presentation explaining the whole thing**.
+
+I want to make sure it is a bit **easier to follow**, **less confusing**, namely about the "binary input": this is an implementation limitation, somehow people focus a lot on it, while it is **not part of the LCS** algorithm and **not a real issue**. The **"rosetta stone" function** is there just for that, but is too simplistic and poorly put together one morning... So I'll give it a bit more of my time.
+
+But I am confident this will now all turn out fine. The **milestone is there**. Now I need to make sure **I communicate more about it**. See if I can get people to give it a little bit of attention, as **the message ("practical symbolic ML") is important**.
+
+Actually... Even if my implementation is not the best way to go, that's no matter: the message is what counts, in the end.

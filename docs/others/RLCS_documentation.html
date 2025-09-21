@@ -196,6 +196,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">RLCS: An Introduction</h1>
+  <p class="subtitle">Interpretable, Symbolic Machine Learning</p>
 
 <div class="quarto-title-authors">
 </div>
@@ -203,8 +204,12 @@
 </section>
 <section id="an-issue-with-ai-explainability" class="slide level2">
 <h2>An issue with “AI”: explainability</h2>
-<p>Let’s call it Machine Learning. Today that’s mostly Neural networks. And mostly, that means it’s all <strong>black boxes</strong>.</p>
-<p><br>There are <a href="https://a.co/d/ba1J0oh" title="Interpretable Machine Learning: A Guide For Making Black Box Models Explainable">ways around that</a>. (e.g.&nbsp;<em>Trees</em> and other “open book” algorithms…)</p>
+<p>Let’s call it Machine Learning. As of today:</p>
+<ul>
+<li><p>Mostly Neural networks</p></li>
+<li><p>And mostly, that means it’s all <strong>black boxes</strong></p></li>
+</ul>
+<p>There are <a href="https://a.co/d/ba1J0oh" title="Interpretable Machine Learning: A Guide For Making Black Box Models Explainable">ways around that</a>. (e.g.&nbsp;<em>Trees</em> and other “open book” algorithms…)</p>
 <div class="fragment">
 <p><br><a href="https://en.wikipedia.org/wiki/Learning_classifier_system#Early_years">John H. Holland proposed an algorithm with the Cognitive System One</a> program (1976). Later, people came up with variations… Today we focus on <a href="https://en.wikipedia.org/wiki/Learning_classifier_system#Michigan-Style_Learning_Classifier_System">Michigan-style LCS</a>.</p>
 <aside class="notes">
@@ -223,8 +228,25 @@
       }</style></aside>
 </div>
 </section>
-<section id="the-goal-a-new-r-package" class="slide level2">
-<h2>The goal: A new R package</h2>
+<section id="learning-rules-as-models" class="slide level2">
+<h2>Learning rules as model(s)</h2>
+<ul>
+<li><p>if <strong>A &amp; NOT(B)</strong> then <strong>Class=X</strong></p></li>
+<li><p>if <strong>D</strong> then <strong>Class=Y</strong></p></li>
+</ul>
+<div class="fragment">
+<p>“Human-readable”, “interpretable”, <strong>good for:</strong></p>
+<ul>
+<li><p><strong>Mitigating bias</strong>(es) (in training data, at least)</p></li>
+<li><p>Increased <strong>trust</strong> (justifying decisions)</p></li>
+</ul>
+</div>
+<div class="fragment">
+<p>Learning about the data (data mining), better decisions, regulatory compliance, ethical/legal matters, possible adversarial attack robustness…</p>
+</div>
+</section>
+<section id="a-new-r-package" class="slide level2">
+<h2>A new R package</h2>
 
 <img data-src="images/books.jpeg" class="quarto-figure quarto-figure-center r-stretch" width="500"><div class="fragment">
 <p>Have you ever found something that <strong>no one else has done?</strong></p>
@@ -244,6 +266,140 @@
 </div>
 </section>
 <section>
+<section id="a-preview" class="title-slide slide level1 center">
+<h1>A preview</h1>
+
+</section>
+<section id="can-you-guess-the-rule" class="slide level2">
+<h2>Can you guess the “rule”?</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="sc">&gt;</span> <span class="fu">library</span>(RLCS)</span>
+<span id="cb1-2"><a></a><span class="sc">&gt;</span> demo_env1 <span class="ot">&lt;-</span> <span class="fu">rlcs_example_secret1</span>()</span>
+<span id="cb1-3"><a></a><span class="sc">&gt;</span> sample_of_rows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(demo_env1), <span class="dv">10</span>, <span class="at">replace=</span>F)</span>
+<span id="cb1-4"><a></a><span class="sc">&gt;</span> <span class="fu">print</span>(demo_env1[sample_of_rows,], <span class="at">row.names =</span> F)</span>
+<span id="cb1-5"><a></a> state class</span>
+<span id="cb1-6"><a></a> <span class="dv">01010</span>     <span class="dv">0</span></span>
+<span id="cb1-7"><a></a> <span class="dv">00111</span>     <span class="dv">0</span></span>
+<span id="cb1-8"><a></a> <span class="dv">11010</span>     <span class="dv">0</span></span>
+<span id="cb1-9"><a></a> <span class="dv">10001</span>     <span class="dv">1</span></span>
+<span id="cb1-10"><a></a> <span class="dv">00010</span>     <span class="dv">0</span></span>
+<span id="cb1-11"><a></a> <span class="dv">00100</span>     <span class="dv">1</span></span>
+<span id="cb1-12"><a></a> <span class="dv">10100</span>     <span class="dv">1</span></span>
+<span id="cb1-13"><a></a> <span class="dv">01111</span>     <span class="dv">0</span></span>
+<span id="cb1-14"><a></a> <span class="dv">01100</span>     <span class="dv">1</span></span>
+<span id="cb1-15"><a></a> <span class="dv">00001</span>     <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="did-you-guess-right" class="slide level2">
+<h2>Did you guess right?</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="sc">&gt;</span> demo_params <span class="ot">&lt;-</span> <span class="fu">RLCS_hyperparameters</span>(<span class="at">n_epochs =</span> <span class="dv">280</span>, <span class="at">deletion_trigger =</span> <span class="dv">40</span>, <span class="at">deletion_threshold =</span> <span class="fl">0.9</span>)</span>
+<span id="cb2-2"><a></a><span class="sc">&gt;</span> rlcs_model1 <span class="ot">&lt;-</span> <span class="fu">rlcs_train_sl</span>(demo_env1, demo_params, <span class="cn">NULL</span>, F)</span>
+<span id="cb2-3"><a></a>[<span class="dv">1</span>] <span class="st">"Epoch: 40 Progress Exposure: 1280 Classifiers Count: 14"</span></span>
+<span id="cb2-4"><a></a>[<span class="dv">1</span>] <span class="st">"Epoch: 80 Progress Exposure: 2560 Classifiers Count: 8"</span></span>
+<span id="cb2-5"><a></a>[<span class="dv">1</span>] <span class="st">"Epoch: 120 Progress Exposure: 3840 Classifiers Count: 2"</span></span>
+<span id="cb2-6"><a></a>[<span class="dv">1</span>] <span class="st">"Epoch: 160 Progress Exposure: 5120 Classifiers Count: 2"</span></span>
+<span id="cb2-7"><a></a>[<span class="dv">1</span>] <span class="st">"Epoch: 200 Progress Exposure: 6400 Classifiers Count: 2"</span></span>
+<span id="cb2-8"><a></a>[<span class="dv">1</span>] <span class="st">"Epoch: 240 Progress Exposure: 7680 Classifiers Count: 2"</span></span>
+<span id="cb2-9"><a></a>[<span class="dv">1</span>] <span class="st">"Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p><br></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="sc">&gt;</span> <span class="fu">print</span>(rlcs_model1)</span>
+<span id="cb3-2"><a></a>  condition action match_count correct_count accuracy numerosity reward first_seen</span>
+<span id="cb3-3"><a></a><span class="dv">1</span>     <span class="do">###1#      0        3560          3560        1        122      5       1843</span></span>
+<span id="cb3-4"><a></a><span class="dv">2</span>     <span class="do">###0#      1        2770          2770        1         94      5       3421</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="the-model-the-ternary-alphabet" class="slide level2">
+<h2>The model: the Ternary Alphabet</h2>
+<p><br>A <strong>Population of Classifiers</strong> is produced.</p>
+<p><br>This is how to read that output model:</p>
+<p>Each classifier includes a <strong>rule</strong> that encodes a match for states that can be read as:</p>
+<table class="caption-top">
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>No/False/not present</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Yes/True/present</td>
+</tr>
+<tr class="odd">
+<td>#</td>
+<td>“Don’t care”</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section>
+<section id="rlcs-pre-requisite" class="title-slide slide level1 center">
+<h1>RLCS Pre-requisite</h1>
+
+</section>
+<section id="the-input-binary-encoding" class="slide level2">
+<h2>The input: Binary encoding</h2>
+<p><br>NOTE: This is <strong>NOT</strong> part of the LCS algorithm <em>per-se</em>.</p>
+<p><br>With the input data, we will <strong>encode</strong> the data as:</p>
+<table class="caption-top">
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>No/False/not present/0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Yes/True/present/1</td>
+</tr>
+</tbody>
+</table>
+<p><br>A “state” of the environment will then be encoded as a <strong>string of zeros and ones</strong>.</p>
+</section>
+<section id="binary-input-do-not-worry" class="slide level2">
+<h2>Binary input?! DO NOT WORRY</h2>
+<p><br><em>Any data point can be encoded into binary strings</em>.</p>
+<div class="fragment">
+<p><br></p>
+<p><strong>rlcs_rosetta_stone()</strong></p>
+<p><br>A (simplistic) function is actually provided to make this a bit more transparent.</p>
+<p>(for numerical data, for now… work-in-progress :))</p>
+</div>
+</section>
+<section id="binary-input-example" class="slide level2">
+<h2>Binary input: Example</h2>
+<p>4-bits with Gray encoding of “double quartiles” per variable, we can create binary string:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="sc">&gt;</span> <span class="fu">head</span>(iris, <span class="at">n=</span><span class="dv">3</span>)</span>
+<span id="cb4-2"><a></a>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
+<span id="cb4-3"><a></a><span class="dv">1</span>          <span class="fl">5.1</span>         <span class="fl">3.5</span>          <span class="fl">1.4</span>         <span class="fl">0.2</span>  setosa</span>
+<span id="cb4-4"><a></a><span class="dv">2</span>          <span class="fl">4.9</span>         <span class="fl">3.0</span>          <span class="fl">1.4</span>         <span class="fl">0.2</span>  setosa</span>
+<span id="cb4-5"><a></a><span class="dv">3</span>          <span class="fl">4.7</span>         <span class="fl">3.2</span>          <span class="fl">1.3</span>         <span class="fl">0.2</span>  setosa</span>
+<span id="cb4-6"><a></a><span class="sc">&gt;</span> rlcs_iris <span class="ot">&lt;-</span> <span class="fu">rlcs_rosetta_stone</span>(iris, <span class="at">class_col=</span><span class="dv">5</span>) <span class="do">## NOT part of LCS</span></span>
+<span id="cb4-7"><a></a><span class="sc">&gt;</span> <span class="fu">head</span>(rlcs_iris, <span class="at">n=</span><span class="dv">3</span>)</span>
+<span id="cb4-8"><a></a>  rlcs_Sepal.Length rlcs_Sepal.Width rlcs_Petal.Length rlcs_Petal.Width  class            state</span>
+<span id="cb4-9"><a></a><span class="dv">1</span>              <span class="dv">0010</span>             <span class="dv">1111</span>              <span class="dv">0011</span>             <span class="dv">0010</span> setosa <span class="dv">0010111100110010</span></span>
+<span id="cb4-10"><a></a><span class="dv">2</span>              <span class="dv">0011</span>             <span class="dv">0101</span>              <span class="dv">0011</span>             <span class="dv">0010</span> setosa <span class="dv">0011010100110010</span></span>
+<span id="cb4-11"><a></a><span class="dv">3</span>              <span class="dv">0000</span>             <span class="dv">1101</span>              <span class="dv">0000</span>             <span class="dv">0010</span> setosa <span class="dv">0000110100000010</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>Note: with some data loss :S</em></p>
+</section></section>
+<section>
+<section id="interlude-get-the-package" class="title-slide slide level1 center">
+<h1>Interlude: Get the package</h1>
+
+</section>
+<section id="download-and-install-rlcs" class="slide level2">
+<h2>Download and install RLCS</h2>
+<p>To get the package from GitHub:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">library</span>(devtools)</span>
+<span id="cb5-2"><a></a><span class="fu">install_github</span>(<span class="st">"kaizen-R/RLCS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="run-your-first-tests-of-rlcs" class="slide level2">
+<h2>Run your first tests of RLCS</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">library</span>(RLCS)</span>
+<span id="cb6-2"><a></a>demo_params <span class="ot">&lt;-</span> <span class="fu">RLCS_hyperparameters</span>(<span class="at">n_epochs =</span> <span class="dv">400</span>, <span class="at">deletion_trigger =</span> <span class="dv">40</span>, <span class="at">deletion_threshold =</span> <span class="fl">0.9</span>)</span>
+<span id="cb6-3"><a></a>demo_env2 <span class="ot">&lt;-</span> <span class="fu">rlcs_example_secret2</span>()</span>
+<span id="cb6-4"><a></a><span class="fu">print</span>(demo_env2, <span class="at">row.names =</span> F)</span>
+<span id="cb6-5"><a></a>rlcs_model2 <span class="ot">&lt;-</span> <span class="fu">rlcs_train_sl</span>(demo_env2, demo_params, <span class="cn">NULL</span>, F)</span>
+<span id="cb6-6"><a></a><span class="fu">print</span>(rlcs_model2)</span>
+<span id="cb6-7"><a></a><span class="fu">plot</span>(rlcs_model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section>
+<section>
 <section id="learning-classifier-system-algorithm" class="title-slide slide level1 center">
 <h1>Learning Classifier System: Algorithm</h1>
 
@@ -251,46 +407,7 @@
 <section id="keywords" class="slide level2">
 <h2>Keywords</h2>
 
-<img data-src="images/LCS_Keywords.png" class="r-stretch"></section>
-<section id="so-how-does-it-work" class="slide level2">
-<h2>So how does it work?</h2>
-<p>Imagine you receive samples of data points (aka <strong>states</strong>) with their corresponding classes (aka <strong>actions</strong>). All your input entries (aka <strong>instances</strong>) form an <strong>environment.</strong></p>
-<p><br>In this case, we will accept <strong>binary string states</strong> for the <strong>environment instances</strong> (examples):</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>State</th>
-<th>Action/Class</th>
-<th>From the…</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0010111100110010</td>
-<td>“setosa”</td>
-<td>Iris dataset</td>
-</tr>
-<tr class="even">
-<td>001010</td>
-<td>1</td>
-<td>“Mux 6”</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="wait-what-binary-input" class="slide level2">
-<h2>Wait, what? Binary input?!</h2>
-<p>Well, for now… Yes. There are alternatives. But for now…</p>
-<p><br>Here using 4-bits with Gray encoding of “double quartiles” per variable, we can create binary string:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>  Sepal.Length Sepal.Width Petal.Length Petal.Width  slb  swb  plb  pwb</span>
-<span id="cb1-2"><a></a><span class="dv">1</span>          <span class="fl">5.1</span>         <span class="fl">3.5</span>          <span class="fl">1.4</span>         <span class="fl">0.2</span> <span class="dv">0010</span> <span class="dv">1111</span> <span class="dv">0011</span> <span class="dv">0010</span></span>
-<span id="cb1-3"><a></a><span class="dv">2</span>          <span class="fl">4.9</span>         <span class="fl">3.0</span>          <span class="fl">1.4</span>         <span class="fl">0.2</span> <span class="dv">0011</span> <span class="dv">0101</span> <span class="dv">0011</span> <span class="dv">0010</span></span>
-<span id="cb1-4"><a></a><span class="dv">3</span>          <span class="fl">4.7</span>         <span class="fl">3.2</span>          <span class="fl">1.3</span>         <span class="fl">0.2</span> <span class="dv">0000</span> <span class="dv">1101</span> <span class="dv">0000</span> <span class="dv">0010</span></span>
-<span id="cb1-5"><a></a>             state  class</span>
-<span id="cb1-6"><a></a><span class="dv">1</span> <span class="dv">0010111100110010</span> setosa</span>
-<span id="cb1-7"><a></a><span class="dv">2</span> <span class="dv">0011010100110010</span> setosa</span>
-<span id="cb1-8"><a></a><span class="dv">3</span> <span class="dv">0000110100000010</span> setosa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section></section>
+<img data-src="images/LCS_Keywords.png" class="r-stretch"></section></section>
 <section>
 <section id="key-concepts" class="title-slide slide level1 center">
 <h1>Key concepts</h1>
@@ -303,10 +420,10 @@
 </blockquote>
 <p><strong>Covering</strong> a state with a <strong>probability</strong> of “<strong>#</strong>” values means making a <strong>rule</strong> that <strong>matches</strong> the input state and class/action.</p>
 <p>Something that <strong>could</strong> match other (partially) similar input:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="sc">&gt;</span> <span class="fu">generate_cover_rule_for_unmatched_instance</span>(<span class="st">'010001'</span>, <span class="fl">0.2</span>)</span>
-<span id="cb2-2"><a></a>[<span class="dv">1</span>] <span class="st">"0#0001"</span></span>
-<span id="cb2-3"><a></a><span class="sc">&gt;</span> <span class="fu">generate_cover_rule_for_unmatched_instance</span>(<span class="st">'010001'</span>, <span class="fl">0.8</span>)</span>
-<span id="cb2-4"><a></a>[<span class="dv">1</span>] <span class="st">"##0###"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="sc">&gt;</span> <span class="fu">generate_cover_rule_for_unmatched_instance</span>(<span class="st">'010001'</span>, <span class="fl">0.2</span>)</span>
+<span id="cb7-2"><a></a>[<span class="dv">1</span>] <span class="st">"0#0001"</span></span>
+<span id="cb7-3"><a></a><span class="sc">&gt;</span> <span class="fu">generate_cover_rule_for_unmatched_instance</span>(<span class="st">'010001'</span>, <span class="fl">0.8</span>)</span>
+<span id="cb7-4"><a></a>[<span class="dv">1</span>] <span class="st">"##0###"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
 <p>You receive an <strong>instance of the environment</strong> (a binary string <strong>state</strong> and a <strong>class</strong>).</p>
 <p>The class here is defined already.</p>
@@ -324,8 +441,10 @@
 </section>
 <section id="matching" class="slide level2">
 <h2>2 - Matching</h2>
-<p>You generate <strong>new rules</strong> when you see new environment <strong>instances</strong> that <strong>do not match any rule</strong> yet. Suppose you have a <strong>set of rules</strong>. That’s your <strong>population (of rules)</strong>.</p>
-<p><br></p>
+<ul>
+<li>When you see a new environment <strong>instance</strong> that <strong>does not match any rule</strong> in your population yet -&gt; generate a <strong>new rule.</strong></li>
+</ul>
+<div class="fragment">
 <ul>
 <li><p>If one(+) rule(s) in your population <strong>matches</strong> your new instance <strong>state</strong> -&gt; increase the <strong>match count of the corresponding classifier.</strong></p></li>
 <li><p>If one(+) rule(s) in your population matches your new instance <strong>state &amp;&amp; class/action</strong> –&gt; increase the <strong>correct count.</strong></p></li>
@@ -343,10 +462,11 @@
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</div>
 </section>
 <section id="rule-discovery" class="slide level2">
 <h2>3 - Rule Discovery</h2>
-<p>After a few <strong>epochs</strong> of exposing the LCS to your full environment, you will have a <strong>few rules that match correctly a given instance, the correct set</strong>.</p>
+<p>After a few <strong>epochs</strong> of exposing the LCS to your environment, you will have a <strong>few rules that match correctly a given instance, the “correct” set</strong>.</p>
 <p><br>Match and Correct count are indicators of how good each rule is. But <strong>are there other better possibilities?</strong></p>
 <div class="fragment">
 <p><br>Take all the <strong>correct set</strong>, and apply a <strong>Genetic Algorithm</strong> to that set, to generate <strong>new rules</strong>!</p>
@@ -355,7 +475,7 @@
 <section id="rule-discovery-ga" class="slide level2">
 <h2>3 - Rule Discovery (GA)</h2>
 
-<img data-src="images/GA_Explained.png" class="r-stretch"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>mut_point <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">runif</span>(<span class="fu">nchar</span>(t_instance_state)) <span class="sc">&lt;</span> mut_prob)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<img data-src="images/GA_Explained.png" class="r-stretch"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>mut_point <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">runif</span>(<span class="fu">nchar</span>(t_instance_state)) <span class="sc">&lt;</span> mut_prob)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="population-size" class="slide level2">
 <h2>4 - Population Size</h2>
@@ -380,11 +500,12 @@
 <h2>5 - Prediction</h2>
 <p>Imagine a new sample/instance, never seen before. (Test environment)</p>
 <div class="fragment">
-<p><br>Prediction is about <strong>returning the match set</strong> for that new instance.</p>
+<p>Prediction is about <strong>returning the match set</strong> for that new instance.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>RLCS<span class="sc">::</span><span class="fu">get_match_set</span>(sample_state, population_of_classifiers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<p><br><strong>Majority</strong> (possibly weighted by numerosity, accuracy…) of <strong>proposed class</strong>/action will be the prediction.</p>
-<p>That’s it! It also means, this is natively an ensemble learning algorithm.</p>
+<p><br>The <strong>prediction</strong> will be the <strong>majority</strong> (possibly weighted by numerosity, accuracy…) of the <strong>proposed class</strong>/action. <strong>That’s it!</strong></p>
+<p>It also means, this is natively an <strong>ensemble learning</strong> algorithm.</p>
 </div>
 </section>
 <section id="other-uses" class="slide level2">
@@ -404,17 +525,14 @@
 </section>
 <section id="iris" class="slide level2">
 <h2>Iris</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>[<span class="dv">1</span>] <span class="st">"Training Runtime: 4.44374799728394"</span> (seconds)</span>
-<span id="cb4-2"><a></a>[<span class="dv">1</span>] <span class="st">"Training Set Size: 127"</span></span>
-<span id="cb4-3"><a></a>[<span class="dv">1</span>] <span class="st">"Confusion 'Matrix' for Class setosa:"</span></span>
-<span id="cb4-4"><a></a>setosa </span>
-<span id="cb4-5"><a></a>     <span class="dv">5</span> </span>
-<span id="cb4-6"><a></a>[<span class="dv">1</span>] <span class="st">"Confusion 'Matrix' for Class versicolor:"</span></span>
-<span id="cb4-7"><a></a>versicolor  virginica </span>
-<span id="cb4-8"><a></a>         <span class="dv">6</span>          <span class="dv">1</span> </span>
-<span id="cb4-9"><a></a>[<span class="dv">1</span>] <span class="st">"Confusion 'Matrix' for Class virginica:"</span></span>
-<span id="cb4-10"><a></a>virginica </span>
-<span id="cb4-11"><a></a>       <span class="dv">10</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="sc">&gt;</span> <span class="fu">print</span>(t_end <span class="sc">-</span> t_start) <span class="do">## Training Runtime.</span></span>
+<span id="cb10-2"><a></a>Time difference of <span class="fl">13.13619</span> secs</span>
+<span id="cb10-3"><a></a><span class="sc">&gt;</span> <span class="fu">table</span>(test_environment[, <span class="fu">c</span>(<span class="st">"class"</span>, <span class="st">"predicted"</span>)])</span>
+<span id="cb10-4"><a></a>            predicted</span>
+<span id="cb10-5"><a></a>class        setosa versicolor virginica</span>
+<span id="cb10-6"><a></a>  setosa         <span class="dv">13</span>          <span class="dv">0</span>         <span class="dv">0</span></span>
+<span id="cb10-7"><a></a>  versicolor      <span class="dv">0</span>          <span class="dv">5</span>         <span class="dv">3</span></span>
+<span id="cb10-8"><a></a>  virginica       <span class="dv">0</span>          <span class="dv">0</span>         <span class="dv">9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="iris-1" class="slide level2">
 <h2>Iris</h2>
@@ -428,23 +546,27 @@
 <h2>Images Classifier</h2>
 
 <img data-src="images/mnist_example_visu_explained.jpg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="data-mining" class="slide level2">
+<h2>Data Mining</h2>
+<p>Given that the rules are “expressive”, sometimes you can <strong>ask the LCS to find rules that appear in your data:</strong></p>
+<ul>
+<li><p>Not necessarily to classify future samples</p></li>
+<li><p>To <strong>identify what is important</strong> for different classes of your data</p></li>
+</ul>
+<div class="fragment">
+<p><br><strong>REAL WORLD anecdote</strong>: inventory of 10K rows with 20 columns, each duly binary encoded. I learnt something about my inventory!</p>
+</div>
+</section>
 <section id="epistasis" class="slide level2">
 <h2>Epistasis</h2>
 <p>LCS can somehow recognize how <strong>two different parts interact</strong>. Aptly… The <a href="https://en.wikipedia.org/wiki/Epistasis">term</a> comes from of genetics (genes modified by other genes…). (e.g.&nbsp;XOR…)</p>
 
-<img data-src="images/epistasis_mux6.png" class="quarto-figure quarto-figure-center r-stretch"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>  condition action match_count correct_count accuracy numerosity first_seen</span>
-<span id="cb5-2"><a></a>     <span class="dv">10</span><span class="do">##1#      1       15913         15913        1        324        688</span></span>
-<span id="cb5-3"><a></a>     <span class="dv">000</span><span class="do">###      0       15575         15575        1        357       3394</span></span>
-<span id="cb5-4"><a></a>     <span class="dv">001</span><span class="do">###      1       14842         14842        1        298       9231</span></span>
-<span id="cb5-5"><a></a>     <span class="dv">11</span><span class="do">###0      0       13149         13149        1        263      22839</span></span>
-<span id="cb5-6"><a></a>     ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="also-included-data-mining" class="slide level2">
-<h2>Also included: Data Mining</h2>
-<p>Given that the rules are “expressive”, sometimes you can <strong>ask the LCS to find rules that appear in your data</strong>, NOT to classify future samples, but to identify what is important in different classes of your data.</p>
-<div class="fragment">
-<p><br><strong>REAL WORLD anecdote</strong>: inventory of 10K rows with 20 columns, each duly binary encoded. I learnt something about my inventory!</p>
-</div>
+<img data-src="images/epistasis_mux6.png" class="quarto-figure quarto-figure-center r-stretch"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>  condition action match_count correct_count accuracy numerosity first_seen</span>
+<span id="cb11-2"><a></a>     <span class="dv">10</span><span class="do">##1#      1       15913         15913        1        324        688</span></span>
+<span id="cb11-3"><a></a>     <span class="dv">000</span><span class="do">###      0       15575         15575        1        357       3394</span></span>
+<span id="cb11-4"><a></a>     <span class="dv">001</span><span class="do">###      1       14842         14842        1        298       9231</span></span>
+<span id="cb11-5"><a></a>     <span class="dv">11</span><span class="do">###0      0       13149         13149        1        263      22839</span></span>
+<span id="cb11-6"><a></a>     ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="rl-too" class="slide level2">
 <h2>RL, TOO!</h2>
@@ -461,8 +583,8 @@
 <h1>Some R code</h1>
 
 </section>
-<section id="a-future-sorry-r-package" class="slide level2">
-<h2>A (future, sorry!) R package</h2>
+<section id="an-r-package" class="slide level2">
+<h2>An R package</h2>
 <p>A package to implement a simple version of the Learning Classifier System algorithm:</p>
 <ul>
 <li><p>Binary Alphabet, tournament/one-point crossover GA, accuracy based, Michigan-style LCS</p></li>
@@ -480,24 +602,24 @@
 <ul>
 <li class="fragment"><p>Lists. Lists, everywhere. Which might have been a bad idea… (data.table?)</p></li>
 <li class="fragment"><p>from there, lapply() &amp; al.&nbsp;is then my best friend</p></li>
-<li class="fragment"><p>Start small, grow fast (because I get obsessed)</p></li>
-<li class="fragment"><p>then clean it</p></li>
-<li class="fragment"><p>then clean it some more</p></li>
-<li class="fragment"><p>ever postponing the move to a Package, though</p></li>
+<li class="fragment"><p>“Start small, grow fast” (“fast”… for a hobby, that is)</p></li>
+<li class="fragment"><p>then clean it (then clean it some more)</p></li>
+<li class="fragment"><p>Finally publishing on GitHub</p></li>
+<li class="fragment"><p>Next steps? <strong>CRAN</strong></p></li>
 </ul>
 </div>
 </section>
 <section id="examples" class="slide level2">
 <h2>Examples</h2>
 <p>Before</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>lcs_res <span class="ot">&lt;-</span> <span class="fu">rlcs_meta_train</span>(train_environment,</span>
-<span id="cb6-2"><a></a>                           <span class="dv">1</span>, <span class="do">## Warmup with just one epoch</span></span>
-<span id="cb6-3"><a></a>                           wildcard_prob,</span>
-<span id="cb6-4"><a></a>                           rd_trigger,</span>
-<span id="cb6-5"><a></a>                           parents_selection_mode,</span>
-<span id="cb6-6"><a></a>                           mutation_probability,</span>
-<span id="cb6-7"><a></a>                           tournament_pressure,</span>
-<span id="cb6-8"><a></a>                           deletion_trigger) <span class="do">## Deletion won't be triggered</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>lcs_res <span class="ot">&lt;-</span> <span class="fu">rlcs_meta_train</span>(train_environment,</span>
+<span id="cb12-2"><a></a>                           <span class="dv">1</span>, <span class="do">## Warmup with just one epoch</span></span>
+<span id="cb12-3"><a></a>                           wildcard_prob,</span>
+<span id="cb12-4"><a></a>                           rd_trigger,</span>
+<span id="cb12-5"><a></a>                           parents_selection_mode,</span>
+<span id="cb12-6"><a></a>                           mutation_probability,</span>
+<span id="cb12-7"><a></a>                           tournament_pressure,</span>
+<span id="cb12-8"><a></a>                           deletion_trigger) <span class="do">## Deletion won't be triggered</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p>Too many parameters! (Uncle Bob wouldn’t like it)</p>
 </div>
@@ -505,86 +627,86 @@
 <section id="examples-1" class="slide level2">
 <h2>Examples</h2>
 <p>After, using an object (<a href="http://adv-r.had.co.nz/R5.html">reference class, “R5”</a>, in this case)</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>default_lcs_hyperparameters <span class="ot">&lt;-</span> <span class="fu">RLCS_hyperparameters</span>()</span>
-<span id="cb7-2"><a></a>example_lcs <span class="ot">&lt;-</span> <span class="fu">rlcs_train</span>(train_environment, default_lcs_hyperparameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>default_lcs_hyperparameters <span class="ot">&lt;-</span> <span class="fu">RLCS_hyperparameters</span>()</span>
+<span id="cb13-2"><a></a>example_lcs <span class="ot">&lt;-</span> <span class="fu">rlcs_train</span>(train_environment, default_lcs_hyperparameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="examples-2" class="slide level2">
 <h2>Examples</h2>
 <p>Or, you know…</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">source</span>(<span class="st">"run_params/datamining_examples_recommended_hyperparameters_v001.R"</span>)</span>
-<span id="cb8-2"><a></a>basic_hyperparameters <span class="ot">&lt;-</span> <span class="fu">RLCS_hyperparameters</span>(</span>
-<span id="cb8-3"><a></a>  <span class="at">wildcard_prob =</span> wildcard_prob,</span>
-<span id="cb8-4"><a></a>  <span class="do">## defaults for rd_trigger, mutation_probability,</span></span>
-<span id="cb8-5"><a></a>  <span class="do">## parents_selection_mode &amp;&amp; tournament_pressure</span></span>
-<span id="cb8-6"><a></a>  <span class="at">n_epochs =</span> n_epochs,</span>
-<span id="cb8-7"><a></a>  <span class="at">deletion_trigger =</span> deletion_trigger,</span>
-<span id="cb8-8"><a></a>  <span class="at">deletion_threshold =</span> deletion_threshold</span>
-<span id="cb8-9"><a></a>)</span>
-<span id="cb8-10"><a></a></span>
-<span id="cb8-11"><a></a><span class="do">## It makes it more readable here:</span></span>
-<span id="cb8-12"><a></a>example_lcs <span class="ot">&lt;-</span> <span class="fu">rlcs_train</span>(train_environment, basic_hyperparameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">source</span>(<span class="st">"run_params/datamining_examples_recommended_hyperparameters_v001.R"</span>)</span>
+<span id="cb14-2"><a></a>basic_hyperparameters <span class="ot">&lt;-</span> <span class="fu">RLCS_hyperparameters</span>(</span>
+<span id="cb14-3"><a></a>  <span class="at">wildcard_prob =</span> wildcard_prob,</span>
+<span id="cb14-4"><a></a>  <span class="do">## defaults for rd_trigger, mutation_probability,</span></span>
+<span id="cb14-5"><a></a>  <span class="do">## parents_selection_mode &amp;&amp; tournament_pressure</span></span>
+<span id="cb14-6"><a></a>  <span class="at">n_epochs =</span> n_epochs,</span>
+<span id="cb14-7"><a></a>  <span class="at">deletion_trigger =</span> deletion_trigger,</span>
+<span id="cb14-8"><a></a>  <span class="at">deletion_threshold =</span> deletion_threshold</span>
+<span id="cb14-9"><a></a>)</span>
+<span id="cb14-10"><a></a></span>
+<span id="cb14-11"><a></a><span class="do">## It makes it more readable here:</span></span>
+<span id="cb14-12"><a></a>example_lcs <span class="ot">&lt;-</span> <span class="fu">rlcs_train</span>(train_environment, basic_hyperparameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="examples-3" class="slide level2">
 <h2>Examples</h2>
 <p>Before</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>inc_match_count <span class="ot">&lt;-</span> <span class="cf">function</span>(M_pop) { <span class="do">## All versions</span></span>
-<span id="cb9-2"><a></a>  <span class="fu">lapply</span>(M_pop, \(x) {</span>
-<span id="cb9-3"><a></a>    x<span class="sc">$</span>match_count <span class="ot">&lt;-</span> x<span class="sc">$</span>match_count <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb9-4"><a></a>    x</span>
-<span id="cb9-5"><a></a>  })</span>
-<span id="cb9-6"><a></a>}</span>
-<span id="cb9-7"><a></a></span>
-<span id="cb9-8"><a></a>inc_correct_count <span class="ot">&lt;-</span> <span class="cf">function</span>(C_pop) { <span class="do">## SL Specific</span></span>
-<span id="cb9-9"><a></a>  <span class="fu">lapply</span>(C_pop, \(x) {</span>
-<span id="cb9-10"><a></a>    x<span class="sc">$</span>correct_count <span class="ot">&lt;-</span> x<span class="sc">$</span>correct_count <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb9-11"><a></a>    x</span>
-<span id="cb9-12"><a></a>  })</span>
-<span id="cb9-13"><a></a>}</span>
-<span id="cb9-14"><a></a></span>
-<span id="cb9-15"><a></a>inc_action_count <span class="ot">&lt;-</span> <span class="cf">function</span>(A_pop) { <span class="do">## RL Specific</span></span>
-<span id="cb9-16"><a></a>  <span class="fu">lapply</span>(A_pop, \(x) {</span>
-<span id="cb9-17"><a></a>    x<span class="sc">$</span>action_count <span class="ot">&lt;-</span> x<span class="sc">$</span>action_count <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb9-18"><a></a>    x</span>
-<span id="cb9-19"><a></a>  })</span>
-<span id="cb9-20"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>inc_match_count <span class="ot">&lt;-</span> <span class="cf">function</span>(M_pop) { <span class="do">## All versions</span></span>
+<span id="cb15-2"><a></a>  <span class="fu">lapply</span>(M_pop, \(x) {</span>
+<span id="cb15-3"><a></a>    x<span class="sc">$</span>match_count <span class="ot">&lt;-</span> x<span class="sc">$</span>match_count <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb15-4"><a></a>    x</span>
+<span id="cb15-5"><a></a>  })</span>
+<span id="cb15-6"><a></a>}</span>
+<span id="cb15-7"><a></a></span>
+<span id="cb15-8"><a></a>inc_correct_count <span class="ot">&lt;-</span> <span class="cf">function</span>(C_pop) { <span class="do">## SL Specific</span></span>
+<span id="cb15-9"><a></a>  <span class="fu">lapply</span>(C_pop, \(x) {</span>
+<span id="cb15-10"><a></a>    x<span class="sc">$</span>correct_count <span class="ot">&lt;-</span> x<span class="sc">$</span>correct_count <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb15-11"><a></a>    x</span>
+<span id="cb15-12"><a></a>  })</span>
+<span id="cb15-13"><a></a>}</span>
+<span id="cb15-14"><a></a></span>
+<span id="cb15-15"><a></a>inc_action_count <span class="ot">&lt;-</span> <span class="cf">function</span>(A_pop) { <span class="do">## RL Specific</span></span>
+<span id="cb15-16"><a></a>  <span class="fu">lapply</span>(A_pop, \(x) {</span>
+<span id="cb15-17"><a></a>    x<span class="sc">$</span>action_count <span class="ot">&lt;-</span> x<span class="sc">$</span>action_count <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb15-18"><a></a>    x</span>
+<span id="cb15-19"><a></a>  })</span>
+<span id="cb15-20"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="examples-4" class="slide level2">
 <h2>Examples</h2>
 <p>After, using a <a href="https://adv-r.hadley.nz/function-factories.html">function factory</a></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="do">## Function factory to increase parameter counts</span></span>
-<span id="cb10-2"><a></a>inc_param_count <span class="ot">&lt;-</span> <span class="cf">function</span>(param) {</span>
-<span id="cb10-3"><a></a>  param <span class="ot">&lt;-</span> <span class="fu">as.name</span>(param)</span>
-<span id="cb10-4"><a></a>  <span class="cf">function</span>(pop) {</span>
-<span id="cb10-5"><a></a>    <span class="fu">lapply</span>(pop, \(x) {</span>
-<span id="cb10-6"><a></a>      x[[param]] <span class="ot">&lt;-</span> x[[param]] <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb10-7"><a></a>      x</span>
-<span id="cb10-8"><a></a>    })</span>
-<span id="cb10-9"><a></a>  }</span>
-<span id="cb10-10"><a></a>}</span>
-<span id="cb10-11"><a></a></span>
-<span id="cb10-12"><a></a>inc_match_count <span class="ot">&lt;-</span> <span class="fu">inc_param_count</span>(<span class="st">"match_count"</span>)</span>
-<span id="cb10-13"><a></a>inc_correct_count <span class="ot">&lt;-</span> <span class="fu">inc_param_count</span>(<span class="st">"correct_count"</span>)</span>
-<span id="cb10-14"><a></a>inc_action_count <span class="ot">&lt;-</span> <span class="fu">inc_param_count</span>(<span class="st">"action_count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="do">## Function factory to increase parameter counts</span></span>
+<span id="cb16-2"><a></a>inc_param_count <span class="ot">&lt;-</span> <span class="cf">function</span>(param) {</span>
+<span id="cb16-3"><a></a>  param <span class="ot">&lt;-</span> <span class="fu">as.name</span>(param)</span>
+<span id="cb16-4"><a></a>  <span class="cf">function</span>(pop) {</span>
+<span id="cb16-5"><a></a>    <span class="fu">lapply</span>(pop, \(x) {</span>
+<span id="cb16-6"><a></a>      x[[param]] <span class="ot">&lt;-</span> x[[param]] <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb16-7"><a></a>      x</span>
+<span id="cb16-8"><a></a>    })</span>
+<span id="cb16-9"><a></a>  }</span>
+<span id="cb16-10"><a></a>}</span>
+<span id="cb16-11"><a></a></span>
+<span id="cb16-12"><a></a>inc_match_count <span class="ot">&lt;-</span> <span class="fu">inc_param_count</span>(<span class="st">"match_count"</span>)</span>
+<span id="cb16-13"><a></a>inc_correct_count <span class="ot">&lt;-</span> <span class="fu">inc_param_count</span>(<span class="st">"correct_count"</span>)</span>
+<span id="cb16-14"><a></a>inc_action_count <span class="ot">&lt;-</span> <span class="fu">inc_param_count</span>(<span class="st">"action_count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="examples-5" class="slide level2">
 <h2>Examples</h2>
 <p>Before</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="do">## Support function for human-compatible printing:</span></span>
-<span id="cb11-2"><a></a>make_pop_printable <span class="ot">&lt;-</span> <span class="cf">function</span>(classifier) {</span>
-<span id="cb11-3"><a></a>    </span>
-<span id="cb11-4"><a></a>    df <span class="ot">&lt;-</span> plyr<span class="sc">::</span><span class="fu">rbind.fill</span>(<span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(classifier), \(i) {</span>
-<span id="cb11-5"><a></a>        t_c <span class="ot">&lt;-</span> classifier[[i]]</span>
-<span id="cb11-6"><a></a>        <span class="fu">data.frame</span>(<span class="at">id =</span> t_c<span class="sc">$</span>id,</span>
-<span id="cb11-7"><a></a>                   <span class="at">condition =</span> t_c<span class="sc">$</span>condition_string,</span>
-<span id="cb11-8"><a></a>                   <span class="at">action =</span> t_c<span class="sc">$</span>action,</span>
-<span id="cb11-9"><a></a>                   <span class="at">match_count =</span> t_c<span class="sc">$</span>match_count,</span>
-<span id="cb11-10"><a></a>                   <span class="at">correct_count =</span> t_c<span class="sc">$</span>correct_count,</span>
-<span id="cb11-11"><a></a>                   <span class="at">accuracy =</span> t_c<span class="sc">$</span>accuracy,</span>
-<span id="cb11-12"><a></a>                   <span class="at">numerosity =</span> t_c<span class="sc">$</span>numerosity,</span>
-<span id="cb11-13"><a></a>                   <span class="at">first_seen =</span> t_c<span class="sc">$</span>first_seen)</span>
-<span id="cb11-14"><a></a>    }))</span>
-<span id="cb11-15"><a></a>    df[<span class="fu">order</span>(df<span class="sc">$</span>accuracy, df<span class="sc">$</span>numerosity, <span class="at">decreasing =</span> T),]</span>
-<span id="cb11-16"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="do">## Support function for human-compatible printing:</span></span>
+<span id="cb17-2"><a></a>make_pop_printable <span class="ot">&lt;-</span> <span class="cf">function</span>(classifier) {</span>
+<span id="cb17-3"><a></a>    </span>
+<span id="cb17-4"><a></a>    df <span class="ot">&lt;-</span> plyr<span class="sc">::</span><span class="fu">rbind.fill</span>(<span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(classifier), \(i) {</span>
+<span id="cb17-5"><a></a>        t_c <span class="ot">&lt;-</span> classifier[[i]]</span>
+<span id="cb17-6"><a></a>        <span class="fu">data.frame</span>(<span class="at">id =</span> t_c<span class="sc">$</span>id,</span>
+<span id="cb17-7"><a></a>                   <span class="at">condition =</span> t_c<span class="sc">$</span>condition_string,</span>
+<span id="cb17-8"><a></a>                   <span class="at">action =</span> t_c<span class="sc">$</span>action,</span>
+<span id="cb17-9"><a></a>                   <span class="at">match_count =</span> t_c<span class="sc">$</span>match_count,</span>
+<span id="cb17-10"><a></a>                   <span class="at">correct_count =</span> t_c<span class="sc">$</span>correct_count,</span>
+<span id="cb17-11"><a></a>                   <span class="at">accuracy =</span> t_c<span class="sc">$</span>accuracy,</span>
+<span id="cb17-12"><a></a>                   <span class="at">numerosity =</span> t_c<span class="sc">$</span>numerosity,</span>
+<span id="cb17-13"><a></a>                   <span class="at">first_seen =</span> t_c<span class="sc">$</span>first_seen)</span>
+<span id="cb17-14"><a></a>    }))</span>
+<span id="cb17-15"><a></a>    df[<span class="fu">order</span>(df<span class="sc">$</span>accuracy, df<span class="sc">$</span>numerosity, <span class="at">decreasing =</span> T),]</span>
+<span id="cb17-16"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p>(Even the parameter name is wrong…)</p>
 </div>
@@ -592,21 +714,21 @@
 <section id="examples-6" class="slide level2">
 <h2>Examples</h2>
 <p>After - S3 object (dependency! plyr::rbind.fill)</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>print.rlcs_population <span class="ot">&lt;-</span> <span class="cf">function</span>(pop) {</span>
-<span id="cb12-2"><a></a>  <span class="cf">if</span>(<span class="fu">length</span>(pop) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
-<span id="cb12-3"><a></a>  </span>
-<span id="cb12-4"><a></a>  pop <span class="ot">&lt;-</span> <span class="fu">lcs_best_sort_sl</span>(pop)</span>
-<span id="cb12-5"><a></a>  pop <span class="ot">&lt;-</span> <span class="fu">unclass</span>(pop)</span>
-<span id="cb12-6"><a></a>  plyr<span class="sc">::</span><span class="fu">rbind.fill</span>(<span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(pop), \(i) {</span>
-<span id="cb12-7"><a></a>    t_c <span class="ot">&lt;-</span> pop[[i]]</span>
-<span id="cb12-8"><a></a>    <span class="fu">data.frame</span>(<span class="at">condition =</span> t_c<span class="sc">$</span>condition_string, <span class="at">action =</span> t_c<span class="sc">$</span>action,</span>
-<span id="cb12-9"><a></a>               <span class="at">match_count =</span> t_c<span class="sc">$</span>match_count, <span class="at">correct_count =</span> t_c<span class="sc">$</span>correct_count,</span>
-<span id="cb12-10"><a></a>               <span class="at">accuracy =</span> t_c<span class="sc">$</span>accuracy, <span class="at">numerosity =</span> t_c<span class="sc">$</span>numerosity,</span>
-<span id="cb12-11"><a></a>               <span class="at">first_seen =</span> t_c<span class="sc">$</span>first_seen)</span>
-<span id="cb12-12"><a></a>  }))</span>
-<span id="cb12-13"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>print.rlcs_population <span class="ot">&lt;-</span> <span class="cf">function</span>(pop) {</span>
+<span id="cb18-2"><a></a>  <span class="cf">if</span>(<span class="fu">length</span>(pop) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb18-3"><a></a>  </span>
+<span id="cb18-4"><a></a>  pop <span class="ot">&lt;-</span> <span class="fu">lcs_best_sort_sl</span>(pop)</span>
+<span id="cb18-5"><a></a>  pop <span class="ot">&lt;-</span> <span class="fu">unclass</span>(pop)</span>
+<span id="cb18-6"><a></a>  plyr<span class="sc">::</span><span class="fu">rbind.fill</span>(<span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(pop), \(i) {</span>
+<span id="cb18-7"><a></a>    t_c <span class="ot">&lt;-</span> pop[[i]]</span>
+<span id="cb18-8"><a></a>    <span class="fu">data.frame</span>(<span class="at">condition =</span> t_c<span class="sc">$</span>condition_string, <span class="at">action =</span> t_c<span class="sc">$</span>action,</span>
+<span id="cb18-9"><a></a>               <span class="at">match_count =</span> t_c<span class="sc">$</span>match_count, <span class="at">correct_count =</span> t_c<span class="sc">$</span>correct_count,</span>
+<span id="cb18-10"><a></a>               <span class="at">accuracy =</span> t_c<span class="sc">$</span>accuracy, <span class="at">numerosity =</span> t_c<span class="sc">$</span>numerosity,</span>
+<span id="cb18-11"><a></a>               <span class="at">first_seen =</span> t_c<span class="sc">$</span>first_seen)</span>
+<span id="cb18-12"><a></a>  }))</span>
+<span id="cb18-13"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">print</span>(example_lcs_population)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">print</span>(example_lcs_population)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="then-again" class="slide level2">
@@ -625,6 +747,16 @@
 <li><p>And for my first <a href="https://meghan.rbind.io/blog/2022-07-12-making-slides-in-quarto-with-revealjs/#my-quarto-journey-begins">RevealJS Quarto, this blog entry</a> (not mine)</p></li>
 <li><p>Probably quite a few more, including the two in the first picture.</p></li>
 </ul>
+</section>
+
+<section id="follow-the-link-at-the-bottom-for-more-info" class="title-slide slide level1 center">
+<h1>Follow the link at the bottom for more info!</h1>
+
+</section>
+
+<section id="thank-you" class="title-slide slide level1 center">
+<h1>Thank you!</h1>
+
 </section>
 
 <section>
@@ -691,18 +823,10 @@
 </ul>
 </div>
 <p>And a few other such questions slow me down a bit…</p>
+
+
 </div>
 </section></section>
-<section id="follow-the-link-at-the-bottom-for-more-info" class="title-slide slide level1 center">
-<h1>Follow the link at the bottom for more info!</h1>
-
-</section>
-
-<section id="thank-you" class="title-slide slide level1 center">
-<h1>Thank you!</h1>
-
-
-</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

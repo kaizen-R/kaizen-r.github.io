@@ -1,5 +1,6 @@
 ---
 title: "RLCS: An Introduction"
+subtitle: "Interpretable, Symbolic Machine Learning"
     
 format: 
   revealjs:
@@ -16,9 +17,13 @@ execute:
 
 ## An issue with "AI": explainability
 
-Let's call it Machine Learning. Today that's mostly Neural networks. And mostly, that means it's all **black boxes**.
+Let's call it Machine Learning. As of today:
 
-<br/>There are [ways around that](https://a.co/d/ba1J0oh "Interpretable Machine Learning: A Guide For Making Black Box Models Explainable"). (e.g. *Trees* and other "open book" algorithms...)
+-   Mostly Neural networks
+
+-   And mostly, that means it's all **black boxes**
+
+There are [ways around that](https://a.co/d/ba1J0oh "Interpretable Machine Learning: A Guide For Making Black Box Models Explainable"). (e.g. *Trees* and other "open book" algorithms...)
 
 . . .
 
@@ -30,7 +35,25 @@ Actually... That's it. No time to dive deeper here.
 Today, we'll be discussing one such explainable Machine Learning algorithm.
 :::
 
-## The goal: A new R package
+## Learning rules as model(s)
+
+-   if **A & NOT(B)** then **Class=X**
+
+-   if **D** then **Class=Y**
+
+. . .
+
+"Human-readable", "interpretable", **good for:**
+
+-   **Mitigating bias**(es) (in training data, at least)
+
+-   Increased **trust** (justifying decisions)
+
+. . .
+
+Learning about the data (data mining), better decisions, regulatory compliance, ethical/legal matters, possible adversarial attack robustness...
+
+## A new R package
 
 ![](images/books.jpeg){fig-align="center" width="500"}
 
@@ -42,39 +65,144 @@ Have you ever found something that **no one else has done?**
 I found such a thing last November 2024. But let's go back for a minute.
 :::
 
+# A preview
+
+## Can you guess the "rule"?
+
+``` r
+> library(RLCS)
+> demo_env1 <- rlcs_example_secret1()
+> sample_of_rows <- sample(1:nrow(demo_env1), 10, replace=F)
+> print(demo_env1[sample_of_rows,], row.names = F)
+ state class
+ 01010     0
+ 00111     0
+ 11010     0
+ 10001     1
+ 00010     0
+ 00100     1
+ 10100     1
+ 01111     0
+ 01100     1
+ 00001     1
+```
+
+## Did you guess right?
+
+``` r
+> demo_params <- RLCS_hyperparameters(n_epochs = 280, deletion_trigger = 40, deletion_threshold = 0.9)
+> rlcs_model1 <- rlcs_train_sl(demo_env1, demo_params, NULL, F)
+[1] "Epoch: 40 Progress Exposure: 1280 Classifiers Count: 14"
+[1] "Epoch: 80 Progress Exposure: 2560 Classifiers Count: 8"
+[1] "Epoch: 120 Progress Exposure: 3840 Classifiers Count: 2"
+[1] "Epoch: 160 Progress Exposure: 5120 Classifiers Count: 2"
+[1] "Epoch: 200 Progress Exposure: 6400 Classifiers Count: 2"
+[1] "Epoch: 240 Progress Exposure: 7680 Classifiers Count: 2"
+[1] "Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2"
+```
+
+. . .
+
+<br/>
+
+``` r
+> print(rlcs_model1)
+  condition action match_count correct_count accuracy numerosity reward first_seen
+1     ###1#      0        3560          3560        1        122      5       1843
+2     ###0#      1        2770          2770        1         94      5       3421
+```
+
+## The model: the Ternary Alphabet
+
+<br/>A **Population of Classifiers** is produced.
+
+<br/>This is how to read that output model:
+
+Each classifier includes a **rule** that encodes a match for states that can be read as:
+
+|     |                      |
+|-----|----------------------|
+| 0   | No/False/not present |
+| 1   | Yes/True/present     |
+| \#  | "Don't care"         |
+
+# RLCS Pre-requisite
+
+## The input: Binary encoding
+
+<br/>NOTE: This is **NOT** part of the LCS algorithm *per-se*.
+
+<br/>With the input data, we will **encode** the data as:
+
+|     |                        |
+|-----|------------------------|
+| 0   | No/False/not present/0 |
+| 1   | Yes/True/present/1     |
+
+<br/>A "state" of the environment will then be encoded as a **string of zeros and ones**.
+
+## Binary input?! DO NOT WORRY
+
+<br/>*Any data point can be encoded into binary strings*.
+
+. . .
+
+<br/>
+
+**rlcs_rosetta_stone()**
+
+<br/>A (simplistic) function is actually provided to make this a bit more transparent.
+
+(for numerical data, for now... work-in-progress :))
+
+## Binary input: Example
+
+4-bits with Gray encoding of "double quartiles" per variable, we can create binary string:
+
+``` r
+> head(iris, n=3)
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+> rlcs_iris <- rlcs_rosetta_stone(iris, class_col=5) ## NOT part of LCS
+> head(rlcs_iris, n=3)
+  rlcs_Sepal.Length rlcs_Sepal.Width rlcs_Petal.Length rlcs_Petal.Width  class            state
+1              0010             1111              0011             0010 setosa 0010111100110010
+2              0011             0101              0011             0010 setosa 0011010100110010
+3              0000             1101              0000             0010 setosa 0000110100000010
+```
+
+*Note: with some data loss :S*
+
+# Interlude: Get the package
+
+## Download and install RLCS
+
+To get the package from GitHub:
+
+``` r
+library(devtools)
+install_github("kaizen-R/RLCS")
+```
+
+## Run your first tests of RLCS
+
+``` r
+library(RLCS)
+demo_params <- RLCS_hyperparameters(n_epochs = 400, deletion_trigger = 40, deletion_threshold = 0.9)
+demo_env2 <- rlcs_example_secret2()
+print(demo_env2, row.names = F)
+rlcs_model2 <- rlcs_train_sl(demo_env2, demo_params, NULL, F)
+print(rlcs_model2)
+plot(rlcs_model2)
+```
+
 # Learning Classifier System: Algorithm
 
 ## Keywords
 
 ![](images/LCS_Keywords.png)
-
-## So how does it work?
-
-Imagine you receive samples of data points (aka **states**) with their corresponding classes (aka **actions**). All your input entries (aka **instances**) form an **environment.**
-
-<br/>In this case, we will accept **binary string states** for the **environment instances** (examples):
-
-| State            | Action/Class | From the...  |
-|------------------|--------------|--------------|
-| 0010111100110010 | "setosa"     | Iris dataset |
-| 001010           | 1            | "Mux 6"      |
-
-## Wait, what? Binary input?!
-
-Well, for now... Yes. There are alternatives. But for now...
-
-<br/>Here using 4-bits with Gray encoding of "double quartiles" per variable, we can create binary string:
-
-``` r
-  Sepal.Length Sepal.Width Petal.Length Petal.Width  slb  swb  plb  pwb
-1          5.1         3.5          1.4         0.2 0010 1111 0011 0010
-2          4.9         3.0          1.4         0.2 0011 0101 0011 0010
-3          4.7         3.2          1.3         0.2 0000 1101 0000 0010
-             state  class
-1 0010111100110010 setosa
-2 0011010100110010 setosa
-3 0000110100000010 setosa
-```
 
 # Key concepts
 
@@ -101,9 +229,9 @@ The class here is defined already.
 
 ## 2 - Matching
 
-You generate **new rules** when you see new environment **instances** that **do not match any rule** yet. Suppose you have a **set of rules**. That's your **population (of rules)**.
+-   When you see a new environment **instance** that **does not match any rule** in your population yet -\> generate a **new rule.**
 
-<br/>
+. . .
 
 -   If one(+) rule(s) in your population **matches** your new instance **state** -\> increase the **match count of the corresponding classifier.**
 
@@ -115,7 +243,7 @@ including their corresponding actions
 
 ## 3 - Rule Discovery
 
-After a few **epochs** of exposing the LCS to your full environment, you will have a **few rules that match correctly a given instance, the correct set**.
+After a few **epochs** of exposing the LCS to your environment, you will have a **few rules that match correctly a given instance, the "correct" set**.
 
 <br/>Match and Correct count are indicators of how good each rule is. But **are there other better possibilities?**
 
@@ -161,13 +289,17 @@ Imagine a new sample/instance, never seen before. (Test environment)
 
 . . .
 
-<br/>Prediction is about **returning the match set** for that new instance.
+Prediction is about **returning the match set** for that new instance.
+
+``` r
+RLCS::get_match_set(sample_state, population_of_classifiers)
+```
 
 . . .
 
-<br/>**Majority** (possibly weighted by numerosity, accuracy...) of **proposed class**/action will be the prediction.
+<br/>The **prediction** will be the **majority** (possibly weighted by numerosity, accuracy...) of the **proposed class**/action. **That's it!**
 
-That's it! It also means, this is natively an ensemble learning algorithm.
+It also means, this is natively an **ensemble learning** algorithm.
 
 ## 6 - Other uses!
 
@@ -186,17 +318,14 @@ All with the same algorithm!
 ## Iris
 
 ``` r
-[1] "Training Runtime: 4.44374799728394" (seconds)
-[1] "Training Set Size: 127"
-[1] "Confusion 'Matrix' for Class setosa:"
-setosa 
-     5 
-[1] "Confusion 'Matrix' for Class versicolor:"
-versicolor  virginica 
-         6          1 
-[1] "Confusion 'Matrix' for Class virginica:"
-virginica 
-       10 
+> print(t_end - t_start) ## Training Runtime.
+Time difference of 13.13619 secs
+> table(test_environment[, c("class", "predicted")])
+            predicted
+class        setosa versicolor virginica
+  setosa         13          0         0
+  versicolor      0          5         3
+  virginica       0          0         9
 ```
 
 ## Iris
@@ -210,6 +339,18 @@ virginica
 ## Images Classifier
 
 ![](images/mnist_example_visu_explained.jpg){fig-align="center"}
+
+## Data Mining
+
+Given that the rules are "expressive", sometimes you can **ask the LCS to find rules that appear in your data:**
+
+-   Not necessarily to classify future samples
+
+-   To **identify what is important** for different classes of your data
+
+. . .
+
+<br/>**REAL WORLD anecdote**: inventory of 10K rows with 20 columns, each duly binary encoded. I learnt something about my inventory!
 
 ## Epistasis
 
@@ -226,14 +367,6 @@ LCS can somehow recognize how **two different parts interact**. Aptly... The [te
      ...
 ```
 
-## Also included: Data Mining
-
-Given that the rules are "expressive", sometimes you can **ask the LCS to find rules that appear in your data**, NOT to classify future samples, but to identify what is important in different classes of your data.
-
-. . .
-
-<br/>**REAL WORLD anecdote**: inventory of 10K rows with 20 columns, each duly binary encoded. I learnt something about my inventory!
-
 ## RL, TOO!
 
 ![First self-brain-storm on RL with LCS](images/RL_Board.jpg){fig-align="center"}
@@ -248,7 +381,7 @@ Given that the rules are "expressive", sometimes you can **ask the LCS to find r
 
 # Some R code
 
-## A (future, sorry!) R package
+## An R package
 
 A package to implement a simple version of the Learning Classifier System algorithm:
 
@@ -269,13 +402,13 @@ A package to implement a simple version of the Learning Classifier System algori
 
 -   from there, lapply() & al. is then my best friend
 
--   Start small, grow fast (because I get obsessed)
+-   "Start small, grow fast" ("fast"... for a hobby, that is)
 
--   then clean it
+-   then clean it (then clean it some more)
 
--   then clean it some more
+-   Finally publishing on GitHub
 
--   ever postponing the move to a Package, though
+-   Next steps? **CRAN**
 :::
 
 ## Examples
@@ -446,6 +579,10 @@ So: document more, write more tests, reorganize functions...
 
 -   Probably quite a few more, including the two in the first picture.
 
+# Follow the link at the bottom for more info!
+
+# Thank you!
+
 # Supplementary
 
 ## Why nobody has done it yet?
@@ -472,7 +609,7 @@ It's "complex"
 
 For instance, this is a "slow" algorithm. Option: RCpp for Matching? (under testing right now!)
 
-![profviz](images/profiling_monothread_runtimes.jpg){fig-align="center"}
+![profviz](images/profiling_monothread_runtimes.jpg){alt="profviz" fig-align="center"}
 
 ## Parallel Computing
 
@@ -512,7 +649,3 @@ You must make assumptions about the "world" your agent is going to interact with
 :::
 
 And a few other such questions slow me down a bit...
-
-# Follow the link at the bottom for more info!
-
-# Thank you!
