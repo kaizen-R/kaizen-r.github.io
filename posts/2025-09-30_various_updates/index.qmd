@@ -1,0 +1,100 @@
+---
+title: "Miscelanea week of sorts"
+author: "Nico"
+date: "2025-09-30"
+categories: [RLCS, code, ARCAGI1]
+---
+
+## This last few days were... Different
+
+So, for one: Last weekend I basically spent it unlocking a very-well locked laptop. More precisely, a BitLocker protected Windows would refuse to boot. The HP partition to re-install wouldn't even see the ciphered partition. Neither would a Windows Repair or Windows Install USB.
+
+Finally, a Live-Ubuntu pendrive gave me hopes when I saw the disk using
+
+```         
+fdisk -l
+```
+
+But then, that was only the beginning. Next, I needed the BitLocker recovery password. I had to wait for a few weeks for the (anonymous, for this post) user to give it to me.
+
+When I got it at last, I spent the weekend trying to open the ciphered partition.
+
+## Remember: Backup, Backup and... Backup
+
+Yep. That's like the first 3 rules of Cybersecurity.
+
+And I **should** have done that in the first place: Do a "dd" of that disk the moment I saw it. But then I needed a spare 1TB disk which... I didn't have. Fair enough: I could have bought one. I should have. I didn't.
+
+And so, when the time came to actually try to access the data, every single step of the way was stressful: One wrong move anywhere, I could corrupt the thing. And then forget about recovering data.
+
+Well, that's why I took my sweet time with it. Long hours went into this "task". So many more that I care to admit. Oh well.
+
+It's done, we got the data back.
+
+### Side note
+
+Almost all of it was already in a separate backup, so the effort was worth a measly few files... But that I didn't know upfront... Plus, it's been a good exercise.
+
+I realized after the fact, Sunday afternoon, it had been about 20 years I hadn't "dug" so deep into SysAdmin stuff.
+
+Also: **Praise to "dislocker"**. Really great stuff.
+
+And also: Ubuntu wouldn't cut it (almost! but then no); neither did SystemRescue. Kali was the distro that would have the up-to-date-enough version of dislocker in the end. Without which, there was no opening the f\$\*#" disk... (A few hours lost right there...)
+
+## So what's next?
+
+Well, a few other things happened.
+
+I have a presentation ready... To do a 1h+ stint. It turns out, I will only get 15'. I should have asked earlier, this one is on me.
+
+So first, I need to make my RLCS presentation comprehensible and useful for a 15' (tops!) session. Which, for who knows me, is difficult. I have a much easier time talking more, than I have talking less!
+
+"It's long because I didn't have the time to make it shorter" is a saying (no idea of the source). It applies, here. I have a month ahead of me to squeeze the valuable stuff of the RLCS package into a 10 to 15' presentation. Alright, it's not that bad, feasible.
+
+And then, for no reason whatsoever, I got reminded (thanks random LinkedIn posts) about the ARC-AGI1 challenge. And it got my head spinning.
+
+## ARC-AGI as a new Blog topic
+
+Well, it's ambitious indeed. But heck, why not? So it's official, I'll look into it. Even if I finally decide I can't barely start tackling the challenge, I'm somehow certain I will learn stuff along the way.
+
+Heck, a few initial outcomes of simply *thinking* about it:
+
+-   After a few hours giving it some thought, it's clear almost none of what I have done thus far will help me with this challenge. (Link in resources, if you don't know it).
+
+-   I think one key aspect of this "few shots learning" approach, after trying some examples myself, is about finding what changes. So I'm thinking XOR right there. But XOR what?
+
+-   I think I need to somehow... Represent knowledge? IDK! Oh, and this reminisces of course some "Knowledge Graphs" concepts, which I was not a big fan of, but maybe now I'll give them a thought.
+
+-   Talking about graphs!
+
+    -   One aspect of the ARC AGI thing that isn't helpful is... It's a rather "visual" challenge, and I'm more of a tabular-data or, sometimes, text-only-data person. So this is a challenge a bit. But I already learnt I can do "kernels" and understand them a bit...
+
+    -   Well, I found something else that is interesting for this challenge, **and uses graphs!** It's an algorithm called "Connected Components Labelling" and I found it marvelous, well because it uses graphs :)
+
+-   I won't go into details, but it turns out it's just so **very similar** in my mind to the Bongard problems (which I discovered in the "bible" GEB...)
+
+## Various notes
+
+I have **yet** to finish Hofstadter's "Gödel, Escher, Bach". I just don't fathom reading it with anything less than 100% of attention, and no more than one chapter at a time. And I read quite a few books at the same time, and so this one is taking me forever! But I **definitely** intend to finish it in due time.
+
+Oh, and yes, there is an ARC AGI2. But let's not even get there yet. It's not the goal.
+
+## Conclusion
+
+For my anonymous person, good results: We got her data back.
+
+For me? Not so tangibly-productive a week, I guess, but I have had time to think about innovation (oh, that's right: I'm also reading "The Idea Factory", about Bell Labs, by J. Gertner, and enjoying it inmensely, although here again, I'm taking my sweet time, maybe getting a couple of chapters out of the way each week... Still!). Right, so, thinking about ARC AGI, innovation, but also about Cybersecurity, as I have drifted a bit away from my "core topic" by following my various curiosities...
+
+Sometimes, not doing, thinking, is good too.
+
+## Resources
+
+<http://github.com/Aorimn/dislocker> -\> VERY USEFUL.
+
+<https://arcprize.org/arc-agi/1/> -\> VERY INTERESTING.
+
+<https://en.wikipedia.org/wiki/Bongard_problem> -\> Maybe inspiration for Chollet's ARC AGI?
+
+<https://en.wikipedia.org/wiki/G%C3%B6del%2C_Escher%2C_Bach> -\> THE "GEB", no two books like this one.
+
+<https://en.wikipedia.org/wiki/Connected-component_labeling> -\> I definitely will take this as part of my work on the ARC AGI challenge!
