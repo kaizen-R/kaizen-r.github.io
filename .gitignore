@@ -52,3 +52,4 @@ rsconnect/
 
 auth/
 /.quarto/
+.DS_Store
