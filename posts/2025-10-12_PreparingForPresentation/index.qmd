@@ -1,0 +1,37 @@
+---
+title: "Preparing for November Presentation"
+author: "Nico"
+date: "2025-10-12"
+categories: [RLCS]
+---
+
+## Documenting is important.
+
+A short post for situation awareness, mostly.
+
+In short, I need to keep going with preparing the best possible presentation about the RLCS for November.
+
+So really, I'm currently documenting the code, adding a demo dataset, shortening (a LOT) the RLCS presentation, testing, building, testing, building...
+
+Although not per-se fun, as it turns out, I kinda like taking care of such "details" and seeing the package improve in quality, even when the functionality is in almost no-way different.
+
+## So documenting is... Good?
+
+Well, let's see. Not "fun", for sure.
+
+Shortening a 1h30m presentation to do a 15' stint is HARD. Like, very hard.
+
+But, on the other hand: I have created a library. I'm proud of it, but only because I believe it can be valuable!
+
+And because of that, I perceive value in getting people to understand enough about it that they **also** perceive the value.
+
+And that means: **Communication**. And that, in turn, means, why not, documentation. Generating examples. Adding tests to ensure the user has a good experience.
+
+This surprises me as much as anyone. It turns out, I now value documenting.
+
+Who knew?!
+
+## Conclusion
+
+I can't say that documenting feels as good as producing.\
+But it is good.

@@ -144,33 +144,6 @@ Well...
 
 <br/>The RLCS package (**specific**/current implementation) expects **binary strings** for its input.
 
-## The input: Binary encoding
-
-<br/>NOTE: This is **NOT** part of the LCS algorithm *per-se*.
-
-<br/>With the input data, we will **encode** the data as:
-
-|     |                        |
-|-----|------------------------|
-| 0   | No/False/not present/0 |
-| 1   | Yes/True/present/1     |
-
-<br/>A "state" of the environment will then be encoded as a **string of zeros and ones**.
-
-## Binary input?! DO NOT WORRY
-
-<br/>*Any data point can be encoded into binary strings*.
-
-. . .
-
-<br/>
-
-**rlcs_rosetta_stone()**
-
-<br/>A (simplistic) function is actually provided to make this a bit more transparent. **Not necessarily the best approach!** Just an "illustration", really.
-
-(for numerical data, for now... work-in-progress :))
-
 ## Binary input: Example
 
 ![Rosetta Stone "binning" for numerical variables (2 bits explanation)](images/demo_encoding_two_bits.jpg)
@@ -334,21 +307,6 @@ Given that the rules are "expressive", sometimes you can **ask the LCS to find r
 . . .
 
 <br/>**REAL WORLD anecdote**: inventory of 10K rows with 20 columns, each duly binary encoded. I learnt something about my inventory!
-
-## Epistasis
-
-LCS can somehow recognize how **two different parts interact**. Aptly... The [term](https://en.wikipedia.org/wiki/Epistasis) comes from of genetics (genes modified by other genes...). (e.g. XOR...)
-
-![](images/epistasis_mux6.png){fig-align="center"}
-
-``` r
-  condition action match_count correct_count accuracy numerosity first_seen
-     10##1#      1       15913         15913        1        324        688
-     000###      0       15575         15575        1        357       3394
-     001###      1       14842         14842        1        298       9231
-     11###0      0       13149         13149        1        263      22839
-     ...
-```
 
 ## RL, TOO!
 
