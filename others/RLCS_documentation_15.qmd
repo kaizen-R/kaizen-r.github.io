@@ -1,5 +1,5 @@
 ---
-title: "RLCS: An Introduction"
+title: "RLCS: A (shorter) Introduction"
 subtitle: "Interpretable, Symbolic Machine Learning"
     
 format: 
