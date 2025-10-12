@@ -35,24 +35,6 @@ Actually... That's it. No time to dive deeper here.
 Today, we'll be discussing one such explainable Machine Learning algorithm.
 :::
 
-## Learning rules as model(s)
-
--   if **A & NOT(B)** then **Class=X**
-
--   if **D** then **Class=Y**
-
-. . .
-
-"Human-readable", "interpretable", **good for:**
-
--   **Mitigating bias**(es) (in training data, at least)
-
--   Increased **trust** (justifying decisions)
-
-. . .
-
-Learning about the data (data mining), better decisions, regulatory compliance, ethical/legal matters, possible adversarial attack robustness...
-
 ## A new R package
 
 ![](images/books.jpeg){fig-align="center" width="500"}
@@ -127,6 +109,24 @@ Each classifier includes a **rule** that encodes a match for states that can be 
 | 0   | No/False/not present |
 | 1   | Yes/True/present     |
 | \#  | "Don't care"         |
+
+## Learning rules as model(s)
+
+-   if **A & NOT(B)** then **Class=X**
+
+-   if **D** then **Class=Y**
+
+. . .
+
+"Human-readable", "interpretable", **good for:**
+
+-   **Mitigating bias**(es) (in training data, at least)
+
+-   Increased **trust** (justifying decisions)
+
+. . .
+
+Learning about the data (data mining), better decisions, regulatory compliance, ethical/legal matters, possible adversarial attack robustness...
 
 # RLCS PRE-requisite
 
@@ -218,15 +218,13 @@ print(rlcs_model2)
 plot(rlcs_model2)
 ```
 
-# Learning Classifier System: Algorithm
+# Learning Classifier System: Algorithm Key Concepts
 
 ## Keywords
 
 ![](images/LCS_Keywords.png)
 
-# Key concepts
-
-## 1 - Generating a rule
+## Generating a rule
 
 > **The key: "\#" means "I don't care"**
 
@@ -261,17 +259,7 @@ The class here is defined already.
 including their corresponding actions
 :::
 
-## 3 - Rule Discovery
-
-After a few **epochs** of exposing the LCS to your environment, you will have a **few rules that match correctly a given instance, the "correct" set**.
-
-<br/>Match and Correct count are indicators of how good each rule is. But **are there other better possibilities?**
-
-. . .
-
-<br/>Take all the **correct set**, and apply a **Genetic Algorithm** to that set, to generate **new rules**!
-
-## 3 - Rule Discovery (GA)
+## Rule Discovery (GA)
 
 ![](images/GA_Explained.png)
 
@@ -279,31 +267,7 @@ After a few **epochs** of exposing the LCS to your environment, you will have a 
 mut_point <- which(runif(nchar(t_instance_state)) < mut_prob)
 ```
 
-## 4 - Population Size
-
-Matching must go through **all the population every time** an environment instance is presented to the LCS.
-
-$$O(match) = epochs*N(environment)*N(population)$$
-
-Where $N()$ means "size of".
-
-$$e.g. 1.000 * 5.000 * 1.000 = 5.000.000.000$$
-
-. . .
-
-<br/>One option: **Reduce the population of rules**.
-
-## 4 - Population Size
-
-<br/>
-
--   **Subsumption**: A "perfect" classifier that has 100% accuracy might be simpler (more \# characters) than other classifiers in the population with same classification. Keep only the best classifiers. (Implemented: Accuracy-based subsumption)
-
--   **Compaction**: You can keep all classifiers that have e.g. 60%+ accuracy after a number of epochs.
-
--   **Deletion**: But you can also cap the population size, keeping only e.g. 10.000 best classifiers.
-
-## 5 - Prediction
+## Prediction
 
 Imagine a new sample/instance, never seen before. (Test environment)
 
@@ -320,18 +284,6 @@ RLCS::get_match_set(sample_state, population_of_classifiers)
 <br/>The **prediction** will be the **majority** (possibly weighted by numerosity, accuracy...) of the **proposed class**/action. **That's it!**
 
 It also means, this is natively an **ensemble learning** algorithm.
-
-## 6 - Other uses!
-
-. . .
-
-Why talk about "environment" and "action"? This comes from the world of **Reinforcement Learning**.
-
-. . .
-
-<br/>And because **one can read the rules, and "understand" the population,** you can also use the LCS to interpret the results and thus do **data mining!**
-
-All with the same algorithm!
 
 # Demo Time
 
@@ -410,190 +362,6 @@ LCS can somehow recognize how **two different parts interact**. Aptly... The [te
 
 {{< video videos/RL_progress_stats.mp4 title="Actual learning..." width="250" height="175">}}
 
-# Some R code
-
-## An R package
-
-A package to implement a simple version of the Learning Classifier System algorithm:
-
--   Binary Alphabet, tournament/one-point crossover GA, accuracy based, Michigan-style LCS
-
--   With examples, demonstrating the implementation for:
-
-    -   Data Mining
-
-    -   Supervised Learning
-
-    -   Reinforcement Learning
-
-## How did I approach the thing?
-
-::: incremental
--   Lists. Lists, everywhere. Which might have been a bad idea... (data.table?)
-
--   from there, lapply() & al. is then my best friend
-
--   "Start small, grow fast" ("fast"... for a hobby, that is)
-
--   then clean it (then clean it some more)
-
--   Finally publishing on GitHub
-
--   Next steps? **CRAN**
-:::
-
-## Examples
-
-Before
-
-``` r
-lcs_res <- rlcs_meta_train(train_environment,
-                           1, ## Warmup with just one epoch
-                           wildcard_prob,
-                           rd_trigger,
-                           parents_selection_mode,
-                           mutation_probability,
-                           tournament_pressure,
-                           deletion_trigger) ## Deletion won't be triggered
-```
-
-. . .
-
-Too many parameters! (Uncle Bob wouldn't like it)
-
-## Examples
-
-After, using an object ([reference class, "R5"](http://adv-r.had.co.nz/R5.html), in this case)
-
-``` r
-default_lcs_hyperparameters <- RLCS_hyperparameters()
-example_lcs <- rlcs_train(train_environment, default_lcs_hyperparameters)
-```
-
-## Examples
-
-Or, you know...
-
-``` r
-source("run_params/datamining_examples_recommended_hyperparameters_v001.R")
-basic_hyperparameters <- RLCS_hyperparameters(
-  wildcard_prob = wildcard_prob,
-  ## defaults for rd_trigger, mutation_probability,
-  ## parents_selection_mode && tournament_pressure
-  n_epochs = n_epochs,
-  deletion_trigger = deletion_trigger,
-  deletion_threshold = deletion_threshold
-)
-
-## It makes it more readable here:
-example_lcs <- rlcs_train(train_environment, basic_hyperparameters)
-```
-
-## Examples
-
-Before
-
-``` r
-inc_match_count <- function(M_pop) { ## All versions
-  lapply(M_pop, \(x) {
-    x$match_count <- x$match_count + 1
-    x
-  })
-}
-
-inc_correct_count <- function(C_pop) { ## SL Specific
-  lapply(C_pop, \(x) {
-    x$correct_count <- x$correct_count + 1
-    x
-  })
-}
-
-inc_action_count <- function(A_pop) { ## RL Specific
-  lapply(A_pop, \(x) {
-    x$action_count <- x$action_count + 1
-    x
-  })
-}
-```
-
-## Examples
-
-After, using a [function factory](https://adv-r.hadley.nz/function-factories.html)
-
-``` r
-## Function factory to increase parameter counts
-inc_param_count <- function(param) {
-  param <- as.name(param)
-  function(pop) {
-    lapply(pop, \(x) {
-      x[[param]] <- x[[param]] + 1
-      x
-    })
-  }
-}
-
-inc_match_count <- inc_param_count("match_count")
-inc_correct_count <- inc_param_count("correct_count")
-inc_action_count <- inc_param_count("action_count")
-```
-
-## Examples
-
-Before
-
-``` r
-## Support function for human-compatible printing:
-make_pop_printable <- function(classifier) {
-    
-    df <- plyr::rbind.fill(lapply(1:length(classifier), \(i) {
-        t_c <- classifier[[i]]
-        data.frame(id = t_c$id,
-                   condition = t_c$condition_string,
-                   action = t_c$action,
-                   match_count = t_c$match_count,
-                   correct_count = t_c$correct_count,
-                   accuracy = t_c$accuracy,
-                   numerosity = t_c$numerosity,
-                   first_seen = t_c$first_seen)
-    }))
-    df[order(df$accuracy, df$numerosity, decreasing = T),]
-}
-```
-
-. . .
-
-(Even the parameter name is wrong...)
-
-## Examples
-
-After - S3 object
-
-``` r
-print.rlcs_population <- function(x, ...) {
-  if(length(x) == 0) return(NULL)
-  x <- .lcs_best_sort_sl(x)
-  x <- unclass(x)
-  l <- lapply(1:length(x), \(i) {
-    t_c <- x[[i]]
-    data.frame(condition = t_c$condition_string, action = t_c$action,
-               match_count = t_c$match_count, correct_count = t_c$correct_count,
-               accuracy = t_c$accuracy, numerosity = t_c$numerosity,
-               reward = t_c$total_reward, first_seen = t_c$first_seen)
-  })
-  # plyr::rbind.fill(l) ## Faster, but adds plyr dependency :(
-  ## Slower, but no dependency:
-  df <- data.frame(matrix(unlist(l), nrow=length(l), byrow=TRUE))
-  names(df) <- c("condition", "action", "match_count", "correct_count", "accuracy", "numerosity", "reward", "first_seeen")
-  df
-}
-```
-
-. . .
-
-``` r
-print(example_lcs_population)
-```
-
 ## Then again
 
 <br/>This is all **work in progress**.
@@ -617,70 +385,3 @@ So: document more, write more tests, reorganize functions...
 # Follow the link at the bottom for more info!
 
 # Thank you!
-
-# Supplementary
-
-## Why nobody has done it yet?
-
-It's not fast
-
-::: incremental
--   There are many sequential steps, rather unavoidable ones at that
-
--   Not ideal to compete with a world of GPUs and parallel processing (yet ;))
-:::
-
-. . .
-
-It's "complex"
-
-::: incremental
--   Or so does the [Wikipedia entry](https://en.wikipedia.org/wiki/Learning_classifier_system#Disadvantages) say...
-
--   When it comes to "alphabets", it does get messy, I'll admit
-:::
-
-## Execution Speed
-
-For instance, this is a "slow" algorithm. Option: Rcpp for Matching
-
-![profviz](images/profiling_monothread_runtimes.jpg){fig-align="center"}
-
-## Parallel Computing
-
-Parallel computing? %dopar%, mirai were tested (it all works, but...)
-
-::: incremental
--   vertical and horizontal partitioning
-    -   Break data set (vertical). Two options
-
-        -   instances subsets (reduce population covered per thread/core)
-
-        -   Substrings of states (reduce search space)
-
-        -   both are "risky"
-
-    -   run fewer iterations (epochs) on full dataset, but on several cores in parallel
-:::
-
-## Parallel Computing
-
-Depending on the dataset, it can be done... Or not...
-
-![](images/running_parallel-v001.jpg){fig-align="center"}
-
-## Reinforcement Learning Conundrum
-
-We've seen it works, but... **How do you package an RL algorithm?**
-
-. . .
-
-You must make assumptions about the "world" your agent is going to interact with. This makes things complicated:
-
-::: incremental
--   What to include inside the package? What not?
-
--   What to expose from the package? What not?
-:::
-
-And a few other such questions slow me down a bit...

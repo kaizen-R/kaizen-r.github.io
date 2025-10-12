@@ -2992,8 +2992,8 @@
     "objectID": "others/RLCS_documentation_15.html#generating-a-rule",
     "href": "others/RLCS_documentation_15.html#generating-a-rule",
     "title": "RLCS: An Introduction",
-    "section": "1 - Generating a rule",
-    "text": "1 - Generating a rule\n\nThe key: “#” means “I don’t care”\n\nCovering a state with a probability of “#” values means making a rule that matches the input state and class/action.\nSomething that could match other (partially) similar input:\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.2)\n[1] \"0#0001\"\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.8)\n[1] \"##0###\"\n\nYou receive an instance of the environment (a binary string state and a class).\nThe class here is defined already."
+    "section": "Generating a rule",
+    "text": "Generating a rule\n\nThe key: “#” means “I don’t care”\n\nCovering a state with a probability of “#” values means making a rule that matches the input state and class/action.\nSomething that could match other (partially) similar input:\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.2)\n[1] \"0#0001\"\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.8)\n[1] \"##0###\"\n\nYou receive an instance of the environment (a binary string state and a class).\nThe class here is defined already."
   },
   {
     "objectID": "others/RLCS_documentation_15.html#matching",
@@ -3013,8 +3013,8 @@
     "objectID": "others/RLCS_documentation_15.html#rule-discovery-ga",
     "href": "others/RLCS_documentation_15.html#rule-discovery-ga",
     "title": "RLCS: An Introduction",
-    "section": "3 - Rule Discovery (GA)",
-    "text": "3 - Rule Discovery (GA)\n\nmut_point &lt;- which(runif(nchar(t_instance_state)) &lt; mut_prob)"
+    "section": "Rule Discovery (GA)",
+    "text": "Rule Discovery (GA)\n\nmut_point &lt;- which(runif(nchar(t_instance_state)) &lt; mut_prob)"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#population-size",
@@ -3034,8 +3034,8 @@
     "objectID": "others/RLCS_documentation_15.html#prediction",
     "href": "others/RLCS_documentation_15.html#prediction",
     "title": "RLCS: An Introduction",
-    "section": "5 - Prediction",
-    "text": "5 - Prediction\nImagine a new sample/instance, never seen before. (Test environment)\n\nPrediction is about returning the match set for that new instance.\nRLCS::get_match_set(sample_state, population_of_classifiers)\n\n\nThe prediction will be the majority (possibly weighted by numerosity, accuracy…) of the proposed class/action. That’s it!\nIt also means, this is natively an ensemble learning algorithm."
+    "section": "Prediction",
+    "text": "Prediction\nImagine a new sample/instance, never seen before. (Test environment)\n\nPrediction is about returning the match set for that new instance.\nRLCS::get_match_set(sample_state, population_of_classifiers)\n\n\nThe prediction will be the majority (possibly weighted by numerosity, accuracy…) of the proposed class/action. That’s it!\nIt also means, this is natively an ensemble learning algorithm."
   },
   {
     "objectID": "others/RLCS_documentation_15.html#other-uses",
