@@ -1312,8 +1312,8 @@
     "objectID": "others/RLCS_documentation.html#an-issue-with-ai-explainability",
     "href": "others/RLCS_documentation.html#an-issue-with-ai-explainability",
     "title": "RLCS: An Introduction",
-    "section": "",
-    "text": "Let’s call it Machine Learning. As of today:\n\nMostly Neural networks\nAnd mostly, that means it’s all black boxes\n\nThere are ways around that. (e.g. Trees and other “open book” algorithms…)\n. . .\nJohn H. Holland proposed an algorithm with the Cognitive System One program (1976). Later, people came up with variations… Today we focus on Michigan-style LCS.\n\nActually… That’s it. No time to dive deeper here.\nToday, we’ll be discussing one such explainable Machine Learning algorithm."
+    "section": "An issue with “AI”: explainability",
+    "text": "An issue with “AI”: explainability\nLet’s call it Machine Learning. As of today:\n\nMostly Neural networks\nAnd mostly, that means it’s all black boxes\n\nThere are ways around that. (e.g. Trees and other “open book” algorithms…)\n\nJohn H. Holland proposed an algorithm with the Cognitive System One program (1976). Later, people came up with variations… Today we focus on Michigan-style LCS.\n\nActually… That’s it. No time to dive deeper here.\nToday, we’ll be discussing one such explainable Machine Learning algorithm."
   },
   {
     "objectID": "others/RLCS_documentation.html#a-bit-of-history-john-h.-hollands-ideas",
@@ -1327,7 +1327,7 @@
     "href": "others/RLCS_documentation.html#why-nobody-has-done-it-yet",
     "title": "RLCS: An Introduction",
     "section": "Why nobody has done it yet?",
-    "text": "Why nobody has done it yet?\nIt’s not fast\n\n\nThere are many sequential steps, rather unavoidable ones at that\nNot ideal to compete with a world of GPUs and parallel processing (yet ;))\n\n\n. . .\nIt’s “complex”\n\n\nOr so does the Wikipedia entry say…\nWhen it comes to “alphabets”, it does get messy, I’ll admit"
+    "text": "Why nobody has done it yet?\nIt’s not fast\n\n\nThere are many sequential steps, rather unavoidable ones at that\nNot ideal to compete with a world of GPUs and parallel processing (yet ;))\n\n\n\nIt’s “complex”\n\n\nOr so does the Wikipedia entry say…\nWhen it comes to “alphabets”, it does get messy, I’ll admit"
   },
   {
     "objectID": "others/RLCS_documentation.html#the-goal-a-new-r-package",
@@ -1355,7 +1355,7 @@
     "href": "others/RLCS_documentation.html#examples",
     "title": "RLCS: An Introduction",
     "section": "Examples",
-    "text": "Examples\nBefore\nlcs_res &lt;- rlcs_meta_train(train_environment,\n                           1, ## Warmup with just one epoch\n                           wildcard_prob,\n                           rd_trigger,\n                           parents_selection_mode,\n                           mutation_probability,\n                           tournament_pressure,\n                           deletion_trigger) ## Deletion won't be triggered\n. . .\nToo many parameters! (Uncle Bob wouldn’t like it)"
+    "text": "Examples\nBefore\nlcs_res &lt;- rlcs_meta_train(train_environment,\n                           1, ## Warmup with just one epoch\n                           wildcard_prob,\n                           rd_trigger,\n                           parents_selection_mode,\n                           mutation_probability,\n                           tournament_pressure,\n                           deletion_trigger) ## Deletion won't be triggered\n\nToo many parameters! (Uncle Bob wouldn’t like it)"
   },
   {
     "objectID": "others/RLCS_documentation.html#examples-1",
@@ -1404,21 +1404,21 @@
     "href": "others/RLCS_documentation.html#epistasis",
     "title": "RLCS: An Introduction",
     "section": "Epistasis",
-    "text": "Epistasis\nLCS can somehow recognize how two different parts interact. Aptly… The term comes from of genetics (genes modified by other genes…). (e.g. XOR…)\n\n\n\n\n\n  condition action match_count correct_count accuracy numerosity first_seen\n     10##1#      1       15913         15913        1        324        688\n     000###      0       15575         15575        1        357       3394\n     001###      1       14842         14842        1        298       9231\n     11###0      0       13149         13149        1        263      22839\n     ..."
+    "text": "Epistasis\nLCS can somehow recognize how two different parts interact. Aptly… The term comes from of genetics (genes modified by other genes…). (e.g. XOR…)\n\n  condition action match_count correct_count accuracy numerosity first_seen\n     10##1#      1       15913         15913        1        324        688\n     000###      0       15575         15575        1        357       3394\n     001###      1       14842         14842        1        298       9231\n     11###0      0       13149         13149        1        263      22839\n     ..."
   },
   {
     "objectID": "others/RLCS_documentation.html#examples-5",
     "href": "others/RLCS_documentation.html#examples-5",
     "title": "RLCS: An Introduction",
     "section": "Examples",
-    "text": "Examples\nBefore\n## Support function for human-compatible printing:\nmake_pop_printable &lt;- function(classifier) {\n    \n    df &lt;- plyr::rbind.fill(lapply(1:length(classifier), \\(i) {\n        t_c &lt;- classifier[[i]]\n        data.frame(id = t_c$id,\n                   condition = t_c$condition_string,\n                   action = t_c$action,\n                   match_count = t_c$match_count,\n                   correct_count = t_c$correct_count,\n                   accuracy = t_c$accuracy,\n                   numerosity = t_c$numerosity,\n                   first_seen = t_c$first_seen)\n    }))\n    df[order(df$accuracy, df$numerosity, decreasing = T),]\n}\n. . .\n(Even the parameter name is wrong…)"
+    "text": "Examples\nBefore\n## Support function for human-compatible printing:\nmake_pop_printable &lt;- function(classifier) {\n    \n    df &lt;- plyr::rbind.fill(lapply(1:length(classifier), \\(i) {\n        t_c &lt;- classifier[[i]]\n        data.frame(id = t_c$id,\n                   condition = t_c$condition_string,\n                   action = t_c$action,\n                   match_count = t_c$match_count,\n                   correct_count = t_c$correct_count,\n                   accuracy = t_c$accuracy,\n                   numerosity = t_c$numerosity,\n                   first_seen = t_c$first_seen)\n    }))\n    df[order(df$accuracy, df$numerosity, decreasing = T),]\n}\n\n(Even the parameter name is wrong…)"
   },
   {
     "objectID": "others/RLCS_documentation.html#examples-6",
     "href": "others/RLCS_documentation.html#examples-6",
     "title": "RLCS: An Introduction",
     "section": "Examples",
-    "text": "Examples\nAfter - S3 object\nprint.rlcs_population &lt;- function(x, ...) {\n  if(length(x) == 0) return(NULL)\n  x &lt;- .lcs_best_sort_sl(x)\n  x &lt;- unclass(x)\n  l &lt;- lapply(1:length(x), \\(i) {\n    t_c &lt;- x[[i]]\n    data.frame(condition = t_c$condition_string, action = t_c$action,\n               match_count = t_c$match_count, correct_count = t_c$correct_count,\n               accuracy = t_c$accuracy, numerosity = t_c$numerosity,\n               reward = t_c$total_reward, first_seen = t_c$first_seen)\n  })\n  # plyr::rbind.fill(l) ## Faster, but adds plyr dependency :(\n  ## Slower, but no dependency:\n  df &lt;- data.frame(matrix(unlist(l), nrow=length(l), byrow=TRUE))\n  names(df) &lt;- c(\"condition\", \"action\", \"match_count\", \"correct_count\", \"accuracy\", \"numerosity\", \"reward\", \"first_seeen\")\n  df\n}\n. . .\nprint(example_lcs_population)"
+    "text": "Examples\nAfter - S3 object\nprint.rlcs_population &lt;- function(x, ...) {\n  if(length(x) == 0) return(NULL)\n  x &lt;- .lcs_best_sort_sl(x)\n  x &lt;- unclass(x)\n  l &lt;- lapply(1:length(x), \\(i) {\n    t_c &lt;- x[[i]]\n    data.frame(condition = t_c$condition_string, action = t_c$action,\n               match_count = t_c$match_count, correct_count = t_c$correct_count,\n               accuracy = t_c$accuracy, numerosity = t_c$numerosity,\n               reward = t_c$total_reward, first_seen = t_c$first_seen)\n  })\n  # plyr::rbind.fill(l) ## Faster, but adds plyr dependency :(\n  ## Slower, but no dependency:\n  df &lt;- data.frame(matrix(unlist(l), nrow=length(l), byrow=TRUE))\n  names(df) &lt;- c(\"condition\", \"action\", \"match_count\", \"correct_count\", \"accuracy\", \"numerosity\", \"reward\", \"first_seeen\")\n  df\n}\n\nprint(example_lcs_population)"
   },
   {
     "objectID": "others/RLCS_documentation.html#how-did-i-approach-the-thing",
@@ -1432,7 +1432,7 @@
     "href": "others/RLCS_documentation.html#then-again",
     "title": "RLCS: An Introduction",
     "section": "Then again",
-    "text": "Then again\nThis is all work in progress.\n. . .\nI plan to make it into a CRAN Package.\nSo: document more, write more tests, reorganize functions…"
+    "text": "Then again\nThis is all work in progress.\n\nI plan to make it into a CRAN Package.\nSo: document more, write more tests, reorganize functions…"
   },
   {
     "objectID": "others/RLCS_documentation.html#visuals",
@@ -1446,14 +1446,14 @@
     "href": "others/RLCS_documentation.html#reinforcement-learning-conundrum",
     "title": "RLCS: An Introduction",
     "section": "Reinforcement Learning Conundrum",
-    "text": "Reinforcement Learning Conundrum\nWe’ve seen it works, but… How do you package an RL algorithm?\n. . .\nYou must make assumptions about the “world” your agent is going to interact with. This makes things complicated:\n\n\nWhat to include inside the package? What not?\nWhat to expose from the package? What not?\n\n\nAnd a few other such questions slow me down a bit…"
+    "text": "Reinforcement Learning Conundrum\nWe’ve seen it works, but… How do you package an RL algorithm?\n\nYou must make assumptions about the “world” your agent is going to interact with. This makes things complicated:\n\n\nWhat to include inside the package? What not?\nWhat to expose from the package? What not?\n\n\nAnd a few other such questions slow me down a bit…"
   },
   {
     "objectID": "others/RLCS_documentation.html#execution-speed",
     "href": "others/RLCS_documentation.html#execution-speed",
     "title": "RLCS: An Introduction",
     "section": "Execution Speed",
-    "text": "Execution Speed\nFor instance, this is a “slow” algorithm. Option: Rcpp for Matching\n\n\n\nprofviz"
+    "text": "Execution Speed\nFor instance, this is a “slow” algorithm. Option: Rcpp for Matching\n\nprofviz"
   },
   {
     "objectID": "others/RLCS_documentation.html#because-text-and-code-wont-make-it-popular",
@@ -1628,14 +1628,14 @@
     "href": "others/RLCS_documentation.html#matching",
     "title": "RLCS: An Introduction",
     "section": "2 - Matching",
-    "text": "2 - Matching\n\nWhen you see a new environment instance that does not match any rule in your population yet -&gt; generate a new rule.\n\n. . .\n\nIf one(+) rule(s) in your population matches your new instance state -&gt; increase the match count of the corresponding classifier.\nIf one(+) rule(s) in your population matches your new instance state && class/action –&gt; increase the correct count.\n\n\nincluding their corresponding actions"
+    "text": "2 - Matching\n\nWhen you see a new environment instance that does not match any rule in your population yet -&gt; generate a new rule.\n\n\n\nIf one(+) rule(s) in your population matches your new instance state -&gt; increase the match count of the corresponding classifier.\nIf one(+) rule(s) in your population matches your new instance state && class/action –&gt; increase the correct count.\n\n\nincluding their corresponding actions"
   },
   {
     "objectID": "others/RLCS_documentation.html#rule-discovery",
     "href": "others/RLCS_documentation.html#rule-discovery",
     "title": "RLCS: An Introduction",
     "section": "3 - Rule Discovery",
-    "text": "3 - Rule Discovery\nAfter a few epochs of exposing the LCS to your environment, you will have a few rules that match correctly a given instance, the “correct” set.\nMatch and Correct count are indicators of how good each rule is. But are there other better possibilities?\n. . .\nTake all the correct set, and apply a Genetic Algorithm to that set, to generate new rules!"
+    "text": "3 - Rule Discovery\nAfter a few epochs of exposing the LCS to your environment, you will have a few rules that match correctly a given instance, the “correct” set.\nMatch and Correct count are indicators of how good each rule is. But are there other better possibilities?\n\nTake all the correct set, and apply a Genetic Algorithm to that set, to generate new rules!"
   },
   {
     "objectID": "others/RLCS_documentation.html#rule-discovery-ga",
@@ -1649,7 +1649,7 @@
     "href": "others/RLCS_documentation.html#population-size",
     "title": "RLCS: An Introduction",
     "section": "4 - Population Size",
-    "text": "4 - Population Size\nMatching must go through all the population every time an environment instance is presented to the LCS.\n\\[O(match) = epochs*N(environment)*N(population)\\]\nWhere \\(N()\\) means “size of”.\n\\[e.g. 1.000 * 5.000 * 1.000 = 5.000.000.000\\]\n. . .\nOne option: Reduce the population of rules."
+    "text": "4 - Population Size\nMatching must go through all the population every time an environment instance is presented to the LCS.\n\\[O(match) = epochs*N(environment)*N(population)\\]\nWhere \\(N()\\) means “size of”.\n\\[e.g. 1.000 * 5.000 * 1.000 = 5.000.000.000\\]\n\nOne option: Reduce the population of rules."
   },
   {
     "objectID": "others/RLCS_documentation.html#population-size-1",
@@ -1663,14 +1663,14 @@
     "href": "others/RLCS_documentation.html#prediction",
     "title": "RLCS: An Introduction",
     "section": "5 - Prediction",
-    "text": "5 - Prediction\nImagine a new sample/instance, never seen before. (Test environment)\n. . .\nPrediction is about returning the match set for that new instance.\nRLCS::get_match_set(sample_state, population_of_classifiers)\n. . .\nThe prediction will be the majority (possibly weighted by numerosity, accuracy…) of the proposed class/action. That’s it!\nIt also means, this is natively an ensemble learning algorithm."
+    "text": "5 - Prediction\nImagine a new sample/instance, never seen before. (Test environment)\n\nPrediction is about returning the match set for that new instance.\nRLCS::get_match_set(sample_state, population_of_classifiers)\n\n\nThe prediction will be the majority (possibly weighted by numerosity, accuracy…) of the proposed class/action. That’s it!\nIt also means, this is natively an ensemble learning algorithm."
   },
   {
     "objectID": "others/RLCS_documentation.html#other-uses",
     "href": "others/RLCS_documentation.html#other-uses",
     "title": "RLCS: An Introduction",
     "section": "6 - Other uses!",
-    "text": "6 - Other uses!\n. . .\nWhy talk about “environment” and “action”? This comes from the world of Reinforcement Learning.\n. . .\nAnd because one can read the rules, and “understand” the population, you can also use the LCS to interpret the results and thus do data mining!\nAll with the same algorithm!"
+    "text": "6 - Other uses!\n\nWhy talk about “environment” and “action”? This comes from the world of Reinforcement Learning.\n\n\nAnd because one can read the rules, and “understand” the population, you can also use the LCS to interpret the results and thus do data mining!\nAll with the same algorithm!"
   },
   {
     "objectID": "others/RLCS_documentation.html#section",
@@ -1691,7 +1691,7 @@
     "href": "others/RLCS_documentation.html#rl-too",
     "title": "RLCS: An Introduction",
     "section": "RL, TOO!",
-    "text": "RL, TOO!\n\n\n\nFirst self-brain-storm on RL with LCS"
+    "text": "RL, TOO!\n\nFirst self-brain-storm on RL with LCS"
   },
   {
     "objectID": "others/RLCS_documentation.html#parallel-computing",
@@ -1761,7 +1761,7 @@
     "href": "others/RLCS_documentation.html#iris-1",
     "title": "RLCS: An Introduction",
     "section": "Iris",
-    "text": "Iris\n\n\n\nvisualizing one classifier - iris"
+    "text": "Iris\n\nvisualizing one classifier - iris"
   },
   {
     "objectID": "posts/2025-05-25_RLCS_overall_faster/index.html",
@@ -2699,7 +2699,7 @@
     "href": "others/RLCS_documentation.html#a-new-r-package",
     "title": "RLCS: An Introduction",
     "section": "A new R package",
-    "text": "A new R package\n\n\n\n\n\n. . .\nHave you ever found something that no one else has done?\n\nI found such a thing last November 2024. But let’s go back for a minute."
+    "text": "A new R package\n\n\nHave you ever found something that no one else has done?\n\nI found such a thing last November 2024. But let’s go back for a minute."
   },
   {
     "objectID": "others/RLCS_documentation.html#an-r-package",
@@ -2713,7 +2713,7 @@
     "href": "others/RLCS_documentation.html#data-mining",
     "title": "RLCS: An Introduction",
     "section": "Data Mining",
-    "text": "Data Mining\nGiven that the rules are “expressive”, sometimes you can ask the LCS to find rules that appear in your data:\n\nNot necessarily to classify future samples\nTo identify what is important for different classes of your data\n\n. . .\nREAL WORLD anecdote: inventory of 10K rows with 20 columns, each duly binary encoded. I learnt something about my inventory!"
+    "text": "Data Mining\nGiven that the rules are “expressive”, sometimes you can ask the LCS to find rules that appear in your data:\n\nNot necessarily to classify future samples\nTo identify what is important for different classes of your data\n\n\nREAL WORLD anecdote: inventory of 10K rows with 20 columns, each duly binary encoded. I learnt something about my inventory!"
   },
   {
     "objectID": "others/RLCS_documentation.html#rules-as-model",
@@ -2727,7 +2727,7 @@
     "href": "others/RLCS_documentation.html#learning-rules-as-models",
     "title": "RLCS: An Introduction",
     "section": "Learning rules as model(s)",
-    "text": "Learning rules as model(s)\n\nif A & NOT(B) then Class=X\nif D then Class=Y\n\n. . .\n“Human-readable”, “interpretable”, good for:\n\nMitigating bias(es) (in training data, at least)\nIncreased trust (justifying decisions)\n\n. . .\nLearning about the data (data mining), better decisions, regulatory compliance, ethical/legal matters, possible adversarial attack robustness…"
+    "text": "Learning rules as model(s)\n\nif A & NOT(B) then Class=X\nif D then Class=Y\n\n\n“Human-readable”, “interpretable”, good for:\n\nMitigating bias(es) (in training data, at least)\nIncreased trust (justifying decisions)\n\n\n\nLearning about the data (data mining), better decisions, regulatory compliance, ethical/legal matters, possible adversarial attack robustness…"
   },
   {
     "objectID": "others/RLCS_documentation.html#the-ternary-alphabet",
@@ -2762,14 +2762,14 @@
     "href": "others/RLCS_documentation.html#binary-input-do-not-worry",
     "title": "RLCS: An Introduction",
     "section": "Binary input?! DO NOT WORRY",
-    "text": "Binary input?! DO NOT WORRY\nAny data point can be encoded into binary strings.\n. . .\n\nrlcs_rosetta_stone()\nA (simplistic) function is actually provided to make this a bit more transparent. Not necessarily the best approach! Just an “illustration”, really.\n(for numerical data, for now… work-in-progress :))"
+    "text": "Binary input?! DO NOT WORRY\nAny data point can be encoded into binary strings.\n\n\nrlcs_rosetta_stone()\nA (simplistic) function is actually provided to make this a bit more transparent. Not necessarily the best approach! Just an “illustration”, really.\n(for numerical data, for now… work-in-progress :))"
   },
   {
     "objectID": "others/RLCS_documentation.html#binary-input-example",
     "href": "others/RLCS_documentation.html#binary-input-example",
     "title": "RLCS: An Introduction",
     "section": "Binary input: Example",
-    "text": "Binary input: Example\n\n\n\nRosetta Stone “binning” for numerical variables (2 bits explanation)"
+    "text": "Binary input: Example\n\nRosetta Stone “binning” for numerical variables (2 bits explanation)"
   },
   {
     "objectID": "others/RLCS_documentation.html#the-input-binary-encoding",
@@ -2804,7 +2804,7 @@
     "href": "others/RLCS_documentation.html#did-you-guess-right",
     "title": "RLCS: An Introduction",
     "section": "Did you guess right?",
-    "text": "Did you guess right?\n&gt; demo_params &lt;- RLCS_hyperparameters(n_epochs = 280, deletion_trigger = 40, deletion_threshold = 0.9)\n&gt; rlcs_model1 &lt;- rlcs_train_sl(demo_env1, demo_params, NULL, F)\n[1] \"Epoch: 40 Progress Exposure: 1280 Classifiers Count: 14\"\n[1] \"Epoch: 80 Progress Exposure: 2560 Classifiers Count: 8\"\n[1] \"Epoch: 120 Progress Exposure: 3840 Classifiers Count: 2\"\n[1] \"Epoch: 160 Progress Exposure: 5120 Classifiers Count: 2\"\n[1] \"Epoch: 200 Progress Exposure: 6400 Classifiers Count: 2\"\n[1] \"Epoch: 240 Progress Exposure: 7680 Classifiers Count: 2\"\n[1] \"Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2\"\n. . .\n\n&gt; print(rlcs_model1)\n  condition action match_count correct_count accuracy numerosity reward first_seen\n1     ###1#      0        3560          3560        1        122      5       1843\n2     ###0#      1        2770          2770        1         94      5       3421\nThe model expresses: “Not bit 4”"
+    "text": "Did you guess right?\n&gt; demo_params &lt;- RLCS_hyperparameters(n_epochs = 280, deletion_trigger = 40, deletion_threshold = 0.9)\n&gt; rlcs_model1 &lt;- rlcs_train_sl(demo_env1, demo_params, NULL, F)\n[1] \"Epoch: 40 Progress Exposure: 1280 Classifiers Count: 14\"\n[1] \"Epoch: 80 Progress Exposure: 2560 Classifiers Count: 8\"\n[1] \"Epoch: 120 Progress Exposure: 3840 Classifiers Count: 2\"\n[1] \"Epoch: 160 Progress Exposure: 5120 Classifiers Count: 2\"\n[1] \"Epoch: 200 Progress Exposure: 6400 Classifiers Count: 2\"\n[1] \"Epoch: 240 Progress Exposure: 7680 Classifiers Count: 2\"\n[1] \"Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2\"\n\n\n&gt; print(rlcs_model1)\n  condition action match_count correct_count accuracy numerosity reward first_seen\n1     ###1#      0        3560          3560        1        122      5       1843\n2     ###0#      1        2770          2770        1         94      5       3421\nThe model expresses: “Not bit 4”"
   },
   {
     "objectID": "others/RLCS_documentation.html#download-and-install-rlcs",
@@ -2832,7 +2832,7 @@
     "href": "others/RLCS_documentation.html#the-input",
     "title": "RLCS: An Introduction",
     "section": "The input",
-    "text": "The input\nBefore we dive in:\nNeural Networks accept numerical vectors for inputs.\nOther algorithms accept factors, or mixed-input.\nWell…\n. . .\nThe RLCS package (specific/current implementation) expects binary strings for its input."
+    "text": "The input\nBefore we dive in:\nNeural Networks accept numerical vectors for inputs.\nOther algorithms accept factors, or mixed-input.\nWell…\n\nThe RLCS package (specific/current implementation) expects binary strings for its input."
   },
   {
     "objectID": "posts/2025-09-30_various_updates/index.html",
