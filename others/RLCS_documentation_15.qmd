@@ -25,31 +25,19 @@ Let's call it Machine Learning. As of today:
 
 There are [ways around that](https://a.co/d/ba1J0oh "Interpretable Machine Learning: A Guide For Making Black Box Models Explainable"). (e.g. *Trees* and other "open book" algorithms...)
 
-. . .
-
 <br/>[John H. Holland proposed an algorithm with the Cognitive System One](https://en.wikipedia.org/wiki/Learning_classifier_system#Early_years) program (1976). Later, people came up with variations... Today we focus on [Michigan-style LCS](https://en.wikipedia.org/wiki/Learning_classifier_system#Michigan-Style_Learning_Classifier_System).
-
-::: notes
-Actually... That's it. No time to dive deeper here.
-
-Today, we'll be discussing one such explainable Machine Learning algorithm.
-:::
 
 ## A new R package
 
 ![](images/books.jpeg){fig-align="center" width="500"}
 
-. . .
-
-Have you ever found something that **no one else has done?**
-
-::: notes
-I found such a thing last November 2024. But let's go back for a minute.
-:::
-
 # A preview
 
 ## Can you guess the "rule"?
+
+<br/>
+
+A **Data Mining** Exercise with RLCS
 
 ``` r
 > library(RLCS)
@@ -94,21 +82,7 @@ I found such a thing last November 2024. But let's go back for a minute.
 2     ###0#      1        2770          2770        1         94      5       3421
 ```
 
-The model expresses: "Not bit 4"
-
-## The model: the Ternary Alphabet
-
-<br/>A **Population of Classifiers** is produced.
-
-<br/>This is how to read that output model:
-
-Each classifier includes a **rule** that encodes a match for states that can be read as:
-
-|     |                      |
-|-----|----------------------|
-| 0   | No/False/not present |
-| 1   | Yes/True/present     |
-| \#  | "Don't care"         |
+This model expresses: "Not bit 4"
 
 ## Learning rules as model(s)
 
@@ -128,11 +102,44 @@ Each classifier includes a **rule** that encodes a match for states that can be 
 
 Learning about the data (data mining), better decisions, regulatory compliance, ethical/legal matters, possible adversarial attack robustness...
 
-# RLCS PRE-requisite
+# Interlude: Get the package
+
+## Download and install RLCS
+
+<https://github.com/kaizen-R/RLCS>
+
+<br/>
+
+To get the package from GitHub:
+
+``` r
+library(devtools)
+install_github("kaizen-R/RLCS")
+```
+
+. . .
+
+Run your first test
+
+``` r
+library(RLCS)
+demo_params <- RLCS_hyperparameters(n_epochs = 400, deletion_trigger = 40, deletion_threshold = 0.9)
+demo_env2 <- rlcs_example_secret2()
+print(demo_env2, row.names = F)
+rlcs_model2 <- rlcs_train_sl(demo_env2, demo_params, NULL, F)
+print(rlcs_model2)
+plot(rlcs_model2)
+```
+
+# Learning Classifier System: Algorithm Key Concepts
+
+## Keywords
+
+![](images/LCS_Keywords.png)
 
 ## The input
 
-**Before we dive in:**
+**Before we continue:**
 
 Neural Networks accept numerical vectors for inputs.
 
@@ -146,7 +153,7 @@ Well...
 
 ## Binary input: Example
 
-![Rosetta Stone "binning" for numerical variables (2 bits explanation)](images/demo_encoding_two_bits.jpg)
+![Rosetta Stone "binning" for numerical variables (2 bits explanation)](images/demo_encoding_two_bits.jpg){alt="Rosetta Stone \"binning\" for numerical variables (2 bits explanation)"}
 
 ## Binary input: Example
 
@@ -168,36 +175,9 @@ Rosetta Stone: 16 values, 4-bits, "double-quartiles" w/ Gray-binary encoding, pe
 
 *Note: with some data loss :S*
 
-# Interlude: Get the package
-
-## Download and install RLCS
-
-To get the package from GitHub:
-
-``` r
-library(devtools)
-install_github("kaizen-R/RLCS")
-```
-
-## Run your first tests of RLCS
-
-``` r
-library(RLCS)
-demo_params <- RLCS_hyperparameters(n_epochs = 400, deletion_trigger = 40, deletion_threshold = 0.9)
-demo_env2 <- rlcs_example_secret2()
-print(demo_env2, row.names = F)
-rlcs_model2 <- rlcs_train_sl(demo_env2, demo_params, NULL, F)
-print(rlcs_model2)
-plot(rlcs_model2)
-```
-
-# Learning Classifier System: Algorithm Key Concepts
-
-## Keywords
-
-![](images/LCS_Keywords.png)
-
 ## Generating a rule
+
+<br/>
 
 > **The key: "\#" means "I don't care"**
 
@@ -244,8 +224,6 @@ mut_point <- which(runif(nchar(t_instance_state)) < mut_prob)
 
 Imagine a new sample/instance, never seen before. (Test environment)
 
-. . .
-
 Prediction is about **returning the match set** for that new instance.
 
 ``` r
@@ -254,9 +232,7 @@ RLCS::get_match_set(sample_state, population_of_classifiers)
 
 . . .
 
-<br/>The **prediction** will be the **majority** (possibly weighted by numerosity, accuracy...) of the **proposed class**/action. **That's it!**
-
-It also means, this is natively an **ensemble learning** algorithm.
+<br/>The **prediction** will be the **majority** (possibly weighted by numerosity, accuracy...) of the **proposed class**/action. **That's it!** It also means, this is natively an **ensemble learning** algorithm.
 
 # Demo Time
 
@@ -292,29 +268,17 @@ class    0    1 rlcs_no_match
 Time difference of 1.937979 mins
 ```
 
+. . .
+
+**!! Magic Trick:** Parallelism: By splitting training data, and then consolidating sub-models! (Take that, Neural network :D)
+
 ## Images Classifier
 
 ![](images/mnist_example_visu_explained.jpg){fig-align="center"}
 
-## Data Mining
-
-Given that the rules are "expressive", sometimes you can **ask the LCS to find rules that appear in your data:**
-
--   Not necessarily to classify future samples
-
--   To **identify what is important** for different classes of your data
-
-. . .
-
-<br/>**REAL WORLD anecdote**: inventory of 10K rows with 20 columns, each duly binary encoded. I learnt something about my inventory!
-
 ## RL, TOO!
 
-![First self-brain-storm on RL with LCS](images/RL_Board.jpg){fig-align="center"}
-
-## RL Video
-
-![](images/good_rl_simple_scenario_overview.jpg){fig-align="center" width="500"}
+![](images/RL_Board.jpg){fig-align="center"}
 
 {{< video videos/RL_RLCS_WORLD1_V001.mp4 title="Reinforcement Learning using LCS in R, first results" width="250" height="175">}}
 
@@ -324,9 +288,7 @@ Given that the rules are "expressive", sometimes you can **ask the LCS to find r
 
 <br/>This is all **work in progress**.
 
-. . .
-
-<br/>I plan to **make it into a CRAN Package**.
+<br/>I plan to **try and make it into a CRAN Package**.
 
 So: document more, write more tests, reorganize functions...
 
@@ -335,11 +297,5 @@ So: document more, write more tests, reorganize functions...
 -   [THE BEST INTRO to the LCS Algorithm out-there (hands down!)](https://youtu.be/CRge_cZ2cJc?feature=shared) (12' video)
 
 -   [Advanced R is ALWAYS great](https://adv-r.hadley.nz/function-factories.html)
-
--   And for my first [RevealJS Quarto, this blog entry](https://meghan.rbind.io/blog/2022-07-12-making-slides-in-quarto-with-revealjs/#my-quarto-journey-begins) (not mine)
-
--   Probably quite a few more, including the two in the first picture.
-
-# Follow the link at the bottom for more info!
 
 # Thank you!

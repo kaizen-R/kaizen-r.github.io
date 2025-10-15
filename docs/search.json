@@ -2895,7 +2895,7 @@
     "href": "others/RLCS_documentation_15.html#an-issue-with-ai-explainability",
     "title": "RLCS: A (shorter) Introduction",
     "section": "An issue with “AI”: explainability",
-    "text": "An issue with “AI”: explainability\nLet’s call it Machine Learning. As of today:\n\nMostly Neural networks\nAnd mostly, that means it’s all black boxes\n\nThere are ways around that. (e.g. Trees and other “open book” algorithms…)\n\nJohn H. Holland proposed an algorithm with the Cognitive System One program (1976). Later, people came up with variations… Today we focus on Michigan-style LCS.\n\nActually… That’s it. No time to dive deeper here.\nToday, we’ll be discussing one such explainable Machine Learning algorithm."
+    "text": "An issue with “AI”: explainability\nLet’s call it Machine Learning. As of today:\n\nMostly Neural networks\nAnd mostly, that means it’s all black boxes\n\nThere are ways around that. (e.g. Trees and other “open book” algorithms…)\nJohn H. Holland proposed an algorithm with the Cognitive System One program (1976). Later, people came up with variations… Today we focus on Michigan-style LCS."
   },
   {
     "objectID": "others/RLCS_documentation_15.html#learning-rules-as-models",
@@ -2909,14 +2909,14 @@
     "href": "others/RLCS_documentation_15.html#a-new-r-package",
     "title": "RLCS: A (shorter) Introduction",
     "section": "A new R package",
-    "text": "A new R package\n\n\nHave you ever found something that no one else has done?\n\nI found such a thing last November 2024. But let’s go back for a minute."
+    "text": "A new R package"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#can-you-guess-the-rule",
     "href": "others/RLCS_documentation_15.html#can-you-guess-the-rule",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Can you guess the “rule”?",
-    "text": "Can you guess the “rule”?\n&gt; library(RLCS)\n&gt; demo_env1 &lt;- rlcs_example_secret1()\n&gt; sample_of_rows &lt;- sample(1:nrow(demo_env1), 10, replace=F)\n&gt; print(demo_env1[sample_of_rows,], row.names = F)\n state class\n 01010     0\n 00111     0\n 11010     0\n 10001     1\n 00010     0\n 00100     1\n 10100     1\n 01111     0\n 01100     1\n 00001     1"
+    "text": "Can you guess the “rule”?\n\nA Data Mining Exercise with RLCS\n&gt; library(RLCS)\n&gt; demo_env1 &lt;- rlcs_example_secret1()\n&gt; sample_of_rows &lt;- sample(1:nrow(demo_env1), 10, replace=F)\n&gt; print(demo_env1[sample_of_rows,], row.names = F)\n state class\n 01010     0\n 00111     0\n 11010     0\n 10001     1\n 00010     0\n 00100     1\n 10100     1\n 01111     0\n 01100     1\n 00001     1"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#did-you-guess-right",
@@ -2937,7 +2937,7 @@
     "href": "others/RLCS_documentation_15.html#the-input",
     "title": "RLCS: A (shorter) Introduction",
     "section": "The input",
-    "text": "The input\nBefore we dive in:\nNeural Networks accept numerical vectors for inputs.\nOther algorithms accept factors, or mixed-input.\nWell…\n\nThe RLCS package (specific/current implementation) expects binary strings for its input."
+    "text": "The input\nBefore we continue:\nNeural Networks accept numerical vectors for inputs.\nOther algorithms accept factors, or mixed-input.\nWell…\n\nThe RLCS package (specific/current implementation) expects binary strings for its input."
   },
   {
     "objectID": "others/RLCS_documentation_15.html#the-input-binary-encoding",
@@ -2972,7 +2972,7 @@
     "href": "others/RLCS_documentation_15.html#download-and-install-rlcs",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Download and install RLCS",
-    "text": "Download and install RLCS\nTo get the package from GitHub:\nlibrary(devtools)\ninstall_github(\"kaizen-R/RLCS\")"
+    "text": "Download and install RLCS\nhttps://github.com/kaizen-R/RLCS\n\nTo get the package from GitHub:\nlibrary(devtools)\ninstall_github(\"kaizen-R/RLCS\")\n\nRun your first test\nlibrary(RLCS)\ndemo_params &lt;- RLCS_hyperparameters(n_epochs = 400, deletion_trigger = 40, deletion_threshold = 0.9)\ndemo_env2 &lt;- rlcs_example_secret2()\nprint(demo_env2, row.names = F)\nrlcs_model2 &lt;- rlcs_train_sl(demo_env2, demo_params, NULL, F)\nprint(rlcs_model2)\nplot(rlcs_model2)"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#run-your-first-tests-of-rlcs",
@@ -2993,7 +2993,7 @@
     "href": "others/RLCS_documentation_15.html#generating-a-rule",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Generating a rule",
-    "text": "Generating a rule\n\nThe key: “#” means “I don’t care”\n\nCovering a state with a probability of “#” values means making a rule that matches the input state and class/action.\nSomething that could match other (partially) similar input:\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.2)\n[1] \"0#0001\"\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.8)\n[1] \"##0###\"\n\nYou receive an instance of the environment (a binary string state and a class).\nThe class here is defined already."
+    "text": "Generating a rule\n\n\nThe key: “#” means “I don’t care”\n\nCovering a state with a probability of “#” values means making a rule that matches the input state and class/action.\nSomething that could match other (partially) similar input:\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.2)\n[1] \"0#0001\"\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.8)\n[1] \"##0###\"\n\nYou receive an instance of the environment (a binary string state and a class).\nThe class here is defined already."
   },
   {
     "objectID": "others/RLCS_documentation_15.html#matching",
@@ -3035,7 +3035,7 @@
     "href": "others/RLCS_documentation_15.html#prediction",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Prediction",
-    "text": "Prediction\nImagine a new sample/instance, never seen before. (Test environment)\n\nPrediction is about returning the match set for that new instance.\nRLCS::get_match_set(sample_state, population_of_classifiers)\n\n\nThe prediction will be the majority (possibly weighted by numerosity, accuracy…) of the proposed class/action. That’s it!\nIt also means, this is natively an ensemble learning algorithm."
+    "text": "Prediction\nImagine a new sample/instance, never seen before. (Test environment)\nPrediction is about returning the match set for that new instance.\nRLCS::get_match_set(sample_state, population_of_classifiers)\n\nThe prediction will be the majority (possibly weighted by numerosity, accuracy…) of the proposed class/action. That’s it! It also means, this is natively an ensemble learning algorithm."
   },
   {
     "objectID": "others/RLCS_documentation_15.html#other-uses",
@@ -3063,7 +3063,7 @@
     "href": "others/RLCS_documentation_15.html#images-classifier",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Images Classifier",
-    "text": "Images Classifier\n[1] \"Accuracy: 0.98\"\n&gt; table(test_mnist_bin01_49b[, c(\"class\", \"predicted\")])\n     predicted\nclass    0    1 rlcs_no_match\n    0 1716   65             5\n    1    5 2008             0\n&gt;\n&gt; ## Training time on 800 samples:\n&gt; print(t_end - t_start)\nTime difference of 1.937979 mins"
+    "text": "Images Classifier\n[1] \"Accuracy: 0.98\"\n&gt; table(test_mnist_bin01_49b[, c(\"class\", \"predicted\")])\n     predicted\nclass    0    1 rlcs_no_match\n    0 1716   65             5\n    1    5 2008             0\n&gt;\n&gt; ## Training time on 800 samples:\n&gt; print(t_end - t_start)\nTime difference of 1.937979 mins\n\n!! Magic Trick: Parallelism: By splitting training data, and then consolidating sub-models! (Take that, Neural network :D)"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#images-classifier-1",
@@ -3091,7 +3091,7 @@
     "href": "others/RLCS_documentation_15.html#rl-too",
     "title": "RLCS: A (shorter) Introduction",
     "section": "RL, TOO!",
-    "text": "RL, TOO!\n\nFirst self-brain-storm on RL with LCS"
+    "text": "RL, TOO!"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#rl-video",
@@ -3168,7 +3168,7 @@
     "href": "others/RLCS_documentation_15.html#then-again",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Then again",
-    "text": "Then again\nThis is all work in progress.\n\nI plan to make it into a CRAN Package.\nSo: document more, write more tests, reorganize functions…"
+    "text": "Then again\nThis is all work in progress.\nI plan to try and make it into a CRAN Package.\nSo: document more, write more tests, reorganize functions…"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#why-nobody-has-done-it-yet",

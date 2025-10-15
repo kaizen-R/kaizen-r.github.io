@@ -1,0 +1,26 @@
+---
+title: "Preparing for November Presentation"
+author: "Nico"
+date: "2025-10-15"
+categories: [RLCS]
+---
+
+## Yep, that's basically it.
+
+I'm sure I'll keep going, reviewing, tuning, whatever. But it's ready.
+
+For now.
+
+Here:
+
+The short-version of the presentation. It makes much less sense without me babbling about it, but alright.
+
+<https://kaizen-r.github.io/others/RLCS_documentation_15.html>
+
+And I now included the basic demos alongside the package, here:
+
+<https://github.com/kaizen-R/RLCS>
+
+## Conclusion
+
+Shortest post I wrote, quite possibly. And yet, a milestone, kinda.

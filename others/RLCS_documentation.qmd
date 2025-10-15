@@ -658,7 +658,7 @@ Parallel computing? %dopar%, mirai were tested (it all works, but...)
 
         -   Substrings of states (reduce search space)
 
-        -   both are "risky"
+        -   both are "risky"!
 
     -   run fewer iterations (epochs) on full dataset, but on several cores in parallel
 :::
