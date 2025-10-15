@@ -2894,15 +2894,15 @@
     "objectID": "others/RLCS_documentation_15.html#an-issue-with-ai-explainability",
     "href": "others/RLCS_documentation_15.html#an-issue-with-ai-explainability",
     "title": "RLCS: A (shorter) Introduction",
-    "section": "",
-    "text": "Let’s call it Machine Learning. As of today:\n\nMostly Neural networks\nAnd mostly, that means it’s all black boxes\n\nThere are ways around that. (e.g. Trees and other “open book” algorithms…)\nJohn H. Holland proposed an algorithm with the Cognitive System One program (1976). Later, people came up with variations… Today we focus on Michigan-style LCS."
+    "section": "An issue with “AI”: explainability",
+    "text": "An issue with “AI”: explainability\nLet’s call it Machine Learning. As of today:\n\nMostly Neural networks\nAnd mostly, that means it’s all black boxes\n\nThere are ways around that. (e.g. Trees and other “open book” algorithms…)\nJohn H. Holland proposed an algorithm with the Cognitive System One program (1976). Later, people came up with variations… Today we focus on Michigan-style LCS."
   },
   {
     "objectID": "others/RLCS_documentation_15.html#learning-rules-as-models",
     "href": "others/RLCS_documentation_15.html#learning-rules-as-models",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Learning rules as model(s)",
-    "text": "Learning rules as model(s)\n\nif A & NOT(B) then Class=X\nif D then Class=Y\n\n. . .\n“Human-readable”, “interpretable”, good for:\n\nMitigating bias(es) (in training data, at least)\nIncreased trust (justifying decisions)\n\n. . .\nLearning about the data (data mining), better decisions, regulatory compliance, ethical/legal matters, possible adversarial attack robustness…"
+    "text": "Learning rules as model(s)\n\nif A & NOT(B) then Class=X\nif D then Class=Y\n\n\n“Human-readable”, “interpretable”, good for:\n\nMitigating bias(es) (in training data, at least)\nIncreased trust (justifying decisions)\n\n\n\nLearning about the data (data mining), better decisions, regulatory compliance, ethical/legal matters, possible adversarial attack robustness…"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#a-new-r-package",
@@ -2923,7 +2923,7 @@
     "href": "others/RLCS_documentation_15.html#did-you-guess-right",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Did you guess right?",
-    "text": "Did you guess right?\n&gt; demo_params &lt;- RLCS_hyperparameters(n_epochs = 280, deletion_trigger = 40, deletion_threshold = 0.9)\n&gt; rlcs_model1 &lt;- rlcs_train_sl(demo_env1, demo_params, NULL, F)\n[1] \"Epoch: 40 Progress Exposure: 1280 Classifiers Count: 14\"\n[1] \"Epoch: 80 Progress Exposure: 2560 Classifiers Count: 8\"\n[1] \"Epoch: 120 Progress Exposure: 3840 Classifiers Count: 2\"\n[1] \"Epoch: 160 Progress Exposure: 5120 Classifiers Count: 2\"\n[1] \"Epoch: 200 Progress Exposure: 6400 Classifiers Count: 2\"\n[1] \"Epoch: 240 Progress Exposure: 7680 Classifiers Count: 2\"\n[1] \"Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2\"\n. . .\n\n&gt; print(rlcs_model1)\n  condition action match_count correct_count accuracy numerosity reward first_seen\n1     ###1#      0        3560          3560        1        122      5       1843\n2     ###0#      1        2770          2770        1         94      5       3421\nThis model expresses: “Not bit 4”"
+    "text": "Did you guess right?\n&gt; demo_params &lt;- RLCS_hyperparameters(n_epochs = 280, deletion_trigger = 40, deletion_threshold = 0.9)\n&gt; rlcs_model1 &lt;- rlcs_train_sl(demo_env1, demo_params, NULL, F)\n[1] \"Epoch: 40 Progress Exposure: 1280 Classifiers Count: 14\"\n[1] \"Epoch: 80 Progress Exposure: 2560 Classifiers Count: 8\"\n[1] \"Epoch: 120 Progress Exposure: 3840 Classifiers Count: 2\"\n[1] \"Epoch: 160 Progress Exposure: 5120 Classifiers Count: 2\"\n[1] \"Epoch: 200 Progress Exposure: 6400 Classifiers Count: 2\"\n[1] \"Epoch: 240 Progress Exposure: 7680 Classifiers Count: 2\"\n[1] \"Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2\"\n\n\n&gt; print(rlcs_model1)\n  condition action match_count correct_count accuracy numerosity reward first_seen\n1     ###1#      0        3560          3560        1        122      5       1843\n2     ###0#      1        2770          2770        1         94      5       3421\nThis model expresses: “Not bit 4”"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#the-model-the-ternary-alphabet",
@@ -2937,7 +2937,7 @@
     "href": "others/RLCS_documentation_15.html#the-input",
     "title": "RLCS: A (shorter) Introduction",
     "section": "The input",
-    "text": "The input\nBefore we continue:\nNeural Networks accept numerical vectors for inputs.\nOther algorithms accept factors, or mixed-input.\nWell…\n. . .\nThe RLCS package (specific/current implementation) expects binary strings for its input."
+    "text": "The input\nBefore we continue:\nNeural Networks accept numerical vectors for inputs.\nOther algorithms accept factors, or mixed-input.\nWell…\n\nThe RLCS package (specific/current implementation) expects binary strings for its input."
   },
   {
     "objectID": "others/RLCS_documentation_15.html#the-input-binary-encoding",
@@ -2958,7 +2958,7 @@
     "href": "others/RLCS_documentation_15.html#binary-input-example",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Binary input: Example",
-    "text": "Binary input: Example\n\n\n\nRosetta Stone “binning” for numerical variables (2 bits explanation)"
+    "text": "Binary input: Example\n\nRosetta Stone “binning” for numerical variables (2 bits explanation)"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#binary-input-example-1",
@@ -2972,7 +2972,7 @@
     "href": "others/RLCS_documentation_15.html#download-and-install-rlcs",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Download and install RLCS",
-    "text": "Download and install RLCS\nhttps://github.com/kaizen-R/RLCS\n\nTo get the package from GitHub:\nlibrary(devtools)\ninstall_github(\"kaizen-R/RLCS\")\n. . .\nRun your first test\nlibrary(RLCS)\ndemo_params &lt;- RLCS_hyperparameters(n_epochs = 400, deletion_trigger = 40, deletion_threshold = 0.9)\ndemo_env2 &lt;- rlcs_example_secret2()\nprint(demo_env2, row.names = F)\nrlcs_model2 &lt;- rlcs_train_sl(demo_env2, demo_params, NULL, F)\nprint(rlcs_model2)\nplot(rlcs_model2)"
+    "text": "Download and install RLCS\nhttps://github.com/kaizen-R/RLCS\n\nTo get the package from GitHub:\nlibrary(devtools)\ninstall_github(\"kaizen-R/RLCS\")\n\nRun your first test\nlibrary(RLCS)\ndemo_params &lt;- RLCS_hyperparameters(n_epochs = 400, deletion_trigger = 40, deletion_threshold = 0.9)\ndemo_env2 &lt;- rlcs_example_secret2()\nprint(demo_env2, row.names = F)\nrlcs_model2 &lt;- rlcs_train_sl(demo_env2, demo_params, NULL, F)\nprint(rlcs_model2)\nplot(rlcs_model2)"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#run-your-first-tests-of-rlcs",
@@ -3000,7 +3000,7 @@
     "href": "others/RLCS_documentation_15.html#matching",
     "title": "RLCS: A (shorter) Introduction",
     "section": "2 - Matching",
-    "text": "2 - Matching\n\nWhen you see a new environment instance that does not match any rule in your population yet -&gt; generate a new rule.\n\n. . .\n\nIf one(+) rule(s) in your population matches your new instance state -&gt; increase the match count of the corresponding classifier.\nIf one(+) rule(s) in your population matches your new instance state && class/action –&gt; increase the correct count.\n\n\nincluding their corresponding actions"
+    "text": "2 - Matching\n\nWhen you see a new environment instance that does not match any rule in your population yet -&gt; generate a new rule.\n\n\n\nIf one(+) rule(s) in your population matches your new instance state -&gt; increase the match count of the corresponding classifier.\nIf one(+) rule(s) in your population matches your new instance state && class/action –&gt; increase the correct count.\n\n\nincluding their corresponding actions"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#rule-discovery",
@@ -3035,7 +3035,7 @@
     "href": "others/RLCS_documentation_15.html#prediction",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Prediction",
-    "text": "Prediction\nImagine a new sample/instance, never seen before. (Test environment)\nPrediction is about returning the match set for that new instance.\nRLCS::get_match_set(sample_state, population_of_classifiers)\n. . .\nThe prediction will be the majority (possibly weighted by numerosity, accuracy…) of the proposed class/action. That’s it! It also means, this is natively an ensemble learning algorithm."
+    "text": "Prediction\nImagine a new sample/instance, never seen before. (Test environment)\nPrediction is about returning the match set for that new instance.\nRLCS::get_match_set(sample_state, population_of_classifiers)\n\nThe prediction will be the majority (possibly weighted by numerosity, accuracy…) of the proposed class/action. That’s it! It also means, this is natively an ensemble learning algorithm."
   },
   {
     "objectID": "others/RLCS_documentation_15.html#other-uses",
@@ -3056,14 +3056,14 @@
     "href": "others/RLCS_documentation_15.html#iris-1",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Iris",
-    "text": "Iris\n\n\n\nvisualizing one classifier - iris"
+    "text": "Iris\n\nvisualizing one classifier - iris"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#images-classifier",
     "href": "others/RLCS_documentation_15.html#images-classifier",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Images Classifier",
-    "text": "Images Classifier\n[1] \"Accuracy: 0.98\"\n&gt; table(test_mnist_bin01_49b[, c(\"class\", \"predicted\")])\n     predicted\nclass    0    1 rlcs_no_match\n    0 1716   65             5\n    1    5 2008             0\n&gt;\n&gt; ## Training time on 800 samples:\n&gt; print(t_end - t_start)\nTime difference of 1.937979 mins\n. . .\n!! Magic Trick: Parallelism: By splitting training data, and then consolidating sub-models! (Take that, Neural network :D)"
+    "text": "Images Classifier\n[1] \"Accuracy: 0.98\"\n&gt; table(test_mnist_bin01_49b[, c(\"class\", \"predicted\")])\n     predicted\nclass    0    1 rlcs_no_match\n    0 1716   65             5\n    1    5 2008             0\n&gt;\n&gt; ## Training time on 800 samples:\n&gt; print(t_end - t_start)\nTime difference of 1.937979 mins\n\n!! Magic Trick: Parallelism: By splitting training data, and then consolidating sub-models! (Take that, Neural network :D)"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#images-classifier-1",
