@@ -167,10 +167,10 @@ ul.task-list li input[type="checkbox"] {
 <p>The S-Expression mixed with LCS, I didn’t invent either, that comes from a video by Dr.&nbsp;Will Browne (see references).</p>
 <p>Before I put these two things together, I basically had an idea aligned with this approach:</p>
 <p><a href="https://www.kaggle.com/code/michaelhodel/program-synthesis-starter-notebook" class="uri">https://www.kaggle.com/code/michaelhodel/program-synthesis-starter-notebook</a></p>
-<p>But that’s only part of it now. See, <strong>even if</strong> I were to code a huge list of priors like that, how would a program now how to combine these?</p>
+<p>But that’s only part of it now. See, <strong>even if</strong> I were to code a huge list of priors like that, how would a program know how to combine these?</p>
 <p>The basic DSL approach would be a <strong>brute-force</strong> attack. That <strong>wouldn’t scale</strong> and seems too… Simplistic. Basically because each “prior function” added to the list would mean checking all possible combinations again, but with one more dimension. Actually, it’s bad, because that’s exponential… Heck! What if priors application <strong>order</strong> is also relevant? And composition depth also definitely is relevant.</p>
 <p>So I need to be able to filter (cleverly) them, somehow.</p>
-<p>I am currently thinking about grouping: say bits dedicated for grid format, bits dedicated for color-related stuff, bits dedicated for shapes detection…</p>
+<p>Note: I am currently also thinking about grouping: say bits dedicated for grid format, bits dedicated for color-related stuff, bits dedicated for shapes detection…</p>
 <p>And then bits for combinations of the above, thinking here about “epistasis”. That, and what Dr.&nbsp;Browne calls “Code Fragments”.</p>
 <p>I won’t go into details here, as I still am not even clear on these anyway. Maybe some other time. But <strong>there is to me a clear relation between these ideas and the ARC AGI 1 challenge.</strong></p>
 <div class="quarto-figure quarto-figure-center">

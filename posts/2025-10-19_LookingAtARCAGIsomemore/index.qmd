@@ -33,13 +33,13 @@ Before I put these two things together, I basically had an idea aligned with thi
 
 <https://www.kaggle.com/code/michaelhodel/program-synthesis-starter-notebook>
 
-But that's only part of it now. See, **even if** I were to code a huge list of priors like that, how would a program now how to combine these?
+But that's only part of it now. See, **even if** I were to code a huge list of priors like that, how would a program know how to combine these?
 
 The basic DSL approach would be a **brute-force** attack. That **wouldn't scale** and seems too... Simplistic. Basically because each "prior function" added to the list would mean checking all possible combinations again, but with one more dimension. Actually, it's bad, because that's exponential... Heck! What if priors application **order** is also relevant? And composition depth also definitely is relevant.
 
 So I need to be able to filter (cleverly) them, somehow.
 
-I am currently thinking about grouping: say bits dedicated for grid format, bits dedicated for color-related stuff, bits dedicated for shapes detection...
+Note: I am currently also thinking about grouping: say bits dedicated for grid format, bits dedicated for color-related stuff, bits dedicated for shapes detection...
 
 And then bits for combinations of the above, thinking here about "epistasis". That, and what Dr. Browne calls "Code Fragments".
 
