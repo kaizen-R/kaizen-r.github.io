@@ -81,6 +81,8 @@ And conceptually, I would have implemented right there a **sort of compounded LC
 
 Then if I encoded each "sub-LCS" as one unique problem solution... Could I then test multiple-level such combinations, choosing each encoded unique sub-problem (that can be a binary string, right there...)?
 
+Oh! **One more thing! So to choose a combination of priors for any one given example, I should of course consider some error distance.** That's kind of obvious, sure, but still!
+
 **That's where I'm at right now.**
 
 ## Conclusions
