@@ -1,0 +1,46 @@
+---
+title: "Minor Bugs in RLCS, Visuals for ARCAGI1"
+author: "Nico"
+date: "2025-10-25"
+categories: [RLCS, ARCAGI1]
+---
+
+## Just another Saturday
+
+Alright, two things for today.
+
+## Minor RLCS update
+
+The RLCS presentation of November is coming up, and to be honest I am worried about the time limit. I'm trying hard to decide what to remove. While I was on that, I found an error in the Rosetta Stone function for the Iris demo. I then added another simple (not great) function to decode rules.
+
+Not great, but hinting at what can be done, and maybe the future versions of the Rosetta Stone functions could end up being solid. No matter. Good enough for now.
+
+## Visuals for ARC AGI 1
+
+I downloaded a couple of the ARC AGI 1 exercises (I need to look into crawling all of them, actually).
+
+But then, I need to visualize the exercises.
+
+So I just put together a couple of functions for that.
+
+![visualizing exercises examples](arcagi1_visu_ex1.png)
+
+Nothing major, but I will say I was having trouble with the image() function, so I'm moving to ggplot. Nicer looking anyway.
+
+![Maybe grid resizing need to be made more explicit](arcagi1_visu_ex2.png)
+
+## Miscellaneous
+
+In the Cybersecurity Market, there are interesting conceptual things to think about. There are things happening in IT, Cybersecurity, etc. that are not perfectly solved. The whole prompt injection/MCP/AI browsers, etc. It's a mess (from my perspective).
+
+And it's taking a bit of my thinking time, but as I say: Interesting.
+
+## Conclusions
+
+Not much today.
+
+The hardest part of a presentation is apparently to make it as short as possible. And while at it, I should look into making it somewhat entertaining, too.
+
+As for the ARCAGI1, it is still just a nice and interesting thought exercise. Nothing more for now, really, as I have made zero progress towards an actual approach. In the GEB, D. Hofstadter discusses the Bongard sets and I reviewed the corresponding section of the book this week. It turns out, my approach to the project (well, the way I'm thinking I want to approach it) is mostly aligned with that described in the book. But aside from a few notes, yes: Zero progress.
+
+And I need to keep thinking about some stuff.
