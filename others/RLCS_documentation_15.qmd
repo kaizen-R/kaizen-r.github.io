@@ -19,17 +19,29 @@ execute:
 
 Let's call it Machine Learning. As of today:
 
--   Mostly Neural networks
+-   Mostly Neural networks, DNN, and that's all **black boxes**
 
--   And mostly, that means it's all **black boxes**
+There are [ways around that](https://a.co/d/ba1J0oh "Interpretable Machine Learning: A Guide For Making Black Box Models Explainable").
 
-There are [ways around that](https://a.co/d/ba1J0oh "Interpretable Machine Learning: A Guide For Making Black Box Models Explainable"). (e.g. *Trees* and other "open book" algorithms...)
+## An issue with "AI": explainability
 
-<br/>[John H. Holland proposed an algorithm with the Cognitive System One](https://en.wikipedia.org/wiki/Learning_classifier_system#Early_years) program (1976). Later, people came up with variations... Today we focus on [Michigan-style LCS](https://en.wikipedia.org/wiki/Learning_classifier_system#Michigan-Style_Learning_Classifier_System).
+**Interpretability/Explainability:**
+
+-   Interpretable Models: Trees, LM/GLM, KNN, and **rule-based**
+
+-   Global Model-Agnostic Methods: Partial Dependence Plot (PDP), Accumulated Local Effects (ALE), H-Statistic, Surrogate Models...
+
+-   Local Model-Agnostic Methods: Counterfactuals, Local Surrogate Model (LIME), Shapley Value, Shapley Additive exPlanation (SHAP)...
+
+-   Model-specific Methods (...)
+
+Recommended reading: [Molnar C. (2022) "Interpretable Machine Learning"](https://a.co/d/ba1J0oh)
 
 ## A new R package
 
 ![](images/books.jpeg){fig-align="center" width="500"}
+
+<br/>[John H. Holland proposed an algorithm with the Cognitive System One](https://en.wikipedia.org/wiki/Learning_classifier_system#Early_years) program (1976). Later, people came up with variations... Today we focus on [Michigan-style LCS](https://en.wikipedia.org/wiki/Learning_classifier_system#Michigan-Style_Learning_Classifier_System).
 
 # A preview
 
@@ -64,16 +76,13 @@ A **Data Mining** Exercise with RLCS
 > rlcs_model1 <- rlcs_train_sl(demo_env1, demo_params, NULL, F)
 [1] "Epoch: 40 Progress Exposure: 1280 Classifiers Count: 14"
 [1] "Epoch: 80 Progress Exposure: 2560 Classifiers Count: 8"
-[1] "Epoch: 120 Progress Exposure: 3840 Classifiers Count: 2"
-[1] "Epoch: 160 Progress Exposure: 5120 Classifiers Count: 2"
-[1] "Epoch: 200 Progress Exposure: 6400 Classifiers Count: 2"
-[1] "Epoch: 240 Progress Exposure: 7680 Classifiers Count: 2"
+(...)
 [1] "Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2"
 ```
 
 . . .
 
-<br/>
+<br/> Condition/Action is the rule (the rest are quality metrics)
 
 ``` r
 > print(rlcs_model1)
@@ -82,7 +91,7 @@ A **Data Mining** Exercise with RLCS
 2     ###0#      1        2770          2770        1         94      5       3421
 ```
 
-This model expresses: "Not bit 4"
+This model expresses: "Action/Class is Not bit 4"
 
 ## Learning rules as model(s)
 
@@ -131,49 +140,17 @@ print(rlcs_model2)
 plot(rlcs_model2)
 ```
 
-# Learning Classifier System: Algorithm Key Concepts
+# LCS: Algorithm Key Concepts
 
 ## Keywords
 
 ![](images/LCS_Keywords.png)
 
-## The input
-
-**Before we continue:**
-
-Neural Networks accept numerical vectors for inputs.
-
-Other algorithms accept factors, or mixed-input.
-
-Well...
-
-. . .
-
-<br/>The RLCS package (**specific**/current implementation) expects **binary strings** for its input.
-
 ## Binary input: Example
+
+Neural Networks accept numerical input. **RLCS accepts Binary strings.**
 
 ![Rosetta Stone "binning" for numerical variables (2 bits explanation)](images/demo_encoding_two_bits.jpg)
-
-## Binary input: Example
-
-Rosetta Stone: 16 values, 4-bits, "double-quartiles" w/ Gray-binary encoding, per variable:
-
-``` r
-> head(iris, n=3)
-  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-1          5.1         3.5          1.4         0.2  setosa
-2          4.9         3.0          1.4         0.2  setosa
-3          4.7         3.2          1.3         0.2  setosa
-> rlcs_iris <- rlcs_rosetta_stone(iris, class_col=5) ## NOT part of LCS
-> head(rlcs_iris$model, n=3)
-  rlcs_Sepal.Length rlcs_Sepal.Width rlcs_Petal.Length rlcs_Petal.Width  class            state
-1              0010             1111              0011             0010 setosa 0010111100110010
-2              0011             0101              0011             0010 setosa 0011010100110010
-3              0000             1101              0000             0010 setosa 0000110100000010
-```
-
-*Note: with some data loss :S*
 
 ## Generating a rule
 
@@ -198,7 +175,7 @@ You receive an **instance of the environment** (a binary string **state** and a 
 The class here is defined already.
 :::
 
-## 2 - Matching
+## Matching
 
 -   When you see a new environment **instance** that **does not match any rule** in your population yet -\> generate a **new rule.**
 
@@ -232,16 +209,26 @@ RLCS::get_match_set(sample_state, population_of_classifiers)
 
 . . .
 
-<br/>The **prediction** will be the **majority** (possibly weighted by numerosity, accuracy...) of the **proposed class**/action. **That's it!** It also means, this is natively an **ensemble learning** algorithm.
+<br/>The **prediction** will be the **majority** (possibly *weighted* by numerosity, accuracy...) of the **proposed class**/action. **That's it!** It also means, this is natively an **ensemble learning** algorithm.
 
-# Demo Time
+# What can RLCS do?
 
-## Iris
+## Data Mining
+
+<br/>
+
+We've seen simple examples. A few more are included with the package, have a look at the demos.
+
+## Supervised Learning: Iris {.smaller}
+
+::: {layout="[[1,1]]"}
+![Iris Setosa (https://commons.wikimedia.org/w/index.php?curid=57593826)](images/960px-Irissetosa1.jpg){width="267"}
+
+![Iris Sample Dataset](images/iris_plot.png){width="241"}
+:::
 
 ``` r
-> print(t_end - t_start) ## Training Runtime.
-Time difference of 13.13619 secs
-> table(test_environment[, c("class", "predicted")])
+Time difference of 13.13619 secs ## Training Runtime.
             predicted
 class        setosa versicolor virginica
   setosa         13          0         0
@@ -249,11 +236,11 @@ class        setosa versicolor virginica
   virginica       0          0         9
 ```
 
-## Iris
+## Supervised Learning: Iris {.smaller}
 
 ![visualizing one classifier - iris](images/iris_one_classifier.png){fig-align="center"}
 
-## Images Classifier
+## Supervised Learning: Images Classifier
 
 ``` r
 [1] "Accuracy: 0.98"
@@ -270,27 +257,33 @@ Time difference of 1.937979 mins
 
 . . .
 
+<br/>
+
 **!! Magic Trick:** Parallelism: By splitting training data, and then consolidating sub-models! (Take that, Neural network :D)
 
-## Images Classifier
+## Supervised Learning: Images Classifier
 
 ![](images/mnist_example_visu_explained.jpg){fig-align="center"}
 
-## RL, TOO!
+## Reinforcement Learning, TOO!
 
-![](images/RL_Board.jpg){fig-align="center"}
+This example is in fact not learning probability distributions. And it uses reward-shaping. But it works!
 
+::: {layout="[[1,1], [1]]"}
 {{< video videos/RL_RLCS_WORLD1_V001.mp4 title="Reinforcement Learning using LCS in R, first results" width="250" height="175">}}
 
 {{< video videos/RL_progress_stats.mp4 title="Actual learning..." width="250" height="175">}}
 
+![](images/RL_Board.jpg){fig-align="center" width="406"}
+:::
+
 ## Then again
 
-<br/>This is all **work in progress**.
+<br/>**Hyperparameters tuning** is not easy, and impacts **performance**.
 
-<br/>I plan to **try and make it into a CRAN Package**.
+<br/>This is all **work in progress**. I plan to try and make it into a **CRAN Package**. (So: document more, write more tests, reorganize functions...)
 
-So: document more, write more tests, reorganize functions...
+<br/>And keep working on parallel processing, help with encoding/decoding, etc.
 
 # More Resources
 
