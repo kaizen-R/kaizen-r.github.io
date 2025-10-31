@@ -17,25 +17,25 @@ execute:
 
 ## An issue with "AI": explainability
 
-Let's call it Machine Learning. As of today:
+<br/>Let's call it Machine Learning. As of today:
 
 -   Mostly Neural networks, DNN, and that's all **black boxes**
 
 There are [ways around that](https://a.co/d/ba1J0oh "Interpretable Machine Learning: A Guide For Making Black Box Models Explainable").
 
-## An issue with "AI": explainability
+## An issue with "AI": explainability {.smaller}
 
-**Interpretability/Explainability:**
+<br/>**Interpretability/Explainability:**
 
--   Interpretable Models: Trees, LM/GLM, KNN, and **rule-based**
+-   **Model-specific** Methods (...)
 
--   Global Model-Agnostic Methods: Partial Dependence Plot (PDP), Accumulated Local Effects (ALE), H-Statistic, Surrogate Models...
+-   **Local Model-Agnostic** Methods: Counterfactuals, Local Surrogate Model (LIME), Shapley Value, Shapley Additive exPlanation (SHAP)...
 
--   Local Model-Agnostic Methods: Counterfactuals, Local Surrogate Model (LIME), Shapley Value, Shapley Additive exPlanation (SHAP)...
+-   **Global Model-Agnostic** Methods: Partial Dependence Plot (PDP), Accumulated Local Effects (ALE), H-Statistic, Surrogate Models...
 
--   Model-specific Methods (...)
+-   **Interpretable Models**: Trees, LM/GLM, KNN, and **rule-based**
 
-Recommended reading: [Molnar C. (2022) "Interpretable Machine Learning"](https://a.co/d/ba1J0oh)
+<br/>Recommended reading: [Molnar C. (2022) "Interpretable Machine Learning"](https://a.co/d/ba1J0oh)
 
 ## A new R package
 
@@ -140,17 +140,17 @@ print(rlcs_model2)
 plot(rlcs_model2)
 ```
 
+## Binary input: Example
+
+Neural Networks accept numerical input. **Currently, RLCS accepts Binary strings.**
+
+![Rosetta Stone "binning" for numerical variables (2 bits explanation)](images/demo_encoding_two_bits.jpg)
+
 # LCS: Algorithm Key Concepts
 
 ## Keywords
 
 ![](images/LCS_Keywords.png)
-
-## Binary input: Example
-
-Neural Networks accept numerical input. **RLCS accepts Binary strings.**
-
-![Rosetta Stone "binning" for numerical variables (2 bits explanation)](images/demo_encoding_two_bits.jpg)
 
 ## Generating a rule
 
@@ -158,7 +158,7 @@ Neural Networks accept numerical input. **RLCS accepts Binary strings.**
 
 > **The key: "\#" means "I don't care"**
 
-**Covering** a state with a **probability** of "**\#**" values means making a **rule** that **matches** the input state and class/action.
+<br/>**Covering** a state with a **probability** of "**\#**" values means making a **rule** that **matches** the input state and class/action.
 
 Something that **could** match other (partially) similar input:
 
@@ -265,7 +265,7 @@ Time difference of 1.937979 mins
 
 ![](images/mnist_example_visu_explained.jpg){fig-align="center"}
 
-## Reinforcement Learning, TOO!
+## Reinforcement Learning, TOO! {.smaller}
 
 This example is in fact not learning probability distributions. And it uses reward-shaping. But it works!
 
@@ -279,15 +279,15 @@ This example is in fact not learning probability distributions. And it uses rewa
 
 ## Then again
 
-<br/>**Hyperparameters tuning** is not easy, and impacts **performance**.
+<br/>**Hyperparameters tuning** is not easy, and impacts **performance**. **Large Populations** of rules are in fact hard to interpret, in spite of being readable.
 
-<br/>This is all **work in progress**. I plan to try and make it into a **CRAN Package**. (So: document more, write more tests, reorganize functions...)
-
-<br/>And keep working on parallel processing, help with encoding/decoding, etc.
+<br/>This is all **work in progress**. I plan to try and make it into a **CRAN Package**. (So: document more, write more tests, reorganize functions...) I will keep working on **better mechanics** (fitness sharing, deletion, etc.), **parallel processing**, help with **encoding**/decoding, etc.
 
 # More Resources
 
 -   [THE BEST INTRO to the LCS Algorithm out-there (hands down!)](https://youtu.be/CRge_cZ2cJc?feature=shared) (12' video)
+
+-   [Wikipedia on LCS](https://en.wikipedia.org/wiki/Learning_classifier_system)
 
 -   [Advanced R is ALWAYS great](https://adv-r.hadley.nz/function-factories.html)
 

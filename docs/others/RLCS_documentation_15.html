@@ -204,22 +204,22 @@
 </section>
 <section id="an-issue-with-ai-explainability" class="slide level2">
 <h2>An issue with “AI”: explainability</h2>
-<p>Let’s call it Machine Learning. As of today:</p>
+<p><br>Let’s call it Machine Learning. As of today:</p>
 <ul>
 <li>Mostly Neural networks, DNN, and that’s all <strong>black boxes</strong></li>
 </ul>
 <p>There are <a href="https://a.co/d/ba1J0oh" title="Interpretable Machine Learning: A Guide For Making Black Box Models Explainable">ways around that</a>.</p>
 </section>
-<section id="an-issue-with-ai-explainability-1" class="slide level2">
+<section id="an-issue-with-ai-explainability-1" class="slide level2 smaller">
 <h2>An issue with “AI”: explainability</h2>
-<p><strong>Interpretability/Explainability:</strong></p>
+<p><br><strong>Interpretability/Explainability:</strong></p>
 <ul>
-<li><p>Interpretable Models: Trees, LM/GLM, KNN, and <strong>rule-based</strong></p></li>
-<li><p>Global Model-Agnostic Methods: Partial Dependence Plot (PDP), Accumulated Local Effects (ALE), H-Statistic, Surrogate Models…</p></li>
-<li><p>Local Model-Agnostic Methods: Counterfactuals, Local Surrogate Model (LIME), Shapley Value, Shapley Additive exPlanation (SHAP)…</p></li>
-<li><p>Model-specific Methods (…)</p></li>
+<li><p><strong>Model-specific</strong> Methods (…)</p></li>
+<li><p><strong>Local Model-Agnostic</strong> Methods: Counterfactuals, Local Surrogate Model (LIME), Shapley Value, Shapley Additive exPlanation (SHAP)…</p></li>
+<li><p><strong>Global Model-Agnostic</strong> Methods: Partial Dependence Plot (PDP), Accumulated Local Effects (ALE), H-Statistic, Surrogate Models…</p></li>
+<li><p><strong>Interpretable Models</strong>: Trees, LM/GLM, KNN, and <strong>rule-based</strong></p></li>
 </ul>
-<p>Recommended reading: <a href="https://a.co/d/ba1J0oh">Molnar C. (2022) “Interpretable Machine Learning”</a></p>
+<p><br>Recommended reading: <a href="https://a.co/d/ba1J0oh">Molnar C. (2022) “Interpretable Machine Learning”</a></p>
 </section>
 <section id="a-new-r-package" class="slide level2">
 <h2>A new R package</h2>
@@ -307,7 +307,12 @@
 <span id="cb5-6"><a></a><span class="fu">print</span>(rlcs_model2)</span>
 <span id="cb5-7"><a></a><span class="fu">plot</span>(rlcs_model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section>
+</section>
+<section id="binary-input-example" class="slide level2">
+<h2>Binary input: Example</h2>
+<p>Neural Networks accept numerical input. <strong>Currently, RLCS accepts Binary strings.</strong></p>
+
+<img data-src="images/demo_encoding_two_bits.jpg" class="r-stretch quarto-figure-center"><p class="caption">Rosetta Stone “binning” for numerical variables (2 bits explanation)</p></section></section>
 <section>
 <section id="lcs-algorithm-key-concepts" class="title-slide slide level1 center">
 <h1>LCS: Algorithm Key Concepts</h1>
@@ -317,18 +322,13 @@
 <h2>Keywords</h2>
 
 <img data-src="images/LCS_Keywords.png" class="r-stretch"></section>
-<section id="binary-input-example" class="slide level2">
-<h2>Binary input: Example</h2>
-<p>Neural Networks accept numerical input. <strong>RLCS accepts Binary strings.</strong></p>
-
-<img data-src="images/demo_encoding_two_bits.jpg" class="r-stretch quarto-figure-center"><p class="caption">Rosetta Stone “binning” for numerical variables (2 bits explanation)</p></section>
 <section id="generating-a-rule" class="slide level2">
 <h2>Generating a rule</h2>
 <p><br></p>
 <blockquote>
 <p><strong>The key: “#” means “I don’t care”</strong></p>
 </blockquote>
-<p><strong>Covering</strong> a state with a <strong>probability</strong> of “<strong>#</strong>” values means making a <strong>rule</strong> that <strong>matches</strong> the input state and class/action.</p>
+<p><br><strong>Covering</strong> a state with a <strong>probability</strong> of “<strong>#</strong>” values means making a <strong>rule</strong> that <strong>matches</strong> the input state and class/action.</p>
 <p>Something that <strong>could</strong> match other (partially) similar input:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="sc">&gt;</span> <span class="fu">generate_cover_rule_for_unmatched_instance</span>(<span class="st">'010001'</span>, <span class="fl">0.2</span>)</span>
 <span id="cb6-2"><a></a>[<span class="dv">1</span>] <span class="st">"0#0001"</span></span>
@@ -455,7 +455,7 @@
 <h2>Supervised Learning: Images Classifier</h2>
 
 <img data-src="images/mnist_example_visu_explained.jpg" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="reinforcement-learning-too" class="slide level2">
+<section id="reinforcement-learning-too" class="slide level2 smaller">
 <h2>Reinforcement Learning, TOO!</h2>
 <p>This example is in fact not learning probability distributions. And it uses reward-shaping. But it works!</p>
 <div>
@@ -483,14 +483,14 @@
 </section>
 <section id="then-again" class="slide level2">
 <h2>Then again</h2>
-<p><br><strong>Hyperparameters tuning</strong> is not easy, and impacts <strong>performance</strong>.</p>
-<p><br>This is all <strong>work in progress</strong>. I plan to try and make it into a <strong>CRAN Package</strong>. (So: document more, write more tests, reorganize functions…)</p>
-<p><br>And keep working on parallel processing, help with encoding/decoding, etc.</p>
+<p><br><strong>Hyperparameters tuning</strong> is not easy, and impacts <strong>performance</strong>. <strong>Large Populations</strong> of rules are in fact hard to interpret, in spite of being readable.</p>
+<p><br>This is all <strong>work in progress</strong>. I plan to try and make it into a <strong>CRAN Package</strong>. (So: document more, write more tests, reorganize functions…) I will keep working on <strong>better mechanics</strong> (fitness sharing, deletion, etc.), <strong>parallel processing</strong>, help with <strong>encoding</strong>/decoding, etc.</p>
 </section></section>
 <section id="more-resources" class="title-slide slide level1 center">
 <h1>More Resources</h1>
 <ul>
 <li><p><a href="https://youtu.be/CRge_cZ2cJc?feature=shared">THE BEST INTRO to the LCS Algorithm out-there (hands down!)</a> (12’ video)</p></li>
+<li><p><a href="https://en.wikipedia.org/wiki/Learning_classifier_system">Wikipedia on LCS</a></p></li>
 <li><p><a href="https://adv-r.hadley.nz/function-factories.html">Advanced R is ALWAYS great</a></p></li>
 </ul>
 </section>

@@ -2958,7 +2958,7 @@
     "href": "others/RLCS_documentation_15.html#binary-input-example",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Binary input: Example",
-    "text": "Binary input: Example\nNeural Networks accept numerical input. RLCS accepts Binary strings.\n\nRosetta Stone “binning” for numerical variables (2 bits explanation)"
+    "text": "Binary input: Example\nNeural Networks accept numerical input. Currently, RLCS accepts Binary strings.\n\nRosetta Stone “binning” for numerical variables (2 bits explanation)"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#binary-input-example-1",
@@ -3168,7 +3168,7 @@
     "href": "others/RLCS_documentation_15.html#then-again",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Then again",
-    "text": "Then again\nHyperparameters tuning is not easy, and impacts performance.\nThis is all work in progress. I plan to try and make it into a CRAN Package. (So: document more, write more tests, reorganize functions…)\nAnd keep working on parallel processing, help with encoding/decoding, etc."
+    "text": "Then again\nHyperparameters tuning is not easy, and impacts performance. Large Populations of rules are in fact hard to interpret, in spite of being readable.\nThis is all work in progress. I plan to try and make it into a CRAN Package. (So: document more, write more tests, reorganize functions…) I will keep working on better mechanics (fitness sharing, deletion, etc.), parallel processing, help with encoding/decoding, etc."
   },
   {
     "objectID": "others/RLCS_documentation_15.html#why-nobody-has-done-it-yet",
@@ -3343,7 +3343,7 @@
     "href": "others/RLCS_documentation_15.html#an-issue-with-ai-explainability-1",
     "title": "RLCS: A (shorter) Introduction",
     "section": "An issue with “AI”: explainability",
-    "text": "An issue with “AI”: explainability\nInterpretability/Explainability:\n\nInterpretable Models: Trees, LM/GLM, KNN, and rule-based\nGlobal Model-Agnostic Methods: Partial Dependence Plot (PDP), Accumulated Local Effects (ALE), H-Statistic, Surrogate Models…\nLocal Model-Agnostic Methods: Counterfactuals, Local Surrogate Model (LIME), Shapley Value, Shapley Additive exPlanation (SHAP)…\nModel-specific Methods (…)\n\nRecommended reading: Molnar C. (2022) “Interpretable Machine Learning”"
+    "text": "An issue with “AI”: explainability\nInterpretability/Explainability:\n\nModel-specific Methods (…)\nLocal Model-Agnostic Methods: Counterfactuals, Local Surrogate Model (LIME), Shapley Value, Shapley Additive exPlanation (SHAP)…\nGlobal Model-Agnostic Methods: Partial Dependence Plot (PDP), Accumulated Local Effects (ALE), H-Statistic, Surrogate Models…\nInterpretable Models: Trees, LM/GLM, KNN, and rule-based\n\nRecommended reading: Molnar C. (2022) “Interpretable Machine Learning”"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#supervised-learning-iris",
