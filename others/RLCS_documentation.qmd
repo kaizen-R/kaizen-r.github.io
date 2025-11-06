@@ -226,11 +226,13 @@ plot(rlcs_model2)
 
 # Key concepts
 
-## 1 - Generating a rule
+## 1 - Covering
+
+<br/>
 
 > **The key: "\#" means "I don't care"**
 
-**Covering** a state with a **probability** of "**\#**" values means making a **rule** that **matches** the input state and class/action.
+<br/>**Covering** a state with a **probability** of "**\#**" values means making a **rule** that **matches** the input state and class/action.
 
 Something that **could** match other (partially) similar input:
 
@@ -241,11 +243,9 @@ Something that **could** match other (partially) similar input:
 [1] "##0###"
 ```
 
-::: notes
 You receive an **instance of the environment** (a binary string **state** and a **class**).
 
 The class here is defined already.
-:::
 
 ## 2 - Matching
 
@@ -257,9 +257,7 @@ The class here is defined already.
 
 -   If one(+) rule(s) in your population matches your new instance **state && class/action** –\> increase the **correct count.**
 
-::: notes
 including their corresponding actions
-:::
 
 ## 3 - Rule Discovery
 
@@ -307,8 +305,6 @@ $$e.g. 1.000 * 5.000 * 1.000 = 5.000.000.000$$
 
 Imagine a new sample/instance, never seen before. (Test environment)
 
-. . .
-
 Prediction is about **returning the match set** for that new instance.
 
 ``` r
@@ -317,9 +313,7 @@ RLCS::get_match_set(sample_state, population_of_classifiers)
 
 . . .
 
-<br/>The **prediction** will be the **majority** (possibly weighted by numerosity, accuracy...) of the **proposed class**/action. **That's it!**
-
-It also means, this is natively an **ensemble learning** algorithm.
+<br/>The **prediction** will be the **majority** (possibly *weighted* by numerosity, accuracy...) of the **proposed class**/action. **That's it!** It also means, this is natively an **ensemble learning** algorithm.
 
 ## 6 - Other uses!
 
@@ -335,12 +329,16 @@ All with the same algorithm!
 
 # Demo Time
 
-## Iris
+## Supervised Learning: Iris
+
+::: {layout="[[1,1]]"}
+![Iris Setosa (https://commons.wikimedia.org/w/index.php?curid=57593826)](images/960px-Irissetosa1.jpg){width="267"}
+
+![Iris Sample Dataset](images/iris_plot.png){width="241"}
+:::
 
 ``` r
-> print(t_end - t_start) ## Training Runtime.
-Time difference of 13.13619 secs
-> table(test_environment[, c("class", "predicted")])
+Time difference of 13.13619 secs ## Training Runtime.
             predicted
 class        setosa versicolor virginica
   setosa         13          0         0
@@ -348,11 +346,11 @@ class        setosa versicolor virginica
   virginica       0          0         9
 ```
 
-## Iris
+## Supervised Learning: Iris {.smaller}
 
 ![visualizing one classifier - iris](images/iris_one_classifier.png){fig-align="center"}
 
-## Images Classifier
+## Supervised Learning: Images Classifier
 
 ``` r
 [1] "Accuracy: 0.98"
@@ -367,11 +365,17 @@ class    0    1 rlcs_no_match
 Time difference of 1.937979 mins
 ```
 
-## Images Classifier
+. . .
+
+<br/>
+
+**!! Magic Trick:** Parallelism: By splitting training data, and then consolidating sub-models! (Take that, Neural network :D)
+
+## Supervised Learning: Images Classifier
 
 ![](images/mnist_example_visu_explained.jpg){fig-align="center"}
 
-## Data Mining
+## Data Mining {.smaller}
 
 Given that the rules are "expressive", sometimes you can **ask the LCS to find rules that appear in your data:**
 
@@ -416,7 +420,7 @@ LCS can somehow recognize how **two different parts interact**. Aptly... The [te
 
 A package to implement a simple version of the Learning Classifier System algorithm:
 
--   Binary Alphabet, tournament/one-point crossover GA, accuracy based, Michigan-style LCS
+-   Binary Alphabet, tournament/one-point crossover GA with mutation, accuracy based, Michigan-style LCS
 
 -   With examples, demonstrating the implementation for:
 
@@ -467,7 +471,7 @@ After, using an object ([reference class, "R5"](http://adv-r.had.co.nz/R5.html),
 
 ``` r
 default_lcs_hyperparameters <- RLCS_hyperparameters()
-example_lcs <- rlcs_train(train_environment, default_lcs_hyperparameters)
+example_lcs <- rlcs_train_sl(train_environment, default_lcs_hyperparameters)
 ```
 
 ## Examples

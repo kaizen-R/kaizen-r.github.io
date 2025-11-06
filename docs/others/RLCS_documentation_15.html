@@ -314,81 +314,6 @@
 
 <img data-src="images/demo_encoding_two_bits.jpg" class="r-stretch quarto-figure-center"><p class="caption">Rosetta Stone “binning” for numerical variables (2 bits explanation)</p></section></section>
 <section>
-<section id="lcs-algorithm-key-concepts" class="title-slide slide level1 center">
-<h1>LCS: Algorithm Key Concepts</h1>
-
-</section>
-<section id="keywords" class="slide level2">
-<h2>Keywords</h2>
-
-<img data-src="images/LCS_Keywords.png" class="r-stretch"></section>
-<section id="generating-a-rule" class="slide level2">
-<h2>Generating a rule</h2>
-<p><br></p>
-<blockquote>
-<p><strong>The key: “#” means “I don’t care”</strong></p>
-</blockquote>
-<p><br><strong>Covering</strong> a state with a <strong>probability</strong> of “<strong>#</strong>” values means making a <strong>rule</strong> that <strong>matches</strong> the input state and class/action.</p>
-<p>Something that <strong>could</strong> match other (partially) similar input:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="sc">&gt;</span> <span class="fu">generate_cover_rule_for_unmatched_instance</span>(<span class="st">'010001'</span>, <span class="fl">0.2</span>)</span>
-<span id="cb6-2"><a></a>[<span class="dv">1</span>] <span class="st">"0#0001"</span></span>
-<span id="cb6-3"><a></a><span class="sc">&gt;</span> <span class="fu">generate_cover_rule_for_unmatched_instance</span>(<span class="st">'010001'</span>, <span class="fl">0.8</span>)</span>
-<span id="cb6-4"><a></a>[<span class="dv">1</span>] <span class="st">"##0###"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<aside class="notes">
-<p>You receive an <strong>instance of the environment</strong> (a binary string <strong>state</strong> and a <strong>class</strong>).</p>
-<p>The class here is defined already.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="matching" class="slide level2">
-<h2>Matching</h2>
-<ul>
-<li>When you see a new environment <strong>instance</strong> that <strong>does not match any rule</strong> in your population yet -&gt; generate a <strong>new rule.</strong></li>
-</ul>
-<div class="fragment">
-<ul>
-<li><p>If one(+) rule(s) in your population <strong>matches</strong> your new instance <strong>state</strong> -&gt; increase the <strong>match count of the corresponding classifier.</strong></p></li>
-<li><p>If one(+) rule(s) in your population matches your new instance <strong>state &amp;&amp; class/action</strong> –&gt; increase the <strong>correct count.</strong></p></li>
-</ul>
-<aside class="notes">
-<p>including their corresponding actions</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-</section>
-<section id="rule-discovery-ga" class="slide level2">
-<h2>Rule Discovery (GA)</h2>
-
-<img data-src="images/GA_Explained.png" class="r-stretch"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>mut_point <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">runif</span>(<span class="fu">nchar</span>(t_instance_state)) <span class="sc">&lt;</span> mut_prob)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="prediction" class="slide level2">
-<h2>Prediction</h2>
-<p>Imagine a new sample/instance, never seen before. (Test environment)</p>
-<p>Prediction is about <strong>returning the match set</strong> for that new instance.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>RLCS<span class="sc">::</span><span class="fu">get_match_set</span>(sample_state, population_of_classifiers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><br>The <strong>prediction</strong> will be the <strong>majority</strong> (possibly <em>weighted</em> by numerosity, accuracy…) of the <strong>proposed class</strong>/action. <strong>That’s it!</strong> It also means, this is natively an <strong>ensemble learning</strong> algorithm.</p>
-</div>
-</section></section>
-<section>
 <section id="what-can-rlcs-do" class="title-slide slide level1 center">
 <h1>What can RLCS do?</h1>
 
@@ -423,12 +348,12 @@
 </div>
 </div>
 </div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>Time difference of <span class="fl">13.13619</span> secs <span class="do">## Training Runtime.</span></span>
-<span id="cb9-2"><a></a>            predicted</span>
-<span id="cb9-3"><a></a>class        setosa versicolor virginica</span>
-<span id="cb9-4"><a></a>  setosa         <span class="dv">13</span>          <span class="dv">0</span>         <span class="dv">0</span></span>
-<span id="cb9-5"><a></a>  versicolor      <span class="dv">0</span>          <span class="dv">5</span>         <span class="dv">3</span></span>
-<span id="cb9-6"><a></a>  virginica       <span class="dv">0</span>          <span class="dv">0</span>         <span class="dv">9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>Time difference of <span class="fl">13.13619</span> secs <span class="do">## Training Runtime.</span></span>
+<span id="cb6-2"><a></a>            predicted</span>
+<span id="cb6-3"><a></a>class        setosa versicolor virginica</span>
+<span id="cb6-4"><a></a>  setosa         <span class="dv">13</span>          <span class="dv">0</span>         <span class="dv">0</span></span>
+<span id="cb6-5"><a></a>  versicolor      <span class="dv">0</span>          <span class="dv">5</span>         <span class="dv">3</span></span>
+<span id="cb6-6"><a></a>  virginica       <span class="dv">0</span>          <span class="dv">0</span>         <span class="dv">9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="supervised-learning-iris-1" class="slide level2 smaller">
 <h2>Supervised Learning: Iris</h2>
@@ -436,16 +361,16 @@
 <img data-src="images/iris_one_classifier.png" class="r-stretch quarto-figure-center"><p class="caption">visualizing one classifier - iris</p></section>
 <section id="supervised-learning-images-classifier" class="slide level2">
 <h2>Supervised Learning: Images Classifier</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>[<span class="dv">1</span>] <span class="st">"Accuracy: 0.98"</span></span>
-<span id="cb10-2"><a></a><span class="sc">&gt;</span> <span class="fu">table</span>(test_mnist_bin01_49b[, <span class="fu">c</span>(<span class="st">"class"</span>, <span class="st">"predicted"</span>)])</span>
-<span id="cb10-3"><a></a>     predicted</span>
-<span id="cb10-4"><a></a>class    <span class="dv">0</span>    <span class="dv">1</span> rlcs_no_match</span>
-<span id="cb10-5"><a></a>    <span class="dv">0</span> <span class="dv">1716</span>   <span class="dv">65</span>             <span class="dv">5</span></span>
-<span id="cb10-6"><a></a>    <span class="dv">1</span>    <span class="dv">5</span> <span class="dv">2008</span>             <span class="dv">0</span></span>
-<span id="cb10-7"><a></a><span class="sc">&gt;</span></span>
-<span id="cb10-8"><a></a><span class="er">&gt;</span> <span class="do">## Training time on 800 samples:</span></span>
-<span id="cb10-9"><a></a><span class="er">&gt;</span> <span class="fu">print</span>(t_end <span class="sc">-</span> t_start)</span>
-<span id="cb10-10"><a></a>Time difference of <span class="fl">1.937979</span> mins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>[<span class="dv">1</span>] <span class="st">"Accuracy: 0.98"</span></span>
+<span id="cb7-2"><a></a><span class="sc">&gt;</span> <span class="fu">table</span>(test_mnist_bin01_49b[, <span class="fu">c</span>(<span class="st">"class"</span>, <span class="st">"predicted"</span>)])</span>
+<span id="cb7-3"><a></a>     predicted</span>
+<span id="cb7-4"><a></a>class    <span class="dv">0</span>    <span class="dv">1</span> rlcs_no_match</span>
+<span id="cb7-5"><a></a>    <span class="dv">0</span> <span class="dv">1716</span>   <span class="dv">65</span>             <span class="dv">5</span></span>
+<span id="cb7-6"><a></a>    <span class="dv">1</span>    <span class="dv">5</span> <span class="dv">2008</span>             <span class="dv">0</span></span>
+<span id="cb7-7"><a></a><span class="sc">&gt;</span></span>
+<span id="cb7-8"><a></a><span class="er">&gt;</span> <span class="do">## Training time on 800 samples:</span></span>
+<span id="cb7-9"><a></a><span class="er">&gt;</span> <span class="fu">print</span>(t_end <span class="sc">-</span> t_start)</span>
+<span id="cb7-10"><a></a>Time difference of <span class="fl">1.937979</span> mins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><br></p>
 <p><strong>!! Magic Trick:</strong> Parallelism: By splitting training data, and then consolidating sub-models! (Take that, Neural network :D)</p>

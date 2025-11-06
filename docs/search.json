@@ -1362,7 +1362,7 @@
     "href": "others/RLCS_documentation.html#examples-1",
     "title": "RLCS: An Introduction",
     "section": "Examples",
-    "text": "Examples\nAfter, using an object (reference class, “R5”, in this case)\ndefault_lcs_hyperparameters &lt;- RLCS_hyperparameters()\nexample_lcs &lt;- rlcs_train(train_environment, default_lcs_hyperparameters)"
+    "text": "Examples\nAfter, using an object (reference class, “R5”, in this case)\ndefault_lcs_hyperparameters &lt;- RLCS_hyperparameters()\nexample_lcs &lt;- rlcs_train_sl(train_environment, default_lcs_hyperparameters)"
   },
   {
     "objectID": "others/RLCS_documentation.html#demo-time",
@@ -1628,7 +1628,7 @@
     "href": "others/RLCS_documentation.html#matching",
     "title": "RLCS: An Introduction",
     "section": "2 - Matching",
-    "text": "2 - Matching\n\nWhen you see a new environment instance that does not match any rule in your population yet -&gt; generate a new rule.\n\n\n\nIf one(+) rule(s) in your population matches your new instance state -&gt; increase the match count of the corresponding classifier.\nIf one(+) rule(s) in your population matches your new instance state && class/action –&gt; increase the correct count.\n\n\nincluding their corresponding actions"
+    "text": "2 - Matching\n\nWhen you see a new environment instance that does not match any rule in your population yet -&gt; generate a new rule.\n\n\n\nIf one(+) rule(s) in your population matches your new instance state -&gt; increase the match count of the corresponding classifier.\nIf one(+) rule(s) in your population matches your new instance state && class/action –&gt; increase the correct count.\n\nincluding their corresponding actions"
   },
   {
     "objectID": "others/RLCS_documentation.html#rule-discovery",
@@ -1663,7 +1663,7 @@
     "href": "others/RLCS_documentation.html#prediction",
     "title": "RLCS: An Introduction",
     "section": "5 - Prediction",
-    "text": "5 - Prediction\nImagine a new sample/instance, never seen before. (Test environment)\n\nPrediction is about returning the match set for that new instance.\nRLCS::get_match_set(sample_state, population_of_classifiers)\n\n\nThe prediction will be the majority (possibly weighted by numerosity, accuracy…) of the proposed class/action. That’s it!\nIt also means, this is natively an ensemble learning algorithm."
+    "text": "5 - Prediction\nImagine a new sample/instance, never seen before. (Test environment)\nPrediction is about returning the match set for that new instance.\nRLCS::get_match_set(sample_state, population_of_classifiers)\n\nThe prediction will be the majority (possibly weighted by numerosity, accuracy…) of the proposed class/action. That’s it! It also means, this is natively an ensemble learning algorithm."
   },
   {
     "objectID": "others/RLCS_documentation.html#other-uses",
@@ -2706,7 +2706,7 @@
     "href": "others/RLCS_documentation.html#an-r-package",
     "title": "RLCS: An Introduction",
     "section": "An R package",
-    "text": "An R package\nA package to implement a simple version of the Learning Classifier System algorithm:\n\nBinary Alphabet, tournament/one-point crossover GA, accuracy based, Michigan-style LCS\nWith examples, demonstrating the implementation for:\n\nData Mining\nSupervised Learning\nReinforcement Learning"
+    "text": "An R package\nA package to implement a simple version of the Learning Classifier System algorithm:\n\nBinary Alphabet, tournament/one-point crossover GA with mutation, accuracy based, Michigan-style LCS\nWith examples, demonstrating the implementation for:\n\nData Mining\nSupervised Learning\nReinforcement Learning"
   },
   {
     "objectID": "others/RLCS_documentation.html#data-mining",
@@ -3379,5 +3379,40 @@
     "title": "RLCS: A (shorter) Introduction",
     "section": "Reinforcement Learning, TOO!",
     "text": "Reinforcement Learning, TOO!\nThis example is in fact not learning probability distributions. And it uses reward-shaping. But it works!"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#covering",
+    "href": "others/RLCS_documentation.html#covering",
+    "title": "RLCS: An Introduction",
+    "section": "1 - Covering",
+    "text": "1 - Covering\n\n\nThe key: “#” means “I don’t care”\n\nCovering a state with a probability of “#” values means making a rule that matches the input state and class/action.\nSomething that could match other (partially) similar input:\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.2)\n[1] \"0#0001\"\n&gt; generate_cover_rule_for_unmatched_instance('010001', 0.8)\n[1] \"##0###\"\nYou receive an instance of the environment (a binary string state and a class).\nThe class here is defined already."
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#supervised-learning-iris",
+    "href": "others/RLCS_documentation.html#supervised-learning-iris",
+    "title": "RLCS: An Introduction",
+    "section": "Supervised Learning: Iris",
+    "text": "Supervised Learning: Iris\n\n\n\n\n\n\n\n\n\nIris Setosa (https://commons.wikimedia.org/w/index.php?curid=57593826)\n\n\n\n\n\n\n\nIris Sample Dataset\n\n\n\n\n\nTime difference of 13.13619 secs ## Training Runtime.\n            predicted\nclass        setosa versicolor virginica\n  setosa         13          0         0\n  versicolor      0          5         3\n  virginica       0          0         9"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#supervised-learning-iris-1",
+    "href": "others/RLCS_documentation.html#supervised-learning-iris-1",
+    "title": "RLCS: An Introduction",
+    "section": "Supervised Learning: Iris",
+    "text": "Supervised Learning: Iris\n\nvisualizing one classifier - iris"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#supervised-learning-images-classifier",
+    "href": "others/RLCS_documentation.html#supervised-learning-images-classifier",
+    "title": "RLCS: An Introduction",
+    "section": "Supervised Learning: Images Classifier",
+    "text": "Supervised Learning: Images Classifier\n[1] \"Accuracy: 0.98\"\n&gt; table(test_mnist_bin01_49b[, c(\"class\", \"predicted\")])\n     predicted\nclass    0    1 rlcs_no_match\n    0 1716   65             5\n    1    5 2008             0\n&gt;\n&gt; ## Training time on 800 samples:\n&gt; print(t_end - t_start)\nTime difference of 1.937979 mins\n\n\n!! Magic Trick: Parallelism: By splitting training data, and then consolidating sub-models! (Take that, Neural network :D)"
+  },
+  {
+    "objectID": "others/RLCS_documentation.html#supervised-learning-images-classifier-1",
+    "href": "others/RLCS_documentation.html#supervised-learning-images-classifier-1",
+    "title": "RLCS: An Introduction",
+    "section": "Supervised Learning: Images Classifier",
+    "text": "Supervised Learning: Images Classifier"
   }
 ]

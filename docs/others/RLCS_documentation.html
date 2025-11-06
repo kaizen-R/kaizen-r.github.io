@@ -428,31 +428,20 @@
 <h1>Key concepts</h1>
 
 </section>
-<section id="generating-a-rule" class="slide level2">
-<h2>1 - Generating a rule</h2>
+<section id="covering" class="slide level2">
+<h2>1 - Covering</h2>
+<p><br></p>
 <blockquote>
 <p><strong>The key: “#” means “I don’t care”</strong></p>
 </blockquote>
-<p><strong>Covering</strong> a state with a <strong>probability</strong> of “<strong>#</strong>” values means making a <strong>rule</strong> that <strong>matches</strong> the input state and class/action.</p>
+<p><br><strong>Covering</strong> a state with a <strong>probability</strong> of “<strong>#</strong>” values means making a <strong>rule</strong> that <strong>matches</strong> the input state and class/action.</p>
 <p>Something that <strong>could</strong> match other (partially) similar input:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="sc">&gt;</span> <span class="fu">generate_cover_rule_for_unmatched_instance</span>(<span class="st">'010001'</span>, <span class="fl">0.2</span>)</span>
 <span id="cb7-2"><a></a>[<span class="dv">1</span>] <span class="st">"0#0001"</span></span>
 <span id="cb7-3"><a></a><span class="sc">&gt;</span> <span class="fu">generate_cover_rule_for_unmatched_instance</span>(<span class="st">'010001'</span>, <span class="fl">0.8</span>)</span>
 <span id="cb7-4"><a></a>[<span class="dv">1</span>] <span class="st">"##0###"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<aside class="notes">
 <p>You receive an <strong>instance of the environment</strong> (a binary string <strong>state</strong> and a <strong>class</strong>).</p>
 <p>The class here is defined already.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="matching" class="slide level2">
 <h2>2 - Matching</h2>
@@ -464,19 +453,7 @@
 <li><p>If one(+) rule(s) in your population <strong>matches</strong> your new instance <strong>state</strong> -&gt; increase the <strong>match count of the corresponding classifier.</strong></p></li>
 <li><p>If one(+) rule(s) in your population matches your new instance <strong>state &amp;&amp; class/action</strong> –&gt; increase the <strong>correct count.</strong></p></li>
 </ul>
-<aside class="notes">
 <p>including their corresponding actions</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </div>
 </section>
 <section id="rule-discovery" class="slide level2">
@@ -514,13 +491,10 @@
 <section id="prediction" class="slide level2">
 <h2>5 - Prediction</h2>
 <p>Imagine a new sample/instance, never seen before. (Test environment)</p>
-<div class="fragment">
 <p>Prediction is about <strong>returning the match set</strong> for that new instance.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>RLCS<span class="sc">::</span><span class="fu">get_match_set</span>(sample_state, population_of_classifiers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div class="fragment">
-<p><br>The <strong>prediction</strong> will be the <strong>majority</strong> (possibly weighted by numerosity, accuracy…) of the <strong>proposed class</strong>/action. <strong>That’s it!</strong></p>
-<p>It also means, this is natively an <strong>ensemble learning</strong> algorithm.</p>
+<p><br>The <strong>prediction</strong> will be the <strong>majority</strong> (possibly <em>weighted</em> by numerosity, accuracy…) of the <strong>proposed class</strong>/action. <strong>That’s it!</strong> It also means, this is natively an <strong>ensemble learning</strong> algorithm.</p>
 </div>
 </section>
 <section id="other-uses" class="slide level2">
@@ -538,23 +512,44 @@
 <h1>Demo Time</h1>
 
 </section>
-<section id="iris" class="slide level2">
-<h2>Iris</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="sc">&gt;</span> <span class="fu">print</span>(t_end <span class="sc">-</span> t_start) <span class="do">## Training Runtime.</span></span>
-<span id="cb10-2"><a></a>Time difference of <span class="fl">13.13619</span> secs</span>
-<span id="cb10-3"><a></a><span class="sc">&gt;</span> <span class="fu">table</span>(test_environment[, <span class="fu">c</span>(<span class="st">"class"</span>, <span class="st">"predicted"</span>)])</span>
-<span id="cb10-4"><a></a>            predicted</span>
-<span id="cb10-5"><a></a>class        setosa versicolor virginica</span>
-<span id="cb10-6"><a></a>  setosa         <span class="dv">13</span>          <span class="dv">0</span>         <span class="dv">0</span></span>
-<span id="cb10-7"><a></a>  versicolor      <span class="dv">0</span>          <span class="dv">5</span>         <span class="dv">3</span></span>
-<span id="cb10-8"><a></a>  virginica       <span class="dv">0</span>          <span class="dv">0</span>         <span class="dv">9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="supervised-learning-iris" class="slide level2">
+<h2>Supervised Learning: Iris</h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout="[[1,1]]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/960px-Irissetosa1.jpg" width="267"></p>
+<figcaption>Iris Setosa (https://commons.wikimedia.org/w/index.php?curid=57593826)</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/iris_plot.png" width="241"></p>
+<figcaption>Iris Sample Dataset</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>Time difference of <span class="fl">13.13619</span> secs <span class="do">## Training Runtime.</span></span>
+<span id="cb10-2"><a></a>            predicted</span>
+<span id="cb10-3"><a></a>class        setosa versicolor virginica</span>
+<span id="cb10-4"><a></a>  setosa         <span class="dv">13</span>          <span class="dv">0</span>         <span class="dv">0</span></span>
+<span id="cb10-5"><a></a>  versicolor      <span class="dv">0</span>          <span class="dv">5</span>         <span class="dv">3</span></span>
+<span id="cb10-6"><a></a>  virginica       <span class="dv">0</span>          <span class="dv">0</span>         <span class="dv">9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="iris-1" class="slide level2">
-<h2>Iris</h2>
+<section id="supervised-learning-iris-1" class="slide level2 smaller">
+<h2>Supervised Learning: Iris</h2>
 
 <img data-src="images/iris_one_classifier.png" class="r-stretch quarto-figure-center"><p class="caption">visualizing one classifier - iris</p></section>
-<section id="images-classifier" class="slide level2">
-<h2>Images Classifier</h2>
+<section id="supervised-learning-images-classifier" class="slide level2">
+<h2>Supervised Learning: Images Classifier</h2>
 <div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>[<span class="dv">1</span>] <span class="st">"Accuracy: 0.98"</span></span>
 <span id="cb11-2"><a></a><span class="sc">&gt;</span> <span class="fu">table</span>(test_mnist_bin01_49b[, <span class="fu">c</span>(<span class="st">"class"</span>, <span class="st">"predicted"</span>)])</span>
 <span id="cb11-3"><a></a>     predicted</span>
@@ -565,12 +560,16 @@
 <span id="cb11-8"><a></a><span class="er">&gt;</span> <span class="do">## Training time on 800 samples:</span></span>
 <span id="cb11-9"><a></a><span class="er">&gt;</span> <span class="fu">print</span>(t_end <span class="sc">-</span> t_start)</span>
 <span id="cb11-10"><a></a>Time difference of <span class="fl">1.937979</span> mins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p><br></p>
+<p><strong>!! Magic Trick:</strong> Parallelism: By splitting training data, and then consolidating sub-models! (Take that, Neural network :D)</p>
+</div>
 </section>
-<section id="images-classifier-1" class="slide level2">
-<h2>Images Classifier</h2>
+<section id="supervised-learning-images-classifier-1" class="slide level2">
+<h2>Supervised Learning: Images Classifier</h2>
 
 <img data-src="images/mnist_example_visu_explained.jpg" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="data-mining" class="slide level2">
+<section id="data-mining" class="slide level2 smaller">
 <h2>Data Mining</h2>
 <p>Given that the rules are “expressive”, sometimes you can <strong>ask the LCS to find rules that appear in your data:</strong></p>
 <ul>
@@ -611,7 +610,7 @@
 <h2>An R package</h2>
 <p>A package to implement a simple version of the Learning Classifier System algorithm:</p>
 <ul>
-<li><p>Binary Alphabet, tournament/one-point crossover GA, accuracy based, Michigan-style LCS</p></li>
+<li><p>Binary Alphabet, tournament/one-point crossover GA with mutation, accuracy based, Michigan-style LCS</p></li>
 <li><p>With examples, demonstrating the implementation for:</p>
 <ul>
 <li><p>Data Mining</p></li>
@@ -652,7 +651,7 @@
 <h2>Examples</h2>
 <p>After, using an object (<a href="http://adv-r.had.co.nz/R5.html">reference class, “R5”</a>, in this case)</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>default_lcs_hyperparameters <span class="ot">&lt;-</span> <span class="fu">RLCS_hyperparameters</span>()</span>
-<span id="cb14-2"><a></a>example_lcs <span class="ot">&lt;-</span> <span class="fu">rlcs_train</span>(train_environment, default_lcs_hyperparameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-2"><a></a>example_lcs <span class="ot">&lt;-</span> <span class="fu">rlcs_train_sl</span>(train_environment, default_lcs_hyperparameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="examples-2" class="slide level2">
 <h2>Examples</h2>
