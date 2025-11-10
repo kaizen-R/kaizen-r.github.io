@@ -1,0 +1,48 @@
+---
+title: "RLCS might possibly be as good as Random Forest?"
+author: "Nico"
+date: "2025-11-10"
+categories: [RLCS, ML]
+---
+
+## Now I keep checking...
+
+Continuing the exercise of checking RLCS vs RPART vs RF... And it's not **that** clear.
+
+## Yesterday's improvement
+
+One thing I did do: Tailor some more the Rosetta Stone functions.
+
+Now, I can go from 1, 2, 3, 4, 5 or even 6 bits strings. That means, I can account for numerical columns and encode them in up to 64 "buckets", separated by medians (just a choice).
+
+With that done, looking at Iris dataset, I can account for all unique values, which means the RLCS now encodes with sufficient detail, with depth-per-column (so two columns use 5 bits, the other two use 6!), and it's also automatic.
+
+In other words: No information loss, and then I can compare it with other algorithms.
+
+(A future Rosetta Stone version will also accept factors for encoding... But that's for some other time.)
+
+## Today's observations
+
+A few things:
+
+-   RLCS is stochastic, that's a pain. I need to run it at least a few times with different seeds to get some sense of the quality of a set of hyperparameters.
+
+-   RLCS is (awfully awfully awfully) slow running compared to RF or RPART. It's different, and I don't actually mind, but when you need to run it a few times... Another kind of pain :D
+
+-   Runnin' hot! A MacBook Air M1 wasn't meant to "burn CPU" in a sustainable fashion. This reminds me of my last MSc project (where I had 37h parallel CPU runs). This time it's only a few minutes at a time, until I check a different RLCS config. But still, you can reaaaaally feel the heat.
+
+## Some results
+
+That said, here some results for today.
+
+Getting RLCS to be as good as RF is **not** straightforward, and it might still be a fluke, to be honest. But after some hyperparams tuning (that means, lots of runs, trial & error, until I found some configs that work better...), well...
+
+![Takes a looong time, but results are getting better...](running_hot_but_gettin_somewhere.png)
+
+## Conclusions
+
+Well... There is room for hope, still. It still very much feels like a right combination of hyperparameters, which needs tailoring per-problem, can make a difference. At this stage, it's not completely crazy to assert that maybe RLCS can in fact compete with RF, in certain settings.
+
+Once a right pressure to explore is found, giving more time to find the right combinations of course will help, maybe to even consolidate the populations of rules. But that's beyond today's objectives, and we're anyway talking about hundreds of rules... A bit overkill, for classifying correctly 30 test samples...
+
+Anyhow. It's been a good weekend of work. I'm happy I have this new objective of comparing with other algorithms. It's a new motivation to keep at it :)
