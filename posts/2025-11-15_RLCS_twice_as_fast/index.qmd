@@ -1,0 +1,40 @@
+---
+title: "RLCS is now twice as fast!"
+author: "Nico"
+date: "2025-11-15"
+categories: [RLCS, Optimization, code]
+---
+
+## You've gotta love it when ideas work out...
+
+Matrices multiplications instead of char-by-char string comparison for matching: **From 30s to \<1s. GOSH! I just eliminated the biggest bottleneck!**
+
+## Yesterday's idea: Today's results!
+
+I mentioned it in yesterday's post. Well... Now it's a reality. I just updated the GitHub accordingly.
+
+![Using Matrices to do matching is, well, much faster!](new_get_match_set.png)
+
+I'm not proud of "how" I coded it, mind you, but it is working, and also, it's fast. I'll make it cleaner in upcoming days.
+
+Also, as matching was the key step in "prediction", well predictions are almost instantaneous too, now!
+
+## Memo-ization of sorts
+
+So on top of the matrices multiplications approach, which is naturally faster than strings matching the old way, I now keep track of the whole population "match matrices" for where a zero is found per rule, and where a 1.
+
+Keeping it updated ONLY when I CHANGE the population (addition or deletion of rules), separated from the other steps, also ensures matching is now "just" matrix multiplication, no more.
+
+Again: I don't know if "clever", but... What a difference!
+
+## Conclusions
+
+How many hours have I spent testing long-running stuff... That could have been much much much faster?
+
+Anyhow...
+
+The code was adapted "quick-&-dirty", so I'll need to refactor it all (quite a bit). Right now, I'm skipping passing variables among fonctions and updating "parent envs", which, well, I don't think is a good practice at all. Unless I control exactly what I do, I guess...
+
+But the point stands! I just essentially eliminated the bottleneck. Not "reduced", no no no. Eliminated. This opens a host of new ideas to consider: Longer matching epochs (i.e. reduced triggering of subsumption), for one!
+
+**This is a great leap forward for RLCS!**
