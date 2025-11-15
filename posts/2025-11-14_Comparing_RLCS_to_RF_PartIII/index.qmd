@@ -1,0 +1,118 @@
+---
+title: "Still trying to get RLCS to be as good as Random Forest..."
+author: "Nico"
+date: "2025-11-14"
+categories: [RLCS, ML, Optimization, code]
+---
+
+## I'm using an idea of hierarchies...
+
+You can consider two levels of organization. Call them "cells" and "whole bodies"... Also today: Matrices multiplications, and issues with subsumption...
+
+I was reading this book "A history of intelligence" by Max S. Bennett. But that's just for context. Now... This is probably not the greatest/most original idea out there but...
+
+## Matching CAN be done with matrices
+
+I just finally have a useful idea (maybe) to speed things up.
+
+See it bothers me that I use only CPU in today's world. Because well, GPUs are supposed to be faster, right?
+
+And it was "simple":
+
+Matching means: Compare a string (input state) and check whether all the zeros for a given population rule match (position wise), and all the ones for the rule match. I won't explain the matching operations here again.
+
+But in terms of using matrices (which I only consider because... Tensorflow), let's focus on the "ones":
+
+A rule of ones can be, say, written as a row of zeros (where the rule says either \# or 0) and 1 where we want to match... ones.
+
+Now, just multiply this vector with your state (as a vector of zeros and ones), and it will return a number of matched ones.
+
+Invert the state, and do the same for the zeros (I understand myself). That's about the gist of it.
+
+The key difference (maybe) is that I'm multiplying these. And I could put all population rules in a matrix (or two, hence, maybe a tensor), rather sparse (that would be great), and matching would be about multiplying one matrix with one vector.
+
+Then you'd need to compare the vector with a vector of rules numbers of fixed bits, that's one simple vectorized operation.
+
+If I'm not making much sense, well... Sorry. The idea is clear in my mind, but I'll have to code it all first just to see whether it all makes sense, and then I'd have to see if I could move that to GPU (in R on MacBook, I know it can work, from past experiments). Doing that would make the RLCS package much more complex in a way (the tensor calculation works on either GPU or CPU, but I'd have to check for availability of that, then I'd have the dependency on a whole new big library...)
+
+**Anyhow!**
+
+It's just a "cool" idea in the sense that matching is, for all purposes, currently the largest chunk of runtime of the algorithm.
+
+## Back to the cells thing
+
+Now the simil is a bit "out there", but bear with me:
+
+What if I trained (in parallel, mind you) a few "cells" (really, RLCS agents tasked with supervised learning each).
+
+Then, I can take the best of them (evolutionary pressure of selection of the fittest) and "put them together" as a new body. That's one thing you can do with two LCS populations that you couldn't do with two trained neural networks.
+
+Now here, the simil fails: I then proceed to iterate assimilating the newly created "body" to N identical... Well cells, and I repeat the operation.
+
+## Why do that?
+
+Well, one of the issues with the LCS is that... It searches in (sometimes) a huge space, right? But it does it in several key aspects very sequentially. No SIMD possible there. And that's limiting.
+
+And when that happens, going back to the comparison of evolution of cells...
+
+Well, consider things a few million/billion years ago: the most "stable" cells survive, so to speak. But they **all** survive and crucially they **all evolve**, well in parallel... And there are **many**!
+
+In that comparison, one LCS agent would be one cell... But Evolution took **billions of years** for... **Billions** of cells!
+
+So training **one** RLCS agent from that perspective seems a bit limiting (to say the least).
+
+## Right but crazy ideas aside, why?
+
+Well, for one thing: I can't seem to get **one** RLCS agent to be trained any faster. Not noticeably so, at this point. Not without skipping steps, training it "worse".
+
+But what I **can** do...
+
+## So: "Parallelizing" Agents' trainings and selecting the best ones
+
+And how do I know which are the "best ones"? Well, I'm using a sort of K-Fold approach (so far, I had just train and test sets).
+
+I do a few iteration and for each iteration, I train N agents on a subset of the training set, while holding a (random) small set of validation data points (always from the training set).
+
+## The key for speed vs accuracy trade-off
+
+Well, here the whole point is to either gain speed, or gain accuracy, or (y'know, ideally) both.
+
+So each agent is trained (much) less (fewer epochs). That's the speed gain.
+
+All the while, several agents compete with each their own stochastic
+
+## Can I improve the subsumption? On coverage...
+
+I don't know, but something bothers me here in this screenshot.
+
+![Two rules, but one is better, if you know what you're doing...](perfect rule and subsumption possibilities.png)
+
+Two "general" rules of setosa, both often found by the algorithm. But one seems to be simpler as it involves only one "variable", which the LCS doesn't have context about as it only sees the strings of bits.
+
+Also, I know that because I have context, I know that Setosa is easy to separate from the rest with one dimension, and that you could do it with just one rule, but that's because I've seen all the data at once.
+
+Can I somehow inform subsumption to choose the rule that uses only one variable? How would the algorithm know in this case that rule is "better"? I think if there was a way, I should store "coverage": If say two rules have perfect accuracy (they are correct whenever they match) they are not necessarily equal: One could have perfect accuracy but only be found in certain cases, while the other could have **perfect accuracy AND perfect coverage.** I would **"discard" any other rule for the whole given class!**
+
+Think of it: **If** there is **one perfect rule for a given class**, I could **skip all operations and calculations for that particular class**! No more worrying about matching. And one rule instead of a host of rules for matching means: reduced comparisons, much (much!) **faster execution times**.
+
+But to do that, I need to **know the coverage**, which in "training" requires me to count correct cases per epoch. It should be easy, and it could mean a **world of difference** in the iris case, as there would need to be just the one rule for the one class.
+
+Also, an issue: I want to consider the above for perfect rules but, ideally, I want that for simpler rules, so that they are perfect AND informative. Or do I want the more precise rules? Both could be valuable in a data mining scenario...
+
+To be continued...
+
+## Unrelated: I dislike my rule discovery trigger
+
+The RD number tells me how often I want to run the GA algorithm on the correct set. But somehow, I've tried different versions of that (when I meet the RD number of iterations) and none of them quite exactly make sense. I'll revisit that.
+
+## Conclusions
+
+This is all **sooooo cool!**
+
+I have a huge amount of work right here, but all of it might make a difference in the RLCS speed and accuracy.
+
+As of now, RLCS on average for the iris dataset is slightly better than Partitioning trees and slightly worse than Random Forest. But it's incredibly slow to get to these results, I'm talking something like 40 seconds runs. So it's not absolutely better in results and it's absolutely worse in runtimes.
+
+But I will keep at it. I'm seeing possibilities to improve, all of which could make a huge difference. Maybe.
+
+We'll have to wait and see!

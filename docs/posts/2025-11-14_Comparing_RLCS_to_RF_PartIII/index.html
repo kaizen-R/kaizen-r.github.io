@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nico">
+<meta name="dcterms.date" content="2025-11-14">
+
+<title>Still trying to get RLCS to be as good as Random Forest… – Kaizen-R.com new home</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Kaizen-R.com new home</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/kaizen-R"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Still trying to get RLCS to be as good as Random Forest…</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">RLCS</div>
+                <div class="quarto-category">ML</div>
+                <div class="quarto-category">Optimization</div>
+                <div class="quarto-category">code</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Nico </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 14, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="im-using-an-idea-of-hierarchies" class="level2">
+<h2 class="anchored" data-anchor-id="im-using-an-idea-of-hierarchies">I’m using an idea of hierarchies…</h2>
+<p>You can consider two levels of organization. Call them “cells” and “whole bodies”… Also today: Matrices multiplications, and issues with subsumption…</p>
+<p>I was reading this book “A history of intelligence” by Max S. Bennett. But that’s just for context. Now… This is probably not the greatest/most original idea out there but…</p>
+</section>
+<section id="matching-can-be-done-with-matrices" class="level2">
+<h2 class="anchored" data-anchor-id="matching-can-be-done-with-matrices">Matching CAN be done with matrices</h2>
+<p>I just finally have a useful idea (maybe) to speed things up.</p>
+<p>See it bothers me that I use only CPU in today’s world. Because well, GPUs are supposed to be faster, right?</p>
+<p>And it was “simple”:</p>
+<p>Matching means: Compare a string (input state) and check whether all the zeros for a given population rule match (position wise), and all the ones for the rule match. I won’t explain the matching operations here again.</p>
+<p>But in terms of using matrices (which I only consider because… Tensorflow), let’s focus on the “ones”:</p>
+<p>A rule of ones can be, say, written as a row of zeros (where the rule says either # or 0) and 1 where we want to match… ones.</p>
+<p>Now, just multiply this vector with your state (as a vector of zeros and ones), and it will return a number of matched ones.</p>
+<p>Invert the state, and do the same for the zeros (I understand myself). That’s about the gist of it.</p>
+<p>The key difference (maybe) is that I’m multiplying these. And I could put all population rules in a matrix (or two, hence, maybe a tensor), rather sparse (that would be great), and matching would be about multiplying one matrix with one vector.</p>
+<p>Then you’d need to compare the vector with a vector of rules numbers of fixed bits, that’s one simple vectorized operation.</p>
+<p>If I’m not making much sense, well… Sorry. The idea is clear in my mind, but I’ll have to code it all first just to see whether it all makes sense, and then I’d have to see if I could move that to GPU (in R on MacBook, I know it can work, from past experiments). Doing that would make the RLCS package much more complex in a way (the tensor calculation works on either GPU or CPU, but I’d have to check for availability of that, then I’d have the dependency on a whole new big library…)</p>
+<p><strong>Anyhow!</strong></p>
+<p>It’s just a “cool” idea in the sense that matching is, for all purposes, currently the largest chunk of runtime of the algorithm.</p>
+</section>
+<section id="back-to-the-cells-thing" class="level2">
+<h2 class="anchored" data-anchor-id="back-to-the-cells-thing">Back to the cells thing</h2>
+<p>Now the simil is a bit “out there”, but bear with me:</p>
+<p>What if I trained (in parallel, mind you) a few “cells” (really, RLCS agents tasked with supervised learning each).</p>
+<p>Then, I can take the best of them (evolutionary pressure of selection of the fittest) and “put them together” as a new body. That’s one thing you can do with two LCS populations that you couldn’t do with two trained neural networks.</p>
+<p>Now here, the simil fails: I then proceed to iterate assimilating the newly created “body” to N identical… Well cells, and I repeat the operation.</p>
+</section>
+<section id="why-do-that" class="level2">
+<h2 class="anchored" data-anchor-id="why-do-that">Why do that?</h2>
+<p>Well, one of the issues with the LCS is that… It searches in (sometimes) a huge space, right? But it does it in several key aspects very sequentially. No SIMD possible there. And that’s limiting.</p>
+<p>And when that happens, going back to the comparison of evolution of cells…</p>
+<p>Well, consider things a few million/billion years ago: the most “stable” cells survive, so to speak. But they <strong>all</strong> survive and crucially they <strong>all evolve</strong>, well in parallel… And there are <strong>many</strong>!</p>
+<p>In that comparison, one LCS agent would be one cell… But Evolution took <strong>billions of years</strong> for… <strong>Billions</strong> of cells!</p>
+<p>So training <strong>one</strong> RLCS agent from that perspective seems a bit limiting (to say the least).</p>
+</section>
+<section id="right-but-crazy-ideas-aside-why" class="level2">
+<h2 class="anchored" data-anchor-id="right-but-crazy-ideas-aside-why">Right but crazy ideas aside, why?</h2>
+<p>Well, for one thing: I can’t seem to get <strong>one</strong> RLCS agent to be trained any faster. Not noticeably so, at this point. Not without skipping steps, training it “worse”.</p>
+<p>But what I <strong>can</strong> do…</p>
+</section>
+<section id="so-parallelizing-agents-trainings-and-selecting-the-best-ones" class="level2">
+<h2 class="anchored" data-anchor-id="so-parallelizing-agents-trainings-and-selecting-the-best-ones">So: “Parallelizing” Agents’ trainings and selecting the best ones</h2>
+<p>And how do I know which are the “best ones”? Well, I’m using a sort of K-Fold approach (so far, I had just train and test sets).</p>
+<p>I do a few iteration and for each iteration, I train N agents on a subset of the training set, while holding a (random) small set of validation data points (always from the training set).</p>
+</section>
+<section id="the-key-for-speed-vs-accuracy-trade-off" class="level2">
+<h2 class="anchored" data-anchor-id="the-key-for-speed-vs-accuracy-trade-off">The key for speed vs accuracy trade-off</h2>
+<p>Well, here the whole point is to either gain speed, or gain accuracy, or (y’know, ideally) both.</p>
+<p>So each agent is trained (much) less (fewer epochs). That’s the speed gain.</p>
+<p>All the while, several agents compete with each their own stochastic</p>
+</section>
+<section id="can-i-improve-the-subsumption-on-coverage" class="level2">
+<h2 class="anchored" data-anchor-id="can-i-improve-the-subsumption-on-coverage">Can I improve the subsumption? On coverage…</h2>
+<p>I don’t know, but something bothers me here in this screenshot.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="perfect rule and subsumption possibilities.png" class="img-fluid figure-img"></p>
+<figcaption>Two rules, but one is better, if you know what you’re doing…</figcaption>
+</figure>
+</div>
+<p>Two “general” rules of setosa, both often found by the algorithm. But one seems to be simpler as it involves only one “variable”, which the LCS doesn’t have context about as it only sees the strings of bits.</p>
+<p>Also, I know that because I have context, I know that Setosa is easy to separate from the rest with one dimension, and that you could do it with just one rule, but that’s because I’ve seen all the data at once.</p>
+<p>Can I somehow inform subsumption to choose the rule that uses only one variable? How would the algorithm know in this case that rule is “better”? I think if there was a way, I should store “coverage”: If say two rules have perfect accuracy (they are correct whenever they match) they are not necessarily equal: One could have perfect accuracy but only be found in certain cases, while the other could have <strong>perfect accuracy AND perfect coverage.</strong> I would <strong>“discard” any other rule for the whole given class!</strong></p>
+<p>Think of it: <strong>If</strong> there is <strong>one perfect rule for a given class</strong>, I could <strong>skip all operations and calculations for that particular class</strong>! No more worrying about matching. And one rule instead of a host of rules for matching means: reduced comparisons, much (much!) <strong>faster execution times</strong>.</p>
+<p>But to do that, I need to <strong>know the coverage</strong>, which in “training” requires me to count correct cases per epoch. It should be easy, and it could mean a <strong>world of difference</strong> in the iris case, as there would need to be just the one rule for the one class.</p>
+<p>Also, an issue: I want to consider the above for perfect rules but, ideally, I want that for simpler rules, so that they are perfect AND informative. Or do I want the more precise rules? Both could be valuable in a data mining scenario…</p>
+<p>To be continued…</p>
+</section>
+<section id="unrelated-i-dislike-my-rule-discovery-trigger" class="level2">
+<h2 class="anchored" data-anchor-id="unrelated-i-dislike-my-rule-discovery-trigger">Unrelated: I dislike my rule discovery trigger</h2>
+<p>The RD number tells me how often I want to run the GA algorithm on the correct set. But somehow, I’ve tried different versions of that (when I meet the RD number of iterations) and none of them quite exactly make sense. I’ll revisit that.</p>
+</section>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>This is all <strong>sooooo cool!</strong></p>
+<p>I have a huge amount of work right here, but all of it might make a difference in the RLCS speed and accuracy.</p>
+<p>As of now, RLCS on average for the iris dataset is slightly better than Partitioning trees and slightly worse than Random Forest. But it’s incredibly slow to get to these results, I’m talking something like 40 seconds runs. So it’s not absolutely better in results and it’s absolutely worse in runtimes.</p>
+<p>But I will keep at it. I’m seeing possibilities to improve, all of which could make a huge difference. Maybe.</p>
+<p>We’ll have to wait and see!</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
