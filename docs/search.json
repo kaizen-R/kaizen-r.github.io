@@ -3624,5 +3624,12 @@
     "title": "RLCS is now twice as fast!",
     "section": "Conclusions",
     "text": "Conclusions\nHow many hours have I spent testing long-running stuff… That could have been much much much faster?\nAnyhow…\nThe code was adapted “quick-&-dirty”, so I’ll need to refactor it all (quite a bit). Right now, I’m skipping passing variables among fonctions and updating “parent envs”, which, well, I don’t think is a good practice at all. Unless I control exactly what I do, I guess…\nBut the point stands! I just essentially eliminated the bottleneck. Not “reduced”, no no no. Eliminated. This opens a host of new ideas to consider: Longer matching epochs (i.e. reduced triggering of subsumption), for one!\nThis is a great leap forward for RLCS!"
+  },
+  {
+    "objectID": "posts/2025-11-15_RLCS_twice_as_fast/index.html#edit-getting-even-better",
+    "href": "posts/2025-11-15_RLCS_twice_as_fast/index.html#edit-getting-even-better",
+    "title": "RLCS is now twice as fast!",
+    "section": "Edit: Getting even better!",
+    "text": "Edit: Getting even better!\nThe above was… This morning. Instead of a new post, I’ll just edit this for “tonight’s edition”.\nThe next bottleneck was: Subsumption. But I could use the same matrix approach to reduce iterations!\nAnd I did, and here what it looks like (see how it changes from the above?):\n\n\n\nSubsumption runtime also greatly reduced now!"
   }
 ]
