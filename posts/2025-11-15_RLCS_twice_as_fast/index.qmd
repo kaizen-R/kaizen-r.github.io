@@ -27,6 +27,16 @@ Keeping it updated ONLY when I CHANGE the population (addition or deletion of ru
 
 Again: I don't know if "clever", but... What a difference!
 
+## Edit: Getting even better!
+
+The above was... This morning. Instead of a new post, I'll just edit this for "tonight's edition".
+
+The next bottleneck was: Subsumption. But I could use the same matrix approach to reduce iterations!
+
+And I did, and here what it looks like (see how it changes from the above?):
+
+![Subsumption runtime also greatly reduced now!](subsumption_time_also_improved.png)
+
 ## Conclusions
 
 How many hours have I spent testing long-running stuff... That could have been much much much faster?
