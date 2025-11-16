@@ -3631,5 +3631,12 @@
     "title": "RLCS is now twice as fast!",
     "section": "Edit: Getting even better!",
     "text": "Edit: Getting even better!\nThe above was… This morning. Instead of a new post, I’ll just edit this for “tonight’s edition”.\nThe next bottleneck was: Subsumption. But I could use the same matrix approach to reduce iterations!\nAnd I did, and here what it looks like (see how it changes from the above?):\n\n\n\nSubsumption runtime also greatly reduced now!"
+  },
+  {
+    "objectID": "posts/2025-11-15_RLCS_twice_as_fast/index.html#so-what-well",
+    "href": "posts/2025-11-15_RLCS_twice_as_fast/index.html#so-what-well",
+    "title": "RLCS is now twice as fast!",
+    "section": "So what? Well…",
+    "text": "So what? Well…\nIf I use all my tricks, I can train a “good” (97% accuracy) images classifier in under 4 seconds.\n\n\n\n4 seconds to train an image classifier that works\n\n\nAnd if say you don’t have multi-core/multi-thread, even then… Processing time went down from 1m20s to 28s, and accuracy (with less cheating) is even better (99%):\n\n\n\n99% correct classification in under 30s of training\n\n\nAnd all that, with lots of compression (and information loss) on input, and training on 800 samples (for testing on 3500+!).\nI still can’t seem to beat Random Forest on the Iris dataset for whatever reason, but all this will help for sure, and I have a feeling it somehow can be done…"
   }
 ]

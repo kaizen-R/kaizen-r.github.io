@@ -37,6 +37,20 @@ And I did, and here what it looks like (see how it changes from the above?):
 
 ![Subsumption runtime also greatly reduced now!](subsumption_time_also_improved.png)
 
+## So what? Well...
+
+**If I use all my tricks**, I can train a "good" (97% accuracy) images classifier in under 4 seconds.
+
+![4 seconds to train an image classifier that works](parallel_RLCS_for_images_now_fast.png)
+
+And if say you don't have multi-core/multi-thread, even then... Processing time went down from 1m20s to 28s, and accuracy (with less cheating) is even better (99%):
+
+![99% correct classification in under 30s of training](one_thread_images_classifier.png)
+
+And all that, with lots of compression (and information loss) on input, and training on 800 samples (for testing on 3500+!).
+
+I still can't seem to beat Random Forest on the Iris dataset for whatever reason, but all this will help for sure, and I have a feeling it somehow can be done...
+
 ## Conclusions
 
 How many hours have I spent testing long-running stuff... That could have been much much much faster?
