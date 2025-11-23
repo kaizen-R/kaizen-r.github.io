@@ -1,0 +1,95 @@
+---
+title: "Iterative function calls with Reduce"
+author: "Nico"
+date: "2022-03-20"
+categories: [code]
+---
+
+## Intro
+
+In many instances, the “Numerical Methods” will imply recurrent function calls. We demonstrated how to go about this using loops [here](https://github.com/kaizen-R/R/blob/master/Sample/demos/testing_logistic_map_chaos.R). But I wasn’t satisfied with this  approach (I did mention, I prefer the apply() family of functions over for loops…).
+
+The apply() wasn’t fit for it, but while digging a bit deeper into how to go about recurrent functions in R, well… Here comes a lesser-known approach (and I’m not saying it’s better… Although it does seem to be faster :)).
+
+## Reduce()
+
+It turns out (of course!) that the base R package has that covered for us. Probably in certain cases of pure recurrence, that won’t be the way (I still have to understand *better* this Reduce() function, really). But for our purposes, it turns out, it works as intended.
+
+So here, we tricked it a bit, and the comparison of efficiency might be imperfect… But it should overall be valid.
+
+We basically compare two approaches:
+
+``` r
+my_logistic_map2 <- function(my_r, x) {
+  my_r * x * (1-x)
+}
+(...)
+for(my_r in 1:length(my_growth_rates)) { # I'm not a fan of for loops, but here...
+  for(my_gen in 2:n_gens) {
+    res_mat[my_r, my_gen] <- my_logistic_map2(my_growth_rates[my_r], res_mat[my_r, my_gen-1])
+  }
+}
+```
+
+You’ll notice the double loop there… Now let’s see a functionally equivalent code with the base Reduce() function:
+
+``` r
+for(my_r in 1:(length(my_growth_rates)-1)) { # I'm not a fan of for loops, but here...
+  res_mat[my_r, ] <- Reduce(function(x, y) my_growth_rates[my_r] * x * (1-x), 
+    x = 1:(n_gens-1), 
+    init = 0.5, 
+    accumulate = TRUE)
+}
+```
+
+Now one for loop, and one Reduce() call.
+
+A quick comparison of both does show a rather clear improvement, although I am not content with the potential issues of this comparison:
+
+``` r
+ expr      min       lq     mean   median       uq      max neval
+ v1() 4.913179 4.921944 4.941147 4.936691 4.937704 4.996217     5
+ v2() 2.129384 2.141234 2.161598 2.147729 2.188960 2.200683     5
+```
+
+But still, it seems to work and we seem to have a rather clear improvement.
+
+## Notes
+
+This time around, the “best” reference I found was nowhere near the actual documentation. It’s also a bit counter-intuitive to set an initial vector of values that will in fact… Not really be used.
+
+And why the y in there?
+
+Well, the “y” in the “function(x, y)” call definition (inside the Reduce() call), actually refers to “the next value of the input vector”, but as our recurrence equation does NOT depend on the next entry at all (i.e. in our case, we define our calculation only as a function of the former value), in our case the x in the “function(x, y)” call, it only ensures in our case that the iteration repeats for a certain number of times, the length of our initial x = “1:(n_gens-1)” vector.
+
+But in fact, after the initial value (“init = 0.5”), we do not use the vector values for any calculation per-se.
+
+So in our case, we will in fact be Reducing something like this, (–\> is not actual code here, just indicating what’s happening):
+
+``` r
+function(x0, 1) my_growth_rates[my_r] * x0 * (1-x0) --> x1
+```
+
+Then, more or less, this is what we’re doing with the Reduce() call (note how we do NOT use the second parameter at all… but to limit iterations):
+
+``` r
+function(x0, y=1) my_growth_rates[my_r] * x0 * (1-x0) --> x1
+function(x1, y=2) my_growth_rates[my_r] * x1 * (1-x1) --> x2
+function(x2, y=3) my_growth_rates[my_r] * x2 * (1-x2) --> x3
+(...)
+function(xn-1, y=(n_gens-1)) my_growth_rates[my_r] * xn-1 * (1-xn-1) --> xn
+```
+
+So it might be LESS intuitive, as a code to be read by someone else, than using the for loops, indeed.
+
+But it is, however, faster.
+
+The best reference for the actual code use what [here on StackOverflow](https://stackoverflow.com/questions/65955021/iterative-equations-in-r) in this case.
+
+## References
+
+[Here my code to compare both approaches](https://github.com/kaizen-R/R/blob/master/Sample/demos/testing_logistic_map_chaos_v2.R)
+
+[The reference I  used to create the new code](https://stackoverflow.com/questions/65955021/iterative-equations-in-r)
+
+[Hadley’s Advanced R reference on Functionals](http://adv-r.had.co.nz/Functionals.html#functionals-fp)

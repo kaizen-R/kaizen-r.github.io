@@ -1,0 +1,54 @@
+---
+title: "A small realisation"
+author: "Nico"
+date: "2021-12-11"
+categories: [Information]
+---
+
+A short entry about one small conclusion I reached AGAIN recently. Maybe for the n-th time, but I am now putting words to it.
+
+Please bear in mind though, this obviously does not always apply (I don’t know if the following bullet points will be misinterpreted somehow, I hope not :). Let just say, it does not apply for more scientifically/technically complex stuff. Or life-or-death projects, I guess… And even then…). I guess it does apply often to me and my use cases of data analysis “initiatives”.
+
+Anyhow, here goes:
+
+## To create value from data
+
+-   **There is no lack of data**, generally speaking.
+
+-   There is too much focus recently on “machine learning”, “prediction”, etc.
+
+-   When what seems to be **most often needed is “simpler” stuff** like:
+
+    -   **joining datasets**, i.e. merging tables, linking data points (maybe even network graphs)…
+
+    -   the capacity for filtering & “grepping” (i.e. mostly: **searching**)
+
+    -   the capacity to create **simple but valuable visualisations**
+
+    -   and a **simple format for sharing, like CSV/Excel** (Excel has one advantage here: most people know how to use it at a basic but sufficient level to allow for data exchange)
+
+I am coming to believe the above is often true. If anything, the more “advanced” stuff cannot happen if the above is not accessible.
+
+## What’s impeding reaching the basics above, then?
+
+Glad you asked. In no particular order, I’d say, mostly:
+
+-   Not knowing where to look for the data, i.e. lack of communication (in big, complex companies, for instance)
+
+-   Lack of automation; we need to use more APIs, and do less manual downloading
+
+-   And of course, dirty data
+
+Data silos are an issue, which comes to the first point in both lists: There is probably no lack of data to use, and often in big companies it’s hard to tell where to find it: one needs to reach out to many colleagues and establish new contacts to locate information, and maybe use documentation repositories or trainings and search through it all.
+
+It’s also no news, you’ll say, that dirty datasets is a common issue, and it’s rather accepted/common knowledge that most data analysis starts with cleaning data, and that it takes most of the analysis effort to do just that (and my personal experience definitely confirms that).
+
+The automation part I add here, because that’s what will make things easy enough that there will be time left in the future (beyond maintaining the tool or solution) and actually have the capacity to evolve it, improve on it, and get to the more advanced stuff (where needed).
+
+Once you get past the above, merging datasets is usually not that hard, nor is filtering, creating a simple graph or saving as CSV. (Which doesn’t mean it shouldn’t be done with care, mind you).
+
+## Summary
+
+Often times, we might not need as much “data science”, “machine learning”, “AI”, and complex stuff, and rather we need to focus on laying the ground work of the simpler things to enable the providing of some value to begin with.
+
+Once the basic stuff is there, sure, let’s go for the more advance stuff, IF needed (which often, by the way, it isn’t).
