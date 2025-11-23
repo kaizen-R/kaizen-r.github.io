@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2021-09-12">
+<meta name="dcterms.date" content="2021-06-20">
 
-<title>Simulating a SOC (part II): GUI – Kaizen-R.com new home</title>
+<title>Testing Containers – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -42,8 +77,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../../site_libs/quarto-contrib/videojs/video.min.js"></script>
-<link href="../../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -113,9 +146,8 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Simulating a SOC (part II): GUI</h1>
+      <h1 class="title">Testing Containers</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">visualization</div>
                 <div class="quarto-category">cyber</div>
               </div>
                   </div>
@@ -134,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 12, 2021</p>
+        <p class="date">June 20, 2021</p>
       </div>
     </div>
     
@@ -155,59 +187,78 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="intro" class="level2">
 <h2 class="anchored" data-anchor-id="intro">Intro</h2>
-<p>Last week I started a small program to <a href="https://www.kaizen-r.com/2021/09/simulating-a-soc-just-for-fun/">simulate a SOC</a>.</p>
-<p>This week, I wanted to see if I could make it more… Visual.</p>
-<p>This here is the “final” result working with the simulator from last week:</p>
-<div class="quarto-video"><video id="video_shortcode_videojs_video1" width="500" height="350" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="A Shiny R interactive dashboard for SOC simulation"><source src="soc_simulator_shiny_v5.mp4"></video></div>
-<p>But it wasn’t easy…</p>
-<p>So here is the long-story-short about that.</p>
-<p>(No code, as I am not happy with my code right now, I have done so many tests I myself have a hard time following it right now… And it was meant to be a “quick &amp; dirty” exercise, well, dirty it is, that’s for sure. So maybe when I settle on a cleaner version, I’ll share that instead.)&nbsp;</p>
+<p>Now this Post is a tiny bit different, although still about working with data, and with a focus on security.</p>
+<p>But this time around, if you’ve followed a bit the Blog, we have a few “Docker” containers running on different machines, to work on security data. That’s very cool, but… What about the security OF these containers?&nbsp;</p>
+<section id="lets-get-to-it" class="level3">
+<h3 class="anchored" data-anchor-id="lets-get-to-it">Let’s get to it</h3>
+<p>OK so the other day (weeks ago actually) a colleague showed me his Debian container was found to be insecure, and in doing so, he showed me about “Trivy”. So this (free) Aquasec tool is supposed to be able to detect, in seconds, some vulnerabilities in Containers images. And that’s… Interesting to say the least.</p>
+<p>In looking into it, I also came across the “native” alternative (well, not so native, but almost):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> scan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Function, so we might want to try that too. Docker scan however requires a Docker account and a connection, while trivy, once installed, can be run locally as far as I have been able to check.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> docker pull aquasec/trivy</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> trivy_cache</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> trivy_cache</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="enters-shiny" class="level2">
-<h2 class="anchored" data-anchor-id="enters-shiny">Enters Shiny</h2>
-<p>So as now usual, I went the way of Shiny to create a Dashboard.</p>
-<p>The very first version of that was simple, and it worked at the first try:</p>
-<div class="quarto-video"><video id="video_shortcode_videojs_video2" width="500" height="350" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="first version of a SOC sim with Shiny"><source src="interactive_soc_v001.mp4"></video></div>
-<p>I did have to learn how to work with a reactiveTimer() in Shiny, and it took some testing, but it wasn’t horrible.</p>
-<p>Then came the complications…</p>
+<section id="lets-check-some-containers-shall-we" class="level3">
+<h3 class="anchored" data-anchor-id="lets-check-some-containers-shall-we">Let’s check some containers, shall we?</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> docker run <span class="at">--rm</span> <span class="at">-v</span> /var/run/docker.sock:/var/run/docker.sock <span class="at">-v</span> <span class="va">$PWD</span>:/root/.cache/ aquasec/trivy caffix/amass</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="amass_trivy_scan.png" class="img-fluid" alt=""></p>
+<p>Note to self: NO detection in ANY test involving Alpine containers so far… Weird? Or even cooler than before (Alpine is already very lightweight… Now if it also seems generally secure…). CVE-based detections is apparently tricky. Another colleague explained to me a bit about it, and it seems it is far from perfect. It can be prone to false-positives, and/or false-negatives, so a quick reminder: This Blog post is about ONE kind of checks, but it is NOT about EXHAUSTIVE security checks 😉</p>
+<p>Let’s test our latest container (upcoming posts on the subject of Postgres):</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> docker run <span class="at">--rm</span> <span class="at">-v</span> <span class="va">$PWD</span>:/root/.cache/ aquasec/trivy postgres</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now that gives 130, 19, 32 high &amp; 2 Critical… Not cool.</p>
+<p>So let’s try to upgrade the OS maybe? In a Dockerfile:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">FROM</span> postgres</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> apt-get update</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> apt-get dist-upgrade <span class="at">-y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s build that:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> docker build <span class="at">-t</span> local/postgres_update .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then we run the command locally (using docker.sock):</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> docker run <span class="at">--rm</span> <span class="at">-v</span> /var/run/docker.sock:/var/run/docker.sock <span class="at">-v</span> <span class="va">$PWD</span>:/root/.cache/ aquasec/trivy local/postgres_update</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Doesn’t make any difference at all, unfortunately… (And postgres was indeed upgraded, which is good, but apparently not enough…). Maybe I’ll need to remove something from that container to improve things a bit? I don’t know. Let’s keep going</p>
 </section>
-<section id="one-animated-plot-is-ok-more-not-so-much" class="level2">
-<h2 class="anchored" data-anchor-id="one-animated-plot-is-ok-more-not-so-much">One animated plot is OK… More, not so much</h2>
-<p>With just one plot, everything seemed to work upfront. As usual, I chose ggplot, and simply plotted it alongside some numbers, and things went fine.</p>
-<p>However, the minute I threw in more plots, something went wrong: Whenever more than one plot needed an update (rendering), things froze, even if only for half a second. But it was perceptible.</p>
-<p>Do note that the dataset is rather simple and small, so “loading” is probably not the issue here.</p>
-<p>I’m convinced that with a much faster laptop, this could have gone unnoticed. Well, maybe, I’m not sure.</p>
-<p>But in summary, it seems that Shiny needs a little time to render several ggplots.</p>
-<p>And so I went hunting for a solution. I have played enough with Shiny to know that if you ggsave() a plot somewhere and then load the image, that renders faster. That was the first test, and indeed, it seemed to freeze a little less (it wasn’t “perfect”, but almost).</p>
-<p>Then I looked into alternatives. I love ggplot(), so it bothers me to admit that, but I needed to see where the problem was.</p>
-<p>I pushed forward, and tested the plot solutions that come bundled with most of R (from the “graphics” package). That worked better than ggplot() indeed, but then I would need to work all the many details to make those acceptable (presentation-wise). So not cool.</p>
-<p>Then I found the “renderCachedPlot()” alternative to “renderPlot()”. That seemed VERY promising. Indeed, it would only update a graph if there was something to update for that particular graph. That option helped, but not enough for my taste.</p>
-<p>I also tried to run the Shiny app from a “dedicated” Shiny Server container, as opposed to running it from a full-fledged RStudio container. Maybe the container was too busy? That didn’t improve things either.</p>
-<p>Someone in a Telegram group (about R) did point me to a VERY helpful CSS trick, that consists of playing with the opacity of a “recalculating” object in Shiny, and that made the visualisation MUCH smoother. The only detail is, behind the scenes, one could still tell the laptop was busy recalculating things as the timer still slowed down. Regardless, that CSS trick was a life-saver, visually speaking.</p>
-<p>So thanks a lot for that, Mister X (I won’t mention your name, for privacy reasons – but that can be changed if the interested party has any interest).</p>
-<p>As we know, R is mono-core by default. Could there be something with “futures”? Yes there is. But the solution was worse than the original problem. After all, on a small data frame, launching a new R session for each plot does seem like an overkill. And indeed, that wasn’t a solution.</p>
+<section id="what-if-we-check-it-with-docker-scan-instead-of-trivy" class="level3">
+<h3 class="anchored" data-anchor-id="what-if-we-check-it-with-docker-scan-instead-of-trivy">What if we check it with “docker scan” instead of trivy?</h3>
+<p>So first here we need to login to Docker Hub:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> login</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> scan postgres</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>(If you see a warning about Snyk and you are CERTAIN there is nothing sensitive in your docker image, I guess it’s safe to go ahead…)</p>
+<p>And indeed, a loooong output:</p>
+<p><img src="postgres_debian_scan1.png" class="img-fluid" alt=""></p>
+<p>The output finishes with what I consider rather bad news:&nbsp;</p>
+<p><img src="postgres_debian_scan2.png" class="img-fluid" alt=""></p>
+<p>Now, with such results (and it seems to be pretty common among debian-based images out there, although I’m not certain why…), one would have to consider seriously whether or not to use such a container. <em>Again, keep in mind, CVE-based detection might not be perfect.</em></p>
+<p>Pros- &amp; Cons-? Pro: Clearly, having a container working from a simple “docker pull” is great. Cons: Well, are we reaaaally exposed here?</p>
+<p>Let’s see:</p>
+<p>My containers run in a machine (the “Home Lab Server”) that is creating its own home-only small wifi network, uses a firewall (iptables) so that only “internal” machines correctly logged onto that Wifi can see those containers, and also… Almost all that is on the Home Lab Server I actually publish on the Internet in one way or another.</p>
+<p>So? I can still play around with this container at home. But should I need to use something similar in a different setup, I’d definitely would need to ensure it is in a controlled environment… And then I looked a bit more into it. It turns out someone at the Postgres community thought it’d be cool to have an Alpine-based container… Could this be the answer?</p>
+<p>We already know Alpine-based containers are generally smaller… Let’s go for it then:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull postgres:alpine</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Up front, it’s 160 MB in size compared to 314MB… Good.</p>
+<p>But even better:&nbsp;</p>
+<p><img src="postgres_alpine_scan.png" class="img-fluid" alt=""></p>
+<p>I feel (somewhat) relieved… That I could use at work. (Good, I was starting to worry ;))</p>
+<p>Also, trivy seems to agree with Docker Scan:</p>
+<p><img src="postgres_alpine_trivy_check.png" class="img-fluid" alt=""></p>
 </section>
-<section id="final-solution" class="level2">
-<h2 class="anchored" data-anchor-id="final-solution">Final solution</h2>
-<p>At the end, although still not perfect, I used plot_ly() instead of ggplot().</p>
-<p>And it “worked”. You still clearly notice visually the impact of updating 3 graphs (which, once again, is no issue when working with one, in my tests anyway).</p>
-<p>The resulting “animated” dashboard, sporting three plots, is the one shown at the beginning of this entry.</p>
+<section id="bonus" class="level3">
+<h3 class="anchored" data-anchor-id="bonus">Bonus</h3>
+<p>What about our RStudio Env:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> docker run <span class="at">--rm</span> <span class="at">-v</span> /var/run/docker.sock:/var/run/docker.sock <span class="at">-v</span> <span class="va">$PWD</span>:/root/.cache/ aquasec/trivy rocker_base003</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>3 Highs, no Critical… And from Docker Scan:&nbsp;</p>
+<p><img src="rocker_check_vulns.png" class="img-fluid" alt=""></p>
+<p>That’s not perfect, but with no high vulnerabilities &amp; more dependencies checked, I’d say that’s much better than the postgres container 🙂</p>
 </section>
-<section id="conclusions" class="level2">
-<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>First of all, let’s be clear: There are certainly MANY things I haven’t tried. For instance the Plotly package has some built-in animation solutions that I haven’t tried, and they seem very smooth.</p>
-<p>And from what I’ve experienced with more traditional BI solutions, like PowerBI, you wouldn’t use that to reload a graphs every 0.3 seconds like we do here. I haven’t tested that, so my perspective is probably VERY biased/wrong…</p>
-<p>On the other hand, making the Simulations “visual” in an interactive Dashboard is probably a bad idea anyway. At some point, I might want to run several simulations with different parameters, and see which parameter set gives the best result based on some conditions. Doing that while “showing” every step is simply not the way to go, and although it would probably be “cool”, we would be wasting LOTS of unnecessary compute power on refreshing some graphs… And making things all-the-more slow, which is not what you want if you want to simulate many alternative solutions.</p>
-<p>So here we are.</p>
-<ul>
-<li><p>Plotly <em>seems</em> faster than ggplot. I wouldn’t have know, had I not tried to do an animated dashboard with more than one plot, really.</p></li>
-<li><p>You can use timers in Shiny to animate things. Although it seems there is an “invalidate” alternative out there that is preferred to the “reactiveTimer” option… I’ll have to look into that.</p></li>
-<li><p>As our simulator was really a set of things bundled together, I used the reactiveValues() function of Shiny to “translate” the original simulator…</p></li>
-<li><p>Visualising a simulation WHILE it’s running is fun to watch, but not really a good idea. Maybe I could adapt the Dashboard to run simulations in the background and show only results; that’d make more sense.</p></li>
-</ul>
-<p>I still think this is not too bad for a simple exercise implemented in my spare time…</p>
+<section id="conclusions" class="level3">
+<h3 class="anchored" data-anchor-id="conclusions">Conclusions</h3>
+<p>Using Docker is great. I am a big fan (I know, it’s obvious, if you’re a reader of the Blog). But then one needs to think of the security aspects of it all.</p>
+<p>One (DEFINITELY NOT complete nor perfect) way to go about it is to look for more secure images. To do so, you need to be able to check whether an image has any red-flags. In CI, you would probably not want to deploy anything with known critical vulnerabilities, and so you would add a check upon deployments and stop anything looking really bad.</p>
+<p>Once you know where you stand, you’re better off.</p>
+<p>And now you can actually look for alternative images when you think you need to.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -611,8 +662,6 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
-<script>videojs(video_shortcode_videojs_video1);</script>
-<script>videojs(video_shortcode_videojs_video2);</script>
 
 
 

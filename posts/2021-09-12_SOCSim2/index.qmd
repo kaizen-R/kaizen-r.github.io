@@ -2,7 +2,7 @@
 title: "Simulating a SOC (part II): GUI"
 author: "Nico"
 date: "2021-09-12"
-categories: [visualization]
+categories: [visualization, cyber]
 ---
 
 ## Intro

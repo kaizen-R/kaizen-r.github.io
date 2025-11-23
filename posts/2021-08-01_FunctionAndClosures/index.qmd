@@ -1,0 +1,136 @@
+---
+title: "Parts of Speech Tagging"
+author: "Nico"
+date: "2021-08-01"
+categories: [code]
+---
+
+## Intro
+
+So I’ve mentioned the concepts of Functional Programming in R a couple of times ([here](https://www.kaizen-r.com/2021/01/functional-programming-tests-on-domain-names/) & [here](https://www.kaizen-r.com/2021/01/one-step-further-mongodb-backend/)) already. I’ve also [played a bit with OOP](https://www.kaizen-r.com/2020/08/a-series-on-ip-addresses-in-r-1-n/) (Object Oriented Programming) in R.
+
+But I needed to explain it to others. There are MANY resources on the topic, but I wanted to SHOW it with a reasonably short amount of code as a demo, albeit in an incomplete/imperfect way.
+
+![](demo_functions_environments_1.png){alt=""}
+
+### The code
+
+So I put together the following function:
+
+``` r
+setup_env <- function(x) {
+  local_var <- x # Parent environment for Child Function(s)
+
+  save_and_add_one <- function(y) {
+    assign("local_var", y, envir = parent.env(environment()))
+    # write to the parent environment of this function.
+    y + 1 # Implicit return
+  }
+
+  add_5 <- function() {
+    local_var + 5 # Will look for variable going up the environments tree until found
+  }
+
+  add_origin_5 <- function() { # Overwriting "local_var" does not affect calling env's parameter values
+    x + 5 # x is not lost, it is part of the setup_env() context
+  }
+
+  show_local_env_x <- function() {
+    x <- 1 # This x is the first found
+    x # when looking for the x object. It is NOT the parent function's parameter, in this case
+  }
+
+  # implicit return: The list will contain functions, which names we can change if needed:
+  list(save_and_add_one = save_and_add_one,
+    add_five = add_5,
+    add_5_to_setup_call_param = add_origin_5,
+    show_internal_function_env_x = show_local_env_x)
+}
+```
+
+This should do. Let’s go through it.
+
+Each function is an R object. A function assigned to a variable, when called and while needed, will hold on to its calling parameters. So in the example:
+
+``` r
+test_env <- setup_env(2) # so x will be two at first
+```
+
+We have an assigned calling variable x = 2. This will stay true as long as we don’t overwrite “x” in the context of the variable “test_env”.
+
+The function will assigned that value to “local_var”
+
+``` r
+local_var <- x
+```
+
+The “test_env” var contains a function that returned a named list. So we can call on the names of that list, functions in this case, like so:
+
+``` r
+test_env$add_five() # So we expect 7
+```
+
+Here, the “local_var” still is equal to 2. the “add_five()” is a function within a function.
+
+It will first try to locate “local_var” from its own environment (created upon calling it). As it is not found, it will go “up” the branch to locate it in its parent environment. This time it will find it, and hence use it to return the value of the operation.
+
+What if we try to overwrite local_var from within a function (that is a nested function)? We need to point to the parent.env() of our current environment(), and assign() the value there. This way we actually choose the environment in which we assign it. “\<\<-” is similar in this case, but not exactly the same, though, as you don’t get to choose which environment to use for the assignement.
+
+``` r
+test_env$save_and_add_one(4)
+```
+
+Once we’ve done that, “local_var” should have been updated to 4. Which means, calling a function that depends on it…
+
+``` r
+test_env$add_five() # Now we have 4 in local_var, so that's a 9
+```
+
+Here we read (again) local_var from our parent environment (add_five’s parent environment is – still – test_env, an instantiation of setup_env()).
+
+local_var was changed after being assigned the value of x, upon calling the first time to setup_env(). But x, the calling parameter, hasn’t changed. So the following will do “2+5”:
+
+``` r
+test_env$add_5_to_setup_call_param() # We called setup_env with 2, so that should be a 7
+```
+
+Which is expected.
+
+In yet a different function within setup_env(), we COULD use x as local variable for the corresponding child environment. If we do so, assign a value to x say from within “show_internal_function_env_x()”, it will NOT change the value of the parameter x used when calling setup_env() at the beginning:
+
+``` r
+test_env$show_internal_function_env_x() # Careful, we use a DIFFERENT x here, which we set to one.
+test_env$add_5_to_setup_call_param() # But in fact the calling parameter x was untouched
+```
+
+And that’s about it.
+
+### Interestingly…
+
+So what thing this example shows, is that the calling parameter (x = 2) in:
+
+``` r
+test_env <- setup_env(2)
+```
+
+Survives, as long as “test_env” (the variable) survives. IF one passes a big object (say a dataframe with tens of thousands of rows and hundreds of colums) to an equivalent of setup_env(), then “test_env” would hold it’s environment with that variable in memory. In other words, it will add a copy of the parameter to the memory, until the function’s environment can be cleaned (either by the gc() or through a forced call).
+
+So I guess a note of warning is in order: Careful, you can duplicate data in memory when you use closures. And that’s in spite of the [“modification in place” trick](http://adv-r.had.co.nz/memory.html#modification) used by the R interpreter. Maybe you want to call your functions/closures with the smallest amount of data needed for them to work. It’s a small optimisation right there.
+
+### Conclusions
+
+I am unsure about whether or not this helped or made things more confusing. This code I am convinced I can use to explain “live” about the nuances of functions and environments (and even of “closures”), but without an explanation…
+
+To those not accustomed to closures and environments, but familiar with R, I am still convinced it should be helpful, and it all fits in a rather short amount of code.
+
+On the other hand, one could use such closures to store functions and variables together, making those variables local to the instantiation of the closure (sort of private variables in an Object). In effect, we would have something similar to an object, for which we could use the equivalent of “methods” (our functions inside the function).
+
+It’s not a perfect analogy, but it’s interesting regardless.
+
+### References
+
+[A nice example with explanation using folder trees to explain environments](https://rstudio-education.github.io/hopr/environments.html)
+
+[The always great resource Advanced R](http://adv-r.had.co.nz/Functional-programming.html)
+
+[My own code for today](https://github.com/kaizen-R/R/blob/master/Sample/demos/demo_functions_envs.R)

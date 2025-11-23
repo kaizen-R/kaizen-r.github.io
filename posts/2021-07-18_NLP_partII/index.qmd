@@ -1,0 +1,58 @@
+---
+title: "Tokens of Text"
+author: "Nico"
+date: "2021-07-18"
+categories: [NLP, code]
+---
+
+## A first (basic) look at the collected text: Tokens
+
+It’s all great: We’re able to collect all our blog entries, or well, the text thereof. We are even able to crawl a bit faster, provided we have a multi-core setup. (Worst case scenario, we’re limited in the crawling by the speed of our website’s, mostly).
+
+Now that we have that, let’s do a very simple first exercise: Let’s look at the distribution of “tokens” in our text.
+
+For now, we’ll focus on the “first” article in the list (as it turns out… The last one published, before this one). We won’t go into too much detail, as this NLP topic is a very wide subject matter to cover, so allow me to go “step by step”.
+
+## Tokenization & Stemming
+
+So let’s see if we’re able to extract unique “words” from the article contents. We’ll use the generally accepted “MC_tokenizer” function from the tm package here.
+
+``` r
+tokens_art_1 <- MC_tokenizer(all_articles_df_vfuture[1, "article_content"])
+```
+
+We get 964 tokens (or words, in this case)! For one rather short article…
+
+But then again, this is noisy. And also, these are all the tokens. To get an idea of my vocabulary in English (which incidentally is not my mother tongue, far from it…), let’s count unique tokens, after some cleaning up:
+
+``` r
+# There'll probably some noise, let's clean that a bit:
+tokens_art_1 <- sapply(tokens_art_1, tolower)
+tokens_art_1 <- as.character(removeWords(tokens_art_1, stopwords("english")))
+tokens_art_1 <- tokens_art_1[tokens_art_1 != ""]
+tokens_art_1 <- wordStem(tokens_art_1)
+```
+
+So as for our computer upper-case and lower-case matter, we put everything into lower-case. Then we remove the english “stop-words” as provided by the tm package. Here is the complete list of these:
+
+![](english_stopwords_tm.png){alt=""}
+
+Once we removed these, we clean up the list of tokens from the article (removing stop-words has left empty entries…).
+
+But then here we go **further down the road of concepts**, as we introduce “**Stemming**“. So stemming is, well, looking for the stem of a word. So for example, “running”, “runner” and “run” are all derived from their stem “run”. We use the “wordStem” function from the SnowBallC package in this instance.
+
+Long story short, we can look for the most common words in the article, after some clean-up and stemming:
+
+![](tokenized_stemmed_art1_words.png){alt=""}
+
+Mmmmm… So I mention “page” almost twenty times? And “articl” 8 times? Let’s do a quick check, just in case:
+
+![](quick_check_words_counts.png){alt=""}
+
+Well that seems about right. Although I’ll have to get myself a Thesaurus, I guess.
+
+### Conclusions
+
+Enough for today. We got our quick review of Tokens and Stemming. We counted unique words in our document and did some basic cleaning.
+
+More on NLP soon.

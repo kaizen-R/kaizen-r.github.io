@@ -1,0 +1,61 @@
+---
+title: "Every day I keep learning"
+author: "Nico"
+date: "2021-08-22"
+categories: [code]
+---
+
+## Intro
+
+I missed writing an entry last week. Not that I haven’t learned anything I could discuss, but rather because I have been learning and coding a bit too much lately…
+
+## Learning more about Postgres
+
+Among many other things (that will make for potentially quite a few other entries in the Blog), I learned one detail about one trick (really going down the rabbit holes sometimes…) in “Postgres”:
+
+“Upsert” (“insert … on conflict…”) is a very neat trick. It makes my R code (a lot) cleaner & ensures atomic operations at the Database level, so I love it. 👍
+
+What I recently learned about that wasn’t a worry in the past (it keeps happening!) is the impact on serial IDs 🧐 (and it makes sense why Postgres works that way, I’m not complaining, I just wasn’t aware until very recently):
+
+Say I use it on \~210.000 (bear with me) rows a day, of which most of the time say \~209.900 are repeating entries (so they really should have been “updates”), on a table using a Serial ID. Those are very realistic numbers. And it’s not Big Data (although maybe it’s starting to be somewhere above “Small Data”…)
+
+It turns out I’ll “burn” my serial identifiers in about \~10.000 days (a round number to justify why I used 210k as the example 🤪), as each Upsert is increasing the IDs to the next value – even when nothing at all needs change. So I’m “using” 210k IDs instead of 100 a day! Not too efficient (but then again: effective, as the code around the inserts and updates is shorter and cleaner…).
+
+Maybe that’s OK? (I really don’t know where I’ll be in \~27 years 😅)
+
+What if someone launches my script 10 times a day? Then everything will probably break (and I haven’t even thought how) in 2.7 years? I really don’t know yet if anyone but me would ever be using the same script on the same database…\
+What if then 10 people use it 10 times a day (that would mean my script went way beyond any expected success, mind you)… That’s 100 runs/day…?🤕
+
+Should I use “Bigserial” – in practice avoiding the issue (technically pushing it to a much much later future 😂)?
+
+Or should I take care of trying to avoid “Upserts” where I can – thereby making my code a bit more complex (e.g. making transactions my problem) – my choice for now.
+
+What’s the impact of a very sparse & big index? 🤔 I guess I need to keep testing and learning…
+
+(Note: please remember: I’m not actually a developer per-se, I just happen to use code sometimes, sorry if this is too obvious ;))
+
+## Other details
+
+As you might expect, using a database is a bit different from using CSV files. It’s a bit harder to set up, but supposedly faster afterwards…
+
+But not if you’re not careful…
+
+At one point I followed a logic of my code and did one update per entry that made sense.
+
+Trying to avoid the Upsert thing, I would check for duplicates.
+
+I don’t have my laptop handy to reproduce the code here, but let’s just say (from memory) it required some mix of rbind(), group_by_all(), filter(n()\>1) and ungroup()… And then some more filter(!(id %in% duplicated_id))…\
+
+Upsert would really make it easier! 😅
+
+Anyhow, to the point:
+
+Working with all of a table in memory (one big Select) on many many rows, might very well be faster than even a few select for a few rows…
+
+In one case it turned out my assumption about “working with few rows and few selects” vs “working with lots of rows but only one select” was wrong by a factor of a hundred!
+
+Just saying: Some assumptions are wrong and testing stuff is a good idea.
+
+## Conclusions
+
+Here is to the “keep learning” attitude. Continuous improvement is not always easy, but hopefully it pays off to challenge one self on a regular basis.

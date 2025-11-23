@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2021-09-12">
+<meta name="dcterms.date" content="2021-07-11">
 
-<title>Simulating a SOC (part II): GUI – Kaizen-R.com new home</title>
+<title>Scraping all the (old) Blog articles (the hard way) – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -42,8 +77,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../../site_libs/quarto-contrib/videojs/video.min.js"></script>
-<link href="../../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -113,10 +146,10 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Simulating a SOC (part II): GUI</h1>
+      <h1 class="title">Scraping all the (old) Blog articles (the hard way)</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">visualization</div>
-                <div class="quarto-category">cyber</div>
+                <div class="quarto-category">NLP</div>
+                <div class="quarto-category">code</div>
               </div>
                   </div>
   </div>
@@ -134,7 +167,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 12, 2021</p>
+        <p class="date">July 11, 2021</p>
       </div>
     </div>
     
@@ -155,57 +188,133 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="intro" class="level2">
 <h2 class="anchored" data-anchor-id="intro">Intro</h2>
-<p>Last week I started a small program to <a href="https://www.kaizen-r.com/2021/09/simulating-a-soc-just-for-fun/">simulate a SOC</a>.</p>
-<p>This week, I wanted to see if I could make it more… Visual.</p>
-<p>This here is the “final” result working with the simulator from last week:</p>
-<div class="quarto-video"><video id="video_shortcode_videojs_video1" width="500" height="350" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="A Shiny R interactive dashboard for SOC simulation"><source src="soc_simulator_shiny_v5.mp4"></video></div>
-<p>But it wasn’t easy…</p>
-<p>So here is the long-story-short about that.</p>
-<p>(No code, as I am not happy with my code right now, I have done so many tests I myself have a hard time following it right now… And it was meant to be a “quick &amp; dirty” exercise, well, dirty it is, that’s for sure. So maybe when I settle on a cleaner version, I’ll share that instead.)&nbsp;</p>
+<p>To use Natural Language Processing algorithms, we first need data.</p>
+<p>We’ve seen <a href="https://www.kaizen-r.com/2021/06/diving-into-nlp/">last time</a> how to scrape ONE article. And how to get to different pages of the Blog. But for this to be usable in the future, we should be able to download all articles UNTIL there is no more (e.g.&nbsp;we probably don’t want to know up-front how many pages we actually want to “crawl”).</p>
 </section>
-<section id="enters-shiny" class="level2">
-<h2 class="anchored" data-anchor-id="enters-shiny">Enters Shiny</h2>
-<p>So as now usual, I went the way of Shiny to create a Dashboard.</p>
-<p>The very first version of that was simple, and it worked at the first try:</p>
-<div class="quarto-video"><video id="video_shortcode_videojs_video2" width="500" height="350" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="first version of a SOC sim with Shiny"><source src="interactive_soc_v001.mp4"></video></div>
-<p>I did have to learn how to work with a reactiveTimer() in Shiny, and it took some testing, but it wasn’t horrible.</p>
-<p>Then came the complications…</p>
+<section id="extracting-one-article-from-one-specific-page" class="level2">
+<h2 class="anchored" data-anchor-id="extracting-one-article-from-one-specific-page">Extracting one article from one specific page</h2>
+<p>First, let’s suppose we have located a page with articles. Let’s see how to take out the text of ONE of these articles.</p>
+<p>We’ll want to get, from the page, the title, date of publication and contents (text) of the article. Let’s see how to do that:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>get_article_in_page <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">art_num =</span> <span class="dv">1</span>, page_articles) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span>(<span class="fu">is.list</span>(page_articles) <span class="sc">&amp;</span> <span class="fu">length</span>(page_articles) <span class="sc">&gt;=</span> art_num) {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Date is tricky here:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      possible_date_locations <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">".//time[@class='entry-date published']"</span>, <span class="st">".//time[@class='entry-date published updated']"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      art_date <span class="ot">&lt;-</span> <span class="fu">xml_text</span>(<span class="fu">xml_find_all</span>(page_articles[art_num], possible_date_locations[<span class="dv">1</span>]))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">length</span>(art_date) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>         art_date <span class="ot">&lt;-</span> <span class="fu">xml_text</span>(<span class="fu">xml_find_all</span>(page_articles[art_num], possible_date_locations[<span class="dv">2</span>]))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      art_title <span class="ot">&lt;-</span> <span class="fu">xml_text</span>(<span class="fu">xml_find_all</span>(page_articles[art_num], <span class="st">".//h1[@class='entry-title']"</span>))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      art_content <span class="ot">&lt;-</span> <span class="fu">xml_text</span>(<span class="fu">xml_find_all</span>(page_articles[art_num], <span class="st">".//div[@class='entry-content']"</span>))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Article:"</span>, art_num, <span class="st">"Date Found: "</span>, art_date)); <span class="fu">flush.console</span>();</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">data.frame</span>(<span class="at">article_date =</span> art_date,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">article_title =</span> art_title,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">article_content =</span> art_content))</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Should never be reached.</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>   <span class="fu">print</span>(<span class="st">"Function get_article_in_page: Uncontrolled error?"</span>); <span class="fu">flush.console</span>()</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>That’s building on the results from <a href="https://www.kaizen-r.com/2021/06/diving-into-nlp/">the last Blog post</a>. It turns out (after some tests) that the date is in different tags depending on whether the entry was updated at some point, so I amended for that.</p>
+<p>Now we have a data.frame with one article, including its title, publication date and text contents.</p>
 </section>
-<section id="one-animated-plot-is-ok-more-not-so-much" class="level2">
-<h2 class="anchored" data-anchor-id="one-animated-plot-is-ok-more-not-so-much">One animated plot is OK… More, not so much</h2>
-<p>With just one plot, everything seemed to work upfront. As usual, I chose ggplot, and simply plotted it alongside some numbers, and things went fine.</p>
-<p>However, the minute I threw in more plots, something went wrong: Whenever more than one plot needed an update (rendering), things froze, even if only for half a second. But it was perceptible.</p>
-<p>Do note that the dataset is rather simple and small, so “loading” is probably not the issue here.</p>
-<p>I’m convinced that with a much faster laptop, this could have gone unnoticed. Well, maybe, I’m not sure.</p>
-<p>But in summary, it seems that Shiny needs a little time to render several ggplots.</p>
-<p>And so I went hunting for a solution. I have played enough with Shiny to know that if you ggsave() a plot somewhere and then load the image, that renders faster. That was the first test, and indeed, it seemed to freeze a little less (it wasn’t “perfect”, but almost).</p>
-<p>Then I looked into alternatives. I love ggplot(), so it bothers me to admit that, but I needed to see where the problem was.</p>
-<p>I pushed forward, and tested the plot solutions that come bundled with most of R (from the “graphics” package). That worked better than ggplot() indeed, but then I would need to work all the many details to make those acceptable (presentation-wise). So not cool.</p>
-<p>Then I found the “renderCachedPlot()” alternative to “renderPlot()”. That seemed VERY promising. Indeed, it would only update a graph if there was something to update for that particular graph. That option helped, but not enough for my taste.</p>
-<p>I also tried to run the Shiny app from a “dedicated” Shiny Server container, as opposed to running it from a full-fledged RStudio container. Maybe the container was too busy? That didn’t improve things either.</p>
-<p>Someone in a Telegram group (about R) did point me to a VERY helpful CSS trick, that consists of playing with the opacity of a “recalculating” object in Shiny, and that made the visualisation MUCH smoother. The only detail is, behind the scenes, one could still tell the laptop was busy recalculating things as the timer still slowed down. Regardless, that CSS trick was a life-saver, visually speaking.</p>
-<p>So thanks a lot for that, Mister X (I won’t mention your name, for privacy reasons – but that can be changed if the interested party has any interest).</p>
-<p>As we know, R is mono-core by default. Could there be something with “futures”? Yes there is. But the solution was worse than the original problem. After all, on a small data frame, launching a new R session for each plot does seem like an overkill. And indeed, that wasn’t a solution.</p>
+<section id="getting-all-articles-in-one-specific-page" class="level2">
+<h2 class="anchored" data-anchor-id="getting-all-articles-in-one-specific-page">Getting all articles in one specific page</h2>
+<p>Now we have one selected page, which, in the current configuration of the Blog, contains three articles by default. So let’s put those articles in one data.frame:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>get_page_kaizen_blog <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">pagenum =</span> <span class="dv">1</span>) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>   base_page <span class="ot">&lt;-</span> <span class="st">"https://www.kaizen-r.com/category/blog/page/"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">tryCatch</span>({ <span class="co"># Excessive caution here.</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      page_con <span class="ot">&lt;-</span> <span class="fu">curl</span>(<span class="fu">paste0</span>(base_page, pagenum, <span class="st">"/"</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      page_text <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(xml2<span class="sc">::</span><span class="fu">read_html</span>(page_con), </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">error =</span> <span class="cf">function</span>(e) { </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">close</span>(page_con)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>         })</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(page_text)) {</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>         page_articles <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(page_text, <span class="st">".//article"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>         t_articles_df <span class="ot">&lt;-</span> <span class="fu">rbind.fill</span>(<span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(page_articles), </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>            get_article_in_page,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>            page_articles))</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>         <span class="fu">return</span>(<span class="fu">cbind</span>(<span class="fu">data.frame</span>(<span class="at">pagenum =</span> pagenum), t_articles_df))</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>         <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>   }, <span class="at">warning =</span> <span class="cf">function</span>(w) {</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">message</span>(w)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(<span class="st">"Function get_page: Controlled warning"</span>); <span class="fu">flush.console</span>()</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>   }, <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">message</span>(e)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(<span class="st">"Function get_page: Controlled error"</span>); <span class="fu">flush.console</span>()</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>   }, <span class="at">finally =</span> {</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>      <span class="co">#cleanup-code</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>   })</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Should never be reached.</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>   <span class="fu">print</span>(<span class="st">"Function get_page: Uncontrolled error?"</span>); <span class="fu">flush.console</span>()</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In the above, the error controls (tryCatch) have proven somewhat superfluous.</p>
+<p>The only issue was with controlling the “xml2::read_html()” bit, really, for cases where I call this function on a page number that turns out to be inexistent.</p>
+<p>Thankfully if we have less than 3 articles on one page, the rbind.fill function from the plyr package is clever enough to manage that gracefully (not adding that to the row-binded data.frame).</p>
 </section>
-<section id="final-solution" class="level2">
-<h2 class="anchored" data-anchor-id="final-solution">Final solution</h2>
-<p>At the end, although still not perfect, I used plot_ly() instead of ggplot().</p>
-<p>And it “worked”. You still clearly notice visually the impact of updating 3 graphs (which, once again, is no issue when working with one, in my tests anyway).</p>
-<p>The resulting “animated” dashboard, sporting three plots, is the one shown at the beginning of this entry.</p>
+<section id="getting-all-pages-in-the-blog" class="level2">
+<h2 class="anchored" data-anchor-id="getting-all-pages-in-the-blog">Getting all pages in the blog</h2>
+<p>Now we need to go through all pages. There are three possible outcomes, looping through this Blog’s pages:</p>
+<ul>
+<li><p>A page has 3 results (complete page)</p></li>
+<li><p>A page has results, but less than 3</p></li>
+<li><p>A page has no results (and throws an Error 404)</p></li>
+</ul>
+<p>So if we gather the articles of our Blog one page at a time, and then go for the “next page” (technically going back in time further and further), we will end up in one of these three scenarios.</p>
+<p>But as we <strong>don’t know</strong> up-front what case we will fall in for each page we crawl, we need to start an infinite loop, and then stop crawling after we get to less than 3 articles on a page, or no article, which will be indicative of us having finished.</p>
+<p>As the crawler of ONE page gracefully tells us when we reach a page with no articles (returning NULL), we need only control for that case for now:</p>
+<p>Here goes the code:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>get_all_articles_kaizen_blog_v1 <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>   articles_df <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>   pagenum <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>   <span class="cf">while</span>(<span class="cn">TRUE</span>) {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      t_articles <span class="ot">&lt;-</span> <span class="fu">get_page_kaizen_blog</span>(pagenum)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">is.null</span>(t_articles)) {</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>         <span class="cf">break</span>;</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>         articles_df <span class="ot">&lt;-</span> <span class="fu">rbind.fill</span>(t_articles,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            articles_df)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>      pagenum <span class="ot">&lt;-</span> pagenum <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>   articles_df</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Rather basic loop, but it does the job.&nbsp;</p>
+</section>
+<section id="making-things-a-bit-faster-using-futures" class="level2">
+<h2 class="anchored" data-anchor-id="making-things-a-bit-faster-using-futures">Making things a bit faster (using futures)</h2>
+<p>Once we’re here, we implement a lapply-based version of the crawler of all pages. The idea is to be able to loop across 4-pages-crawls at once. It’s mostly stupid per-se, as we might have to crawl empty pages (supposing we have numpages %% 4&nbsp; != 0) but that’s useful for the next version.</p>
+<p>I did it because now I can use “future_lapply” to crawl 4 pages “in parallel” (well, depending on available cores for use by the Futures multisession package).</p>
+<p>In our case, on a laptop, we only get two cores, so we can’t expect to make things 4 times faster, but indeed, it is almost twice as fast as doing one-by-one crawling.</p>
+<p><img src="comparing_crawling_speeds.png" class="img-fluid" alt=""></p>
+<p>What this means is that crawling two pages in parallel compensates handsomely the overhead of launching new “sessions”. In a setup with more available cores to our Docker install, things should go even faster (I need to test this on the Home Server Lab, for instance :)).</p>
 </section>
 <section id="conclusions" class="level2">
 <h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>First of all, let’s be clear: There are certainly MANY things I haven’t tried. For instance the Plotly package has some built-in animation solutions that I haven’t tried, and they seem very smooth.</p>
-<p>And from what I’ve experienced with more traditional BI solutions, like PowerBI, you wouldn’t use that to reload a graphs every 0.3 seconds like we do here. I haven’t tested that, so my perspective is probably VERY biased/wrong…</p>
-<p>On the other hand, making the Simulations “visual” in an interactive Dashboard is probably a bad idea anyway. At some point, I might want to run several simulations with different parameters, and see which parameter set gives the best result based on some conditions. Doing that while “showing” every step is simply not the way to go, and although it would probably be “cool”, we would be wasting LOTS of unnecessary compute power on refreshing some graphs… And making things all-the-more slow, which is not what you want if you want to simulate many alternative solutions.</p>
-<p>So here we are.</p>
-<ul>
-<li><p>Plotly <em>seems</em> faster than ggplot. I wouldn’t have know, had I not tried to do an animated dashboard with more than one plot, really.</p></li>
-<li><p>You can use timers in Shiny to animate things. Although it seems there is an “invalidate” alternative out there that is preferred to the “reactiveTimer” option… I’ll have to look into that.</p></li>
-<li><p>As our simulator was really a set of things bundled together, I used the reactiveValues() function of Shiny to “translate” the original simulator…</p></li>
-<li><p>Visualising a simulation WHILE it’s running is fun to watch, but not really a good idea. Maybe I could adapt the Dashboard to run simulations in the background and show only results; that’d make more sense.</p></li>
-</ul>
-<p>I still think this is not too bad for a simple exercise implemented in my spare time…</p>
+<p>As easy as it might have seemed, getting a reasonably clean code to crawl a simple blog as this one is not all as straightforward.</p>
+<p>Controlling for certain errors is important (otherwise, going into parallel processing will eventually make it hard to debug stuff). Parsing HTML is not as obvious as a typical user of browsers would expect, one needs to “dive” into the HTML tree and locate stuff.</p>
+<p>But after some efforts, one can get there, and it can be “repeatable”, which will be good for us, as we will crawl “anew” our website every time we will analyse its contents. Now with three functions and one call, we can get a dataframe with the contents of our Blog entries.</p>
+<p>So first step: Done.</p>
+<p>Next time, we will start looking into the collected data. Expect some cleaning, for sure. And then we’ll see.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p><a href="https://github.com/kaizen-R/R/blob/master/Sample/NLP/scraping_our_blog_v001.R">My code for this exercise on GitHub</a></p>
 
 
 </section>
@@ -611,8 +720,6 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
-<script>videojs(video_shortcode_videojs_video1);</script>
-<script>videojs(video_shortcode_videojs_video2);</script>
 
 
 

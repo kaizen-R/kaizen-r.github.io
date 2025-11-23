@@ -1,0 +1,156 @@
+---
+title: "Gathering Security Data: Tests with Ansible"
+author: "Nico"
+date: "2021-05-08"
+categories: [cyber]
+---
+
+## **Goal for today**
+
+Gather Configuration data from Linux boxes. As the saying goes: “You can’t manage what you don’t know”. Well, today is about just that (with focus on IT Security).
+
+## **Introduction**
+
+This is part of a series of posts about gathering security data (see for example: [Shodan API tests](https://www.kaizen-r.com/2021/04/shodan-api-tests/) or [More external data sources tests: OWASP Amass](https://www.kaizen-r.com/2021/04/more-external-data-sources-tests-owasp-amass/)). But those where about gathering data from the Internet. Let’s look “inwards” for once.
+
+I’ve heard a lot the name “Ansible”, and I understood the concept… But (until right now) I had not played with it. Today will, as often, only be about demo/testing, so do not expect much detail (or the best possible quality).
+
+And no, it won’t be about R at all (once again), but rather about gathering (hopefully relevant) data for security purposes.
+
+## Getting things working
+
+First let’s create a new container; we’ll use the Alpine distro as it is lightweight and supports Ansible (<https://wiki.alpinelinux.org/wiki/Ansible>)
+
+``` bash
+docker pull alpine
+```
+
+Once installed, let’s run that in interactive mode. (We’ll probably want to go the Dockerfile way in the future, but that will be good enough for today).
+
+``` bash
+docker run --name ansible1 -it alpine
+```
+
+Then we’ll install Ansible, like so (we’ll also need SSH, mainly):
+
+``` bash
+/ # apk add ansible
+/ # apk add openssh
+```
+
+That was rather easy, wasn’t it? Now we can first test access to our “Home Lab” server:
+
+``` bash
+/ # ssh -p 22225 10.0.1.10
+```
+
+Working, but of course, SSH keys and all are not there. So I’ll fix that (quick fix with bad ciphers and all, but sufficient). Not much security as I will clean this up afterwards. And we’re “ready”, inside the Home Lab Server. Let’s get back to our Ansible container (which is, by the way, a so-called “control node”).
+
+``` bash
+nico@home1:~$ exit
+logout
+Connection to 10.X.X.X closed.
+```
+
+Now we have an ansible-installed container, and the Home Lab Server to be “managed”. The Home Lab already sports a Python3 so nothing else should be needed. That’s good.
+
+Note for self: When working with interactive mode in Docker, you might want to pause and come back to your container later on. Then you’ll need to do something along the following lines to re-connect to your container after exiting it:
+
+``` bash
+# sudo docker ps -a
+# sudo docker start 1b72b31851fd
+# sudo docker attach 1b72b31851fd
+```
+
+OK so, the APK worked, but some relevant files seem to be missing. For instance, I need to create the /etc/ansible directory, to then be able to add the hosts file in there.
+
+As I use a port different from the default on my machines, I need to write the port number with the machine IP in the hosts inventory, so I put it like this (format, not what it actually looks like):
+
+``` bash
+[linux]
+IP:PORT
+```
+
+The Linux tag above will allow to run the Ansible playbooks by groups, in this case on all Linux boxes (only one for our example). Then to the actual test:
+
+``` bash
+# ansible all -m ping -u nico
+10.0.1.10 | SUCCESS => {
+   "ansible_facts": {
+     "discovered_interpreter_python": "/usr/bin/python3"
+   },
+   "changed": false,
+   "ping": "pong"
+}
+```
+
+That works! Let’s test some more data-gathering with Ansible:
+
+``` bash
+ansible -m setup --tree out/ all -u nico
+```
+
+The output is too long here, but we’re getting somewhere indeed.  That’s essentially about hardware information. (And: No, I don’t really know what I’m doing. So going to the man pages (remember, RTFM): Apparently the -m is to point to a given module, in this case “setup”.  –tree would be to indicate the output directory. “all” apparently is indicating to run for all hosts in the inventory, in our case just the one. The last option is to indicate the username to use for the SSH connection, in this case the one for which we have configured the SSH Keys exchange a bit earlier).
+
+Now suppose we need to get to the software installed on a machine. Let’s see how that would go:
+
+Thankfully, we’re not starting from scratch (I couldn’t learn that much Ansible with my available spare time right now). So for testing purposes, I’ll use the example from here:
+
+<https://www.jmrnet.tech/?p=26>
+
+You’ll notice the reference to “hosts: linux” in there, that’s why we put a name to our group in the hosts file earlier 😉
+
+``` bash
+- name: Capture installed package information for Linux hosts
+  hosts: linux
+  tasks:
+  - name: Get the package facts from hosts
+   package_facts:
+    manager: auto
+  - name: Display output
+   debug:
+    var: ansible_facts.packages
+```
+
+Then we save that as a YAML file, and we run it like so:
+
+``` bash
+# ansible-playbook -u nico installed_sw_base_playbook.yml
+```
+
+An extract of the results for instance (the list is looooong too):
+
+``` bash
+[...],
+"vim": [
+       {
+         "arch": "amd64",
+         "category": "editors",
+         "name": "vim",
+         "origin": "Ubuntu",
+         "source": "apt",
+         "version": "2:8.1.2269-1ubuntu5"
+       }
+     ],
+[...]
+```
+
+And that’s about it. We now have a list of software components installed on the Home Lab Server, along with lots of Hardware data.
+
+Disclaimer: Right now I’ll admit, I don’t exactly know HOW the commands and YAML files work just yet. It seems pretty straightfoward, but I haven’t investigated any further just yet. Even then, the thing is working, for a total of maybe 1h work 🙂
+
+## **Conclusions**
+
+Knowing what you have (be it for IT operations or for security posture understanding, cybersecurity operations and so on) is, I believe, quite important. The “Ansible way” is only one potential way to go about gathering information about Linux (and apparently Windows, and probably more) servers/machines.
+
+Plus I’ve been meaning to get started with Ansible for a long time, so I thought I would give it a data-collection/security focus for the Blog.
+
+Ansible seems to be pretty cool indeed: Only Python is required on the managed nodes (as they seem to be called in Ansible Lingo ;)), which helps (as deploying agents on production machines is generally not a beloved approach…)
+
+## Resources
+
+[Ansible Official Documentation](https://docs.ansible.com/)
+
+[The blog post I used to find a workable playbook for software inventory](https://www.jmrnet.tech/?p=26)
+
+[Getting Ansible to work on Alpine Linux (for container)](https://wiki.alpinelinux.org/wiki/Ansible)

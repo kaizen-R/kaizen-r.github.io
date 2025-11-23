@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2021-09-12">
+<meta name="dcterms.date" content="2021-08-22">
 
-<title>Simulating a SOC (part II): GUI – Kaizen-R.com new home</title>
+<title>Every day I keep learning – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -42,8 +42,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../../site_libs/quarto-contrib/videojs/video.min.js"></script>
-<link href="../../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -113,10 +111,9 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Simulating a SOC (part II): GUI</h1>
+      <h1 class="title">Every day I keep learning</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">visualization</div>
-                <div class="quarto-category">cyber</div>
+                <div class="quarto-category">code</div>
               </div>
                   </div>
   </div>
@@ -134,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 12, 2021</p>
+        <p class="date">August 22, 2021</p>
       </div>
     </div>
     
@@ -155,57 +152,40 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="intro" class="level2">
 <h2 class="anchored" data-anchor-id="intro">Intro</h2>
-<p>Last week I started a small program to <a href="https://www.kaizen-r.com/2021/09/simulating-a-soc-just-for-fun/">simulate a SOC</a>.</p>
-<p>This week, I wanted to see if I could make it more… Visual.</p>
-<p>This here is the “final” result working with the simulator from last week:</p>
-<div class="quarto-video"><video id="video_shortcode_videojs_video1" width="500" height="350" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="A Shiny R interactive dashboard for SOC simulation"><source src="soc_simulator_shiny_v5.mp4"></video></div>
-<p>But it wasn’t easy…</p>
-<p>So here is the long-story-short about that.</p>
-<p>(No code, as I am not happy with my code right now, I have done so many tests I myself have a hard time following it right now… And it was meant to be a “quick &amp; dirty” exercise, well, dirty it is, that’s for sure. So maybe when I settle on a cleaner version, I’ll share that instead.)&nbsp;</p>
+<p>I missed writing an entry last week. Not that I haven’t learned anything I could discuss, but rather because I have been learning and coding a bit too much lately…</p>
 </section>
-<section id="enters-shiny" class="level2">
-<h2 class="anchored" data-anchor-id="enters-shiny">Enters Shiny</h2>
-<p>So as now usual, I went the way of Shiny to create a Dashboard.</p>
-<p>The very first version of that was simple, and it worked at the first try:</p>
-<div class="quarto-video"><video id="video_shortcode_videojs_video2" width="500" height="350" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="first version of a SOC sim with Shiny"><source src="interactive_soc_v001.mp4"></video></div>
-<p>I did have to learn how to work with a reactiveTimer() in Shiny, and it took some testing, but it wasn’t horrible.</p>
-<p>Then came the complications…</p>
+<section id="learning-more-about-postgres" class="level2">
+<h2 class="anchored" data-anchor-id="learning-more-about-postgres">Learning more about Postgres</h2>
+<p>Among many other things (that will make for potentially quite a few other entries in the Blog), I learned one detail about one trick (really going down the rabbit holes sometimes…) in “Postgres”:</p>
+<p>“Upsert” (“insert … on conflict…”) is a very neat trick. It makes my R code (a lot) cleaner &amp; ensures atomic operations at the Database level, so I love it. 👍</p>
+<p>What I recently learned about that wasn’t a worry in the past (it keeps happening!) is the impact on serial IDs 🧐 (and it makes sense why Postgres works that way, I’m not complaining, I just wasn’t aware until very recently):</p>
+<p>Say I use it on ~210.000 (bear with me) rows a day, of which most of the time say ~209.900 are repeating entries (so they really should have been “updates”), on a table using a Serial ID. Those are very realistic numbers. And it’s not Big Data (although maybe it’s starting to be somewhere above “Small Data”…)</p>
+<p>It turns out I’ll “burn” my serial identifiers in about ~10.000 days (a round number to justify why I used 210k as the example 🤪), as each Upsert is increasing the IDs to the next value – even when nothing at all needs change. So I’m “using” 210k IDs instead of 100 a day! Not too efficient (but then again: effective, as the code around the inserts and updates is shorter and cleaner…).</p>
+<p>Maybe that’s OK? (I really don’t know where I’ll be in ~27 years 😅)</p>
+<p>What if someone launches my script 10 times a day? Then everything will probably break (and I haven’t even thought how) in 2.7 years? I really don’t know yet if anyone but me would ever be using the same script on the same database…<br>
+What if then 10 people use it 10 times a day (that would mean my script went way beyond any expected success, mind you)… That’s 100 runs/day…?🤕</p>
+<p>Should I use “Bigserial” – in practice avoiding the issue (technically pushing it to a much much later future 😂)?</p>
+<p>Or should I take care of trying to avoid “Upserts” where I can – thereby making my code a bit more complex (e.g.&nbsp;making transactions my problem) – my choice for now.</p>
+<p>What’s the impact of a very sparse &amp; big index? 🤔 I guess I need to keep testing and learning…</p>
+<p>(Note: please remember: I’m not actually a developer per-se, I just happen to use code sometimes, sorry if this is too obvious ;))</p>
 </section>
-<section id="one-animated-plot-is-ok-more-not-so-much" class="level2">
-<h2 class="anchored" data-anchor-id="one-animated-plot-is-ok-more-not-so-much">One animated plot is OK… More, not so much</h2>
-<p>With just one plot, everything seemed to work upfront. As usual, I chose ggplot, and simply plotted it alongside some numbers, and things went fine.</p>
-<p>However, the minute I threw in more plots, something went wrong: Whenever more than one plot needed an update (rendering), things froze, even if only for half a second. But it was perceptible.</p>
-<p>Do note that the dataset is rather simple and small, so “loading” is probably not the issue here.</p>
-<p>I’m convinced that with a much faster laptop, this could have gone unnoticed. Well, maybe, I’m not sure.</p>
-<p>But in summary, it seems that Shiny needs a little time to render several ggplots.</p>
-<p>And so I went hunting for a solution. I have played enough with Shiny to know that if you ggsave() a plot somewhere and then load the image, that renders faster. That was the first test, and indeed, it seemed to freeze a little less (it wasn’t “perfect”, but almost).</p>
-<p>Then I looked into alternatives. I love ggplot(), so it bothers me to admit that, but I needed to see where the problem was.</p>
-<p>I pushed forward, and tested the plot solutions that come bundled with most of R (from the “graphics” package). That worked better than ggplot() indeed, but then I would need to work all the many details to make those acceptable (presentation-wise). So not cool.</p>
-<p>Then I found the “renderCachedPlot()” alternative to “renderPlot()”. That seemed VERY promising. Indeed, it would only update a graph if there was something to update for that particular graph. That option helped, but not enough for my taste.</p>
-<p>I also tried to run the Shiny app from a “dedicated” Shiny Server container, as opposed to running it from a full-fledged RStudio container. Maybe the container was too busy? That didn’t improve things either.</p>
-<p>Someone in a Telegram group (about R) did point me to a VERY helpful CSS trick, that consists of playing with the opacity of a “recalculating” object in Shiny, and that made the visualisation MUCH smoother. The only detail is, behind the scenes, one could still tell the laptop was busy recalculating things as the timer still slowed down. Regardless, that CSS trick was a life-saver, visually speaking.</p>
-<p>So thanks a lot for that, Mister X (I won’t mention your name, for privacy reasons – but that can be changed if the interested party has any interest).</p>
-<p>As we know, R is mono-core by default. Could there be something with “futures”? Yes there is. But the solution was worse than the original problem. After all, on a small data frame, launching a new R session for each plot does seem like an overkill. And indeed, that wasn’t a solution.</p>
-</section>
-<section id="final-solution" class="level2">
-<h2 class="anchored" data-anchor-id="final-solution">Final solution</h2>
-<p>At the end, although still not perfect, I used plot_ly() instead of ggplot().</p>
-<p>And it “worked”. You still clearly notice visually the impact of updating 3 graphs (which, once again, is no issue when working with one, in my tests anyway).</p>
-<p>The resulting “animated” dashboard, sporting three plots, is the one shown at the beginning of this entry.</p>
+<section id="other-details" class="level2">
+<h2 class="anchored" data-anchor-id="other-details">Other details</h2>
+<p>As you might expect, using a database is a bit different from using CSV files. It’s a bit harder to set up, but supposedly faster afterwards…</p>
+<p>But not if you’re not careful…</p>
+<p>At one point I followed a logic of my code and did one update per entry that made sense.</p>
+<p>Trying to avoid the Upsert thing, I would check for duplicates.</p>
+<p>I don’t have my laptop handy to reproduce the code here, but let’s just say (from memory) it required some mix of rbind(), group_by_all(),&nbsp;filter(n()&gt;1) and ungroup()… And then some more filter(!(id %in% duplicated_id))…<br>
+</p>
+<p>Upsert would really make it easier! 😅</p>
+<p>Anyhow, to the point:</p>
+<p>Working with all of a table in memory (one big Select) on many many rows, might very well be faster than even a few select for a few rows…</p>
+<p>In one case it turned out my assumption about “working with few rows and few selects” vs “working with lots of rows but only one select”&nbsp;was wrong by a factor of a hundred!</p>
+<p>Just saying: Some assumptions are wrong and testing stuff is a good idea.</p>
 </section>
 <section id="conclusions" class="level2">
 <h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>First of all, let’s be clear: There are certainly MANY things I haven’t tried. For instance the Plotly package has some built-in animation solutions that I haven’t tried, and they seem very smooth.</p>
-<p>And from what I’ve experienced with more traditional BI solutions, like PowerBI, you wouldn’t use that to reload a graphs every 0.3 seconds like we do here. I haven’t tested that, so my perspective is probably VERY biased/wrong…</p>
-<p>On the other hand, making the Simulations “visual” in an interactive Dashboard is probably a bad idea anyway. At some point, I might want to run several simulations with different parameters, and see which parameter set gives the best result based on some conditions. Doing that while “showing” every step is simply not the way to go, and although it would probably be “cool”, we would be wasting LOTS of unnecessary compute power on refreshing some graphs… And making things all-the-more slow, which is not what you want if you want to simulate many alternative solutions.</p>
-<p>So here we are.</p>
-<ul>
-<li><p>Plotly <em>seems</em> faster than ggplot. I wouldn’t have know, had I not tried to do an animated dashboard with more than one plot, really.</p></li>
-<li><p>You can use timers in Shiny to animate things. Although it seems there is an “invalidate” alternative out there that is preferred to the “reactiveTimer” option… I’ll have to look into that.</p></li>
-<li><p>As our simulator was really a set of things bundled together, I used the reactiveValues() function of Shiny to “translate” the original simulator…</p></li>
-<li><p>Visualising a simulation WHILE it’s running is fun to watch, but not really a good idea. Maybe I could adapt the Dashboard to run simulations in the background and show only results; that’d make more sense.</p></li>
-</ul>
-<p>I still think this is not too bad for a simple exercise implemented in my spare time…</p>
+<p>Here is to the “keep learning” attitude. Continuous improvement is not always easy, but hopefully it pays off to challenge one self on a regular basis.</p>
 
 
 </section>
@@ -611,8 +591,6 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
-<script>videojs(video_shortcode_videojs_video1);</script>
-<script>videojs(video_shortcode_videojs_video2);</script>
 
 
 

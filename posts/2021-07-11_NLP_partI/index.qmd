@@ -1,0 +1,166 @@
+---
+title: "Scraping all the (old) Blog articles (the hard way)"
+author: "Nico"
+date: "2021-07-11"
+categories: [NLP, code]
+---
+
+## Intro
+
+To use Natural Language Processing algorithms, we first need data.
+
+We’ve seen [last time](https://www.kaizen-r.com/2021/06/diving-into-nlp/) how to scrape ONE article. And how to get to different pages of the Blog. But for this to be usable in the future, we should be able to download all articles UNTIL there is no more (e.g. we probably don’t want to know up-front how many pages we actually want to “crawl”).
+
+## Extracting one article from one specific page
+
+First, let’s suppose we have located a page with articles. Let’s see how to take out the text of ONE of these articles.
+
+We’ll want to get, from the page, the title, date of publication and contents (text) of the article. Let’s see how to do that:
+
+``` r
+get_article_in_page <- function(art_num = 1, page_articles) {
+   if(is.list(page_articles) & length(page_articles) >= art_num) {
+      # Date is tricky here:
+      possible_date_locations <- c(".//time[@class='entry-date published']", ".//time[@class='entry-date published updated']")
+      art_date <- xml_text(xml_find_all(page_articles[art_num], possible_date_locations[1]))
+      if(length(art_date) == 0) {
+         art_date <- xml_text(xml_find_all(page_articles[art_num], possible_date_locations[2]))
+      }
+
+      art_title <- xml_text(xml_find_all(page_articles[art_num], ".//h1[@class='entry-title']"))
+      art_content <- xml_text(xml_find_all(page_articles[art_num], ".//div[@class='entry-content']"))
+      print(paste("Article:", art_num, "Date Found: ", art_date)); flush.console();
+
+      return(data.frame(article_date = art_date,
+         article_title = art_title,
+         article_content = art_content))
+   }
+
+   # Should never be reached.
+   print("Function get_article_in_page: Uncontrolled error?"); flush.console()
+   return(NULL)
+}
+```
+
+That’s building on the results from [the last Blog post](https://www.kaizen-r.com/2021/06/diving-into-nlp/). It turns out (after some tests) that the date is in different tags depending on whether the entry was updated at some point, so I amended for that.
+
+Now we have a data.frame with one article, including its title, publication date and text contents.
+
+## Getting all articles in one specific page
+
+Now we have one selected page, which, in the current configuration of the Blog, contains three articles by default. So let’s put those articles in one data.frame:
+
+``` r
+get_page_kaizen_blog <- function(pagenum = 1) {
+   base_page <- "https://www.kaizen-r.com/category/blog/page/"
+
+   tryCatch({ # Excessive caution here.
+      page_con <- curl(paste0(base_page, pagenum, "/"))
+      
+      page_text <- tryCatch(xml2::read_html(page_con), 
+         error = function(e) { 
+            close(page_con)
+            return(NULL)
+         })
+
+      if(!is.null(page_text)) {
+         page_articles <- xml_find_all(page_text, ".//article")
+
+         t_articles_df <- rbind.fill(lapply(1:length(page_articles), 
+            get_article_in_page,
+            page_articles))
+
+         return(cbind(data.frame(pagenum = pagenum), t_articles_df))
+      } else {
+         return(NULL)
+      }
+   }, warning = function(w) {
+      message(w)
+      print("Function get_page: Controlled warning"); flush.console()
+      return(NULL)
+   }, error = function(e) {
+      message(e)
+      print("Function get_page: Controlled error"); flush.console()
+      return(NULL)
+   }, finally = {
+      #cleanup-code
+   })
+
+   # Should never be reached.
+   print("Function get_page: Uncontrolled error?"); flush.console()
+   return(NULL)
+}
+```
+
+In the above, the error controls (tryCatch) have proven somewhat superfluous.
+
+The only issue was with controlling the “xml2::read_html()” bit, really, for cases where I call this function on a page number that turns out to be inexistent.
+
+Thankfully if we have less than 3 articles on one page, the rbind.fill function from the plyr package is clever enough to manage that gracefully (not adding that to the row-binded data.frame).
+
+## Getting all pages in the blog
+
+Now we need to go through all pages. There are three possible outcomes, looping through this Blog’s pages:
+
+-   A page has 3 results (complete page)
+
+-   A page has results, but less than 3
+
+-   A page has no results (and throws an Error 404)
+
+So if we gather the articles of our Blog one page at a time, and then go for the “next page” (technically going back in time further and further), we will end up in one of these three scenarios.
+
+But as we **don’t know** up-front what case we will fall in for each page we crawl, we need to start an infinite loop, and then stop crawling after we get to less than 3 articles on a page, or no article, which will be indicative of us having finished.
+
+As the crawler of ONE page gracefully tells us when we reach a page with no articles (returning NULL), we need only control for that case for now:
+
+Here goes the code:
+
+``` r
+get_all_articles_kaizen_blog_v1 <- function() {
+   articles_df <- NULL
+   pagenum <- 1
+
+   while(TRUE) {
+      t_articles <- get_page_kaizen_blog(pagenum)
+      if(is.null(t_articles)) {
+         break;
+      } else {
+         articles_df <- rbind.fill(t_articles,
+            articles_df)
+      }
+      pagenum <- pagenum + 1
+   }
+   articles_df
+}
+```
+
+Rather basic loop, but it does the job. 
+
+## Making things a bit faster (using futures)
+
+Once we’re here, we implement a lapply-based version of the crawler of all pages. The idea is to be able to loop across 4-pages-crawls at once. It’s mostly stupid per-se, as we might have to crawl empty pages (supposing we have numpages %% 4  != 0) but that’s useful for the next version.
+
+I did it because now I can use “future_lapply” to crawl 4 pages “in parallel” (well, depending on available cores for use by the Futures multisession package).
+
+In our case, on a laptop, we only get two cores, so we can’t expect to make things 4 times faster, but indeed, it is almost twice as fast as doing one-by-one crawling.
+
+![](comparing_crawling_speeds.png){alt=""}
+
+What this means is that crawling two pages in parallel compensates handsomely the overhead of launching new “sessions”. In a setup with more available cores to our Docker install, things should go even faster (I need to test this on the Home Server Lab, for instance :)).
+
+## Conclusions
+
+As easy as it might have seemed, getting a reasonably clean code to crawl a simple blog as this one is not all as straightforward.
+
+Controlling for certain errors is important (otherwise, going into parallel processing will eventually make it hard to debug stuff). Parsing HTML is not as obvious as a typical user of browsers would expect, one needs to “dive” into the HTML tree and locate stuff.
+
+But after some efforts, one can get there, and it can be “repeatable”, which will be good for us, as we will crawl “anew” our website every time we will analyse its contents. Now with three functions and one call, we can get a dataframe with the contents of our Blog entries.
+
+So first step: Done.
+
+Next time, we will start looking into the collected data. Expect some cleaning, for sure. And then we’ll see.
+
+## References
+
+[My code for this exercise on GitHub](https://github.com/kaizen-R/R/blob/master/Sample/NLP/scraping_our_blog_v001.R)

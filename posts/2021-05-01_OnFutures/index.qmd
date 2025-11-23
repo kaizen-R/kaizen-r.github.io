@@ -1,0 +1,86 @@
+---
+title: "A revelation: R Futures"
+author: "Nico"
+date: "2021-05-01"
+categories: [code, Optimization]
+---
+
+## Intro
+
+I have been accepting (NOT complaining about) R limitation of being mono-core, monothread. For a long time. Actually, for years. I even went all the way to using Docker to distribute compute load across CPUs of one (or more) physical machine. It was just something **I had “assumed” was like that**.
+
+But **what little did I know** (as it apparently **always** is the case). In other words, once again, I was wrong, and as always, the harder I try, the more I learn (thankfully). Well, maybe not exactly wrong: The R interpreter is still mono-core, mono-thread (as far as I understand). **That doesn’t mean nothing can be done about it**.
+
+More importantly: **THIS IS A GAME CHANGER FOR ME**. My beloved R programming language was always useful for my goals, but now it’s also FAST! (I’m weird because of this, if you ask my colleagues – All others seem to have gone the Python way). And it only took me about 6-7 years to find out I could parallelise computing in R (yes: facepalm, right there).
+
+## Context
+
+The last few weeks I have been dealing with several-hours-runtimes in some scripts. A big part because of API limits, so not much to tweak there. But for the rest of the code that was no excuse… And if anything broke (I need to work on my debugging skills), I would have to re-launch much of it…
+
+And then when it comes to hours, although I generally don’t care about running times (actually: if it’s during my sleep, machine hours are GREAT: Work being done while I’m sleeping!), when it comes to slowing me down during the day, well, that’s another matter. Particularly when the thing slowing me down is an automation (it’s like an oxymoron or something, don’t you agree?).
+
+And I was considering this for the past week, I was even about to start going the way of “containerization”, plumbeR, etc. After all, distributing the work IS a way to make things faster (if/when applicable).
+
+But as I was pondering on this issue, **I finally challenged my assumptions: can R be made multi-thread?** Or can I make it run stuff in parallel?
+
+As introduced earlier, challenging the assumption paid off: As it turns out, there are MORE THAN ONE packages out there (facepalm, once again, really) to help with this particular endeavour. Now I had to choose one of those for testing, and I chose “future.apply” (which is actually a wrap around the “future” package).
+
+## Welcome to the Future
+
+It’s SO easy, I really hate myself for not having found out about this years ago already. But that’s OK. Within a few years, maybe, I might consider myself something more than an R programming beginner. For now, that’s actually a good thing.
+
+Alright so here is the complete code for the test:
+
+``` r
+# Testing future package through future.apply
+
+library(future.apply)
+library(Rwhois) # A reasonable slow function
+library(microbenchmark)
+
+availableCores() # 4 on the Home Lab Server
+plan(multisession) # Let's compare a couple of speed tests
+
+domains_vector <- c("google.com", "kaizen-r.com", "nytimes.com", 
+   "economist.com", "had.co.nz", "urlscan.io",
+   "towardsdatascience.com", "aquasec.com", "ipvoid.com",
+   "rstudio.com", "mitre.org", "what2log.com")
+
+microbenchmark(
+   lapply(domains_vector, whois_query), # traditional way
+   future_lapply(domains_vector, whois_query), # using futures
+   times = 5L
+)
+```
+
+Essentially: One library load, one “plan” command, and a very similar way of doing things (using vectorization).
+
+Here are the results:
+
+![](futures_speed_tests1.png){alt=""}
+
+As always, there is MUCH MORE TO IT. For instance the concept of “future” is actually interesting in and of itself, as explained on the [Package Owner’s GitHub](https://github.com/HenrikBengtsson/future):
+
+*“a future is an abstraction for a value that may be available at some point in the future. The state of a future can either be unresolved or resolved. \[…\]”*
+
+The future package has implicit calls (using **%\<-%** instead of **\<-**) or explicit calls. It has different plans. I actually wanted to test “multicore” instead of “multisession”, as it seems this reduces overhead and hence enhances further the gains of speed, but apparently this might clash with RStudio for I-don’t-really-know-the-reason.
+
+From the comments on GitHub, by Henrik Bengtsson (I didn’t know him, but because of “future.apply”, he now is on my top R guys list):
+
+*“For instance, when running R from within RStudio process forking may resulting in crashed R sessions”*
+
+My tests demonstrated that something must be off, because speed was NOT improved at all compared to non-parallelized calls, so the multicore option did not work for me.
+
+That’s OK though, this thing has already changed my life as an R-coding guy. (Not every day does one challenge such an ingrained assumption, just to find I was so wrong for so long…) 
+
+## Conclusions
+
+The results are there alright.
+
+Simply put, we managed to multiply speed by \~3 times, by using better the available resources on the machine. (I am guessing one of the cores cannot be used, it must be busy with Docker, OS, or the session creation overhead is slowing things down… I’ll have to double check).
+
+## Resources
+
+<https://github.com/HenrikBengtsson/future.apply>
+
+[My own demo code on my GitHub account](https://github.com/kaizen-R/R/blob/master/Sample/demos/testing_futures_001.R)

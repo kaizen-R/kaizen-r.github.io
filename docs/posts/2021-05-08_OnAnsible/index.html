@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2021-09-12">
+<meta name="dcterms.date" content="2021-05-08">
 
-<title>Simulating a SOC (part II): GUI – Kaizen-R.com new home</title>
+<title>Gathering Security Data: Tests with Ansible – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -42,8 +77,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../../site_libs/quarto-contrib/videojs/video.min.js"></script>
-<link href="../../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -113,9 +146,8 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Simulating a SOC (part II): GUI</h1>
+      <h1 class="title">Gathering Security Data: Tests with Ansible</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">visualization</div>
                 <div class="quarto-category">cyber</div>
               </div>
                   </div>
@@ -134,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 12, 2021</p>
+        <p class="date">May 8, 2021</p>
       </div>
     </div>
     
@@ -153,59 +185,94 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="intro" class="level2">
-<h2 class="anchored" data-anchor-id="intro">Intro</h2>
-<p>Last week I started a small program to <a href="https://www.kaizen-r.com/2021/09/simulating-a-soc-just-for-fun/">simulate a SOC</a>.</p>
-<p>This week, I wanted to see if I could make it more… Visual.</p>
-<p>This here is the “final” result working with the simulator from last week:</p>
-<div class="quarto-video"><video id="video_shortcode_videojs_video1" width="500" height="350" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="A Shiny R interactive dashboard for SOC simulation"><source src="soc_simulator_shiny_v5.mp4"></video></div>
-<p>But it wasn’t easy…</p>
-<p>So here is the long-story-short about that.</p>
-<p>(No code, as I am not happy with my code right now, I have done so many tests I myself have a hard time following it right now… And it was meant to be a “quick &amp; dirty” exercise, well, dirty it is, that’s for sure. So maybe when I settle on a cleaner version, I’ll share that instead.)&nbsp;</p>
+<section id="goal-for-today" class="level2">
+<h2 class="anchored" data-anchor-id="goal-for-today"><strong>Goal for today</strong></h2>
+<p>Gather Configuration data from Linux boxes. As the saying goes: “You can’t manage what you don’t know”. Well, today is about just that (with focus on IT Security).</p>
 </section>
-<section id="enters-shiny" class="level2">
-<h2 class="anchored" data-anchor-id="enters-shiny">Enters Shiny</h2>
-<p>So as now usual, I went the way of Shiny to create a Dashboard.</p>
-<p>The very first version of that was simple, and it worked at the first try:</p>
-<div class="quarto-video"><video id="video_shortcode_videojs_video2" width="500" height="350" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="first version of a SOC sim with Shiny"><source src="interactive_soc_v001.mp4"></video></div>
-<p>I did have to learn how to work with a reactiveTimer() in Shiny, and it took some testing, but it wasn’t horrible.</p>
-<p>Then came the complications…</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction"><strong>Introduction</strong></h2>
+<p>This is part of a series of posts about gathering security data (see for example: <a href="https://www.kaizen-r.com/2021/04/shodan-api-tests/">Shodan API tests</a> or <a href="https://www.kaizen-r.com/2021/04/more-external-data-sources-tests-owasp-amass/">More external data sources tests: OWASP Amass</a>). But those where about gathering data from the Internet. Let’s look “inwards” for once.</p>
+<p>I’ve heard a lot the name “Ansible”, and I understood the concept… But (until right now) I had not played with it. Today will, as often, only be about demo/testing, so do not expect much detail (or the best possible quality).</p>
+<p>And no, it won’t be about R at all (once again), but rather about gathering (hopefully relevant) data for security purposes.</p>
 </section>
-<section id="one-animated-plot-is-ok-more-not-so-much" class="level2">
-<h2 class="anchored" data-anchor-id="one-animated-plot-is-ok-more-not-so-much">One animated plot is OK… More, not so much</h2>
-<p>With just one plot, everything seemed to work upfront. As usual, I chose ggplot, and simply plotted it alongside some numbers, and things went fine.</p>
-<p>However, the minute I threw in more plots, something went wrong: Whenever more than one plot needed an update (rendering), things froze, even if only for half a second. But it was perceptible.</p>
-<p>Do note that the dataset is rather simple and small, so “loading” is probably not the issue here.</p>
-<p>I’m convinced that with a much faster laptop, this could have gone unnoticed. Well, maybe, I’m not sure.</p>
-<p>But in summary, it seems that Shiny needs a little time to render several ggplots.</p>
-<p>And so I went hunting for a solution. I have played enough with Shiny to know that if you ggsave() a plot somewhere and then load the image, that renders faster. That was the first test, and indeed, it seemed to freeze a little less (it wasn’t “perfect”, but almost).</p>
-<p>Then I looked into alternatives. I love ggplot(), so it bothers me to admit that, but I needed to see where the problem was.</p>
-<p>I pushed forward, and tested the plot solutions that come bundled with most of R (from the “graphics” package). That worked better than ggplot() indeed, but then I would need to work all the many details to make those acceptable (presentation-wise). So not cool.</p>
-<p>Then I found the “renderCachedPlot()” alternative to “renderPlot()”. That seemed VERY promising. Indeed, it would only update a graph if there was something to update for that particular graph. That option helped, but not enough for my taste.</p>
-<p>I also tried to run the Shiny app from a “dedicated” Shiny Server container, as opposed to running it from a full-fledged RStudio container. Maybe the container was too busy? That didn’t improve things either.</p>
-<p>Someone in a Telegram group (about R) did point me to a VERY helpful CSS trick, that consists of playing with the opacity of a “recalculating” object in Shiny, and that made the visualisation MUCH smoother. The only detail is, behind the scenes, one could still tell the laptop was busy recalculating things as the timer still slowed down. Regardless, that CSS trick was a life-saver, visually speaking.</p>
-<p>So thanks a lot for that, Mister X (I won’t mention your name, for privacy reasons – but that can be changed if the interested party has any interest).</p>
-<p>As we know, R is mono-core by default. Could there be something with “futures”? Yes there is. But the solution was worse than the original problem. After all, on a small data frame, launching a new R session for each plot does seem like an overkill. And indeed, that wasn’t a solution.</p>
-</section>
-<section id="final-solution" class="level2">
-<h2 class="anchored" data-anchor-id="final-solution">Final solution</h2>
-<p>At the end, although still not perfect, I used plot_ly() instead of ggplot().</p>
-<p>And it “worked”. You still clearly notice visually the impact of updating 3 graphs (which, once again, is no issue when working with one, in my tests anyway).</p>
-<p>The resulting “animated” dashboard, sporting three plots, is the one shown at the beginning of this entry.</p>
+<section id="getting-things-working" class="level2">
+<h2 class="anchored" data-anchor-id="getting-things-working">Getting things working</h2>
+<p>First let’s create a new container; we’ll use the Alpine distro as it is lightweight and supports Ansible (<a href="https://wiki.alpinelinux.org/wiki/Ansible" class="uri">https://wiki.alpinelinux.org/wiki/Ansible</a>)</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull alpine</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Once installed, let’s run that in interactive mode. (We’ll probably want to go the Dockerfile way in the future, but that will be good enough for today).</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--name</span> ansible1 <span class="at">-it</span> alpine</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then we’ll install Ansible, like so (we’ll also need SSH, mainly):</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/</span> <span class="co"># apk add ansible</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/</span> <span class="co"># apk add openssh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>That was rather easy, wasn’t it? Now we can first test access to our “Home Lab” server:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/</span> <span class="co"># ssh -p 22225 10.0.1.10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Working, but of course, SSH keys and all are not there. So I’ll fix that (quick fix with bad ciphers and all, but sufficient). Not much security as I will clean this up afterwards. And we’re “ready”, inside the Home Lab Server. Let’s get back to our Ansible container (which is, by the way, a so-called “control node”).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nico@home1:~$</span> exit</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">logout</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Connection</span> to 10.X.X.X closed.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now we have an ansible-installed container, and the Home Lab Server to be “managed”. The Home Lab already sports a Python3 so nothing else should be needed. That’s good.</p>
+<p>Note for self: When working with interactive mode in Docker, you might want to pause and come back to your container later on. Then you’ll need to do something along the following lines to re-connect to your container after exiting it:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sudo docker ps -a</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># sudo docker start 1b72b31851fd</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sudo docker attach 1b72b31851fd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>OK so, the APK worked, but some relevant files seem to be missing. For instance, I need to create the /etc/ansible directory, to then be able to add the hosts file in there.</p>
+<p>As I use a port different from the default on my machines, I need to write the port number with the machine IP in the hosts inventory, so I put it like this (format, not what it actually looks like):</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[linux]</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">IP:PORT</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The Linux tag above will allow to run the Ansible playbooks by groups, in this case on all Linux boxes (only one for our example). Then to the actual test:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ansible all -m ping -u nico</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">10.0.1.10</span> <span class="kw">|</span> <span class="ex">SUCCESS</span> =<span class="op">&gt;</span> {</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>   <span class="st">"ansible_facts"</span><span class="ex">:</span> {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>     <span class="st">"discovered_interpreter_python"</span><span class="ex">:</span> <span class="st">"/usr/bin/python3"</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>   <span class="er">}</span><span class="ex">,</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>   <span class="st">"changed"</span><span class="ex">:</span> false,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>   <span class="st">"ping"</span><span class="ex">:</span> <span class="st">"pong"</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>That works! Let’s test some more data-gathering with Ansible:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ansible</span> <span class="at">-m</span> setup <span class="at">--tree</span> out/ all <span class="at">-u</span> nico</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The output is too long here, but we’re getting somewhere indeed.&nbsp; That’s essentially about hardware information. (And: No, I don’t really know what I’m doing. So going to the man pages (remember, RTFM): Apparently the -m is to point to a given module, in this case “setup”.&nbsp; –tree would be to indicate the output directory. “all” apparently is indicating to run for all hosts in the inventory, in our case just the one. The last option is to indicate the username to use for the SSH connection, in this case the one for which we have configured the SSH Keys exchange a bit earlier).</p>
+<p>Now suppose we need to get to the software installed on a machine. Let’s see how that would go:</p>
+<p>Thankfully, we’re not starting from scratch (I couldn’t learn that much Ansible with my available spare time right now). So for testing purposes, I’ll use the example from here:</p>
+<p><a href="https://www.jmrnet.tech/?p=26" class="uri">https://www.jmrnet.tech/?p=26</a></p>
+<p>You’ll notice the reference to “hosts: linux” in there, that’s why we put a name to our group in the hosts file earlier 😉</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> name: Capture installed package information for Linux hosts</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">hosts:</span> linux</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">tasks:</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">-</span> name: Get the package facts from hosts</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>   <span class="ex">package_facts:</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">manager:</span> auto</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">-</span> name: Display output</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>   <span class="ex">debug:</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">var:</span> ansible_facts.packages</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then we save that as a YAML file, and we run it like so:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ansible-playbook -u nico installed_sw_base_playbook.yml</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>An extract of the results for instance (the list is looooong too):</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[...],</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="st">"vim"</span><span class="ex">:</span> [</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>       <span class="kw">{</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">"arch"</span><span class="ex">:</span> <span class="st">"amd64"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">"category"</span><span class="ex">:</span> <span class="st">"editors"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">"name"</span><span class="ex">:</span> <span class="st">"vim"</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">"origin"</span><span class="ex">:</span> <span class="st">"Ubuntu"</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">"source"</span><span class="ex">:</span> <span class="st">"apt"</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>         <span class="st">"version"</span><span class="ex">:</span> <span class="st">"2:8.1.2269-1ubuntu5"</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>       <span class="kw">}</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>     <span class="ex">],</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="ex">[...]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>And that’s about it. We now have a list of software components installed on the Home Lab Server, along with lots of Hardware data.</p>
+<p>Disclaimer: Right now I’ll admit, I don’t exactly know HOW the commands and YAML files work just yet. It seems pretty straightfoward, but I haven’t investigated any further just yet. Even then, the thing is working, for a total of maybe 1h work 🙂</p>
 </section>
 <section id="conclusions" class="level2">
-<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>First of all, let’s be clear: There are certainly MANY things I haven’t tried. For instance the Plotly package has some built-in animation solutions that I haven’t tried, and they seem very smooth.</p>
-<p>And from what I’ve experienced with more traditional BI solutions, like PowerBI, you wouldn’t use that to reload a graphs every 0.3 seconds like we do here. I haven’t tested that, so my perspective is probably VERY biased/wrong…</p>
-<p>On the other hand, making the Simulations “visual” in an interactive Dashboard is probably a bad idea anyway. At some point, I might want to run several simulations with different parameters, and see which parameter set gives the best result based on some conditions. Doing that while “showing” every step is simply not the way to go, and although it would probably be “cool”, we would be wasting LOTS of unnecessary compute power on refreshing some graphs… And making things all-the-more slow, which is not what you want if you want to simulate many alternative solutions.</p>
-<p>So here we are.</p>
-<ul>
-<li><p>Plotly <em>seems</em> faster than ggplot. I wouldn’t have know, had I not tried to do an animated dashboard with more than one plot, really.</p></li>
-<li><p>You can use timers in Shiny to animate things. Although it seems there is an “invalidate” alternative out there that is preferred to the “reactiveTimer” option… I’ll have to look into that.</p></li>
-<li><p>As our simulator was really a set of things bundled together, I used the reactiveValues() function of Shiny to “translate” the original simulator…</p></li>
-<li><p>Visualising a simulation WHILE it’s running is fun to watch, but not really a good idea. Maybe I could adapt the Dashboard to run simulations in the background and show only results; that’d make more sense.</p></li>
-</ul>
-<p>I still think this is not too bad for a simple exercise implemented in my spare time…</p>
+<h2 class="anchored" data-anchor-id="conclusions"><strong>Conclusions</strong></h2>
+<p>Knowing what you have (be it for IT operations or for security posture understanding, cybersecurity operations and so on) is, I believe, quite important. The “Ansible way” is only one potential way to go about gathering information about Linux (and apparently Windows, and probably more) servers/machines.</p>
+<p>Plus I’ve been meaning to get started with Ansible for a long time, so I thought I would give it a data-collection/security focus for the Blog.</p>
+<p>Ansible seems to be pretty cool indeed: Only Python is required on the managed nodes (as they seem to be called in Ansible Lingo ;)), which helps (as deploying agents on production machines is generally not a beloved approach…)</p>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<p><a href="https://docs.ansible.com/">Ansible Official Documentation</a></p>
+<p><a href="https://www.jmrnet.tech/?p=26">The blog post I used to find a workable playbook for software inventory</a></p>
+<p><a href="https://wiki.alpinelinux.org/wiki/Ansible">Getting Ansible to work on Alpine Linux (for container)</a></p>
 
 
 </section>
@@ -611,8 +678,6 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
-<script>videojs(video_shortcode_videojs_video1);</script>
-<script>videojs(video_shortcode_videojs_video2);</script>
 
 
 
