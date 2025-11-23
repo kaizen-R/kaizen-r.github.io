@@ -2,7 +2,7 @@
 title: "Minor Bugs in RLCS, Visuals for ARCAGI1"
 author: "Nico"
 date: "2025-10-25"
-categories: [RLCS, ARCAGI1]
+categories: [RLCS, ARCAGI1, visualization]
 ---
 
 ## Just another Saturday
