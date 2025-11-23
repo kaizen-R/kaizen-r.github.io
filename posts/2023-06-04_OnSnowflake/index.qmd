@@ -1,0 +1,60 @@
+---
+title: "How SQL is still proving so useful: Snowflake"
+author: "Nico"
+date: "2023-06-04"
+categories: [Information]
+---
+
+## Intro
+
+A short and somewhat different entry.
+
+## SQL keeps on giving 
+
+So these past few days/weeks, I have had the chance to work with a “Data Lake” platform.
+
+As it turns out, in “Snowflake”, the platform, having some understanding of SQL helps… a LOT.
+
+The little I understand about it by now, it seems like a flexible solution, it allows to do many data manipulations, and I feel it will be a good option to do some “ELT”, which is nice in some of my use-cases.
+
+I still need to learn more, of course, but this entry is an initial praise…
+
+## Pre-processing data
+
+In my case, I think I will mostly try to benefit from pre-processing multiple datasets from multiple data sources into “curated” views & tables to facilitate downstream usage of the info by myself and others. The cool thing is, I think a good part of the preprocessing will be feasible directly from within Snowflake, thereby simplifying my consuming data from scripts and dashboards, all the while providing info from multiple sources in a consolidated manner. We’ll see.
+
+## Very nice flexibility 
+
+No question about it, the flexibility of storage and processing has impressed me, indeed.
+
+Even so, my needs are not “Big Data” – still it’s cool to know/see that there is magnificent flexibility to adapt capacity for bigger needs.
+
+In the AAA area, the roles and schemas and al. are nice, in that the model makes sense to me, anyway.
+
+## Multiple Options too
+
+So as with some traditional DBMS you can save stored procedures, which helps organize things a bit.
+
+What’s more, I have tested running some Python in there too, and I see other languages are available (JS and more).
+
+EDIT: You can of course also use an API, which is easier done with Python. Then use {reticulate} to help with the interactions from R, and that's that.
+
+## Conclusions
+
+So much could be said. I have pointed in the past to the value of having nice cleaned-up data views as input for creating Dashboards (say in PowerBI or Tableau…), and in this case it seems a PaaS (or is it a SaaS?) solution can help, while providing speed, scalability (with little effort on the part of the analyst), while also helping with consolidating and (at least to a point) cleaning up what I guess will be messy input data (it never comes perfect, I suppose).
+
+Plus, if that approach helps share data with some colleagues – without requiring my R scripts on my laptop in the middle to do data wrangling -, well that’s a nice outcome…
+
+In the past couple of years I have had the opportunity to “play with” things beyond my “laptop-Docker-RStudio” simple setup (which is most cases is quite sufficient).
+
+To share info with third parties, PowerBI dashboards are fair.
+
+For point-in-time “big data” processing, I have tested Azure Synapse and PySpark, and that was great.
+
+Well, Snowflake is great too, very flexible, not for the same use case, but rather to replace databases.
+
+In summary I’m loving it too, so far.
+
+And on a personal note, I can’t avoid but feel so lucky for being exposed to all these great platforms and solutions. That, and the master I’m studying, have pushed me to what I feel as “another level” as a data analyst over the past two years. It’s a lot of work, but…
+
+I am incredibly lucky indeed.

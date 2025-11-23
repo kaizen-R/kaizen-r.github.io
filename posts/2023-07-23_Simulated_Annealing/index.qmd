@@ -1,5 +1,5 @@
 ---
-title: "Optimization (3/n): Simulated Annealing"
+title: "Optimization: Simulated Annealing"
 author: "Nico"
 date: "2023-07-23"
 categories: [Optimization]

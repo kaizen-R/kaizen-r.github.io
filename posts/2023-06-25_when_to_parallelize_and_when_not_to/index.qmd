@@ -1,0 +1,72 @@
+---
+title: "When to parallelize (and when not to)"
+author: "Nico"
+date: "2023-06-25"
+categories: [Optimization]
+---
+
+## Intro
+
+I have finally delivered my last term paper for this year (one last year to go). It was about simulating traffic using graphs, onsets of congestion and the likes.
+
+Once again, the smallest graph was of order 4000+, and once again I had to work with MonteCarlo approach on 1000+ time steps for each simulation, implementing on top of it all a queuing system…
+
+And for each simulation, a random process occurred (generating vehicles using a Poisson distribution), ensuring that each step depended on the former one, and hence preventing us from directly using parallel processing there…
+
+## The initial realization
+
+Because I knew upfront things would be slow, any part of the process I could I used “future.apply” upfront, whereby several sessions would be used at once to run some code…
+
+It seemed like a good idea to generate new vehicles. In the studied model, that happens once every time step. For each node of the network, one generates a number of vehicles (following a lambda for our Poisson process). With small lambda, you generate few vehicles, to put it simply.
+
+Generating one new vehicle for one node or for 10 nodes can be done in parallel, as they do not influence (yet) the other nodes queues.
+
+And each vehicle will “go somewhere”, following in our example the shortest path (using Dijkstra) to that destination node. So it made sense that I would generate all new vehicles and their routes for each node sequentially (they are added to each node’s queue) but for all nodes in parallel.
+
+Calculating the shortest path for one node to another node is fast with igraph.
+
+## First mistake
+
+Using futures to run in parallel small and fast steps is… a bad idea!
+
+There is an overhead of using future.apply related to session management, copying context stuff…
+
+And for fast steps, one might be better off using a simple vectorized approach, NOT adding parallel processing. In my example, generating one new vehicle was such a situation, MUCH faster with a “simple” apply to cover all nodes than a future.apply, for instance.
+
+Much faster… For low load of the network.
+
+Until it is not.
+
+## Increasing traffic
+
+When our lambda grows, we generate more vehicles at each time step. In each time step also, all vehicles move to the next node on their respective route (updating all 4000+ queues accordingly). Then we move to the next step.
+
+Now consider that each simulation is 1000+ steps (the more the better).
+
+And consider relatively high lambdas (0.05 would mean 0.05\*4000 means 200 new vehicles in the network queues each time step).
+
+And finally consider you want to do a Monte Carlo approach because there is a random process in there, so you would like to do say a hundred repetition. And that’s for one configuration of the network, what you want is to observe the impact of varying lambdas. (Not to mention other variables of the setup).
+
+You end up calling the Dijkstra algorithm lambda\*4000\*1000+ times for each simulation, and you might very well want to run thousands of these simulations…
+
+Figuring this out too late (I had less time than I would have liked dedicated to this simulation exercise, roughly 30h overall), I failed to implement and run fully a version whereby I decided to calculate ALL shortest paths UPFRONT. Saving precious time by then improving runtime of each simulation.
+
+## The trade-off
+
+As it turns out (because I did figure out the above after a while obviously, albeit too late), in studying that possibility of calculating all paths upfront, you’d end up with a list of lists (one path for each of all origins to all destinations in a digraph) of roughly 3GB in memory.
+
+Now you still want to run each simulation in parallel to the others (as much as you can), so say you use forEach… %doPar% (I need to check the package name, but it’s a nice alternative, futures here don’t quite apply).
+
+What happens (or seems to happen) is for each simulation you need to copy the context (for each iteration you put in a different CPU), and well, with 3GB of one object needed, even with 8 CPUs handy, you’re in fact limiting parallel processing because of the RAM… Which was a fresh new problem.
+
+## Conclusions
+
+I didn’t finish looking into all alternatives (not to mention I failed to translate much of the code to C++ to make things faster), mostly because of too tight a deadline (which is my fault of course, but that’s a different topic).
+
+For one MSc term paper, out of five for this semester for that one course, that was not an easy simulation exercise (but it was a fun challenge!).
+
+But what’s more: Making things fast for the low-load network was a good idea, But had I thought through the issues that would creep up in my system under higher loads, I would probably have forgone trying to parallelize one processing step (that ended up happening too much, slowing everything down) in favor of calculating some values (the whole shortest paths lists) upfront, which in the long run would certainly have proven better for processing simulation iterations of the network under high load.
+
+In other words: Parallelizing gave me false confidence in runtimes at the beginning that left things too slow in the end, precluding me from thinking of other potentially better alternatives.
+
+Also: parallelizing fast things can be slower (because of session management) than the “simply vectorized” version of the same thing.

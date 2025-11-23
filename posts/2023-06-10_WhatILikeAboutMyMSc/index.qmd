@@ -1,0 +1,26 @@
+---
+title: "What I like about the MSc I'm studying"
+author: "Nico"
+date: "2023-06-10"
+categories: [math]
+---
+
+My (very few) readers know it, as I mention it often: I am what you could call a life-long student, and currently working my way towards finishing an MSc in Computational Engineering and Mathematics.
+
+The reality of it is I wanted to understand a bit better the math and the theory behind all the “common” things of data I use (e.g. I’ve been able to run PCA dimensionality reduction for years already, but how it actually worked, what orthogonal projections meant… was beyond me). I am NOT good at math, but I am curious about it, and so this master has proven a real challenge, but also very satisfying and rewarding up until now.
+
+More recently I am studying “complex networks”, and for the last exercise I had to implement on reasonably-big graphs a “Susceptible-Infected-Susceptible” epidemic model with several parameters, over several time steps, and so use MonteCarlo (because part of it uses random numbers and so is not deterministic) to run several such iterations to average the results…
+
+Long story short: “Simple R” just wouldn’t cut it, once again.
+
+I’m coming to conclude that \*lots\* of math (say in “numerical methods”, and many other mathematical algorithms) require iterations for which each step result is needed for the next step. In other words, some stuff can’t be run in parallel.
+
+So running things faster becomes useful, when one needs to say do 1000 generations, but also do it 5000 times, over thousands of vertices, for instance.
+
+And then use different parameters, and that’s where you can go parallel.
+
+And that’s the conclusion for today – and yeah, basically I’m bragging: it’s been almost two years, not an easy two years mind you, but by now it feels almost natural to me to take an algorithm or mathematical model, implement it in a mix of R and C++, and use 7 CPUs to have my laptop crunch MonteCarlo simulations over night, while I sleep, all so that I can draw graphs and come to conclusions the next morning, about things based on mathematical concepts.
+
+Again, to be clear, the math still doesn’t come “easy”, but I find I can decipher anything I’ve come across for these two years, albeit with a little effort…
+
+And this is my personal praise for this “MSc”.

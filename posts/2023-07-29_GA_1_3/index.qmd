@@ -1,5 +1,5 @@
 ---
-title: "Optimization (4/n): Genetic Algorithm(s) (1/m)"
+title: "Optimization: Genetic Algorithm(s) (1/2)"
 author: "Nico"
 date: "2023-07-29"
 categories: [Optimization]
@@ -39,7 +39,7 @@ As the fitness corresponds to a real value, we then just need to have a “decod
 
 At this stage of the development, I have ensured I can generate the “search space” visually (similar to recent blog entries), but also that I can generate such individuals, and maybe even a “generation”.
 
-![100 individuals, one generation](population_100_individuals_in_space-300x213.png){alt="100 individuals, one generation"}
+![100 individuals, one generation](population_100_individuals_in_space-300x213.png)
 
 ### Code for today
 

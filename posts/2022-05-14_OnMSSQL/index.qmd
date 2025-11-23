@@ -1,0 +1,59 @@
+---
+title: "Working with MS SQL"
+author: "Nico"
+date: "2022-05-14"
+categories: [code, Information]
+---
+
+## Intro
+
+So in the past I’ve looked into Postgres and/or (a bit of) MongoDB. Both nice alternatives to consider! But in some cases, one has to use other flavours of SQL, say in some corporate settings: Think for instance Oracle, or MS SQL Server, or if you’re Cloud inclined… Azure SQL 😉
+
+One of the things that I usually care about most is to make sure that the data exchanged with the database is as secured as possible… And when looking into it, I found I wanted to use specific connections options: I recently looked into the Azure SQL setup specifically.
+
+## Specific ODBC
+
+So on top of other “issues” with switching to MS SQL things (like slightly different SQL users management, weird “PaaS” concepts that still require a (false) MS SQL Server, or different syntaxes (what was wrong with “SELECT \* FROM table LIMIT 10;”, why did you have to use “SELECT TOP(10) \* FROM table;”?)), one thing that happened is: How can I make sure my connection to the Database is “as secure as can be”?
+
+For instance, there are options using ODBC for MS SQL products (Server and Azure SQL) in the connection string that helps you enforce connection encryption (why is it not default always? Using an MS SQL Server Management Studio client, you need to click on the option specifically… Anyway, maybe it is but I wanted to enforce it, as my testing DB would reside in the Cloud this time, far away from my locally-running container). Another option is about trusting or not the server certificates…
+
+One thing that happens with my usual setting, using a Docker Container for RStudio (the rocker image, with some tuning, referenced in the past), is that it’s a Linux, not a native MS Client of course. It’s rather easy to install an official driver from MS on Ubuntu, just [follow the steps on MS Doc](https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15#ubuntu18).
+
+Note: That’s to be executed from within the container in my case, so you probably would run it from a console accessing the shell of the container, and as you need to be root for some steps, the easiest way is to do:
+
+``` bash
+docker exec -it rocker1 /bin/bash
+```
+
+Where “rocker1” is the name tag of your running RStudio Rocker container…
+
+OK. That’s the most important step I guess, having a “good” ODBC driver to use. (Note: At the time of my tests, I found the current version is 18.)
+
+## Then in R
+
+So now that you have a specific driver for it, compatible with recent MS SQL Server/Azure SQL, and you can hopefully use it from R. Just check for it like so:
+
+``` r
+library(odbc)
+odbc::odbcListDrivers()
+```
+
+If the output mentions something along the lines of “**ODBC Driver 18 for SQL Server**” (that’s 3 rows really), you’re good.
+
+Then you can use the connection strings to leverage that newly installed driver. I’ll just show one example here. You’ll need to adapt to your version, and probably use the recommended connection string that Azure SQL actually proposes if you have an Azure SQL DB running on the main screen…
+
+``` r
+con <- dbConnect(odbc(), .connection_string = "Driver={ODBC Driver 18 for SQL Server};Server=tcp:<DB FQDN/URL>,1433;Database=<DB name>;Uid=<user>;Pwd=<pass>;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;")
+```
+
+Now you can use the “con” variable to “dbSendQuery()” and such, being somewhat confident that the connection from your script to the DB will be ciphered.
+
+## Conclusion
+
+The part I was looking for when deciding how to go about the SQL Connection for Microsoft there was the “Encrypt=yes”. A few supplementary steps to just add that option in there, but I feel better about it 🙂
+
+Of course, there is more to it, and securing your database before you have some sensitive data in it should be a top priority… But the above is one example of such efforts.
+
+## References
+
+[MS Doc about the ODBC driver](https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15#ubuntu18)

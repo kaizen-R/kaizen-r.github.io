@@ -1,0 +1,38 @@
+---
+title: "Diminishing returns of parallelization"
+author: "Nico"
+date: "2022-05-08"
+categories: [Optimization]
+---
+
+## Intro
+
+It’s been a while without new entries here, as usual because I was busy one way or another.
+
+In keeping with the Master’s studies, one of my excuses is the homework for the “high performance computing” course.
+
+Recently we worked on OpenMP, and then with MPI.
+
+Both are cool and those that read this blog know how much I care about improving processing speeds…
+
+## Not R
+
+So I make the parallel in my head between OpenMP and “futures” in R, and on the other hand of MPI and PlumbeR. It’s all WRONG of course, they’re not even alike, but it does help me visualize some of the differences, as the course is using C/C++… (incidentally, I found I am real “rusty” working with C)
+
+As a side note, I liked that the last exercises applied the MPI configs to run code, to some of the Numerical Methods concepts learnt a few months back (calculating PI using 1e11 operations is indeed faster across 32 CPUs…).
+
+## To the point
+
+One important (in my personal opinion) lesson I take out of that past exercise, is how parallelizing execution has diminishing returns.
+
+In an ideal world, one could divide by two the overall runtime (provided we forget about sequential parts and overhead, which we can’t do) of some code each time one doubles the number of CPUs.
+
+But **although it’s quite obvious**: dividing 30’ in two saves us 15’. But after very few such improvements (I.e. doubling CPUs…), you get to go from 5’ to 2 and a half.
+
+## Conclusion
+
+As always maybe we need to look for a balance. After all, for operations that might take weeks, literally (like training a Deep Neural Net – not that I’m experienced there, I just read a lot ;)), yes, it makes sense. But sometimes it doesn’t. I’m not saying not to optimize code of course, but once the code is clean and stable, duplicating CPUs will only get us so far and IN SOME cases, I’m happy if my laptop gets me a result within hours, and if I’m being honest and I organize myself a bit around it, I don’t really need to divide the running time by 2 once more.
+
+And there resides the question with having plenty of CPUs: **Is it needed?**
+
+It’s [not the first time I think about these things](https://kaizen-r.github.io/posts/2022-03-05_Amdahl_Gustafson/index.html)…

@@ -1,0 +1,20 @@
+---
+title: "On Eigenvalues (more)"
+author: "Nico"
+date: "2023-06-02"
+categories: [math]
+---
+
+## More Eigenvalues value
+
+A quick post to make a note about how often I come across the concept of Eigenvalues now.
+
+In summary, so far I have seen at some point or another that you can use them to (at least):
+
+-   Find PCA components (using the Covariance matrix derived from a Multivariate dataset, because in there the eigenvectors are orthogonal).
+
+-   Find the “eigenvector centrality” of nodes in a network graph
+
+-   Solve systems of related differential equations
+
+And that’s it. There’s more of course. But… That’s mostly a note to myself. Matrices and linear algebra can be very useful.

@@ -1,0 +1,62 @@
+---
+title: "Graph Theory: Havel-Hakimi algorithm (and a twist)"
+author: "Nico"
+date: "2022-11-12"
+categories: [math]
+---
+
+## Intro
+
+As is now common, I use the courses of the master as inspiration. I have recently started studying (again, from scratch) graph theory. This time around, it goes deeper into the theory and math background though, compared to past courses I have taken on the subject.
+
+For this instance, I came across some pseudo-code in the book and I thought: Why not implement it (in R, of course).
+
+And so I did. This will be a short post 🙂
+
+## A summary
+
+So I haven’t come across this situation in “real life” just yet, but supposing someone hands me a list of “degrees” (degree: number of “connections” of a vertex) of a set of vertices (or I come up with such a list on my own for some need), there is an algorithm that will tell whether you can use those to create a legit’ graph.
+
+There is some background behind the algorithm, for sure, and you can check all about it in Wikipedia.
+
+But at the very least, it’s clearly recursive: (From [Wikipedia](https://en.wikipedia.org/wiki/Havel%E2%80%93Hakimi_algorithm)) “Let  be a finite list of nonnegative integers that is nonincreasing. Let be a second finite list of nonnegative integers that is rearranged to be nonincreasing. List  is graphic if and only if list  is graphic.”
+
+And well, that’s it. The code is really the thing for today. In this case, I add a “verbose” option to the function so that one can follow what the algorithm actually does with the degrees sequence.
+
+## The Twist
+
+So the issue with the above is, it will tell you WHETHER a graph CAN be created with that list of degrees. It won’t show you what it looks like. And after playing around with the concept for a couple of days, I found out it is (to me at least) quite hard to come up with a graph that follows a simple sequence of degrees “just like that”.
+
+So instead, I started thinking about programming something to feed the igraph library for it to plot a graph for me, out of a valid “graphic” sequence of degrees… And I did give it some thought, until I realized… Someone must have done it… Duh! It was right there, in the igraph library, in fact. With different algorithms (option “method”) to generate the graph (one sequence of degrees can allow for multiple valid graphs, with or without loops, multi-graphs…).
+
+Here it was, very simple (the “vl” method was the best alternative for my objectives so I stick with it for now):
+
+``` r
+library(igraph)
+test_degrees_seq <- c(6,3,3,3,3,2,2,2,2,1,1) # Example from Wikipedia
+plot(sample_degseq(test_degrees_seq, method="vl"))
+```
+
+ 
+
+![](sample_graph1.png){alt=""}
+
+ 
+
+### Conclusions
+
+Not much today, as the code was the objective.
+
+But it’s still fun to take pseudo-code, and have it help me solve the book’s exercises, while getting better acquainted with the algorithm 🙂
+
+And being able to visualize the graphs helps me understand better what certain degree sequences can look like 🙂
+
+References
+
+Book: “Graph Theory and its applications”, J.L. Gross, J. Yellen, M. Anderson – Ed. CRC (3rd ed.)
+
+[My code for today on my Github](https://github.com/kaizen-R/R/blob/master/Sample/graph_theory/havel_hakimi_demo.R)
+
+<https://igraph.org/r/doc/sample_degseq.html>
+
+<https://en.wikipedia.org/wiki/Havel%E2%80%93Hakimi_algorithm>

@@ -1,5 +1,5 @@
 ---
-title: "Optimization (2/n): Gradient Descent"
+title: "Optimization: Gradient Descent"
 author: "Nico"
 date: "2023-07-16"
 categories: [Optimization, math]

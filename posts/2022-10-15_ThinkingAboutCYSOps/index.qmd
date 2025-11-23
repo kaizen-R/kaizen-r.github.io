@@ -1,0 +1,62 @@
+---
+title: "Thinking about Cybersecurity Operations"
+author: "Nico"
+date: "2022-10-15"
+categories: [cyber]
+---
+
+## Intro
+
+I’ve seen a few “SOCs” by now (not many either, just a few), and often times companies use the NIST framework to kind of organize the teams.
+
+Alright, so I have been thinking quite a bit lately on modeling such organizations.
+
+Here I’ll mention only a few ideas for now.
+
+## Feedback and Influence
+
+It’s quite straightforward to understand really:
+
+More/Better Threat Intelligence should improve detection capabilities. Namely, by better prioritizing things. In fact, one could argue that Threat Intel should not necessarily improve detection by *increasing* number of things to worry about, but in fact by just prioritizing. Although of course a lacking Threat Intel might miss things, in which case yes, better would mean more. So right there, what impact does a better Threat Intel process mean? There is probably a line to draw with a sufficient basis, and then changing trend for further improvement?
+
+Next, in “Identify” (in terms of the NIST framework) for instance, one of the first things mentioned is “Assets”. Well, should we focus on better assets inventory, i.e. more assets known; or should we consider better data to be more important than more data (e.g. quality vs coverage)? Both, sure, are needed. But to what degree? Wrong data about a system (say incorrect OS family): is it better or worse than no entry at all for the system?
+
+We can keep going, for sure:
+
+In the “Detect” function: Do we want more alerts definitions (e.g. use-cases) or better quality use-cases (less false positives maybe?). Do we want more alerts (and more FP) but being a certain amount “more confident” (and then how much is enough) we catch bad stuff, although maybe our analysts team can’t keep up with the noise (and hence we still miss the important stuff), or fewer alerts but highly confident, high true positive rates (however maybe missing important things happening on our network)?
+
+What about training, Protect tools efficacy, connected providers protection measure, surface/exposure on the Internet, awareness against say phishing, outbound connection controls, zero trust, source code review & hardening, red team exercises, company vertical and its inherent interest for bad actors… (this list could be quite long…)
+
+And how each piece of the puzzle affects the whole, and the other pieces?
+
+These “pieces” conform a system of sorts, and some feedback loops in the system exist… (hence my recent interest in cybernetics, complex systems, operations research, simulations, graph networks and the likes…)
+
+These are the questions I’m asking myself again and again lately. Most of the time, the answer will be “it depends”:
+
+-   What’s the company risk appetite?
+
+-   What’s the SOC budget for analysts and tools?
+
+-   …
+
+At the end it boils down to the question: how to best invest the Cybersecurity budget? (I was recently told maybe I should focus on “best spent next dollar”, fixing a few starting point parameters, instead of generic overall budget… it was a great comment!)
+
+## Conclusions?
+
+**No conclusion at all just yet.**
+
+I frown upon an “economical-mathematical” modeling approach, whereby I could put a Variable name to each piece, and sum or rest or multiply or divide each of these variables based on how much they influence say the required number of Analysts necessary to attend a varying volume of alerts.
+
+This approach by the way (putting together an equation) I found is actually apparently not completely crazy, people have done that to predict certain economic indicators in the past, for instance I read about P.A. Samuelson and his work on National Income model, which does just that… (Found in “Mathematical Modeling”, by S. Heinz, Ed. Springer). But that should work for deterministic changes at best, and if only that, attackers are not too “deterministic” in how they behave against organizations (part of it is opportunistic, another part depends on motivation, more even depends on other context…)
+
+But that a Springer book on math (I consider those to be “serious stuff”) would consider this idea, tells me there is still some value to be found in such exercises.
+
+And similar to simulation approaches, maybe the whole goal of such exercises can be to try to learn and better understand something, through varying certain parameters (read: assumptions), even though probably no “actual valid specific numerical dollar value” can come out of it (maybe ordinal values could?).
+
+Long story short, these ideas still interest me a lot, and I will probably have to break it down into smaller pieces (so parts of the system, not the whole of it…).
+
+I think these things will be the general orientation of my thesis.
+
+## References
+
+<https://www.nist.gov/cyberframework/framework>
