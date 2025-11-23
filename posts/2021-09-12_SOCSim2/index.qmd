@@ -1,0 +1,90 @@
+---
+title: "Simulating a SOC (part II): GUI"
+author: "Nico"
+date: "2021-09-12"
+categories: [visualization]
+---
+
+## Intro
+
+Last week I started a small program to [simulate a SOC](https://www.kaizen-r.com/2021/09/simulating-a-soc-just-for-fun/).
+
+This week, I wanted to see if I could make it more… Visual.
+
+This here is the “final” result working with the simulator from last week:
+
+{{< video soc_simulator_shiny_v5.mp4 title="A Shiny R interactive dashboard for SOC simulation" width="500" height="350">}}
+
+But it wasn’t easy…
+
+So here is the long-story-short about that.
+
+(No code, as I am not happy with my code right now, I have done so many tests I myself have a hard time following it right now… And it was meant to be a “quick & dirty” exercise, well, dirty it is, that’s for sure. So maybe when I settle on a cleaner version, I’ll share that instead.) 
+
+## Enters Shiny
+
+So as now usual, I went the way of Shiny to create a Dashboard.
+
+The very first version of that was simple, and it worked at the first try:
+
+{{< video interactive_soc_v001.mp4 title="first version of a SOC sim with Shiny" width="500" height="350">}}
+
+I did have to learn how to work with a reactiveTimer() in Shiny, and it took some testing, but it wasn’t horrible.
+
+Then came the complications…
+
+## One animated plot is OK… More, not so much
+
+With just one plot, everything seemed to work upfront. As usual, I chose ggplot, and simply plotted it alongside some numbers, and things went fine.
+
+However, the minute I threw in more plots, something went wrong: Whenever more than one plot needed an update (rendering), things froze, even if only for half a second. But it was perceptible.
+
+Do note that the dataset is rather simple and small, so “loading” is probably not the issue here.
+
+I’m convinced that with a much faster laptop, this could have gone unnoticed. Well, maybe, I’m not sure.
+
+But in summary, it seems that Shiny needs a little time to render several ggplots.
+
+And so I went hunting for a solution. I have played enough with Shiny to know that if you ggsave() a plot somewhere and then load the image, that renders faster. That was the first test, and indeed, it seemed to freeze a little less (it wasn’t “perfect”, but almost).
+
+Then I looked into alternatives. I love ggplot(), so it bothers me to admit that, but I needed to see where the problem was.
+
+I pushed forward, and tested the plot solutions that come bundled with most of R (from the “graphics” package). That worked better than ggplot() indeed, but then I would need to work all the many details to make those acceptable (presentation-wise). So not cool.
+
+Then I found the “renderCachedPlot()” alternative to “renderPlot()”. That seemed VERY promising. Indeed, it would only update a graph if there was something to update for that particular graph. That option helped, but not enough for my taste.
+
+I also tried to run the Shiny app from a “dedicated” Shiny Server container, as opposed to running it from a full-fledged RStudio container. Maybe the container was too busy? That didn’t improve things either.
+
+Someone in a Telegram group (about R) did point me to a VERY helpful CSS trick, that consists of playing with the opacity of a “recalculating” object in Shiny, and that made the visualisation MUCH smoother. The only detail is, behind the scenes, one could still tell the laptop was busy recalculating things as the timer still slowed down. Regardless, that CSS trick was a life-saver, visually speaking.
+
+So thanks a lot for that, Mister X (I won’t mention your name, for privacy reasons – but that can be changed if the interested party has any interest).
+
+As we know, R is mono-core by default. Could there be something with “futures”? Yes there is. But the solution was worse than the original problem. After all, on a small data frame, launching a new R session for each plot does seem like an overkill. And indeed, that wasn’t a solution.
+
+## Final solution
+
+At the end, although still not perfect, I used plot_ly() instead of ggplot().
+
+And it “worked”. You still clearly notice visually the impact of updating 3 graphs (which, once again, is no issue when working with one, in my tests anyway).
+
+The resulting “animated” dashboard, sporting three plots, is the one shown at the beginning of this entry.
+
+## Conclusions
+
+First of all, let’s be clear: There are certainly MANY things I haven’t tried. For instance the Plotly package has some built-in animation solutions that I haven’t tried, and they seem very smooth.
+
+And from what I’ve experienced with more traditional BI solutions, like PowerBI, you wouldn’t use that to reload a graphs every 0.3 seconds like we do here. I haven’t tested that, so my perspective is probably VERY biased/wrong…
+
+On the other hand, making the Simulations “visual” in an interactive Dashboard is probably a bad idea anyway. At some point, I might want to run several simulations with different parameters, and see which parameter set gives the best result based on some conditions. Doing that while “showing” every step is simply not the way to go, and although it would probably be “cool”, we would be wasting LOTS of unnecessary compute power on refreshing some graphs… And making things all-the-more slow, which is not what you want if you want to simulate many alternative solutions.
+
+So here we are.
+
+-   Plotly *seems* faster than ggplot. I wouldn’t have know, had I not tried to do an animated dashboard with more than one plot, really.
+
+-   You can use timers in Shiny to animate things. Although it seems there is an “invalidate” alternative out there that is preferred to the “reactiveTimer” option… I’ll have to look into that.
+
+-   As our simulator was really a set of things bundled together, I used the reactiveValues() function of Shiny to “translate” the original simulator…
+
+-   Visualising a simulation WHILE it’s running is fun to watch, but not really a good idea. Maybe I could adapt the Dashboard to run simulations in the background and show only results; that’d make more sense.
+
+I still think this is not too bad for a simple exercise implemented in my spare time…
