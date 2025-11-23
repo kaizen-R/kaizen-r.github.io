@@ -1,0 +1,34 @@
+---
+title: "Weekend of old blog posts migrations..."
+author: "Nico"
+date: "2025-11-23"
+categories: [Information]
+---
+
+## On choices...
+
+## It turnt out, it's a lot
+
+So I want to finalize at some point the migration of the Blog to github.io, just because I am so much fonder of that approach than the old Wordpress blog...
+
+But, heck, I have written a lot in the past, haven't I?
+
+## A few realizations
+
+My past posts were more varied, and I focused more on Cybersecurity. I should probably go back to these good habits.
+
+But already in the past, I had periods of more focus for instance, similar to RLCS in the past...:
+
+-   MSc (which I'm simply not reproducing, that's 10s of entries for something that is now closed, and fully described in the MSc thesis). Lots of writing will be lost and reflexions and showing the thought process, bumps in the road...
+
+-   The "Home Lab" entries, which were quite varied and cool, much more SysAdmin-oriented, but... I just probably would re-do from scratch next time around, and so... I might very well not reproduce those.
+
+I mean, I might still restore these onto the new site, but... Only if I truly have spare time. Which right now... Is scarce.
+
+## Conclusions
+
+Having written a lot I feel good about, and revisiting old entries to reproduce them on the new blog site (with better look & feel, thankfully :D), I re-discovered a few things. I have "been cooking" these past few years, since starting the Blog, no questions there!
+
+But I will probably have to make my peace with parting with some of it. It's only natural. Not everything has aged equal. Although I can now see that deciding to start a Blog was truly a good choice for me, that doesn't mean everything in there was great, either.
+
+I don't know. I'll keep migrating old stuff in my spare time, just to make sure I don't loose important stuff (for instance, I liked re-discovering [this](https://kaizen-r.github.io/posts/2022-03-05_Amdahl_Gustafson/), [this](https://kaizen-r.github.io/posts/2023-01-20_Ashby_matrices/) and [this](https://kaizen-r.github.io/posts/2021-09-12_SOCSim2/), or [this](https://kaizen-r.github.io/posts/2022-02-13_OnChaosTheory/), and [that](https://kaizen-r.github.io/posts/2021-06-20_OnContainers/)...).

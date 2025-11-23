@@ -1,0 +1,93 @@
+---
+title: "Shodan API Tests"
+author: "Nico"
+date: "2021-04-04"
+categories: [code, cyber]
+---
+
+First of all, sorry I haven’t published more in the past few weeks. I simply have been… Pretty busy.
+
+But now it is time to try and get back to the good habits, and a weekly publication here is one of my personal goals (and quite fulfilling, in spite of not always being possible).
+
+## Introduction
+
+For once, I didn’t find a package to go about this in R… Although I haven’t spent too much time looking. (Maybe I should consider learning how to create a package myself and get it published out there… Master Hadley has thorough documentation about how to go about it… But well, for now that’s beyond today’s goals…)
+
+So as the title may have already made clear, today we’ll test the Shodan API. Why that particular thing today? Well, this very week, they offered a l[imited-time discount to have access to a life-long membership](https://twitter.com/shodanhq/status/1376610973629493254). I already had an account, but never spent quite enough time on that platform. Now I subscribed and have “membership” access-level… Anyhow, that’s just an excuse.
+
+Shodan is a great tool for gathering information on certain public facing stuff, and I thought it would fit perfectly for this blog: a security-related data source.
+
+![](footprint_simple.png){alt=""}
+
+As with the MITRE example, this won’t be exhaustive, but rather pointing at possibilities…
+
+## Accessing the API
+
+So first, one needs to register for an account and then get their own API key. “All Shodan accounts come with a free API plan.” (dixit the Shodan.io website)
+
+Because I didn’t find a package to access Shodan, we’ll revert to using the API with curl & jsonlite.
+
+``` r
+library(curl)
+library(jsonlite)
+
+hostname <- "www.kaizen-R.com"
+
+# As usual, do not put confidential data in your code...
+s_apikey <- readLines("/mnt/R/.shodanAPI.conf")
+
+# Now on to ourselves as an example: Working on an IP
+conn <- curl(paste0("https://api.shodan.io/shodan/host/", 
+   nslookup(hostname)[1], "?key=", s_apikey))
+s_q_result <- readLines(conn, warn = FALSE)
+close(conn)
+s_q_result <- fromJSON(s_q_result, flatten = TRUE)
+```
+
+And that’s almost it! In the above, we have queried for an IP address (and used the *curl* package implementation of *nslookup()* on the go).
+
+Looking at the results, unsurprisingly, we were pointed to our hosting… I have no intention of pointing anyone onto how to “attack” this poor Blog of mine, but anyone with a bit of experience would probably go into Shodan for “surface”/”external footprint” discovery anyway. Now as I must have mentioned in the past, I am not particularly interested in “attacking” but rather in “defending” (e.g. I’m a “Blue Team” kinda guy). As a defender, however, one needs to have at least a minimal understanding of how attackers work (as already mentioned in the post about Mitre, btw).
+
+## Parsing the results and R basics
+
+One would think that having a package/library would make things MUCH easier, but hold on a minute…
+
+First, you’ll notice the trick “flatten = TRUE” in the “fromJSON” call. That’s a nifty trick (one we could have used in the Mitre entry, indeed, but the goal there was on visualizations…).
+
+Second, and going back to basic R concepts, one should ALWAYS look at what one gets. The “str()” command in R is rather an important one, and helps us quite a bit here:
+
+``` r
+str(s_q_result)
+```
+
+Now this is important, for R concepts: The JSON output gave us a list. A list differs from a vector in that it CAN be of DIFFERING TYPES.
+
+In this case, we get a list of strings, numbers and… A data.frame. A structured object in this case. We’ll get to that one in a jiffy.
+
+But first, let’s have a quick look at the info already provided in the list:
+
+![](https://www.kaizen-r.com/wp-content/uploads/2021/04/shodan_api_data_extract_1.png){alt=""}
+
+By the way, you might remember we worked on gathering GeoIP data from MaxMind… Well, as it turns out, there is a good chance that Shodan might have gathered that info for our IP addresses already…
+
+Now we can get our dataframe out of the list and work with that if we wish to.
+
+``` r
+df <- s_q_result$data
+```
+
+Here we get further data on the service(s) discovered on that IP we looked up. And it’s “that easy”, really. So here we’ll find info about the Apache server (for that particular case). And once again GeoIP info (we really could have skipped the MaxMind exercise a few weeks ago… Although I still think it was an important exercise…).
+
+### Conclusions
+
+In spite of not having looked enough for a packaged alternative, looking up data on publicly available APIs nowadays should not be cause for stress. With only a little bit of work and more generic packages, one can use such APIs, parse JSON responses and then work on the resulting dataset rather fast. It’s not (always) messy data, thankfully.
+
+Sure, one needs to study and understand the datasets, how to use them, but then again one would not connect to an API in the first place if they didn’t expect to get specific data out of it.
+
+As usual this blog entry is quite incomplete: **there is much more to the Shodan API**, but that would probably make for a Book… Suffice to say, doing a keyword search can bring back MUCH MORE data than one simple IP lookup.
+
+### References
+
+<https://www.shodan.io/>
+
+[My code for today on GitHub](https://github.com/kaizen-R/R/blob/master/Sample/demos/shodan_api_tests_v001.R)

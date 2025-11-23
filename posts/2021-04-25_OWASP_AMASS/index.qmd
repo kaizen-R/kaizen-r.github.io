@@ -1,0 +1,94 @@
+---
+title: "More external data sources tests: OWASP Amass"
+author: "Nico"
+date: "2021-04-25"
+categories: [code, cyber]
+---
+
+So I already wrote a quick post on Shodan recently. I’ve come across plenty of data sources over time (IPVoid, DomainTools, NetworksDB, the usual Virustotal (…), on top of the classics tools for discovery like whois & nslookup/dig and well, a long list).
+
+But I’ve been pointed to a new tool that I didn’t know about (once again showing that the more I learn, the more I find out how little I know) and it definitely seems… Promising. So let’s have a look at that. Thanks guys for the pointer (you know who you are).
+
+![](/posts/2021-04-04_OnShodan/footprint_simple.png){alt=""}
+
+## A wrapper around many data sources
+
+It seems this will be a great tool to add to the list because it’s well, several tools in one really. The people at [OWASP have put together “AMASS”](https://github.com/OWASP/Amass/) (which in context is a cool name).
+
+And I’m very happy to find out that they’ve made the effort to put together a Docker container, which allows us to do the following in (literally) 2 minutes:
+
+``` bash
+docker pull caffix/amass
+docker run -v `pwd`:/.config/amass caffix/amass enum -d kaizen-r.com
+```
+
+With the following output:
+
+![](amass_1.png){alt=""}
+
+But that doesn’t tell us much for programatic use (in R in future scripts ;)), so let’s see what output gets into our mapped “volume”, and the JSON file seems to be a good future candidate for input to one of our R scripts:
+
+``` bash
+$ ls
+amass.json amass.log amass.txt indexes.bolt
+$ cat amass.txt 
+www.kaizen-r.com
+kaizen-r.com
+$ cat amass.json 
+{"name":"www.kaizen-r.com","domain":"kaizen-r.com","addresses":(<EDITED>)}
+{"name":"kaizen-r.com","domain":"kaizen-r.com","addresses":(<EDITED>)}
+```
+
+But for the time being, I loved what I found in the amass.log file. Among other things it tells me I need to configure something, but even so:
+
+``` bash
+$ cat amass.log
+06:22:10.064379 CIRCL: check callback failed for the configuration
+06:22:10.064655 URLScan: API key data was not provided
+06:22:10.064664 DNSDB: API key data was not provided
+(<EDITED> ...)
+06:22:16.193194 Querying VirusTotal for kaizen-r.com subdomains
+06:22:16.193219 Querying Wayback for kaizen-r.com subdomains
+06:22:16.193244 Querying GoogleCT for kaizen-r.com subdomains
+06:22:16.193269 Querying Yahoo for kaizen-r.com subdomains
+06:22:16.193294 Querying HackerOne for kaizen-r.com subdomains
+06:22:16.193321 Querying HackerTarget for kaizen-r.com subdomains
+06:22:16.193339 Querying IPv4Info for kaizen-r.com subdomains
+06:22:16.193355 Querying Mnemonic for kaizen-r.com subdomains
+06:22:16.193372 Querying RapidDNS for kaizen-r.com subdomains
+06:22:16.193400 Querying Riddler for kaizen-r.com subdomains
+06:22:16.193426 Querying Robtex for kaizen-r.com subdomains
+06:22:16.193452 Querying SiteDossier for kaizen-r.com subdomains
+06:22:16.193470 Querying SonarSearch for kaizen-r.com subdomains
+06:22:16.193487 Querying Sublist3rAPI for kaizen-r.com subdomains
+06:22:16.193503 Querying ThreatCrowd for kaizen-r.com subdomains
+06:22:16.193532 Querying Pastebin for kaizen-r.com subdomains
+```
+
+That’s just great. I like to try and program access to APIs and stuff myself, but this seems to be trying to do it all for me on SEVERAL SOURCES AT ONCE, putting results in a JSON format after it… Which is why it takes a minute to run even on my small website’s footprint, I guess.
+
+Last test for today: At the personal level, I have a Twitter API Key, a Shodan API Key, a URLScan API Key (and maybe a few others that do not impact the concepts here, but that I will indeed throw in for good measure for the tests). Can I get more info if I provide my API keys to the container? So I create a config.ini file, copying contents from the [example config file](https://github.com/OWASP/Amass/blob/master/examples/config.ini). And then edit accordingly with your own choices.
+
+Another cool detail about the config file is that you can point AMASS to specific DNS Servers, which might help (solving potentially proxied-connections and the likes).
+
+Well the results do not differ much (my blog is not too complex a URL to check). The only difference in the JSON file is that it mentions more sources for the fingerprinting, and complains less about API Keys missing, so that seems to be working. Maybe in other cases the API keys will help more, but that didn’t impact much the lookup results in this case. (My blog is at any rate uninteresting and very simplistic in that sense, which I am quite happy about btw).
+
+It did take me a couple of tries to get the amass container to take in the config file correctly, though, so here goes (for my own future reference):
+
+``` bash
+$ sudo docker run -v `pwd`:/amass_root/ caffix/amass enum -d kaizen-r.com -config /amass_root/config.ini -dir /amass_root/data/
+```
+
+ 
+
+Anyhow: more tests could be run for sure, but this looks promising. I’ll add it to my arsenal for external visibility fingerprinting.
+
+### Conclusions
+
+Well, just that we can get a new tool to gather and prepare result datasets for us. So we now have a new source that puts together data from many sources.
+
+I’ll have to test it on other domains/IPs, as my blog is not too interesting. However, because doing reconnaissance like this depending on configurations (and using my personal API keys) should be authorized, I can’t go much further in this particular case just yet.
+
+### Resources
+
+[OWASP AMASS](https://github.com/OWASP/Amass/blob/master/doc/user_guide.md)
