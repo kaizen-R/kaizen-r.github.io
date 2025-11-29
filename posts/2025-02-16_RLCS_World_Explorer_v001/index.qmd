@@ -2,7 +2,7 @@
 title: "RLCS: Reinforcement Learning: World Explorer v1"
 author: "Nico"
 date: "2025-02-16"
-categories: [ML, RLCS]
+categories: [ML, RLCS, RL]
 ---
 
 # Looking for food, avoiding the bad guys

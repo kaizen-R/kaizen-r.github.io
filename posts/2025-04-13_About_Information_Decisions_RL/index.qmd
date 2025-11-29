@@ -2,7 +2,7 @@
 title: "Sunday Thoughts: About Strategy, Information, Decisions, Simulations, Reinforcement Learning & al."
 author: "Nico"
 date: "2025-04-13"
-categories: [Information, ML, Decisions, Optimization]
+categories: [Information, ML, Decisions, Optimization, RL]
 ---
 
 # About Strategy, Information, Decisions, Simulations, Reinforcement Learning & al.

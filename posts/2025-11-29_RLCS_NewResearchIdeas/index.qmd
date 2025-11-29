@@ -2,7 +2,7 @@
 title: "New 'Research' ideas for RLCS"
 author: "Nico"
 date: "2025-11-29"
-categories: [ML, code, RLCS]
+categories: [ML, code, RLCS, RL]
 ---
 
 ## On ideas...

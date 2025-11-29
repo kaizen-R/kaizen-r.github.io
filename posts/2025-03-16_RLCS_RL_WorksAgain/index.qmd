@@ -2,7 +2,7 @@
 title: "RLCS for RL: It works again (using books helps)"
 author: "Nico"
 date: "2025-03-16"
-categories: [ML, RLCS]
+categories: [ML, RLCS, RL]
 ---
 
 # I bought the book and used it

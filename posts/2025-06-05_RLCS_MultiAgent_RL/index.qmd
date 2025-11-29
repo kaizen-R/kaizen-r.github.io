@@ -2,7 +2,7 @@
 title: "Multi-Agent RL"
 author: "Nico"
 date: "2025-06-05"
-categories: [RLCS, ML]
+categories: [RLCS, ML, RL]
 ---
 
 ## Simplistic while functional 2D multi-agent RL

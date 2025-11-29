@@ -2,7 +2,7 @@
 title: "RLCS: A World to Play RL"
 author: "Nico"
 date: "2025-02-15"
-categories: [ML, RLCS]
+categories: [ML, RLCS, RL]
 ---
 
 # We need an environment
