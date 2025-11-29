@@ -1,0 +1,175 @@
+---
+title: "New 'Research' ideas for RLCS"
+author: "Nico"
+date: "2025-11-29"
+categories: [ML, code, RLCS]
+---
+
+## On ideas...
+
+I keep reading from a book (which I'll point to again later on I guess) that I mentioned a couple of times around here, [this one](https://www.amazon.com/Brief-History-Intelligence-Humans-Breakthroughs/dp/0063286343).
+
+And I am underlining so many passages, sentences... It's a good sign for the book. And also a good sign for me. Because it means ideas... Some of which, I can probably put to good use...
+
+## Pushing RLCS to new levels
+
+I do NOT know yet if ANY of it will make a difference. Really!
+
+But I do feel I understand several of the theories put forth in said book about how intelligence evolved. And I do believe, I can implement some version of most of it **in** the RLCS package.
+
+Maybe as additional optional parameters that, if any of it proves consistently better (across several test scenarios and datasets of course), could be set to "on" by default.
+
+## The key ideas coming up next
+
+### Coverage
+
+When two rules have perfect accuracy, should I keep both? Or maybe is there just one that covers for all samples it has seen, say in a given epoch?
+
+We want to generalize, as always with LCS, so that the final ruleset is compact enough that it is readable (sometimes it's not feasible, but that doesn't mean we shouldn't try).
+
+To know that, I'm going to need to keep track of the coverage per-rule. It's a simple calculation, per classifier:
+
+-   for each epoch, first reset to 0L all counters of coverage
+
+-   then for each sample that matches with the correct class, add one to the rule's coverage (which should of course then be divided by the above number of possible matches for that class)
+
+In Supervised learning, it's "easy" to check how many samples are of one given class from the input data frame.
+
+![](rule_coverage.png)
+
+What you obtain, for each rule, is a correct_count_per_epoch, which you can divide by the class prevalence (number of samples of that class) in your training set.
+
+### Suprise, Episodic Memory: simulation? dreaming?
+
+I need to read-up some more on that, but for sure there is something about it that makes sense to me, from the experience of... Well, being a human.
+
+So we sleep and we dream, hopefully every day. One theory out there about **why we dream**, is that it **helps "digest" the information of the day**. And in particular, one similar theory is that we sort of **re-assess what was shocking, surprising** about the day.
+
+I know nothing about neuro-sciences, but the idea that one consolidates **new information**, more so than say things that we have already automated.
+
+What does it mean for RLCS?
+
+![Concept: Adding memory to the RLCS agents](agent_memory.png)
+
+Well, **you can track what samples trigger a new rule**. There are two things about that, separately for SL and RL. Here goes...
+
+#### In SL: Surprises per epoch
+
+So, for each epoch, it's rather easy: If as an agent you're exposed to an environment sample that matches no correct rule (!), then you trigger the addition of a new rule. **That sample is therefore surprising**.
+
+So let's keep track, per epoch, of the surprising samples! We can then, before moving on to the next epoch, "quickly review" the surprises of the "day" (epoch). That would be akin to dreaming, sort-of. Every day, you "re-digest" the day's worth of new information.
+
+(Again: Take that, neural networks ;))
+
+Trick: If worried about the size of the needed memory or speed-impact, just sample from the surprises, don't necessarily keep'em all. And make sure to clean said episodic memory every epoch (episode).
+
+#### In RL: Investigate the never seen before
+
+Alright so that's quite different. In RL, you can't re-assess a past decision (because the World could change!). Well, you could somewhat, in a sort of dream-simulation of the World, but that supposes you actually have a concept of the World, which, well... Is a lot to assume! (For now, anyway.)
+
+However, as some neuroscience/psychology experiments on animals (I can't remember which right now, sorry) seems to have demonstrated, there is value in surprise when learning about a World. Fair enough! That makes sense!
+
+So in RL, you have rounds of exploitation, and sometimes rounds of exploration.
+
+In RLCS right now, the way I implemented that is that, during exploration turns, the agent takes a random direction from any of those it has never taken before.
+
+But this is incomplete, as per the "surprise" effect. See, the agent (in my current demo) has very limited perception. It sees one box around itself in all 8 directions.
+
+When it is time to explore, it chooses to explore any direction it hasn't tried before. That's already leveraging the past experience for sure.
+
+``` r
+if(i %% explore_turn == 0) { ## Exploration Turn
+    match_pop <- agents[[j]]$pop[c(match_set)]
+    all_tested_actions <- sapply(match_pop, \(x) x$action) |> unique()
+
+    ## Cleverer than random exploration:
+    not_tested_yet <- !(possible_actions %in% all_tested_actions)
+    if(any(not_tested_yet))
+      agents[[j]]$chosen_action <- sample(possible_actions[which(not_tested_yet)], 1)
+    else {
+      recommended_action <- rlcs_predict_rl(match_pop)
+      not_recommended_actions <- !(possible_actions %in% recommended_action)
+      agents[[j]]$chosen_action <- sample(possible_actions[which(not_recommended_actions)], 1)
+    }
+}
+```
+
+But what if it could decide to explore not only based on past explorations in the exact same situation, but instead in the directions that "look new"?
+
+Now I don't know if this is going to be worth the effort (the agent is already really exploring when faced with new situations). So I'll keep that one in the backlog for now.
+
+## Meanwhile: Parallel support in-package
+
+Yes. Instead of having people figuring out how to train several agents in one go, I'm now including the option inside the package itself now.
+
+To do so, I added a "soft dependency" on {foreach} and {doParallel}. For now, that can (but needs not!) influence the Supervised Learning training.
+
+``` r
+if(requireNamespace("foreach", quietly=T) &
+     requireNamespace("doParallel", quietly=T) &
+     n_agents > 1) { ## NEW!
+
+    print(paste("Using foreach() %dopar% to train up to", n_agents, "parallel agents."))
+    `%dopar%` <- foreach::`%dopar%`
+
+    if(use_validation) {
+      validation_set <- sample(1:nrow(train_env_df), max(round(.1*nrow(train_env_df)), 1), replace = F)
+      sub_train_environment <- train_env_df[-validation_set,]
+    } else {
+      sub_train_environment <- train_env_df
+    }
+    ...
+}
+```
+
+Right this moment, if you use the option to leverage a doParallel cluster, you can ask the SL training to train "n" parallel agents and keep the best one of them.
+
+That's the first version. The second step, also included, is that if you do so, instead of taking the best agent by accuracy, you can ask the training to instead **use a validation subset**. It will then take out randomly 10% of the training set, set it apart, train on the rest, and **choose the best version based on accuracy of the validation dataset**. That would force it to choose the better agent, **considering how good it is at generalizing**. An important point, and in the initial tests I've done on Iris, it does seem to be slightly better.
+
+There is a third improvement on that. And a fourth.
+
+You could, instead of just taking the best agent, merge the "best x out of n agents", provided, you know, you have more than 1 cores/threads in your cluster. Merging them would be to "just" put together the rules of both, run one subsumption, and return that.
+
+And the fourth improvement on the above is, to train one (or a few) **last epoch(s) on the consolidated ruleset of the best agents**... Maybe take the best of n new such agents, too. So you'd be taking the best of the best, merging them and selecting the best of that. **Kind of a higher-level natural selection**, if you will.
+
+For improvements 3 and 4, **I have tested it already**, but although they seem better, the Iris dataset is not good enough for that exercise anymore. And I have yet to include that functionality in the package.
+
+## For RL: MC-TS?
+
+The Reinforcement Learning side of things is **not well packaged** yet. That is because you could have many agents, for one, but **also because you need to make assumptions about the "world" interactions**.
+
+Well, heck! What if I **did** make assumptions?
+
+Things like: Pass a list of agents (RLCS all of them), and pass a World for them to experiment & learn. Assumptions? Well, things like... If the "World" object is called "world1":
+
+-   The World returns for an agent that asks for it its current "state" (in our case, we'll make it a binary string, whatever that represents in the World), through:
+
+    ``` r
+    state <- world1$get_agent_env(agent_id)"
+    ```
+
+-   The World returns a picture of itself as-is, upon calling:
+
+    ``` r
+    world1$get_world_plot()
+    ```
+
+    (Granted, that's a nice-to-have, but I feel not seeing what's happening would hinder the experience of the person trying to code...)
+
+-   The World accepts actions, for example "movements", and returns a reward for each action, maybe like so:
+
+    ``` r
+    reward <- move_agent_and_get_reward(agent_id, direction)
+    ```
+
+-   ...
+
+So that kind of assumptions. That agents are all RLCS is easy (I mean, we're not working on somethin' else here, are we now?), but that the World the agent(s) live(s) in has a somewhat standard interface is a harder requirement. However I believe that is fair game after all.
+
+## Conclusions
+
+Oh, there is soooo much out there, so many interesting ideas, based on neuro-science & psychology conclusions, that I want to try to use and improve RLCS.
+
+This might take a while... Plus, I should be more intentional about tracking of the before/after or about presenting the differences. I'll do some post about that now that there are new options implemented...
+
+Interesting times for RLCS :)
