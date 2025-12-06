@@ -1,0 +1,50 @@
+---
+title: "Setting up a better 'Lab'"
+author: "Nico"
+date: "2025-12-06"
+categories: [RLCS]
+---
+
+## Just too many hours...
+
+Alright, so I have this miniPC with 16 threads, a for the past weeks I was looking at my MacBook M1 screen while waiting for 7 parallel processes to run... And because I was testing different configurations and doing a sort-a Monte-Carlo, whereby I would run 50 times each configuration (to compare accuracy with RF, Rpart and now also a simple NeuralNet), but each complicated config I would use for RLCS would take 40s-1m20s, times 50, well...
+
+## Working on Compatibility
+
+So recently, I setup my package with a dependency that was... A bit too harsh.
+
+Namely, I added a resource that required R 4.5, and that in turn had an impact on RTools, plus re-installing everything (devtools, etc.).
+
+It's not awful, because that forced me to update like... Everything, on my work laptop. My personal Mac was already up-to-speed, so no problem there.
+
+But do I really want to push any candidate user to upgrade to the very latest? Maybe not. So I edited the dependency to require R4.4 instead (4.4.2 if I recall correctly).
+
+And so I'm setting up the lab in THAT version. That way I have 3 running environments to test my package, in fact: 2 Windows, with different versions of R, and my Mac, where I do the coding.
+
+And now, setting things up...
+
+## The "new" lab
+
+The miniPC has been sitting idle mostly since my MSc project, where I used {plumbeR} to distribute workload to simulate epidemic processes on networks, and there again, I was doing Monte-Carlo stuff. It was cool, it was multi-PC AND multi-core/PC; with it and my Mac, I would run 6+14 simulations at the same time. (And what can I say, I love that!). Even then, I would have them run for hours...
+
+Anyway. But that was all on Docker. This time around, I want instead to make sure I reproduce what most people will have to test the package, so namely, RStudio on Windows, with a recent but not latest R version (4.4.2 in that case).
+
+And well, thankfully, that works:
+
+![](image-1.png){fig-align="center" width="750"}
+
+## Going parallel
+
+So next, of course, I want to see how good it can be to have 16 threads (8 cores, but that's less relevant here):
+
+![](image-2.png){fig-align="center" width="750"}
+
+## Next up
+
+I was working on more tricks for parallel processing, so I'll have to share the new version of the code to test those, and then I'll be able to let the (not-so-new but separate) machine run, while I keep coding and writing with the MacBook.
+
+Which will give some relief to the poor MacBook, from running hours in multi-CPU... without a fan.
+
+## Conclusions
+
+Maybe it's overkill. Maybe not. This is giving me a new validation environment, for one, and allowing me to separate long-running tests of several configurations (hyper-parameter tuning for an LCS can be a bother) while I actually keep working.
