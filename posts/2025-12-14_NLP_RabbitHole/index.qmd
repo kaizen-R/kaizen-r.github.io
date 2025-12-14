@@ -1,0 +1,32 @@
+---
+title: "NLP with RCLS: A 'new' challenge"
+author: "Nico"
+date: "2025-12-14"
+categories: [ML, NLP, RLCS]
+---
+
+## NLP is hard
+
+A new rabbit-hole? I want to look into creating as-simple-as-possible rules to classify texts, based on keywords, for a specific classification problem.
+
+## Intro
+
+Having a way to automatically create \*rules\* instead of obscure deep learning neural-networks-based models has a potential application to a specific scenario I came across recently… And it’s an interesting problem to look into.
+
+## Issues
+
+But #NLP and classification can be a difficult challenge, for one because of the noise to signal ratio (i.e. in this case, most words will be completely irrelevant). Training set data quality is often another key issue.
+
+I have played with toy problems thus far with #RLCS, but the dimensionality of free-text format is waaay too… well, high-dimensional. PCA and the likes would hinder the creation of readable rules. So I’m now thinking about how to best do binary encoding (which in itself is a harsh condition, imposed by my implementation of the RLCS package) of the data.
+
+## Thinking about right encoding
+
+First: Entropy. Chi-square. Names-Entity-Recognition(#NER) might help? If the former don’t cut it… Some unnecessarily involved ideas: But also #graphs (maybe even #KG) is maybe another approach (in this case, if words are vertices, high centrality of certain keywords might indicate they are less useful?). Clustering might help too. #IRL (inverse-reinforcement-learning) also comes to mind, although I’m a newbie there, plus that’s definitely overkill 😅
+
+## Conclusions
+
+Maybe it’s all a stupid/bad idea. I need to start working on it and see. (I'm on it!)
+
+If I managed to come up with even a few simple rules to help classify correctly a few thousand unclassified samples, that would be huge a win already, so it’s worth a try. And if i manage that without any of the more complex stuff above, well, all the better. I’ll obviously try to work manually through the data first, get a sense of it. Although if it were easy… it would be done already, I guess.
+
+Plus, and for me the fun part: it would be a practical application of my hobby for a real need at work. But it might well end up being more of a (possibly failed) weekends research exercise, rather than an actual project… Only time will say if I manage to put something together.
