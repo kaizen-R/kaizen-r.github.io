@@ -7,7 +7,9 @@ categories: [ML, NLP, RLCS]
 
 ## NLP is hard
 
-A new rabbit-hole? I want to look into creating as-simple-as-possible rules to classify texts, based on keywords, for a specific classification problem.
+A "new" rabbit-hole? I want to look into creating as-simple-as-possible rules to classify texts, based on keywords, for a specific classification problem.
+
+Note that it resembles, yet differs a bit f[rom a past similar exercise](https://kaizen-r.github.io/posts/2025-06-21_RLCS_for_text/)... Both in the input data, and in the motivation, as [back then](https://kaizen-r.github.io/posts/2025-06-21_RLCS_for_text/) the "create rules" condition wasn't as valuable as this time around...
 
 ## Intro
 
