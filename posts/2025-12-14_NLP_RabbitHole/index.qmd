@@ -11,21 +11,89 @@ A new rabbit-hole? I want to look into creating as-simple-as-possible rules to c
 
 ## Intro
 
-Having a way to automatically create \*rules\* instead of obscure deep learning neural-networks-based models has a potential application to a specific scenario I came across recently… And it’s an interesting problem to look into.
+Having a way to automatically create **rules** instead of obscure deep learning neural-networks-based models has a **potential application to a specific scenario** I came across recently… And it’s an interesting (to me) problem to look into.
 
 ## Issues
 
 But #NLP and classification can be a difficult challenge, for one because of the noise to signal ratio (i.e. in this case, most words will be completely irrelevant). Training set data quality is often another key issue.
 
-I have played with toy problems thus far with #RLCS, but the dimensionality of free-text format is waaay too… well, high-dimensional. PCA and the likes would hinder the creation of readable rules. So I’m now thinking about how to best do binary encoding (which in itself is a harsh condition, imposed by my implementation of the RLCS package) of the data.
+I have **played with toy problems** thus far with #RLCS, but the **dimensionality of free-text** format worries me as it is waaay too… well, high-dimensional. PCA and the likes would hinder the creation of readable rules. So I’m now thinking about **how to best do binary encoding** (which in itself is a harsh condition, imposed by my implementation of the RLCS package) of the data in an NLP scenario...
 
 ## Thinking about right encoding
 
-First: Entropy. Chi-square. Names-Entity-Recognition(#NER) might help? If the former don’t cut it… Some unnecessarily involved ideas: But also #graphs (maybe even #KG) is maybe another approach (in this case, if words are vertices, high centrality of certain keywords might indicate they are less useful?). Clustering might help too. #IRL (inverse-reinforcement-learning) also comes to mind, although I’m a newbie there, plus that’s definitely overkill 😅
+First: Entropy. Chi-square. Names-Entity-Recognition(#NER) might help?
+
+If the former don’t cut it… Some unnecessarily involved ideas: But also #graphs (maybe even #KG) is maybe another approach (in this case, if words are vertices, high centrality of certain keywords might indicate they are less useful?). Clustering might help too. #IRL (inverse-reinforcement-learning) also comes to mind, although I’m a newbie there, plus that’s definitely overkill 😅
+
+## Getting started: Encoding
+
+So I've "exchanged ideas" with... Perplexity. (Yes, it's true, I know how to talk to a chatbot! Who would have said someone like me could... Ask questions... ANYHOW)
+
+Because my first thought went for Entropy, Gini Index... What a partitioning tree would do. I have plenty of practice with {tm} in R to do text cleaning, but I still always end up with too many variables, and although many times that wasn't the key issue (I could use PCA, MDS...), as mentioned earlier, **PCA would "obscure" the choices**, the resulting rules would be harder (not impossible, as PCA can be reversed...) to read. No, I needed something to help me **prioritize keywords while keeping keywords**.
+
+And indeed, I needed a dataset (the one I plan to apply all this on is private, so can't use that). From a few years back, I remembered there was a dataset about Barack Obama vs Donal Trump tweets somewhere. I found it again: <https://github.com/fivethirtyeight/data/tree/master/twitter-ratio>.
+
+Long story short, I ended up with this:
+
+``` r
+## Mix it up a bit
+df <- df[sample(1:nrow(df), nrow(df), replace = F),]
+
+## Clean up a bit
+df$text <- sapply(df$text, \(x) {
+  x <- iconv(x, to="UTF-8")
+  x <- tolower(x)
+  x <- gsub("https?\\:\\/\\/[a-z0-9.-/]+", "", x)
+  x <- tm::removePunctuation(x)
+  x <- tm::removeWords(x, stopwords("english"))
+  x <- tm::stripWhitespace(x)
+  x
+})
+df <- df[!is.na(df$text),]
+
+## Let's have a quick look
+head(df)
+table(df$class)
+
+## Document Term Matrix for upcoming ChiSquare
+dtm <- tm::DocumentTermMatrix(df$text)
+## Control size a bit:
+dtm <- dtm[,1:min(ncol(dtm), 10000)]
+m <- as.matrix(dtm)
+dim(m)
+y <- factor(df$class)
+
+## This I did have to lookup first, Perplexity more or less gave it to me, once I gave it my specific preferences...
+chisq_scores <- apply(m, 2, function(term_counts) {
+  tab <- table(term_counts > 0, y)
+  if(all(dim(tab) > 1)) {
+    stats::chisq.test(tab, simulate.p.value = F)$statistic
+  } else
+    NA
+})
+
+chisq_scores <- sort(chisq_scores, decreasing = T, na.last = NA)
+## End of LLM help
+
+top_terms <- names(chisq_scores)[1:1000]
+dtm_redux <- m[, top_terms]
+```
+
+Now. I haven't even started working on the RLCS part of the exercise, but can we maybe agree this could potentially work to separate the two classes, using **some sort of binary encoding**, maybe on a few key columns to reduce dimensionality (for RLCS)? See pictures next.
+
+(And as I've done in the past for images classification, I could probably train in parallel different populations on smaller subset of data, to then merge them back into one... IDK.)
+
+Here what the results would look like. I won't tell you which 5 samples are from President Trump, and which from President Obama.
+
+![one president, most relevant keywords per tweet for classification](samples2.png){fig-align="center" width="750"}
+
+![another president, most relevant keywords per tweet for classification](samples1.png){fig-align="center" width="750"}
+
+OK so clearly this is not "enough", and yet...
 
 ## Conclusions
 
-Maybe it’s all a stupid/bad idea. I need to start working on it and see. (I'm on it!)
+Maybe it’s all a stupid/bad idea. I need to keep working on it for a while and see. It looks somewhat promising thus far though.
 
 If I managed to come up with even a few simple rules to help classify correctly a few thousand unclassified samples, that would be huge a win already, so it’s worth a try. And if i manage that without any of the more complex stuff above, well, all the better. I’ll obviously try to work manually through the data first, get a sense of it. Although if it were easy… it would be done already, I guess.
 
