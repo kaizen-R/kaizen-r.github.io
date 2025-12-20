@@ -19,7 +19,7 @@ But certain things are maybe a bit too simplified.
 
 So R is interpreted, which is a guarantee of not being the fastest, most efficient thing out there. And then it abstracts and lets you do stuff that... maybe, in some cases, it shouldn't.
 
-I don't think anyone is going to be using R to code games or OS components, so there is that. But, being a computer scientist by training (a long time ago), I sometimes miss the more involved stuff.
+I don't think anyone is going to be using R to code games or OS components, so there is that. But, being a computer engineer by training (a long time ago), I sometimes miss the more involved stuff.
 
 Python does little for me. It is better than R for many things, particularly outside of data work. Even then I don't consider it better because most of what others can do with Python, I can do with R. The exception, is when libraries by some vendors for their APIs are provided for Python, and not for R. Reasonable choice. Then, you know... {reticulate}.
 
