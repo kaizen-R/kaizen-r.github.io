@@ -1,5 +1,5 @@
 ---
-title: "RLCS is now twice as fast!"
+title: "RLCS: more work needed"
 author: "Nico"
 date: "2025-12-27"
 categories: [RLCS]
