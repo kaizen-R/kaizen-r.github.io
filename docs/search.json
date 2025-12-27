@@ -4863,5 +4863,40 @@
     "title": "RLCS: more work needed",
     "section": "Conclusions",
     "text": "Conclusions\nAll-in-all, this generally means I still have plenty of work ahead of me. But I do want to make the package useful and convenient, for me and for others to consider it as a viable option to do explainable AI with real world applications. And all with constrained running environments, even better. And that’s plenty of motivation.\nHowever that also means less spare time for other ideas I’d like to work on, like ABMs, complexity, systems thinking… Maybe in another year or so I can move on…"
+  },
+  {
+    "objectID": "posts/2025-12-27_RLCS_more_work_needed/index.html",
+    "href": "posts/2025-12-27_RLCS_more_work_needed/index.html",
+    "title": "RLCS: more work needed",
+    "section": "",
+    "text": "RLCS only accepts strings of 0s and 1s as input. That’s a rather problematic limitation."
+  },
+  {
+    "objectID": "posts/2025-12-27_RLCS_more_work_needed/index.html#infinite-work",
+    "href": "posts/2025-12-27_RLCS_more_work_needed/index.html#infinite-work",
+    "title": "RLCS: more work needed",
+    "section": "",
+    "text": "RLCS only accepts strings of 0s and 1s as input. That’s a rather problematic limitation."
+  },
+  {
+    "objectID": "posts/2025-12-27_RLCS_more_work_needed/index.html#intro",
+    "href": "posts/2025-12-27_RLCS_more_work_needed/index.html#intro",
+    "title": "RLCS: more work needed",
+    "section": "Intro",
+    "text": "Intro\nThere are (some) ways around that, work done in the field of Learning Classifier Systems. But instead of choosing a different data encoding for input, I choose to take it as-is, which forces me to pounder (much) more about better data encoding.\nAnd that leads me in turn to think more about features engineering."
+  },
+  {
+    "objectID": "posts/2025-12-27_RLCS_more_work_needed/index.html#what-does-that-mean",
+    "href": "posts/2025-12-27_RLCS_more_work_needed/index.html#what-does-that-mean",
+    "title": "RLCS: more work needed",
+    "section": "What does that mean?",
+    "text": "What does that mean?\nThe package works fine for simple demos of XOR problems for rules generation (basic demo). It’s OK for simple RL world states encoding. It works OK-ish for tabular numerical input (iris dataset), with Gray binary encoding. It works quite nicely for images classification (simplified MNIST) - and that has lead me to work on picture compression somewhat. Now I’m working on NLP problems a bit (I tinker with keywords extraction, TFIDF and the likes, which in this day-and-age of LLMs with semantics is quite basic and probably suboptimal but I have my reasons…).\nOverall, as RLCS is rather slow, so input data compression upon encoding and features selection are both quite relevant for it to work. Say, 1000 bits strings for thousands of samples is generally too much for my setup. If I want to keep training under 5’, at least.\nThis also has pushed me to work quite a bit on parallel processing, dividing datasets horizontally (training multiple LCSs on subsets of rows of data, and then merging models - which can’t be done with neural networks 😁), or vertically (doing some feature sharding of sorts, and using a hierarchy of coordinated LCSs).\nI also want to add support to work with graph data as input. Just because I am fond of graphs math. (But that’s probably for much later…)\nBoth NLP and graphs support might force me to add dependencies (e.g. {tm}, {igraph}…), which I don’t quite like…"
+  },
+  {
+    "objectID": "posts/2025-12-27_RLCS_more_work_needed/index.html#conclusions",
+    "href": "posts/2025-12-27_RLCS_more_work_needed/index.html#conclusions",
+    "title": "RLCS: more work needed",
+    "section": "Conclusions",
+    "text": "Conclusions\nAll-in-all, this generally means I still have plenty of work ahead of me. But I do want to make the package useful and convenient, for me and for others to consider it as a viable option to do explainable AI with real world applications. And all with constrained running environments, even better. And that’s plenty of motivation.\nHowever that also means less spare time for other ideas I’d like to work on, like ABMs, complexity, systems thinking… Maybe in another year or so I can move on…"
   }
 ]
