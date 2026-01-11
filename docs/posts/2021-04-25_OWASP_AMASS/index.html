@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,6 +117,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Kaizen-R.com new home</span>
     </a>
@@ -193,21 +196,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="a-wrapper-around-many-data-sources">A wrapper around many data sources</h2>
 <p>It seems this will be a great tool to add to the list because it’s well, several tools in one really. The people at <a href="https://github.com/OWASP/Amass/">OWASP have put together “AMASS”</a> (which in context is a cool name).</p>
 <p>And I’m very happy to find out that they’ve made the effort to put together a Docker container, which allows us to do the following in (literally) 2 minutes:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull caffix/amass</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> <span class="kw">`</span><span class="bu">pwd</span><span class="kw">`</span>:/.config/amass caffix/amass enum <span class="at">-d</span> kaizen-r.com</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull caffix/amass</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> <span class="kw">`</span><span class="bu">pwd</span><span class="kw">`</span>:/.config/amass caffix/amass enum <span class="at">-d</span> kaizen-r.com</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>With the following output:</p>
 <p><img src="amass_1.png" class="img-fluid" alt=""></p>
 <p>But that doesn’t tell us much for programatic use (in R in future scripts ;)), so let’s see what output gets into our mapped “volume”, and the JSON file seems to be a good future candidate for input to one of our R scripts:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">amass.json</span> amass.log amass.txt indexes.bolt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat amass.txt </span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">www.kaizen-r.com</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">kaizen-r.com</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat amass.json </span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">{</span><span class="st">"name"</span><span class="ex">:</span><span class="st">"www.kaizen-r.com"</span><span class="ex">,</span><span class="st">"domain"</span><span class="ex">:</span><span class="st">"kaizen-r.com"</span><span class="ex">,</span><span class="st">"addresses"</span><span class="ex">:</span><span class="er">(</span><span class="op">&lt;</span>EDITED<span class="op">&gt;</span><span class="kw">)</span><span class="er">}</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">{</span><span class="st">"name"</span><span class="ex">:</span><span class="st">"kaizen-r.com"</span><span class="ex">,</span><span class="st">"domain"</span><span class="ex">:</span><span class="st">"kaizen-r.com"</span><span class="ex">,</span><span class="st">"addresses"</span><span class="ex">:</span><span class="er">(</span><span class="op">&lt;</span>EDITED<span class="op">&gt;</span><span class="kw">)</span><span class="er">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">{</span><span class="st">"name"</span><span class="ex">:</span><span class="st">"kaizen-r.com"</span><span class="ex">,</span><span class="st">"domain"</span><span class="ex">:</span><span class="st">"kaizen-r.com"</span><span class="ex">,</span><span class="st">"addresses"</span><span class="ex">:</span><span class="er">(</span><span class="op">&lt;</span>EDITED<span class="op">&gt;</span><span class="kw">)</span><span class="er">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>But for the time being, I loved what I found in the amass.log file. Among other things it tells me I need to configure something, but even so:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat amass.log</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat amass.log</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">06:22:10.064379</span> CIRCL: check callback failed for the configuration</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">06:22:10.064655</span> URLScan: API key data was not provided</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">06:22:10.064664</span> DNSDB: API key data was not provided</span>
@@ -227,13 +230,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="ex">06:22:16.193470</span> Querying SonarSearch for kaizen-r.com subdomains</span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="ex">06:22:16.193487</span> Querying Sublist3rAPI for kaizen-r.com subdomains</span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="ex">06:22:16.193503</span> Querying ThreatCrowd for kaizen-r.com subdomains</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="ex">06:22:16.193532</span> Querying Pastebin for kaizen-r.com subdomains</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="ex">06:22:16.193532</span> Querying Pastebin for kaizen-r.com subdomains</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>That’s just great. I like to try and program access to APIs and stuff myself, but this seems to be trying to do it all for me on SEVERAL SOURCES AT ONCE, putting results in a JSON format after it… Which is why it takes a minute to run even on my small website’s footprint, I guess.</p>
 <p>Last test for today: At the personal level, I have a Twitter API Key, a Shodan API Key, a URLScan API Key (and maybe a few others that do not impact the concepts here, but that I will indeed throw in for good measure for the tests). Can I get more info if I provide my API keys to the container? So I create a config.ini file, copying contents from the <a href="https://github.com/OWASP/Amass/blob/master/examples/config.ini">example config file</a>. And then edit accordingly with your own choices.</p>
 <p>Another cool detail about the config file is that you can point AMASS to specific DNS Servers, which might help (solving potentially proxied-connections and the likes).</p>
 <p>Well the results do not differ much (my blog is not too complex a URL to check). The only difference in the JSON file is that it mentions more sources for the fingerprinting, and complains less about API Keys missing, so that seems to be working. Maybe in other cases the API keys will help more, but that didn’t impact much the lookup results in this case. (My blog is at any rate uninteresting and very simplistic in that sense, which I am quite happy about btw).</p>
 <p>It did take me a couple of tries to get the amass container to take in the config file correctly, though, so here goes (for my own future reference):</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> sudo docker run <span class="at">-v</span> <span class="kw">`</span><span class="bu">pwd</span><span class="kw">`</span>:/amass_root/ caffix/amass enum <span class="at">-d</span> kaizen-r.com <span class="at">-config</span> /amass_root/config.ini <span class="at">-dir</span> /amass_root/data/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> sudo docker run <span class="at">-v</span> <span class="kw">`</span><span class="bu">pwd</span><span class="kw">`</span>:/amass_root/ caffix/amass enum <span class="at">-d</span> kaizen-r.com <span class="at">-config</span> /amass_root/config.ini <span class="at">-dir</span> /amass_root/data/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>&nbsp;</p>
 <p>Anyhow: more tests could be run for sure, but this looks promising. I’ll add it to my arsenal for external visibility fingerprinting.</p>
 <section id="conclusions" class="level3">
@@ -301,13 +304,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

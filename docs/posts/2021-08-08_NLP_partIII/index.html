@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,6 +117,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Kaizen-R.com new home</span>
     </a>
@@ -197,9 +200,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="getting-the-text">Getting the text</h2>
 <p>So we already did that in <a href="https://www.kaizen-r.com/2021/07/nlp-1-n-scraping-all-the-blog-articles-the-hard-way/">past entries</a>, which means I’ll skip it here and assume you get your text in a variable.</p>
 <p>In our case, we ran the function “get_all_articles_kaizen_blog_vfuture()” from <a href="https://github.com/kaizen-R/R/blob/master/Sample/NLP/scraping_our_blog_v001.R">this code</a> and ended up with all the blog entries in a dataframe called “all_articles_df_vfuture”.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>all_articles_df_vfuture <span class="ot">&lt;-</span> <span class="fu">get_all_articles_kaizen_blog_vfuture</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>all_articles_df_vfuture <span class="ot">&lt;-</span> <span class="fu">get_all_articles_kaizen_blog_vfuture</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The first article (the last one published) is now in the first row of that data frame, and its text, on which we focus today, is in the column “article_content”:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>t_strings <span class="ot">&lt;-</span> <span class="fu">as.String</span>(all_articles_df_vfuture<span class="sc">$</span>article_content[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>t_strings <span class="ot">&lt;-</span> <span class="fu">as.String</span>(all_articles_df_vfuture<span class="sc">$</span>article_content[<span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>&nbsp;So from now on, we’ll assume you have one text in a variable called t_strings, of type “String”.</p>
 </section>
 <section id="first-extract-sentences" class="level2">
@@ -207,12 +210,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>You could think this is quite easy: Separate using the punctuation, and you can get sentences. Just look for the periods, right? Well apparently it’s not quite that easy.</p>
 <p>So instead of trying our luck, we’ll use the openNLP package and some of its functions.</p>
 <p>Let’s prepare a “sentence annotator”:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sent_annotator <span class="ot">&lt;-</span> <span class="fu">Maxent_Sent_Token_Annotator</span>(<span class="at">language =</span> <span class="st">"en"</span>, <span class="at">probs =</span> <span class="cn">TRUE</span>, <span class="at">model =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sent_annotator <span class="ot">&lt;-</span> <span class="fu">Maxent_Sent_Token_Annotator</span>(<span class="at">language =</span> <span class="st">"en"</span>, <span class="at">probs =</span> <span class="cn">TRUE</span>, <span class="at">model =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>And then let’s try and annotate our first article, using the NLP package’s function “annotate”:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now let's annotate the sentences in our latest article:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now let's annotate the sentences in our latest article:</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>annotated_sentences <span class="ot">&lt;-</span> <span class="fu">annotate</span>(t_strings, sent_annotator)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># And let's have a look:</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>t_strings[annotated_sentences]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>t_strings[annotated_sentences]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Good stuff. Indeed the choices these couple of lines of code have made differ a bit from what my personal approach would have done:</p>
 <p><img src="extracting_sentences_maxent_001.png" class="img-fluid" alt=""></p>
 <p>Me I’d have separated “Intro”, the first title, into a separate sentence. But then that “sentence” would have no verb, for instance…</p>
@@ -223,10 +226,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="getting-words-from-sentences">Getting words from sentences</h2>
 <p>Very similar to the above, we can get words out of our annotated sentences. (This is needed, though: you need annotated sentences to begin separating words).</p>
 <p>(I’ve separated the first three sentences from the article for clarity):</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's first extract words, from annotated sentences.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's first extract words, from annotated sentences.</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>word_annotator <span class="ot">&lt;-</span> <span class="fu">Maxent_Word_Token_Annotator</span>(<span class="at">language =</span> <span class="st">"en"</span>, <span class="at">probs =</span> <span class="cn">TRUE</span>, <span class="at">model =</span> <span class="cn">NULL</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>annotated_words <span class="ot">&lt;-</span> <span class="fu">annotate</span>(t_strings, word_annotator, annotated_sentences)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>t_strings[annotated_words]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>t_strings[annotated_words]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>And we get indeed: First the sentences, then the separated “words”:</p>
 <p><img src="extracting_words_maxen_001.png" class="img-fluid" alt=""></p>
 <p>Good. Shall we continue?</p>
@@ -236,15 +239,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>So far, these functions of separating sentences and words, we could probably have approximated using some regular expressions and “educated” if-then-else rules on strings.</p>
 <p>But this last bit, to me, was a bit more of a challenge, theoretically speaking, and is an interesting thing: can we recognize “parts of speech” as in: verbs, nouns, articles…</p>
 <p>Not straightforward, at least to me. Thankfully, the Apache-based openNLP package helps, once again:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pos_tag_annotator <span class="ot">&lt;-</span> <span class="fu">Maxent_POS_Tag_Annotator</span>(<span class="at">language =</span> <span class="st">"en"</span>, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pos_tag_annotator <span class="ot">&lt;-</span> <span class="fu">Maxent_POS_Tag_Annotator</span>(<span class="at">language =</span> <span class="st">"en"</span>, </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">probs =</span> <span class="cn">TRUE</span>, <span class="at">model =</span> <span class="cn">NULL</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#pos_tag_annotator</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>pos_tagged_sentences <span class="ot">&lt;-</span> <span class="fu">annotate</span>(t_strings, pos_tag_annotator, annotated_words)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pos_tagged_sentences, <span class="at">n =</span> <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pos_tagged_sentences, <span class="at">n =</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="pos_tagging_maxent_001.png" class="img-fluid" alt=""></p>
 <p>This is not quite as readable as one might want. We still see the sentences first, then the words, and now a “POS” tag appears but it’s encoded.</p>
 <p>Let’s see if we can make it better. We will merge a simple data.frame that describes the tags better, with a data frame in which we map each word to their associated POS tag.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's focus on the words only and for the first sentence only:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's focus on the words only and for the first sentence only:</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>pos_tagged_words_sent1 <span class="ot">&lt;-</span> pos_tagged_sentences <span class="sc">%&gt;%</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">subset</span>(type <span class="sc">==</span> <span class="st">"word"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">subset</span>(end <span class="sc">&lt;=</span> <span class="dv">108</span>) <span class="co"># 108 was the end of the first sentence, so it makes sense.</span></span>
@@ -278,7 +281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>   pos_simple_explainer,</span>
 <span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>   <span class="at">by.x =</span> <span class="st">"type"</span>,</span>
 <span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>   <span class="at">by.y =</span> <span class="st">"tag"</span>,</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>   <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>   <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The results are shown in the first screenshot of this entry.</p>
 </section>
 <section id="conclusions" class="level2">
@@ -352,13 +355,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

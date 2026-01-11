@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,6 +117,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Kaizen-R.com new home</span>
     </a>
@@ -198,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="getting-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="getting-the-data">Getting the data</h2>
 <p>Today the code won’t be that complicated at all. We’ll first get the data, in JSON, and put it into a dataframe.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite) <span class="co">#fromJSON -&gt; data.frame</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite) <span class="co">#fromJSON -&gt; data.frame</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr) <span class="co"># GET/POST</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -208,7 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">content_type_json</span>(), <span class="fu">accept_json</span>())</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(<span class="fu">rawToChar</span>(cisa_response<span class="sc">$</span>content))</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>kev_list <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="at">txt =</span> <span class="fu">rawToChar</span>(cisa_response<span class="sc">$</span>content))</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>kev_df <span class="ot">&lt;-</span> kev_list[[<span class="st">'vulnerabilities'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>kev_df <span class="ot">&lt;-</span> kev_list[[<span class="st">'vulnerabilities'</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>And that’s about it.</p>
 </section>
 <section id="about-prevalence" class="level2">
@@ -238,9 +241,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Note: Patching implicitly supposes you have a license, where applicable. But that’s a different story.</p>
 <p>How did I get the above tables, you ask? I’m surprised you would care, but here goes some sample code:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kev_actions_freqs <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(kev_df<span class="sc">$</span>requiredAction))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kev_actions_freqs <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">table</span>(kev_df<span class="sc">$</span>requiredAction))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(kev_actions_freqs)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"Rec_Action"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(kev_actions_freqs <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Freq)))&nbsp;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(kev_actions_freqs <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Freq)))&nbsp;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="making-it-a-coding-exercise" class="level2">
 <h2 class="anchored" data-anchor-id="making-it-a-coding-exercise">Making it a coding exercise</h2>
@@ -249,19 +252,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>OK so how can we have a look at the most commonly found 3-words occurrences among the vulnerability names? Using “N-grams”.</p>
 <p>In text analysis and “Natural Language Processing”, <a href="https://en.wikipedia.org/wiki/N-gram">N-grams</a> are basically that: things (letters, words…) that occur together in the text. This is very useful for validating texts, propose next words to be typed, things like that.</p>
 <p>Anyway, in our case, we’ll look for most common strings of “3 words” happening in our vulnerability names (just for fun). And for the visualization, although it’s more “fun” than “useful” (a table, like those above, would probably do better for serious work…), we’ll use a wordcloud (I mean, for this exercise, why not?)</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ngram)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ngram)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ng_words_seq <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">unlist</span>(<span class="fu">strsplit</span>(<span class="fu">tolower</span>(kev_df<span class="sc">$</span>vulnerabilityName), <span class="st">" "</span>)), <span class="at">collapse =</span> <span class="st">" "</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ng_list <span class="ot">&lt;-</span> <span class="fu">ngram</span>(ng_words_seq, <span class="at">n =</span> <span class="dv">3</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud2</span>(<span class="fu">get.phrasetable</span>(ng_list)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(freq <span class="sc">&gt;</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud2</span>(<span class="fu">get.phrasetable</span>(ng_list)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(freq <span class="sc">&gt;</span> <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>That’s it (it looks easy, but as it was the first time ever I used that ngram package, I had to <a href="https://cran.r-project.org/web/packages/ngram/vignettes/ngram-guide.pdf">read the documentation</a> a bit :)).</p>
 <p>And here the results:</p>
 <p><img src="KEV_Vuln_types_wordcloud-1024x644.png" class="img-fluid" alt=""></p>
 <p>You can tell some things occur more than others (also see Prevalence as explained earlier ;)).</p>
 <p>“Buffer Overflow”, “Memory Corruption”, “Command Injection”, “Privilege Escalation”, “Improper input validation”, “Directory Traversal”, “Type Confusion”, “Access Control”…</p>
 <p>Well, maybe a 2 words N-gram was a better idea after all (and removing “vulnerability”). Let’s try that (just for fun):</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ng_words_seq <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"vulnerability"</span>, <span class="st">""</span>, ng_words_seq)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ng_words_seq <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"vulnerability"</span>, <span class="st">""</span>, ng_words_seq)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ng_list <span class="ot">&lt;-</span> <span class="fu">ngram</span>(ng_words_seq, <span class="at">n =</span> <span class="dv">2</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud2</span>(<span class="fu">get.phrasetable</span>(ng_list)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(freq <span class="sc">&gt;</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud2</span>(<span class="fu">get.phrasetable</span>(ng_list)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">filter</span>(freq <span class="sc">&gt;</span> <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="KEV_Vuln_types_wordcloud2-1024x640.png" class="img-fluid" alt=""></p>
 <p>It’s not much better. So maybe this is not the best approach, but fair enough, a good, quick exercise for today.</p>
 </section>
@@ -358,13 +361,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

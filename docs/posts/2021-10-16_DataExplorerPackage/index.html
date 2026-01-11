@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,6 +117,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Kaizen-R.com new home</span>
     </a>
@@ -196,16 +199,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="before-we-start">Before we start</h2>
 <p>DataExplorer somehow requires igraph. igraph is nice, but as it turns out, it requires a package on the box running R that wasn’t there (I still use my tuned Docker containers, using rocker as the base image).</p>
 <p>So first of, to work with DataExplorer on rocker/rstudio, you’ll need to install that package:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apt-get</span> install libglpk-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apt-get</span> install libglpk-dev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then only will you be able to do:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DataExplorer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DataExplorer)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="lets-keep-going-now" class="level2">
 <h2 class="anchored" data-anchor-id="lets-keep-going-now">Let’s keep going now</h2>
 <p>Good. So why all the fuss about that DataExplorer package?</p>
 <p>Let me re-use <a href="https://github.com/kaizen-R/R/blob/master/Sample/CMDB_Exercises/cmdb_generator.R">some old “demo CMDB” generator</a> to prepare some dummy data with a few common issues. (Over time, I’ve seen MANY more issues, but that will have to do for this test).</p>
 <p>Using that, it should be easy to get to something like so:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(cmdb)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(cmdb)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>            machine_name    ip_address</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> WINDEMO01.KAIZEN<span class="sc">-</span>R.COM  <span class="dv">192</span>.<span class="dv">168</span>.<span class="fl">1.17</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>              WinDemo02 <span class="dv">192</span>.<span class="dv">168</span>.<span class="fl">1.142</span></span>
@@ -220,28 +223,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>    LinDemo03 Data Platform Pre<span class="sc">-</span>Production</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>    WinDemo04                        Devel</span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>    LinDemo05                        Devel</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>    LinDemo06 Data Platform     Production</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>    LinDemo06 Data Platform     Production</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Which will have to do.</p>
 <p>Then it all is rather simple: Let’s use the help (a.k.a. “RTFM”). So let’s try a few things:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> DataExplorer<span class="sc">::</span><span class="fu">plot_bar</span>(cmdb_apps)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> DataExplorer<span class="sc">::</span><span class="fu">plot_bar</span>(cmdb_apps)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> columns ignored with more than <span class="dv">50</span> categories.</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>machine_name<span class="sc">:</span> <span class="dv">100</span> categories</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>machine_name<span class="sc">:</span> <span class="dv">100</span> categories</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Gives the following:</p>
 <p><img src="cmdb_apps_barplot.png" class="img-fluid" alt=""></p>
 <p>&nbsp;</p>
 <p>Now it might not look like much, but believe me: It’s easier here (1 simple line of code) than it is doing it manually (and actually, I think it’s easier than doing the same thing in Excel, so there: Hurra for R!)</p>
 <p>With the same data, if you have a factor column (which I here just forced, it made sense in this case), you can then see things by groups of such factors in one go:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cmdb_apps[] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(cmdb_apps, as.factor)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cmdb_apps[] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(cmdb_apps, as.factor)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> DataExplorer<span class="sc">::</span><span class="fu">plot_bar</span>(cmdb_apps, <span class="at">by =</span> <span class="st">"type"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> columns ignored with more than <span class="dv">50</span> categories.</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>machine_name<span class="sc">:</span> <span class="dv">100</span> categories</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>machine_name<span class="sc">:</span> <span class="dv">100</span> categories</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="cmdb_apps_barplot_grouped.png" class="img-fluid" alt=""></p>
 <p>Once again, the key of the matter is that those are one-liners!</p>
 <p>Not everything can be automated</p>
 <p>Unfortunately it’s not ALL going to be that easy. So in order to look a bit further into the powers of DataExplorer, I require some data with more… Columns, to begin with. Thankfully, we already have more columns, only in two different data frames. Let’s merge them… But wait! They should merge on the same column name easily if it weren’t for the difference in naming the machines!</p>
 <p>So right there, something to be done…</p>
 <p>It requires a bit of magic, but it’s feasible:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>cmdb_new <span class="ot">&lt;-</span> cmdb</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>cmdb_new<span class="sc">$</span>machine_name <span class="sc">%&lt;&gt;%</span> <span class="fu">tolower</span>()</span>
@@ -261,9 +264,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>cmdb_new<span class="sc">$</span>machine_name <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>cmdb_apps<span class="sc">$</span>machine_name <span class="sc">%&lt;&gt;%</span> <span class="fu">tolower</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>cmdb_apps<span class="sc">$</span>machine_name <span class="sc">%&lt;&gt;%</span> <span class="fu">tolower</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Which gives us something a bit more compatible (see the “hostname” in cmdb_new, and “machine_name” in cmdb_apps…)</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(cmdb_new, <span class="at">n =</span> <span class="dv">2</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(cmdb_new, <span class="at">n =</span> <span class="dv">2</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>     ip_address  hostname       domain                   fqdn</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">192</span>.<span class="dv">168</span>.<span class="fl">1.17</span> windemo01 kaizen<span class="sc">-</span>r.com windemo01.kaizen<span class="sc">-</span>r.com</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">192</span>.<span class="dv">168</span>.<span class="fl">1.142</span> windemo02                                    </span>
@@ -279,21 +282,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> lindemo0100  <span class="dv">192</span>.<span class="dv">168</span>.<span class="fl">1.47</span>                                      Data Platform      Devel</span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>  lindemo011  <span class="dv">192</span>.<span class="dv">168</span>.<span class="fl">1.75</span> kaizen<span class="sc">-</span>r.com lindemo011.kaizen<span class="sc">-</span>r.com Data Platform Production</span>
 <span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>  lindemo012  <span class="dv">192</span>.<span class="dv">168</span>.<span class="fl">1.94</span>                                      Data Platform Production</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>  lindemo012 <span class="dv">192</span>.<span class="dv">168</span>.<span class="fl">1.236</span>                                      Data Platform Production</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>  lindemo012 <span class="dv">192</span>.<span class="dv">168</span>.<span class="fl">1.236</span>                                      Data Platform Production</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now that’s better, let’s have a look shall we?</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> DataExplorer<span class="sc">::</span><span class="fu">introduce</span>(cmdb_new)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> DataExplorer<span class="sc">::</span><span class="fu">introduce</span>(cmdb_new)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  rows columns discrete_columns continuous_columns all_missing_columns total_missing_values</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">130</span>       <span class="dv">6</span>                <span class="dv">6</span>                  <span class="dv">0</span>                   <span class="dv">0</span>                    <span class="dv">0</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  complete_rows total_observations memory_usage</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>           <span class="dv">130</span>                <span class="dv">780</span>        <span class="dv">27464</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>           <span class="dv">130</span>                <span class="dv">780</span>        <span class="dv">27464</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now we might want to have some numerical value in there somewhere, just for testing. In the context of a CMDB of Systems, maybe the amount of RAM per system could make sense, and CPUs speeds. Let’s throw that in:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rams_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">hostname =</span> <span class="fu">unique</span>(cmdb_new<span class="sc">$</span>hostname), <span class="at">ram_amount =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="at">size =</span> <span class="fu">length</span>(<span class="fu">unique</span>(cmdb_new<span class="sc">$</span>hostname)), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>)))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rams_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">hostname =</span> <span class="fu">unique</span>(cmdb_new<span class="sc">$</span>hostname), <span class="at">ram_amount =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="at">size =</span> <span class="fu">length</span>(<span class="fu">unique</span>(cmdb_new<span class="sc">$</span>hostname)), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>)))</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cmdb_new <span class="ot">&lt;-</span> <span class="fu">merge</span>(cmdb_new, rams_df, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>cpus_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">hostname =</span> <span class="fu">unique</span>(cmdb_new<span class="sc">$</span>hostname), <span class="at">cpu_ghz =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fl">1.6</span>,<span class="fl">2.4</span>,<span class="fl">0.8</span>,<span class="fl">3.2</span>), <span class="at">size =</span> <span class="fu">length</span>(<span class="fu">unique</span>(cmdb_new<span class="sc">$</span>hostname)), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>)))</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>cmdb_new <span class="ot">&lt;-</span> <span class="fu">merge</span>(cmdb_new, cpus_df, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>cmdb_new <span class="ot">&lt;-</span> <span class="fu">merge</span>(cmdb_new, cpus_df, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>And now, DataExplorer will find on its own the numeric variables and help us have a quick glance at them:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>DataExplorer<span class="sc">::</span><span class="fu">plot_histogram</span>(cmdb_new)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>DataExplorer<span class="sc">::</span><span class="fu">plot_boxplot</span>(cmdb_new, <span class="at">by =</span> <span class="st">"app"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>DataExplorer<span class="sc">::</span><span class="fu">plot_histogram</span>(cmdb_new)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>DataExplorer<span class="sc">::</span><span class="fu">plot_boxplot</span>(cmdb_new, <span class="at">by =</span> <span class="st">"app"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="cmdb_new_numerics_hist.png" class="img-fluid" alt=""></p>
 <p><img src="cmdb_new_numerics_boxplot_by_app.png" class="img-fluid" alt=""></p>
 <p>Even better than all of the above, DataExplorer provides a function (1 liner) to do all of the above and more and generate one report, from one data frame… I mean, NICE STUFF!</p>
@@ -367,13 +370,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

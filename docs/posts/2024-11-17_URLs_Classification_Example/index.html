@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -119,7 +120,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -145,6 +146,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Kaizen-R.com new home</span>
     </a>
@@ -288,7 +291,7 @@ y = \beta_0 + \beta_1x
 <h3 class="anchored" data-anchor-id="the-code">The code</h3>
 <p>The code will be on my Github eventually. But for now, as usual, a few blocks of it:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>urls_df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/faizann24/Using-machine-learning-to-detect-malicious-URLs/refs/heads/master/data/data.csv"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>urls_df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/faizann24/Using-machine-learning-to-detect-malicious-URLs/refs/heads/master/data/data.csv"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>urls_df<span class="sc">$</span>url <span class="ot">&lt;-</span> <span class="fu">tolower</span>(urls_df<span class="sc">$</span>url)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Let's have a quick look, a.k.a. "EDA"</span></span>
@@ -296,19 +299,19 @@ y = \beta_0 + \beta_1x
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> [<span class="dv">1</span>] <span class="dv">420464</span>      <span class="dv">2</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(urls_df<span class="sc">$</span>label) <span class="do">## Imbalance, we might want e.g. to under-sample "good"</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span>  bad   good </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a> <span class="dv">75643</span> <span class="dv">344821</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a> <span class="dv">75643</span> <span class="dv">344821</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <blockquote class="blockquote">
 <p><strong>Point number two: Imbalance is often bad.</strong> Here we have 4.5 times more good entries than bad entries. Now, why could that be bad? Here we’re going to try to learn from our data. If we keep the imbalance in the dataset, to make things simple, our model could learn that there is more good than bad. And maybe that’s what we want, but then that imbalance could affect the outcome of our model. Unless we want to use that imbalance for some reason, it’s probably best to manage it upfront.</p>
 </blockquote>
 <p>How to remove imbalance? Well, one way (of surely many out there, only I only know a few), is to “under-sample” some of the over-represented class. Today we’re going to take proportionally less entries from good to train our model, making then sure that we have roughly half and half, of each class.</p>
 <p>As per the <em>class</em>, it’s a binary choice, <em>good</em> or <em>bad</em>. We’ll create a variable to encode that as 0 or 1 (or the other way around, it’s irrelevant). That’s just to make things compatible with certain models, as most will expect numerical data.</p>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>urls_df<span class="sc">$</span>label_num <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(urls_df<span class="sc">$</span>label <span class="sc">==</span> <span class="st">"good"</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>urls_df<span class="sc">$</span>label_num <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(urls_df<span class="sc">$</span>label <span class="sc">==</span> <span class="st">"good"</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>urls_df<span class="sc">$</span>url_length <span class="ot">&lt;-</span> <span class="fu">nchar</span>(urls_df<span class="sc">$</span>url)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="do">## A bit of domain knowledge helps:</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(urls_df[urls_df<span class="sc">$</span>url_length <span class="sc">&gt;</span> <span class="dv">300</span>,]) <span class="sc">/</span> <span class="fu">nrow</span>(urls_df)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.001203432</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.001203432</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <blockquote class="blockquote">
 <p><strong>Point number 3: Domain Knowledge is important.</strong> We’re going to leverage that today quite a bit. To begin with, we have 0.1% of the entries with URL length superior to 300 characters, and to make things cleaner, we’ll assume today these are… Irrelevant. So we remove them. Our classifier will hence not be trained with such data. And maybe that’s a bad idea, depending on your goals. For today, everything is fair game, we want to keep things simple.</p>
 </blockquote>
@@ -346,13 +349,13 @@ y = \beta_0 + \beta_1x
 </figure>
 </div>
 <p>From no variables (except considering the URL itself…) to 14. Not too shabby.</p>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(urls_df)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(urls_df)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">"url"</span>                       <span class="st">"label"</span>                     <span class="st">"url_length"</span>               </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">4</span>] <span class="st">"label_num"</span>                 <span class="st">"slashes_count"</span>             <span class="st">"dots_count"</span>               </span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a> [<span class="dv">7</span>] <span class="st">"host_is_ip"</span>                <span class="st">"vowels_prev"</span>               <span class="st">"ends_in_slash"</span>            </span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">10</span>] <span class="st">"contains_port"</span>             <span class="st">"n_params"</span>                  <span class="st">"domain_ext"</span>               </span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">13</span>] <span class="st">"file_ext"</span>                  <span class="st">"is_common_domain_ext"</span>      <span class="st">"is_uncommon_domain_ext"</span>   </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">16</span>] <span class="st">"is_uncommon_file_ext"</span>      <span class="st">"has_4_consonants_straight"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">16</span>] <span class="st">"is_uncommon_file_ext"</span>      <span class="st">"has_4_consonants_straight"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>There is sooo much more to consider.</p>
 <p>For instance if you check out the code (if/when I make it available on my GitHub), you’ll see at one point I “scale” the data. That is, I try to put all the variable in comparable orders of magnitude. This is to avoid one variable overshadowing all the others. Something that varies from 0.5 to 0.6 might otherwise be considered less important than something that varies from 3 to 4000. Which is not always true.</p>
 <p>I also make a BAD thing: I transform extensions to “factors”, and then I encode the levels of the factors as numerical data. This is not great, I know :D</p>
@@ -366,7 +369,7 @@ y = \beta_0 + \beta_1x
 <p><strong>Point number 6: Save some entries for testing you trained model.</strong> So say we have 10K entries, of which 5000 are <em>good</em> and 5000 are <em>bad</em> entries. How do you know your trained model “generalizes” correctly? If you were to try and evaluate your model on data you used to train it, you couldn’t know whether it just learnt exactly that case, or if it would work on future data. To verify how it would work on future data, you… Validate using data not seen during training. There is more to that, too, but that’ll be enough for conceptual understanding today.</p>
 </blockquote>
 <p>OK. At last. As today has been <strong>dense</strong> (I know, sorry), I’ll train just ONE model on our dataset.</p>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>good_urls <span class="ot">&lt;-</span> urls_df[urls_df<span class="sc">$</span>label <span class="sc">==</span> <span class="st">"good"</span>,]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>good_urls <span class="ot">&lt;-</span> urls_df[urls_df<span class="sc">$</span>label <span class="sc">==</span> <span class="st">"good"</span>,]</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>bad_urls <span class="ot">&lt;-</span> urls_df[urls_df<span class="sc">$</span>label <span class="sc">==</span> <span class="st">"bad"</span>,]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Undersampling "good" vs "bad"</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>sample_urls_df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(bad_urls[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(bad_urls), <span class="at">size =</span> <span class="dv">10000</span>,<span class="at">replace =</span> <span class="cn">FALSE</span>),],</span>
@@ -376,12 +379,12 @@ y = \beta_0 + \beta_1x
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>separate_sets <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>), <span class="fu">nrow</span>(sample_urls_df), <span class="at">replace=</span><span class="cn">TRUE</span>, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.7</span>,<span class="fl">0.3</span>))</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>t_train <span class="ot">&lt;-</span> sample_urls_df[separate_sets, ]</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>t_test <span class="ot">&lt;-</span> sample_urls_df[<span class="sc">!</span>separate_sets, ] <span class="co"># i.e. Not train set...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>t_test <span class="ot">&lt;-</span> sample_urls_df[<span class="sc">!</span>separate_sets, ] <span class="co"># i.e. Not train set...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="partitioning-tree-train-and-test" class="level3">
 <h3 class="anchored" data-anchor-id="partitioning-tree-train-and-test">Partitioning Tree, train and test</h3>
 <p>Here is how you train a Partitioning Tree in R:</p>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## A Partitioning tree but WITHOUT the bad trick of extensions encoding</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## A Partitioning tree but WITHOUT the bad trick of extensions encoding</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## And low depth:</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>tree_model <span class="ot">&lt;-</span> <span class="fu">rpart</span>(label <span class="sc">~</span> url_length <span class="sc">+</span> slashes_count <span class="sc">+</span> dots_count <span class="sc">+</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                        host_is_ip <span class="sc">+</span> vowels_prev <span class="sc">+</span> ends_in_slash <span class="sc">+</span> contains_port <span class="sc">+</span></span>
@@ -389,9 +392,9 @@ y = \beta_0 + \beta_1x
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                        is_uncommon_file_ext <span class="sc">+</span> has_4_consonants_straight,</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> t_train,</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">method =</span> <span class="st">"class"</span>,</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">control =</span> <span class="fu">rpart.control</span>(<span class="at">cp =</span> <span class="fl">0.05</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">control =</span> <span class="fu">rpart.control</span>(<span class="at">cp =</span> <span class="fl">0.05</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>And here how you visualize, and “test” it:</p>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> tree_model ; <span class="fu">plot</span>(tree_model); <span class="fu">text</span>(tree_model)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> tree_model ; <span class="fu">plot</span>(tree_model); <span class="fu">text</span>(tree_model)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>n<span class="ot">=</span> <span class="dv">13929</span> </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>node<span class="er">)</span>, split, n, loss, yval, (yprob)</span>
@@ -407,7 +410,7 @@ y = \beta_0 + \beta_1x
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>      predicted</span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>label   bad good</span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  bad  <span class="dv">1431</span> <span class="dv">1636</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  good  <span class="dv">611</span> <span class="dv">2393</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  good  <span class="dv">611</span> <span class="dv">2393</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now to the important part: We’ve tested on 30% of the data our model trained on the <strong>other</strong> 70% of the data. In the above, we’ve also excluded the factor-level-encoded variables because they’re a bad thing (but as we’ll see in a second, they contain useful information, unfortunately). And we got some results, as such:</p>
 <p>Based on the data, we have trained a partitioning tree that makes mistakes about 37% of the time. As we have balanced our dataset, we know that randomly choosing one class of the other would have led us to 50% error, approximately. Still, not great.</p>
 <p>Let’s have a look at this “tree”:</p>
@@ -504,13 +507,14 @@ y = \beta_0 + \beta_1x
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

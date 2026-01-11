@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -119,7 +120,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -145,6 +146,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Kaizen-R.com new home</span>
     </a>
@@ -277,7 +280,7 @@ x_{k+1} = rx_k (1-x_k)
 <h3 class="anchored" data-anchor-id="interlude">Interlude</h3>
 <p>Randomness is important in cybersecurity. So having an equation THAT SIMPLE generating seemingly random numbers sounds appealing. It’s not much more complex than the “<a href="https://en.wikipedia.org/wiki/Linear_congruential_generator">linear congruential generator</a>“, in fact. Maybe we could compare those two?</p>
 <p>So let’s implement a simplistic generator of random number:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear congruential generator</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear congruential generator</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>random_numbers_vector <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>X0 <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="co"># seed</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">36</span></span>
@@ -292,25 +295,25 @@ x_{k+1} = rx_k (1-x_k)
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>random_numbers_vector <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, max_iterations)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">Xi_plus_1</span>(X0)</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># scale to have values between 0 and 1</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>random_numbers_vector <span class="ot">&lt;-</span> random_numbers_vector<span class="sc">/</span><span class="fu">max</span>(random_numbers_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>random_numbers_vector <span class="ot">&lt;-</span> random_numbers_vector<span class="sc">/</span><span class="fu">max</span>(random_numbers_vector)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then, for comparison, let’s generate our population values with a growth rate of 3.999, for the same amount of generations:</p>
 <p># Recursive version of our Logistic Map function<br>
 logistic_numbers_vector &lt;- rep(0.5, max_iterations)</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>my_logistic_map3 <span class="ot">&lt;-</span> <span class="cf">function</span>(my_r, x, <span class="at">current_iter =</span> <span class="dv">0</span>, <span class="at">max_iter =</span> max_iterations) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>my_logistic_map3 <span class="ot">&lt;-</span> <span class="cf">function</span>(my_r, x, <span class="at">current_iter =</span> <span class="dv">0</span>, <span class="at">max_iter =</span> max_iterations) {</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  logistic_numbers_vector[current_iter<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;&lt;-</span> x</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(current_iter <span class="sc">==</span> max_iter) <span class="fu">return</span>(x)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">my_logistic_map3</span>(my_r, my_r <span class="sc">*</span> x <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>x), current_iter<span class="sc">+</span><span class="dv">1</span>, max_iter)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">my_logistic_map3</span>(<span class="fl">3.999</span>, <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">my_logistic_map3</span>(<span class="fl">3.999</span>, <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then let’s compare two consecutive values, from each set of generated numbers:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>comparator_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">generation =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">200</span>, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>comparator_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">generation =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">200</span>, </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">logistic_map_num =</span> logistic_numbers_vector, </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">random_num =</span> random_numbers_vector)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>comparator_df <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">"num"</span>),</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">names_to =</span> <span class="st">"generator"</span>,</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>   <span class="at">values_to =</span> <span class="st">"vals"</span>) <span class="ot">-&gt;</span> for_plot</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(for_plot[for_plot<span class="sc">$</span>generation <span class="sc">%in%</span> <span class="dv">30</span><span class="sc">:</span><span class="dv">50</span>,], <span class="fu">aes</span>(<span class="at">x =</span> generation, <span class="at">y =</span> vals, <span class="at">colour =</span> generator)) <span class="sc">+</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>And they seem rather “random” at first sight, both of them, wouldn’t you say?</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -321,7 +324,7 @@ logistic_numbers_vector &lt;- rep(0.5, max_iterations)</p>
 <p>But HERE IS THE KEY: The logistic map is NOT at all random, but rather perfectly deterministic (well, to be fair, our pseudo-random number generator is deterministic too, but it behaves more as expected).</p>
 <p>So how can we tell the difference? Here the “horse-shoe” figure makes its entrance. In the above graph, we could have thought that both generators gave back random numbers.</p>
 <p>BUT if we graph the values from two consecutive generations against each other (apparently that’s called a Phase Diagram), the magic appears:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>comparator_df<span class="sc">$</span>logistic_map_num1 <span class="ot">&lt;-</span> <span class="fu">c</span>(comparator_df<span class="sc">$</span>logistic_map_num[<span class="dv">2</span><span class="sc">:</span><span class="fu">nrow</span>(comparator_df)],<span class="dv">0</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>comparator_df<span class="sc">$</span>logistic_map_num1 <span class="ot">&lt;-</span> <span class="fu">c</span>(comparator_df<span class="sc">$</span>logistic_map_num[<span class="dv">2</span><span class="sc">:</span><span class="fu">nrow</span>(comparator_df)],<span class="dv">0</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>comparator_df<span class="sc">$</span>random_num1 <span class="ot">&lt;-</span> <span class="fu">c</span>(comparator_df<span class="sc">$</span>random_num[<span class="dv">2</span><span class="sc">:</span><span class="fu">nrow</span>(comparator_df)],<span class="dv">0</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Finally, the beauty!</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comparator_df) <span class="sc">+</span></span>
@@ -330,7 +333,7 @@ logistic_numbers_vector &lt;- rep(0.5, max_iterations)</p>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"logistic_map"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="st">"pseudo_random"</span> <span class="ot">=</span> <span class="st">"red"</span>))<span class="sc">+</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Comparing Logistic Map and Pseudo-Random Generator"</span>)<span class="sc">+</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"'Generation N'"</span>) <span class="sc">+</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"'Generation N+1'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"'Generation N+1'"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="images/Structure_in_Chaos-1536x869.png" class="img-fluid"></p>
 <p>And, to me, that’s absolutely &amp; simply wonderful. I can’t avoid but to feel impressed by the structure appearing there, from something that anyone would otherwise have reasonably assumed is complete “chaos”… (And it is 😀 Structure in Chaos, I suppose that’s where this came from… Although I haven’t read enough yet :D)</p>
 </section>
@@ -408,13 +411,14 @@ logistic_numbers_vector &lt;- rep(0.5, max_iterations)</p>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,6 +117,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Kaizen-R.com new home</span>
     </a>
@@ -242,7 +245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In RLCS right now, the way I implemented that is that, during exploration turns, the agent takes a random direction from any of those it has never taken before.</p>
 <p>But this is incomplete, as per the “surprise” effect. See, the agent (in my current demo) has very limited perception. It sees one box around itself in all 8 directions.</p>
 <p>When it is time to explore, it chooses to explore any direction it hasn’t tried before. That’s already leveraging the past experience for sure.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(i <span class="sc">%%</span> explore_turn <span class="sc">==</span> <span class="dv">0</span>) { <span class="do">## Exploration Turn</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(i <span class="sc">%%</span> explore_turn <span class="sc">==</span> <span class="dv">0</span>) { <span class="do">## Exploration Turn</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    match_pop <span class="ot">&lt;-</span> agents[[j]]<span class="sc">$</span>pop[<span class="fu">c</span>(match_set)]</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    all_tested_actions <span class="ot">&lt;-</span> <span class="fu">sapply</span>(match_pop, \(x) x<span class="sc">$</span>action) <span class="sc">|&gt;</span> <span class="fu">unique</span>()</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -255,7 +258,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      not_recommended_actions <span class="ot">&lt;-</span> <span class="sc">!</span>(possible_actions <span class="sc">%in%</span> recommended_action)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>      agents[[j]]<span class="sc">$</span>chosen_action <span class="ot">&lt;-</span> <span class="fu">sample</span>(possible_actions[<span class="fu">which</span>(not_recommended_actions)], <span class="dv">1</span>)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>But what if it could decide to explore not only based on past explorations in the exact same situation, but instead in the directions that “look new”?</p>
 <p>Now I don’t know if this is going to be worth the effort (the agent is already really exploring when faced with new situations). So I’ll keep that one in the backlog for now.</p>
 </section>
@@ -265,7 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="meanwhile-parallel-support-in-package">Meanwhile: Parallel support in-package</h2>
 <p>Yes. Instead of having people figuring out how to train several agents in one go, I’m now including the option inside the package itself now.</p>
 <p>To do so, I added a “soft dependency” on {foreach} and {doParallel}. For now, that can (but needs not!) influence the Supervised Learning training.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">requireNamespace</span>(<span class="st">"foreach"</span>, <span class="at">quietly=</span>T) <span class="sc">&amp;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">requireNamespace</span>(<span class="st">"foreach"</span>, <span class="at">quietly=</span>T) <span class="sc">&amp;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">requireNamespace</span>(<span class="st">"doParallel"</span>, <span class="at">quietly=</span>T) <span class="sc">&amp;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>     n_agents <span class="sc">&gt;</span> <span class="dv">1</span>) { <span class="do">## NEW!</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -279,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      sub_train_environment <span class="ot">&lt;-</span> train_env_df</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    ...</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Right this moment, if you use the option to leverage a doParallel cluster, you can ask the SL training to train “n” parallel agents and keep the best one of them.</p>
 <p>That’s the first version. The second step, also included, is that if you do so, instead of taking the best agent by accuracy, you can ask the training to instead <strong>use a validation subset</strong>. It will then take out randomly 10% of the training set, set it apart, train on the rest, and <strong>choose the best version based on accuracy of the validation dataset</strong>. That would force it to choose the better agent, <strong>considering how good it is at generalizing</strong>. An important point, and in the initial tests I’ve done on Iris, it does seem to be slightly better.</p>
 <p>There is a third improvement on that. And a fourth.</p>
@@ -294,12 +297,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Things like: Pass a list of agents (RLCS all of them), and pass a World for them to experiment &amp; learn. Assumptions? Well, things like… If the “World” object is called “world1”:</p>
 <ul>
 <li><p>The World returns for an agent that asks for it its current “state” (in our case, we’ll make it a binary string, whatever that represents in the World), through:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>state <span class="ot">&lt;-</span> world1<span class="sc">$</span><span class="fu">get_agent_env</span>(agent_id)<span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>state <span class="ot">&lt;-</span> world1<span class="sc">$</span><span class="fu">get_agent_env</span>(agent_id)<span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>The World returns a picture of itself as-is, upon calling:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>world1<span class="sc">$</span><span class="fu">get_world_plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>world1<span class="sc">$</span><span class="fu">get_world_plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>(Granted, that’s a nice-to-have, but I feel not seeing what’s happening would hinder the experience of the person trying to code…)</p></li>
 <li><p>The World accepts actions, for example “movements”, and returns a reward for each action, maybe like so:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>reward <span class="ot">&lt;-</span> <span class="fu">move_agent_and_get_reward</span>(agent_id, direction)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>reward <span class="ot">&lt;-</span> <span class="fu">move_agent_and_get_reward</span>(agent_id, direction)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>…</p></li>
 </ul>
 <p>So that kind of assumptions. That agents are all RLCS is easy (I mean, we’re not working on somethin’ else here, are we now?), but that the World the agent(s) live(s) in has a somewhat standard interface is a harder requirement. However I believe that is fair game after all.</p>
@@ -365,13 +368,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

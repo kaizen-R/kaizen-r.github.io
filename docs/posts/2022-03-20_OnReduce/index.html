@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,6 +117,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Kaizen-R.com new home</span>
     </a>
@@ -195,7 +198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>It turns out (of course!) that the base R package has that covered for us. Probably in certain cases of pure recurrence, that won’t be the way (I still have to understand <em>better</em> this Reduce() function, really). But for our purposes, it turns out, it works as intended.</p>
 <p>So here, we tricked it a bit, and the comparison of efficiency might be imperfect… But it should overall be valid.</p>
 <p>We basically compare two approaches:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>my_logistic_map2 <span class="ot">&lt;-</span> <span class="cf">function</span>(my_r, x) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>my_logistic_map2 <span class="ot">&lt;-</span> <span class="cf">function</span>(my_r, x) {</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  my_r <span class="sc">*</span> x <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>x)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>(...)</span>
@@ -203,19 +206,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(my_gen <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n_gens) {</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    res_mat[my_r, my_gen] <span class="ot">&lt;-</span> <span class="fu">my_logistic_map2</span>(my_growth_rates[my_r], res_mat[my_r, my_gen<span class="dv">-1</span>])</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You’ll notice the double loop there… Now let’s see a functionally equivalent code with the base Reduce() function:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(my_r <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(my_growth_rates)<span class="sc">-</span><span class="dv">1</span>)) { <span class="co"># I'm not a fan of for loops, but here...</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(my_r <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(my_growth_rates)<span class="sc">-</span><span class="dv">1</span>)) { <span class="co"># I'm not a fan of for loops, but here...</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  res_mat[my_r, ] <span class="ot">&lt;-</span> <span class="fu">Reduce</span>(<span class="cf">function</span>(x, y) my_growth_rates[my_r] <span class="sc">*</span> x <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>x), </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span>(n_gens<span class="dv">-1</span>), </span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">init =</span> <span class="fl">0.5</span>, </span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">accumulate =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now one for loop, and one Reduce() call.</p>
 <p>A quick comparison of both does show a rather clear improvement, although I am not content with the potential issues of this comparison:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a> expr      min       lq     mean   median       uq      max neval</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a> expr      min       lq     mean   median       uq      max neval</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">v1</span>() <span class="fl">4.913179</span> <span class="fl">4.921944</span> <span class="fl">4.941147</span> <span class="fl">4.936691</span> <span class="fl">4.937704</span> <span class="fl">4.996217</span>     <span class="dv">5</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">v2</span>() <span class="fl">2.129384</span> <span class="fl">2.141234</span> <span class="fl">2.161598</span> <span class="fl">2.147729</span> <span class="fl">2.188960</span> <span class="fl">2.200683</span>     <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">v2</span>() <span class="fl">2.129384</span> <span class="fl">2.141234</span> <span class="fl">2.161598</span> <span class="fl">2.147729</span> <span class="fl">2.188960</span> <span class="fl">2.200683</span>     <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>But still, it seems to work and we seem to have a rather clear improvement.</p>
 </section>
 <section id="notes" class="level2">
@@ -225,13 +228,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Well, the “y” in the “function(x, y)” call definition (inside the Reduce() call), actually refers to “the next value of the input vector”, but as our recurrence equation does NOT depend on the next entry at all (i.e.&nbsp;in our case, we define our calculation only as a function of the former value), in our case the x in the “function(x, y)” call, it only ensures in our case that the iteration repeats for a certain number of times, the length of our initial x = “1:(n_gens-1)” vector.</p>
 <p>But in fact, after the initial value (“init = 0.5”), we do not use the vector values for any calculation per-se.</p>
 <p>So in our case, we will in fact be Reducing something like this, (–&gt; is not actual code here, just indicating what’s happening):</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span>(x0, <span class="dv">1</span>) my_growth_rates[my_r] <span class="sc">*</span> x0 <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>x0) <span class="sc">-</span><span class="ot">-&gt;</span> x1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span>(x0, <span class="dv">1</span>) my_growth_rates[my_r] <span class="sc">*</span> x0 <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>x0) <span class="sc">-</span><span class="ot">-&gt;</span> x1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then, more or less, this is what we’re doing with the Reduce() call (note how we do NOT use the second parameter at all… but to limit iterations):</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span>(x0, <span class="at">y=</span><span class="dv">1</span>) my_growth_rates[my_r] <span class="sc">*</span> x0 <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>x0) <span class="sc">-</span><span class="ot">-&gt;</span> x1</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span>(x0, <span class="at">y=</span><span class="dv">1</span>) my_growth_rates[my_r] <span class="sc">*</span> x0 <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>x0) <span class="sc">-</span><span class="ot">-&gt;</span> x1</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span>(x1, <span class="at">y=</span><span class="dv">2</span>) my_growth_rates[my_r] <span class="sc">*</span> x1 <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>x1) <span class="sc">-</span><span class="ot">-&gt;</span> x2</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span>(x2, <span class="at">y=</span><span class="dv">3</span>) my_growth_rates[my_r] <span class="sc">*</span> x2 <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>x2) <span class="sc">-</span><span class="ot">-&gt;</span> x3</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>(...)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span>(xn<span class="dv">-1</span>, <span class="at">y=</span>(n_gens<span class="dv">-1</span>)) my_growth_rates[my_r] <span class="sc">*</span> xn<span class="dv">-1</span> <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>xn<span class="dv">-1</span>) <span class="sc">-</span><span class="ot">-&gt;</span> xn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span>(xn<span class="dv">-1</span>, <span class="at">y=</span>(n_gens<span class="dv">-1</span>)) my_growth_rates[my_r] <span class="sc">*</span> xn<span class="dv">-1</span> <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>xn<span class="dv">-1</span>) <span class="sc">-</span><span class="ot">-&gt;</span> xn</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>So it might be LESS intuitive, as a code to be read by someone else, than using the for loops, indeed.</p>
 <p>But it is, however, faster.</p>
 <p>The best reference for the actual code use what <a href="https://stackoverflow.com/questions/65955021/iterative-equations-in-r">here on StackOverflow</a> in this case.</p>
@@ -297,13 +300,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

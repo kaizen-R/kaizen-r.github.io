@@ -6,10 +6,10 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/quarto-contrib/videojs/video.min.js"></script>
 <link href="../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.32">
+  <meta name="generator" content="quarto-1.8.25">
 
   <title>Kaizen-R.com new home – RLCS: A (shorter) Introduction</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -96,7 +96,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2c1b5f745a11cfad616ebade4a4a7d24.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-0fde88a82f0356838740f155f1088782.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -236,7 +236,7 @@
 <h2>Can you guess the “rule”?</h2>
 <p><br></p>
 <p>A <strong>Data Mining</strong> Exercise with RLCS</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="sc">&gt;</span> <span class="fu">library</span>(RLCS)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="sc">&gt;</span> <span class="fu">library</span>(RLCS)</span>
 <span id="cb1-2"><a></a><span class="sc">&gt;</span> demo_env1 <span class="ot">&lt;-</span> <span class="fu">rlcs_example_secret1</span>()</span>
 <span id="cb1-3"><a></a><span class="sc">&gt;</span> sample_of_rows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(demo_env1), <span class="dv">10</span>, <span class="at">replace=</span>F)</span>
 <span id="cb1-4"><a></a><span class="sc">&gt;</span> <span class="fu">print</span>(demo_env1[sample_of_rows,], <span class="at">row.names =</span> F)</span>
@@ -250,22 +250,22 @@
 <span id="cb1-12"><a></a> <span class="dv">10100</span>     <span class="dv">1</span></span>
 <span id="cb1-13"><a></a> <span class="dv">01111</span>     <span class="dv">0</span></span>
 <span id="cb1-14"><a></a> <span class="dv">01100</span>     <span class="dv">1</span></span>
-<span id="cb1-15"><a></a> <span class="dv">00001</span>     <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-15"><a></a> <span class="dv">00001</span>     <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="did-you-guess-right" class="slide level2">
 <h2>Did you guess right?</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="sc">&gt;</span> demo_params <span class="ot">&lt;-</span> <span class="fu">RLCS_hyperparameters</span>(<span class="at">n_epochs =</span> <span class="dv">280</span>, <span class="at">deletion_trigger =</span> <span class="dv">40</span>, <span class="at">deletion_threshold =</span> <span class="fl">0.9</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="sc">&gt;</span> demo_params <span class="ot">&lt;-</span> <span class="fu">RLCS_hyperparameters</span>(<span class="at">n_epochs =</span> <span class="dv">280</span>, <span class="at">deletion_trigger =</span> <span class="dv">40</span>, <span class="at">deletion_threshold =</span> <span class="fl">0.9</span>)</span>
 <span id="cb2-2"><a></a><span class="sc">&gt;</span> rlcs_model1 <span class="ot">&lt;-</span> <span class="fu">rlcs_train_sl</span>(demo_env1, demo_params, <span class="cn">NULL</span>, F)</span>
 <span id="cb2-3"><a></a>[<span class="dv">1</span>] <span class="st">"Epoch: 40 Progress Exposure: 1280 Classifiers Count: 14"</span></span>
 <span id="cb2-4"><a></a>[<span class="dv">1</span>] <span class="st">"Epoch: 80 Progress Exposure: 2560 Classifiers Count: 8"</span></span>
 <span id="cb2-5"><a></a>(...)</span>
-<span id="cb2-6"><a></a>[<span class="dv">1</span>] <span class="st">"Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a></a>[<span class="dv">1</span>] <span class="st">"Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
 <p><br> Condition/Action is the rule (the rest are quality metrics)</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="sc">&gt;</span> <span class="fu">print</span>(rlcs_model1)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="sc">&gt;</span> <span class="fu">print</span>(rlcs_model1)</span>
 <span id="cb3-2"><a></a>  condition action match_count correct_count accuracy numerosity reward first_seen</span>
 <span id="cb3-3"><a></a><span class="dv">1</span>     <span class="do">###1#      0        3560          3560        1        122      5       1843</span></span>
-<span id="cb3-4"><a></a><span class="dv">2</span>     <span class="do">###0#      1        2770          2770        1         94      5       3421</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a></a><span class="dv">2</span>     <span class="do">###0#      1        2770          2770        1         94      5       3421</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This model expresses: “Action/Class is Not bit 4”</p>
 </div>
 </section>
@@ -296,17 +296,17 @@
 <p><a href="https://github.com/kaizen-R/RLCS" class="uri">https://github.com/kaizen-R/RLCS</a></p>
 <p><br></p>
 <p>To get the package from GitHub:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">library</span>(devtools)</span>
-<span id="cb4-2"><a></a><span class="fu">install_github</span>(<span class="st">"kaizen-R/RLCS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">library</span>(devtools)</span>
+<span id="cb4-2"><a></a><span class="fu">install_github</span>(<span class="st">"kaizen-R/RLCS"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
 <p>Run your first test</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">library</span>(RLCS)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">library</span>(RLCS)</span>
 <span id="cb5-2"><a></a>demo_params <span class="ot">&lt;-</span> <span class="fu">RLCS_hyperparameters</span>(<span class="at">n_epochs =</span> <span class="dv">400</span>, <span class="at">deletion_trigger =</span> <span class="dv">40</span>, <span class="at">deletion_threshold =</span> <span class="fl">0.9</span>)</span>
 <span id="cb5-3"><a></a>demo_env2 <span class="ot">&lt;-</span> <span class="fu">rlcs_example_secret2</span>()</span>
 <span id="cb5-4"><a></a><span class="fu">print</span>(demo_env2, <span class="at">row.names =</span> F)</span>
 <span id="cb5-5"><a></a>rlcs_model2 <span class="ot">&lt;-</span> <span class="fu">rlcs_train_sl</span>(demo_env2, demo_params, <span class="cn">NULL</span>, F)</span>
 <span id="cb5-6"><a></a><span class="fu">print</span>(rlcs_model2)</span>
-<span id="cb5-7"><a></a><span class="fu">plot</span>(rlcs_model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-7"><a></a><span class="fu">plot</span>(rlcs_model2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="binary-input-example" class="slide level2">
@@ -346,12 +346,12 @@
 </div>
 </div>
 </div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>Time difference of <span class="fl">13.13619</span> secs <span class="do">## Training Runtime.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>Time difference of <span class="fl">13.13619</span> secs <span class="do">## Training Runtime.</span></span>
 <span id="cb6-2"><a></a>            predicted</span>
 <span id="cb6-3"><a></a>class        setosa versicolor virginica</span>
 <span id="cb6-4"><a></a>  setosa         <span class="dv">13</span>          <span class="dv">0</span>         <span class="dv">0</span></span>
 <span id="cb6-5"><a></a>  versicolor      <span class="dv">0</span>          <span class="dv">5</span>         <span class="dv">3</span></span>
-<span id="cb6-6"><a></a>  virginica       <span class="dv">0</span>          <span class="dv">0</span>         <span class="dv">9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-6"><a></a>  virginica       <span class="dv">0</span>          <span class="dv">0</span>         <span class="dv">9</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="supervised-learning-iris-1" class="slide level2 smaller">
 <h2>Supervised Learning: Iris</h2>
@@ -359,7 +359,7 @@
 <img data-src="images/iris_one_classifier.png" class="r-stretch quarto-figure-center"><p class="caption">visualizing one classifier - iris</p></section>
 <section id="supervised-learning-images-classifier" class="slide level2">
 <h2>Supervised Learning: Images Classifier</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>[<span class="dv">1</span>] <span class="st">"Accuracy: 0.98"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>[<span class="dv">1</span>] <span class="st">"Accuracy: 0.98"</span></span>
 <span id="cb7-2"><a></a><span class="sc">&gt;</span> <span class="fu">table</span>(test_mnist_bin01_49b[, <span class="fu">c</span>(<span class="st">"class"</span>, <span class="st">"predicted"</span>)])</span>
 <span id="cb7-3"><a></a>     predicted</span>
 <span id="cb7-4"><a></a>class    <span class="dv">0</span>    <span class="dv">1</span> rlcs_no_match</span>
@@ -368,7 +368,7 @@
 <span id="cb7-7"><a></a><span class="sc">&gt;</span></span>
 <span id="cb7-8"><a></a><span class="er">&gt;</span> <span class="do">## Training time on 800 samples:</span></span>
 <span id="cb7-9"><a></a><span class="er">&gt;</span> <span class="fu">print</span>(t_end <span class="sc">-</span> t_start)</span>
-<span id="cb7-10"><a></a>Time difference of <span class="fl">1.937979</span> mins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-10"><a></a>Time difference of <span class="fl">1.937979</span> mins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
 <p><br></p>
 <p><strong>!! Magic Trick:</strong> Parallelism: By splitting training data, and then consolidating sub-models! (Take that, Neural network :D)</p>
@@ -611,7 +611,7 @@
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -685,13 +685,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
