@@ -9,7 +9,7 @@
 <meta name="author" content="Nico">
 <meta name="dcterms.date" content="2026-01-11">
 
-<title>RLCS: more work &amp; RL – Kaizen-R.com new home</title>
+<title>RLCS, ongoing… – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -114,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">RLCS: more work &amp; RL</h1>
+      <h1 class="title">RLCS, ongoing…</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">RLCS</div>
                 <div class="quarto-category">RL</div>
@@ -155,23 +155,23 @@ ul.task-list li input[type="checkbox"] {
 
 
 <section id="intro" class="level2">
-<h2 class="anchored" data-anchor-id="intro">Intro</h2>
+<h2 class="anchored" data-anchor-id="intro"><strong>Intro</strong></h2>
 <p>So I need (well, “need”… Kinda, yeah, I need it) to keep working on RLCS to make it… I guess, faster and better.</p>
 <p>Now progress is starting to be on marginal stuff at the code level, but I guess I keep progressing slightly.</p>
 </section>
 <section id="first-a-scare" class="level2">
-<h2 class="anchored" data-anchor-id="first-a-scare">First, a scare</h2>
+<h2 class="anchored" data-anchor-id="first-a-scare"><strong>First, a scare</strong></h2>
 <p>I’ve been having issues with my Mac lately, and I finally decided it was time to fix that. More or less, it went like this: I changed my Apple account’s password (I do that sometimes…). This time around, that broke something with my keychain. Now the laptop would prompt me incessantly for credentials and would also stop synch’ing with iCloud… The solution was to reset the Keychain Access entries, which is… Well, slightly scary.</p>
 <p>And of course, once that “worked”, I had to reload certificates (some stuff I browse requires certificates), not to mention, of course, my RStudio credentials for GitHub…</p>
 <p>What a fun morning that was…</p>
 </section>
 <section id="but-on-to-the-actuallt-more-fun-part" class="level2">
-<h2 class="anchored" data-anchor-id="but-on-to-the-actuallt-more-fun-part">But on to the actuallt more fun part</h2>
+<h2 class="anchored" data-anchor-id="but-on-to-the-actuallt-more-fun-part"><strong>But on to the actuallt more fun part</strong></h2>
 <p>So RLCS is slow. OK, OK, I know. I’ll keep working on the code (for instance the approach with matrices is proving helpful…). But another thing that I have shown/known for a bit, is that RLCS hyperparameters can make a world of difference.</p>
 <p>What if I worked on better choosing hyperparameters…?</p>
 </section>
 <section id="the-right-approach-would-be-optimization" class="level2">
-<h2 class="anchored" data-anchor-id="the-right-approach-would-be-optimization">The right approach would be: Optimization</h2>
+<h2 class="anchored" data-anchor-id="the-right-approach-would-be-optimization"><strong>The right approach would be: Optimization</strong></h2>
 <p>Optimization. It’s really a multi-objective optimization problem (best accuracy, for the smallest possible population, but also in the shortest training run-time). And the optimization is somewhat fun in that there are quite a few knobs you can turn…</p>
 <p>From total number of epochs to run to mutation probability of newly generated children, from initial wildcard probability or frequency of subsumption…</p>
 <p>It’s a lot.</p>
@@ -179,7 +179,7 @@ ul.task-list li input[type="checkbox"] {
 <p>No, but on the other hand, what I did do more of, recently…</p>
 </section>
 <section id="the-incorrect-and-yet-approach" class="level2">
-<h2 class="anchored" data-anchor-id="the-incorrect-and-yet-approach">The incorrect (and yet…) approach…</h2>
+<h2 class="anchored" data-anchor-id="the-incorrect-and-yet-approach"><strong>The incorrect (and yet…) approach…</strong></h2>
 <p>Now this doesn’t quite make all the sense.</p>
 <p>But bear with me here.</p>
 <p>I have something to optimize: RLCS training. As listed above, I want to get to the highest (possible - per problem) accuracy, with the most compact possible population of rules, all the while minimizing run-times. What if that was some sort of reward?</p>
@@ -195,7 +195,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Of course, we need to set things up for explore-exploit, and I will say, my “RL” setup is far from the theory of Sutton… But it does kinda work, so there is that.</p>
 </section>
 <section id="issues-of-the-rl-approach" class="level2">
-<h2 class="anchored" data-anchor-id="issues-of-the-rl-approach">Issues of the RL approach</h2>
+<h2 class="anchored" data-anchor-id="issues-of-the-rl-approach"><strong>Issues of the RL approach</strong></h2>
 <p>Well… Each set of hyperparameters need to be tested on the chosen problem, which might (does) take time. Plus, the RLCS algorithm being stochastic, you might get varying results (again, similar to the multi-arm bandits, where each arm returns a distribution, so you need to keep sampling…), which means I need to try to run <strong>each combination at least a few times</strong> to get an actual sense of runtimes, accuracy results, etc. Thank goodness, I am used to parallelizing stuff a bit, so at least I can run things 5 or 6 times for the cost of ~1 runtime…</p>
 <p>Plus, each parameter can be increased or reduced, but within limits (otherwise there would be infinite combinations), so I preset a few values for each hyperparameter, that I encode manually to the corresponding 2- or 3-bit Gray encoded binary strings…</p>
 <p>And voilà!</p>
@@ -203,7 +203,7 @@ ul.task-list li input[type="checkbox"] {
 <p>And yet, well… It’s machine time! So what I’ve done is… I’ve let it run, while I enjoyed (some) free weekend time.</p>
 </section>
 <section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<h2 class="anchored" data-anchor-id="conclusion"><strong>Conclusion</strong></h2>
 <p>Not-so-perfect and yet in the end a bit fun weekend. Laptop is working again as expected.</p>
 <p>And I’ve used Reinforcement-learning (or something kinda-like-RL) to optimize hyperparameters of RLCS… Something the pros would do - for neural-networks :D</p>
 

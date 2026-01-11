@@ -1,0 +1,80 @@
+---
+title: "RLCS, ongoing..."
+author: "Nico"
+date: "2026-01-11"
+categories: [RLCS, RL]
+---
+
+## **Intro**
+
+So I need (well, “need”… Kinda, yeah, I need it) to keep working on RLCS to make it… I guess, faster and better.
+
+Now progress is starting to be on marginal stuff at the code level, but I guess I keep progressing slightly.
+
+## **First, a scare**
+
+I’ve been having issues with my Mac lately, and I finally decided it was time to fix that. More or less, it went like this: I changed my Apple account’s password (I do that sometimes…). This time around, that broke something with my keychain. Now the laptop would prompt me incessantly for credentials and would also stop synch’ing with iCloud… The solution was to reset the Keychain Access entries, which is… Well, slightly scary.
+
+And of course, once that “worked”, I had to reload certificates (some stuff I browse requires certificates), not to mention, of course, my RStudio credentials for GitHub…
+
+What a fun morning that was…
+
+## **But on to the actuallt more fun part**
+
+So RLCS is slow. OK, OK, I know. I’ll keep working on the code (for instance the approach with matrices is proving helpful…). But another thing that I have shown/known for a bit, is that RLCS hyperparameters can make a world of difference.
+
+What if I worked on better choosing hyperparameters…?
+
+## **The right approach would be: Optimization**
+
+Optimization. It’s really a multi-objective optimization problem (best accuracy, for the smallest possible population, but also in the shortest training run-time). And the optimization is somewhat fun in that there are quite a few knobs you can turn…
+
+From total number of epochs to run to mutation probability of newly generated children, from initial wildcard probability or frequency of subsumption…
+
+It’s a lot.
+
+I guess the right way to go about this is, in fact, to use some meta-heuristic (say a Genetic Algorithm). Pure simplex options wouldn’t work, as most things are integers, so… Something like Multi-objective integer constraints (linear?) optimization? That one I haven’t studied much about (yet), although I’m convinced it’s a whole and interesting field right there to look into…
+
+No, but on the other hand, what I did do more of, recently…
+
+## **The incorrect (and yet…) approach…**
+
+Now this doesn’t quite make all the sense.
+
+But bear with me here.
+
+I have something to optimize: RLCS training. As listed above, I want to get to the highest (possible - per problem) accuracy, with the most compact possible population of rules, all the while minimizing run-times. What if that was some sort of reward?
+
+Yes, you get me: **Reinforcement Learning**
+
+My program must make several decisions, and if I force it to be “sequential decisions” (although it needn’t be, again, but alright), then I can setup a “world” where:
+
+-   you start from a position (a set of hyperparameters), and that’s what the “agent” will perceive
+
+-   The agent then can choose to move one parameter up or down each turn (sounds a bit like Bandits, doesn’t it?)
+
+-   The world can then run an RLCS for a chosen problem and calculate a reward (accuracy, speed, ruleset size).
+
+-   Then return to the agent said reward and a new state, so again a list of now updated chosen hyperparameters.
+
+-   And iterate.
+
+Of course, we need to set things up for explore-exploit, and I will say, my “RL” setup is far from the theory of Sutton… But it does kinda work, so there is that.
+
+## **Issues of the RL approach**
+
+Well… Each set of hyperparameters need to be tested on the chosen problem, which might (does) take time. Plus, the RLCS algorithm being stochastic, you might get varying results (again, similar to the multi-arm bandits, where each arm returns a distribution, so you need to keep sampling…), which means I need to try to run **each combination at least a few times** to get an actual sense of runtimes, accuracy results, etc. Thank goodness, I am used to parallelizing stuff a bit, so at least I can run things 5 or 6 times for the cost of \~1 runtime…
+
+Plus, each parameter can be increased or reduced, but within limits (otherwise there would be infinite combinations), so I preset a few values for each hyperparameter, that I encode manually to the corresponding 2- or 3-bit Gray encoded binary strings…
+
+And voilà!
+
+So, yes, it kinda works. But it’s slow (heck, I’m doing this to find combinations that will work faster, so… Obviously the machine will find combinations that are slow…), and it’s an **awful lot** of processing right there for a rather imperfect (far from objectively optimal, for certain) result (more so when you remember results are stochastic…).
+
+And yet, well… It’s machine time! So what I’ve done is… I’ve let it run, while I enjoyed (some) free weekend time.
+
+## **Conclusion**
+
+Not-so-perfect and yet in the end a bit fun weekend. Laptop is working again as expected.
+
+And I’ve used Reinforcement-learning (or something kinda-like-RL) to optimize hyperparameters of RLCS… Something the pros would do - for neural-networks :D
