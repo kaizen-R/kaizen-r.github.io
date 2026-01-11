@@ -159,14 +159,17 @@ ul.task-list li input[type="checkbox"] {
 <p>So I need (well, “need”… Kinda, yeah, I need it) to keep working on RLCS to make it… I guess, faster and better.</p>
 <p>Now progress is starting to be on marginal stuff at the code level, but I guess I keep progressing slightly.</p>
 </section>
-<section id="first-a-scare" class="level2">
-<h2 class="anchored" data-anchor-id="first-a-scare"><strong>First, a scare</strong></h2>
+<section id="first-a-scare-or-two" class="level2">
+<h2 class="anchored" data-anchor-id="first-a-scare-or-two"><strong>First, a scare or two</strong></h2>
 <p>I’ve been having issues with my Mac lately, and I finally decided it was time to fix that. More or less, it went like this: I changed my Apple account’s password (I do that sometimes…). This time around, that broke something with my keychain. Now the laptop would prompt me incessantly for credentials and would also stop synch’ing with iCloud… The solution was to reset the Keychain Access entries, which is… Well, slightly scary.</p>
 <p>And of course, once that “worked”, I had to reload certificates (some stuff I browse requires certificates), not to mention, of course, my RStudio credentials for GitHub…</p>
-<p>What a fun morning that was…</p>
+<p>What a fun morning that was… <strong>And I wasn’t done!</strong></p>
+<p>Later today, I destroyed this very blog, by playing with “vaccinating” the Global settings for a separate .gitignore, which (I didn’t know, and this got me worried for a while there) can affect each RStudio project in turn… Not a great setup when you don’t know (so… To myself… RTFM, I guess :S)! I would have expected <strong>only what I do in a given project setup affects that project! And I was wrong, there is more to it, and I don’t quite like that…</strong></p>
+<p>But anyway, once I found out about it (the usethis::git_sitrep() hints, and then docs around that topic), and after checking everything several times (particularly what ends up on GitHub! Sending unwanted stuff would be awful! Thankfully, the issue was, I was blocking too much… And that I can fix without stress, so… OK.), after lots of checking… It all looks about alright now…</p>
+<p>Pfiu!</p>
 </section>
-<section id="but-on-to-the-actuallt-more-fun-part" class="level2">
-<h2 class="anchored" data-anchor-id="but-on-to-the-actuallt-more-fun-part"><strong>But on to the actuallt more fun part</strong></h2>
+<section id="but-on-to-the-actually-more-fun-part" class="level2">
+<h2 class="anchored" data-anchor-id="but-on-to-the-actually-more-fun-part"><strong>But on to the actually more fun part</strong></h2>
 <p>So RLCS is slow. OK, OK, I know. I’ll keep working on the code (for instance the approach with matrices is proving helpful…). But another thing that I have shown/known for a bit, is that RLCS hyperparameters can make a world of difference.</p>
 <p>What if I worked on better choosing hyperparameters…?</p>
 </section>
@@ -178,12 +181,11 @@ ul.task-list li input[type="checkbox"] {
 <p>I guess the right way to go about this is, in fact, to use some meta-heuristic (say a Genetic Algorithm). Pure simplex options wouldn’t work, as most things are integers, so… Something like Multi-objective integer constraints (linear?) optimization? That one I haven’t studied much about (yet), although I’m convinced it’s a whole and interesting field right there to look into…</p>
 <p>No, but on the other hand, what I did do more of, recently…</p>
 </section>
-<section id="the-incorrect-and-yet-approach" class="level2">
-<h2 class="anchored" data-anchor-id="the-incorrect-and-yet-approach"><strong>The incorrect (and yet…) approach…</strong></h2>
-<p>Now this doesn’t quite make all the sense.</p>
-<p>But bear with me here.</p>
-<p>I have something to optimize: RLCS training. As listed above, I want to get to the highest (possible - per problem) accuracy, with the most compact possible population of rules, all the while minimizing run-times. What if that was some sort of reward?</p>
-<p>Yes, you get me: <strong>Reinforcement Learning</strong></p>
+<section id="the-incorrect-approach" class="level2">
+<h2 class="anchored" data-anchor-id="the-incorrect-approach"><strong>The incorrect approach…</strong></h2>
+<p>Now this doesn’t quite make all the sense. And yet… Bear with me here.</p>
+<p>I have <strong>something to optimize</strong>: RLCS training. As listed above, I want to get to the highest (possible - per problem) accuracy, with the most compact possible population of rules, all the while minimizing run-times. What if that was some sort of <strong>reward</strong>?</p>
+<p>Yes, you get me: <strong>Reinforcement Learning.</strong></p>
 <p>My program must make several decisions, and if I force it to be “sequential decisions” (although it needn’t be, again, but alright), then I can setup a “world” where:</p>
 <ul>
 <li><p>you start from a position (a set of hyperparameters), and that’s what the “agent” will perceive</p></li>
@@ -196,7 +198,8 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="issues-of-the-rl-approach" class="level2">
 <h2 class="anchored" data-anchor-id="issues-of-the-rl-approach"><strong>Issues of the RL approach</strong></h2>
-<p>Well… Each set of hyperparameters need to be tested on the chosen problem, which might (does) take time. Plus, the RLCS algorithm being stochastic, you might get varying results (again, similar to the multi-arm bandits, where each arm returns a distribution, so you need to keep sampling…), which means I need to try to run <strong>each combination at least a few times</strong> to get an actual sense of runtimes, accuracy results, etc. Thank goodness, I am used to parallelizing stuff a bit, so at least I can run things 5 or 6 times for the cost of ~1 runtime…</p>
+<p>Well… Each set of hyperparameters need to be tested on the chosen problem, which might (does) take time. It’s not great, because whatever the improvement I can get, it will be mostly problem-specific… Two different problems won’t usually benefit from the same hyperparameters… Well, “duh!”.</p>
+<p>Plus, the RLCS algorithm being stochastic, you might get varying results (again, similar to the multi-arm bandits, where each arm returns a distribution, so you need to keep sampling…), which means I need to try to run <strong>each combination at least a few times</strong> to get an actual sense of runtimes, accuracy results, etc. Thank goodness, I am used to parallelizing stuff a bit, so at least I can run things 5 or 6 times for the cost of ~1 runtime…</p>
 <p>Plus, each parameter can be increased or reduced, but within limits (otherwise there would be infinite combinations), so I preset a few values for each hyperparameter, that I encode manually to the corresponding 2- or 3-bit Gray encoded binary strings…</p>
 <p>And voilà!</p>
 <p>So, yes, it kinda works. But it’s slow (heck, I’m doing this to find combinations that will work faster, so… Obviously the machine will find combinations that are slow…), and it’s an <strong>awful lot</strong> of processing right there for a rather imperfect (far from objectively optimal, for certain) result (more so when you remember results are stochastic…).</p>

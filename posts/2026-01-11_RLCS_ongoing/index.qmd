@@ -11,15 +11,21 @@ So I need (well, “need”… Kinda, yeah, I need it) to keep working on RLCS t
 
 Now progress is starting to be on marginal stuff at the code level, but I guess I keep progressing slightly.
 
-## **First, a scare**
+## **First, a scare or two**
 
 I’ve been having issues with my Mac lately, and I finally decided it was time to fix that. More or less, it went like this: I changed my Apple account’s password (I do that sometimes…). This time around, that broke something with my keychain. Now the laptop would prompt me incessantly for credentials and would also stop synch’ing with iCloud… The solution was to reset the Keychain Access entries, which is… Well, slightly scary.
 
 And of course, once that “worked”, I had to reload certificates (some stuff I browse requires certificates), not to mention, of course, my RStudio credentials for GitHub…
 
-What a fun morning that was…
+What a fun morning that was… **And I wasn't done!**
 
-## **But on to the actuallt more fun part**
+Later today, I destroyed this very blog, by playing with "vaccinating" the Global settings for a separate .gitignore, which (I didn't know, and this got me worried for a while there) can affect each RStudio project in turn... Not a great setup when you don't know (so... To myself... RTFM, I guess :S)! I would have expected **only what I do in a given project setup affects that project! And I was wrong, there is more to it, and I don't quite like that...**
+
+But anyway, once I found out about it (the usethis::git_sitrep() hints, and then docs around that topic), and after checking everything several times (particularly what ends up on GitHub! Sending unwanted stuff would be awful! Thankfully, the issue was, I was blocking too much... And that I can fix without stress, so... OK.), after lots of checking... It all looks about alright now...
+
+Pfiu!
+
+## **But on to the actually more fun part**
 
 So RLCS is slow. OK, OK, I know. I’ll keep working on the code (for instance the approach with matrices is proving helpful…). But another thing that I have shown/known for a bit, is that RLCS hyperparameters can make a world of difference.
 
@@ -37,15 +43,13 @@ I guess the right way to go about this is, in fact, to use some meta-heuristic (
 
 No, but on the other hand, what I did do more of, recently…
 
-## **The incorrect (and yet…) approach…**
+## **The incorrect approach…**
 
-Now this doesn’t quite make all the sense.
+Now this doesn’t quite make all the sense. And yet... Bear with me here.
 
-But bear with me here.
+I have **something to optimize**: RLCS training. As listed above, I want to get to the highest (possible - per problem) accuracy, with the most compact possible population of rules, all the while minimizing run-times. What if that was some sort of **reward**?
 
-I have something to optimize: RLCS training. As listed above, I want to get to the highest (possible - per problem) accuracy, with the most compact possible population of rules, all the while minimizing run-times. What if that was some sort of reward?
-
-Yes, you get me: **Reinforcement Learning**
+Yes, you get me: **Reinforcement Learning.**
 
 My program must make several decisions, and if I force it to be “sequential decisions” (although it needn’t be, again, but alright), then I can setup a “world” where:
 
@@ -63,7 +67,9 @@ Of course, we need to set things up for explore-exploit, and I will say, my “R
 
 ## **Issues of the RL approach**
 
-Well… Each set of hyperparameters need to be tested on the chosen problem, which might (does) take time. Plus, the RLCS algorithm being stochastic, you might get varying results (again, similar to the multi-arm bandits, where each arm returns a distribution, so you need to keep sampling…), which means I need to try to run **each combination at least a few times** to get an actual sense of runtimes, accuracy results, etc. Thank goodness, I am used to parallelizing stuff a bit, so at least I can run things 5 or 6 times for the cost of \~1 runtime…
+Well… Each set of hyperparameters need to be tested on the chosen problem, which might (does) take time. It's not great, because whatever the improvement I can get, it will be mostly problem-specific... Two different problems won't usually benefit from the same hyperparameters... Well, "duh!".
+
+Plus, the RLCS algorithm being stochastic, you might get varying results (again, similar to the multi-arm bandits, where each arm returns a distribution, so you need to keep sampling…), which means I need to try to run **each combination at least a few times** to get an actual sense of runtimes, accuracy results, etc. Thank goodness, I am used to parallelizing stuff a bit, so at least I can run things 5 or 6 times for the cost of \~1 runtime…
 
 Plus, each parameter can be increased or reduced, but within limits (otherwise there would be infinite combinations), so I preset a few values for each hyperparameter, that I encode manually to the corresponding 2- or 3-bit Gray encoded binary strings…
 
