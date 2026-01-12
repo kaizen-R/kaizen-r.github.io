@@ -1,0 +1,76 @@
+---
+title: "On Sampling"
+author: "Nico"
+date: "2020-09-06"
+categories: [ML,math,Decisions]
+---
+
+In a past exercise (on [a simplified visualization of Netflows](https://kaizen-r.github.io/posts/2020-08-23_SimpleNetworkTraffic/)), I had a very big file, and I wanted to extract a subset of the data to demo a visualization. The first part of the entry was about a way to divide a big file into smaller chunks, and extract samples with a Linux shell command. Back then, I finally extracted a random sample of 10.000 lines *out of the first 500 thousand of the much bigger file*. That was OK *for the objectives of that demo*, but it was certainly NOT GOOD for the potential “real world” applications.
+
+So I needed to amend that post, which is the objective of this entry.
+
+## Why worry about sampling?
+
+This blog is about programming “better” (for myself at least) in R. Hence one could think it is not about math. But, as it turns out, it really is.
+
+See, it would be useless to know how to program better, in a more efficient way, with cleaner code, if the program itself runs the wrong algorithm in the first place, or does the incorrect manipulation.
+
+Sampling for instance is something that is very relevant to the field of statistics. So much so: statistics allows to infer responses valid for a whole population while asking the questions to only a subset of the population (at least, this is one way to present statistics).
+
+But in order to do so, you need to ask the question to a **representative subset** of the population. Otherwise, your conclusions could NOT be extrapolated and be used to make inferences for the whole.
+
+There are plenty of resources on how to do these things out there, and this blog is not *specifically* focused on math. I’m a computer engineer, and I like math a lot (I guess I wouldn’t like analyzing data if it wasn’t the case), but I’m not a mathematician (maybe someday I’ll decide to take a BSc. in Math or something, that’s still on the table, but not today), and so I should not give too much advice on the subject.
+
+However, there are a couple of example concepts that I like to use and I believe will make the case about *being careful while sampling data*.
+
+## Cherry Picking
+
+***Bias is a very important concept when doing “Data Science”***. Politicians for example, I have found, are quite prone to one particular type of Bias: the “Selection Bias”.
+
+This one is a “no-brainer” & requires no math, really:
+
+Simply put, you select which part of the data you use to support your claim, or the one that works better for your objectives/analysis/whatever.
+
+So maybe you claim you detect “all the attacks of some kind” hidden within a big dataset by training and testing some algorithm on a subset of the data. That’s perfectly acceptable (you probably will never see ALL present and future attacks anyway), **as long as** you have correctly chosen your training dataset, and clearly separated your testing dataset (more on that in some future post). What you CANNOT do is training and testing on subsets of the data that ARE NOT REPRESENTATIVE of the whole dataset. Your conclusion (“My algorithm detects all of the attacks”) would probably **be a lie** if you did.
+
+Say you run an algorithm that *depends on a random number of some kind*. Actually, maybe you use this random number to extract samples out of your “population”. You can run the algorithm once, and come to conclusions. Or you can run it a few times and “average” the results in some way, using different value for the random number, just in case: who knows, maybe the results are great *because of your initial random number*, so maybe you’ve been lucky. The second way is **MUCH better,** and should definitely be done, otherwise you would have introduced (*possibly involuntarily*) a “cherry picking” bias, just because it worked (and you were a bit lazy (it happens)).
+
+By the way, if you hear someone talk about “Cross-Validation”, “K-Fold”, (…): these concepts are all about exactly what I just explained.
+
+## Base-Rate Fallacy
+
+This is another concept that is very relevant when sampling data. The examples of this phenomenon commonly revolve around the medical field, but let’s make it “closer to home”.
+
+Suppose you have trained a Machine Learning algorithm of some sort to detect attacks from some data (Apache logs and the like), that has **0% false negatives, but 5% false positives**.
+
+-   Suppose you get an extract of 1000 Apache logs, and you want to apply your test to investigate attacks. You know you won’t miss an attack (0% false negative), but…
+
+-   Suppose 40% of the sample Apache logs are actually from attacks
+
+-   You will detect 40%\*1000 = 400 real attacks
+
+-   You will detect (1000 – 400) \* 0,05 = 30 false positives
+
+Not too bad, your SOC (“Security Operations Center”) will definitely be busy reacting to attacks, but won’t be wasting too much time on “noise”…
+
+-   Now suppose you get another sample of Apache logs, of which only 2% of are actually from attacks
+
+-   You will detect 2%\*1000 = 20 real attacks
+
+-   You will detect (1000 – 20) \* 0,05 = 49 false positives
+
+The probability that your detector that – remember – **is 95% accurate**, will “spit out” **false positives is now:** 49/(49+20) = **71%**  (and 29% real positives).
+
+Why does the above relate to Sampling at all?
+
+Well, in the above, *if your sample does not reflect on the real distribution of the data* (attacks vs benign), your ML (“Machine Learning”) algorithm *might very well not work as expected on real data*.
+
+More precisely: **if your sample has 40% of actual attacks**, instead of the 2% of attacks in the real full set of data, your results could **show** a very good ratio of false positives by your ML algorithm, while in the wild (real world) it will spit out 71% false positives (that is, **it will be possibly quite useless**).
+
+## Conclusions
+
+Do not take sampling lightly. It is too important.
+
+Sometimes you will not be able to work with the complete dataset you’re provided, because of some technical/time limitation. And often times there are ways around that, and that’s OK. Just take the sampling process seriously
+
+Also, and to close on the subject: Sometimes, sampling is simply NOT an option at all and you need to take in the COMPLETE dataset: You cannot do a forensics exercise through data analysis, and skip part of the data, for instance, you might miss something…)
