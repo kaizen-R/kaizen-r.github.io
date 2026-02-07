@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2020-08-23">
+<meta name="dcterms.date" content="2026-02-07">
 
-<title>A (very) simple Network Traffic Visualization with Graphs – Kaizen-R.com new home</title>
+<title>Optimization: Passing environments instead of variables – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -149,10 +149,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">A (very) simple Network Traffic Visualization with Graphs</h1>
+      <h1 class="title">Optimization: Passing environments instead of variables</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">visualization</div>
-                <div class="quarto-category">graphs</div>
+                <div class="quarto-category">Optimization</div>
               </div>
                   </div>
   </div>
@@ -170,7 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">August 23, 2020</p>
+        <p class="date">February 7, 2026</p>
       </div>
     </div>
     
@@ -189,105 +188,93 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>A network visualization has nodes and edges. I like to apply it to actual IT Networks Traffic visualizations, where there are connections (edges) between two IP addresses/machines (i.e.&nbsp;“nodes”). Let’s try and apply that to some Netflow data…</p>
-<section id="getting-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="getting-the-data">Getting the data</h2>
-<p>After some searching (that was some time ago now), I came across <a href="https://www.secrepo.com/">secrepo.com</a>. There I found some sample datasets that can be of interest for this Blog. (Yes, one could set up a lab full of VMs, sniff some data and create a useful Netflow dataset, but this blog I work on essentially on my spare time, and I haven’t yet taken the time to set a real “lab” for now; that might come later, who knows.)</p>
-<p>So I will use NetFlow data for this exercise. See references below to get a pointer to the dataset (careful, 500+ MB while zipped, about 2.6 GB if/when unzipped).</p>
+<section id="intro" class="level2">
+<h2 class="anchored" data-anchor-id="intro"><strong>Intro</strong></h2>
+<p>It just kinda makes sense:</p>
+<p>In R when you call a function with variables, by default, objects are passed, and IF you change one of the objects, a copy of it is first created, then changed. It doesn’t change in the calling environment, so it’s somewhat safer…</p>
+<p>However, there is a way to avoid it, and behave slightly more like a C pointer thing: Pass environment references.</p>
+<p>No copies. Just changes on the same object…</p>
+<p>And here goes the reason of this post: If you pass an object, a large one at that, and you mean to change it in a function, and then return the resulting changed object: You create a copy in each iteration of the loop. Which seems sub-optimal.</p>
+<p>Well… It is.</p>
 </section>
-<section id="part-i-playing-with-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="part-i-playing-with-the-data">Part I: Playing with the data</h2>
-<p>So one thing happened here, I usually limit the RAM available to my “RStudio Server” Container (and my host memory is not unlimited). You might remember I do not use a “normal” install of RStudio (see here for more information on my setup - EDITED: link removed).</p>
-<p>Also, it gives me a chance to point to something specific about working with the R interpreter: R works “in RAM” (to summarize). Now I know there are packages out there to try and overcome these limitations, but let’s accept that limitation here for the sake of this exercise.</p>
-<p>Whatever the case, in this instance I decide to allocate more memory to my Container before going any further.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> docker run <span class="at">-it</span> <span class="at">-m</span> 2000M <span class="at">-v</span> /<span class="op">&lt;</span>somepath<span class="op">&gt;</span>/:/mnt/R/ <span class="at">-p</span> 8787:8787 rserver1:2.1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This is one of those cases where some basics of Linux shell come in handy: So I have a 2.6GB file, full of Netflow data in text format. I can tell what the data looks like without actually opening the 2.6GB file altogether, using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> head conn.log</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>On a Linux Shell. As the RStudio Server container I use is actually an Ubuntu container, I have access to such a shell, so that’s covered.</p>
-<p>Next up, and for this exercise, but with value for other analysis endeavours, let’s actually “split” this big file in smaller chunks, which we will be able to read into R. Also, in this case, I don’t really want/need to actually use all the 2.6GB worth of Netflows. That’s a different exercise. So I will “sample” the data, instead.</p>
-<p>Two Linux shell command lines will be useful there:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> split <span class="at">--verbose</span> <span class="at">-l100000</span> conn.log conn_extract_log.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This will create several files named “conn_extract_log.xx”, where “xx” starts at “aa”, and goes up. I use the “–verbose” option to see where I am at, and stop the command from going on manually with “Ctrl-C”.</p>
-<p>That way, I have a few manageable files of 100000 lines extracted from the beginning of the original file. But then, I wanted a “sample”, ideally something random, from such extracts. Once again, one can use a Shell command as such:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> sort <span class="at">-R</span> conn_extract_log.aa <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n1000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You get the idea, I’ll have to go across a few of the extracts to sample a subset of random lines, which in turn will be a sample of 1000 lines out of the few initial hundreds of thousands.</p>
-<p>Obviously, this is far from perfect: it would have been better to go random across the original 2.6GB file, for instance, and then split or head a few thousands. Better even, extract a few hundred thousand lines and then go sampling random entries. But once again this is an exercise and <strong>I mean to explain the process</strong>, not just “do it”.</p>
-<p>So yes, ideally, you could go the other way around, and <strong>all the above can be achieved better with something like</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> head <span class="at">-n500000</span> conn.log <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-R</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 10000 <span class="op">&gt;</span> second_sample.log</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>OK, so now we have a manageable dataset for the exercise.</p>
-<p><em>IMPORTANT NOTE: “Sampling” is not a process to be taken lightly. The above (taking 10000 entries out of the first 500 thousand) was completely arbitrary and MIGHT NOT be the correct way to go in a real world exercise. The above was just an exercise to demonstrate a few ways of how one COULD extract a few lines from a big file to work with a more manageable dataset (i.e.&nbsp;smaller, in this case). Please see a future post on sampling if you need to do it in a real world setting.</em></p>
+<section id="results-first" class="level2">
+<h2 class="anchored" data-anchor-id="results-first">Results first</h2>
+<p>Here is the summary:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="better_off_with_envs.png" class="img-fluid figure-img"></p>
+<figcaption>roughly 2 orders of magnitude better…</figcaption>
+</figure>
+</div>
+<p>There you have it, look at the units! Milliseconds instead of seconds.</p>
+<p>But you don’t have to take my word for it.</p>
 </section>
-<section id="part-ii-whats-next" class="level2">
-<h2 class="anchored" data-anchor-id="part-ii-whats-next">Part II: What’s next?</h2>
-<p>Well, for now, I basically have NO IDEA what the dataset I will be using looks like.</p>
-<p>I <strong>should do</strong> (in a real world exercise) some “Exploratory Data Analysis”. But this entry will not cover all of a real world exercise (for instance, we’d separate private from public IP address, distinguish IPv6, identify the distribution of the connections (numbers, per pair, or with volumes of data transferred), the types (web, etc. using the port), and a potentially long list of more details that we could want to understand.</p>
-<p>Allow me to skip to the Network Graph, as I have a grasp on what a Netflow entry provides…</p>
-<p>In order to do so, I like the package “visNetwork”, available as a CRAN package.</p>
+<section id="the-code-for-today" class="level2">
+<h2 class="anchored" data-anchor-id="the-code-for-today">The Code for today</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Variable-passing, with copy-on-modify</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>add_random_num_to_list <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">lcs =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(lcs)) lcs <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  lcs[[<span class="fu">length</span>(lcs)<span class="sc">+</span><span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">runif</span>(<span class="dv">1</span>), <span class="dv">4</span>)<span class="sc">*</span><span class="dv">10000</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  lcs</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">## iterating to gather some time count...</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>iterate_lcs <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  lcs <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>) {</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    lcs <span class="ot">&lt;-</span> <span class="fu">add_random_num_to_list</span>(lcs)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  lcs</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Modify variable in parent env:</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>add_random_num_to_list_parent_env <span class="ot">&lt;-</span> <span class="cf">function</span>(env) {</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  env<span class="sc">$</span>lcs[[<span class="fu">length</span>(env<span class="sc">$</span>lcs)<span class="sc">+</span><span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">runif</span>(<span class="dv">1</span>), <span class="dv">4</span>)<span class="sc">*</span><span class="dv">10000</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Same exact functionality as the other, but using environments (ref)</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>iterate_lcs_2 <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  lcs <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>) {</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_random_num_to_list_parent_env</span>(<span class="fu">environment</span>())</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  lcs</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="do">## Check that it works:</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>lcs <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>lcs <span class="ot">&lt;-</span> <span class="fu">iterate_lcs</span>()</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(lcs)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>lcs <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>lcs <span class="ot">&lt;-</span> <span class="fu">iterate_lcs_2</span>()</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(lcs)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">iterate_lcs</span>(),</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">5</span>L</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">iterate_lcs_2</span>(),</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">5</span>L</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="preparing-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="preparing-the-data">Preparing the data</h2>
-<p>Let’s try to visualize the connections between pairs of IP addresses. This should be straight forward, as the NetFlow informs about such connections.</p>
-<p>For this exercise, we will create a very simple version, nothing “fancy”, just nodes (IP addresses) and links between them (connections), with no further enhancements (modifying sizes by number of connections, colouring connections by port number, etc.).</p>
-<p><em>Tip: You can in theory generalize and use the code below to create “network graphs” from any two character columns in any data.frame.</em></p>
-<p>So we are going to need to create two datasets:</p>
-<ul>
-<li><p>The list of connections, from one IP address to another.</p></li>
-<li><p>The list of “nodes”, each node being an IP address.</p></li>
-</ul>
-<p>Moreover, visNetwork expects identifiers of nodes for the list of connections, rather than names of nodes.</p>
-<p>We should first read the data into our R environment:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>conns <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/mnt/R/Demos/conn_extracts_log/second_sample.log"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then we will keep only the pairs of IP addresses:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>conns_from_to <span class="ot">&lt;-</span> conns[, <span class="fu">c</span>(<span class="st">"V3"</span>, <span class="st">"V5"</span>)]</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(conns_from_to) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"from"</span>, <span class="st">"to"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>We won’t be using much more of the data, and some IP pairs will probably appear several times, so we use the dplyr functions “distinct()”:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>conns_from_to <span class="ot">&lt;-</span> conns_from_to <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The function read.csv (contrary to the behaviour of data.table “fread”) will cast IP addresses to factors, which we do not want here:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>conns_from_to[] <span class="ot">&lt;-</span> <span class="fu">sapply</span>(conns_from_to, as.character)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>We keep, for the sake of the exercise, only IPv4. We created a function <a href="https://www.kaizen-r.com/?p=130">in a former post</a> to check for IPv4 correct format:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If we look at it, we might see IPv6 in there. Let's simplify a bit the dataset and focus on IPv4:</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>is_valid_ip_string_format <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">ip =</span> <span class="cn">NA</span>) {</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">is.character</span>(ip) <span class="sc">&amp;&amp;</span> <span class="fu">grepl</span>(<span class="st">"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(</span><span class="sc">\\</span><span class="st">.|$)){4}"</span>, ip)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we keep only the IPv4:</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>conns_from_to <span class="ot">&lt;-</span> conns_from_to[<span class="fu">sapply</span>(conns_from_to<span class="sc">$</span>from, is_valid_ip_string_format) <span class="sc">&amp;</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sapply</span>(conns_from_to<span class="sc">$</span>to, is_valid_ip_string_format), ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then we create the “nodes” list, with identifiers:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>nodes <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">c</span>(conns_from_to<span class="sc">$</span>from, conns_from_to<span class="sc">$</span>to))</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>conns_nodes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(nodes)), <span class="at">node =</span> nodes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Almost there. But we still need to change IP addresses in the connections list to identifiers. There are many ways, arguably some better, other worse. Let’s demo a couple of options here:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OK so finally, let's merge things (one way to go, NOT optimal):</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>conns_from_to <span class="ot">&lt;-</span> <span class="fu">merge</span>(conns_from_to, conns_nodes, <span class="at">by.x =</span> <span class="st">"from"</span>, <span class="at">by.y =</span> <span class="st">"node"</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>conns_from_to <span class="ot">&lt;-</span> conns_from_to[, <span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>conns_from_to<span class="sc">$</span>from <span class="ot">&lt;-</span> conns_from_to<span class="sc">$</span>id</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>conns_from_to<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Or another option (not perfect either):</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>conns_from_to<span class="sc">$</span>to <span class="ot">&lt;-</span> <span class="fu">sapply</span>(conns_from_to<span class="sc">$</span>to, <span class="cf">function</span>(x) { conns_nodes[conns_nodes<span class="sc">$</span>node <span class="sc">==</span> x, <span class="st">"id"</span>]})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>OK, so we have two data.frames, and we are almost ready to “show” the connections observed in the NetFlow dataset.</p>
+<section id="why-would-i-care" class="level2">
+<h2 class="anchored" data-anchor-id="why-would-i-care">Why would I care?</h2>
+<p>Because of RLCS. I do this the slow way, and in millions of iterations, passing rather huge objects. And Garbage Collection is affecting too.</p>
+<p>Given the above tests, I can improve the code greatly. I now know I can. By reducing the passing of objects.</p>
+<p>And given RLCS is still hugely slow… This is great news for me.</p>
 </section>
-<section id="the-visualization-itself" class="level2">
-<h2 class="anchored" data-anchor-id="the-visualization-itself">The Visualization itself</h2>
-<p>Let’s add some visual parameters for the nodes:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>conns_nodes<span class="sc">$</span>shape <span class="ot">&lt;-</span> <span class="st">"dot"</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>conns_nodes<span class="sc">$</span>shadow <span class="ot">&lt;-</span> <span class="cn">TRUE</span> <span class="co"># Nodes will drop shadow</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>conns_nodes<span class="sc">$</span>label <span class="ot">&lt;-</span> conns_nodes<span class="sc">$</span>node <span class="co"># Node label</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>vis.nodes<span class="sc">$</span>title <span class="ot">&lt;-</span> conns_nodes<span class="sc">$</span>node <span class="co"># On click</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>conns_nodes<span class="sc">$</span>borderWidth <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co"># Node border width</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>conns_nodes<span class="sc">$</span>color.background <span class="ot">&lt;-</span> <span class="st">"lightblue"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>And finally, we can visualize a simplification of our dataset:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(conns_nodes, conns_from_to)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>One result (we’ve been using random selection of data to present only a subset, so results might differ):</p>
-<p><img src="Network_graph_Netflow_simple1.png" class="img-fluid"></p>
-<p>The whole R code can be found here on my GitHub account (as usual): <a href="https://github.com/kaizen-R/R/blob/master/Sample/Visualizations/Network_graphs/Netflow_simple_visu001.R" class="uri">https://github.com/kaizen-R/R/blob/master/Sample/Visualizations/Network_graphs/Netflow_simple_visu001.R</a></p>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>This is not the normal way of doing things; R protects us from making mistakes with its default behaviour.</p>
+<p>But, if you’re careful… Sometimes the defaults are worse than what you can get, performance-wise.</p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
-<p><a href="https://www.secrepo.com/Security-Data-Analysis/Lab_1/conn.log.zip" class="uri">https://www.secrepo.com/Security-Data-Analysis/Lab_1/conn.log.zip</a></p>
-</section>
-<section id="notes" class="level2">
-<h2 class="anchored" data-anchor-id="notes">NOTES</h2>
-<p>Content reproduced from old version of the Blog.</p>
+<p><a href="https://adv-r.hadley.nz/environments.html" class="uri">https://adv-r.hadley.nz/environments.html</a></p>
 
 
 </section>

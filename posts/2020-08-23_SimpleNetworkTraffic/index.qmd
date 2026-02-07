@@ -169,7 +169,7 @@ visNetwork(conns_nodes, conns_from_to)
 
 One result (we’ve been using random selection of data to present only a subset, so results might differ):
 
-![A (very) simple Netflow visualization](Network_graph_Netflow_simple1.png){alt=""}
+![](Network_graph_Netflow_simple1.png)
 
 The whole R code can be found here on my GitHub account (as usual): <https://github.com/kaizen-R/R/blob/master/Sample/Visualizations/Network_graphs/Netflow_simple_visu001.R>
 
