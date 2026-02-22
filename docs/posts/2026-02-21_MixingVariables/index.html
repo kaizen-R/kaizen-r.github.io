@@ -242,6 +242,7 @@ window.Quarto = {
 <p>That’s all good and nice, but today I am considering the second approach: How about I do not use all variables in one model.</p>
 <p>So I break down the long strings of bits in smaller substrings, which I would need to mix in some way. That is, I break the problem vertically: I don’t subset by rows. I subset by variables.</p>
 <p><img src="mix of models.png" class="img-fluid"></p>
+<p>Just so it’s clear: I know I’m assuming information loss here. I’m just thinking about a balance between input information loss, model accuracy and training speed. I’m not saying this is a good idea.</p>
 </section>
 <section id="tricky-though" class="level2">
 <h2 class="anchored" data-anchor-id="tricky-though">Tricky though</h2>
@@ -294,6 +295,11 @@ window.Quarto = {
 <p>Also, for the RL case, if I manage to encode information correctly, AND I use dimensionality reduction explained today, maybe (just maybe) I can train an RLCS model much faster with same (or better results), who knows…</p>
 <p>Yet, this doesn’t preclude me from focusing some more on how to encode information as best as I can to reduce the bit-strings lengths…</p>
 <p>Oh well…</p>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<p>I already mentioned these ideas somehow here:</p>
+<p><a href="https://kaizen-r.github.io/posts/2025-01-26_About_Parallelizing_RLCS_Training/" class="uri">https://kaizen-r.github.io/posts/2025-01-26_About_Parallelizing_RLCS_Training/</a></p>
 
 
 </section>

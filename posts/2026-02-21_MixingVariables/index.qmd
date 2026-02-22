@@ -41,7 +41,9 @@ That's all good and nice, but today I am considering the second approach: How ab
 
 So I break down the long strings of bits in smaller substrings, which I would need to mix in some way. That is, I break the problem vertically: I don't subset by rows. I subset by variables.
 
-![](mix of models.png)
+![](mix%20of%20models.png)
+
+Just so it's clear: I know I'm assuming information loss here. I'm just thinking about a balance between input information loss, model accuracy and training speed. I'm not saying this is a good idea.
 
 ## Tricky though
 
@@ -73,11 +75,11 @@ Each of the separate models I trained "particularly fast" with hyperparameters t
 
 And yet, it tells me that trying to create a classifier using only Sepal lengths and width will be difficult:
 
-![](sepal dimensions.png)
+![](sepal%20dimensions.png)
 
 While maybe doing that using only Petal lengths and widths is not so crazy:
 
-![](petals dimensions.png)
+![](petals%20dimensions.png)
 
 That is not of course what I suggest.
 
@@ -121,3 +123,9 @@ Also, for the RL case, if I manage to encode information correctly, AND I use di
 Yet, this doesn't preclude me from focusing some more on how to encode information as best as I can to reduce the bit-strings lengths...
 
 Oh well...
+
+## Resources
+
+I already mentioned these ideas somehow here:
+
+<https://kaizen-r.github.io/posts/2025-01-26_About_Parallelizing_RLCS_Training/>
