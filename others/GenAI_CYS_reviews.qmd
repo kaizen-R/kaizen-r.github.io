@@ -1,5 +1,5 @@
 ---
-title: "GenAI Cybersecurity Review"
+title: "GenAI Cybersecurity Review - DRAFT version"
 format:
   html:
     toc: true
@@ -10,7 +10,27 @@ format:
 
 This is meant as an inventory/tracking on Cybersecurity-related information on the several aspects of GenAI.
 
-This page should evolve over time. It is NOT meant to be either comprehensive nor perfect in any way or fashion, but instead helps me keep a bit of tracking.
+This page should evolve over time. It is NOT meant to be either comprehensive nor perfect (or even orderly) in any way or fashion, but instead helps me keep a bit of tracking.
+
+## Some random thoughts here:
+
+-   LLM-based "autonomy" is generally a bad idea. Even in perfect settings, the LLM can misbehave and skip its mandate(s), it has happened. Or hallucinate. Now consider any possibility for prompt injection (we're talking single-channel here, remember) and you see where things can go wrong...
+
+-   Guardrails on Free-text are for obvious reason imperfect. i.e. Red-Teaming an LLM for injection seems unnecessary: Prompt injection is inevitable?
+
+-   For privacy & security controls, somehow put a Man-In-The-Middle, deterministic (NER, etc.) control to anonymize data you send to an LLM inference step.
+
+-   Be granular in what the MCP, A2A, skills, what-not can and cannot do.
+
+-   Do not give an "agent" (concept that could be discussed in itself) any permission it doesn't absolutely NEED to do its job. If you don't want an Agent to "rm -rf", don't rely on trusting the LLM. Give it a RBAC that ensures it simply CAN'T do that.
+
+-   Re-authenticate often.
+
+-   Inventory MCP. Audit stuff. It won't protect you, but it will help Incident Response.
+
+-   Frankly: Cybersecurity is one-step-behind. Particularly in "Agentic" stuff. Even if theory is being worked on, vendors sell products, etc.
+
+-   ...
 
 # Papers
 
@@ -44,9 +64,31 @@ This page should evolve over time. It is NOT meant to be either comprehensive no
 
 [Threat Modelling AI-Agents Protocols](https://arxiv.org/abs/2602.11327)
 
+(Not a paper, but still) [OWASP on Agentic AI](https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/)
+
 [Google’s Approach for Secure AI Agents: An Introduction](https://storage.googleapis.com/gweb-research2023-media/pubtools/1018686.pdf)
 
+(Not a paper, but still) [NIST on AI Agents Standards](https://www.nist.gov/news-events/news/2026/02/announcing-ai-agent-standards-initiative-interoperable-and-secure)
+
 # Other
+
+## On MCP
+
+This one is currently of particular interest, so it gets its own section.
+
+Now:
+
+Start here: <https://modelcontextprotocol.io/docs/getting-started/intro>
+
+Then move on to security
+
+<https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/>
+
+<https://www.redhat.com/en/blog/model-context-protocol-mcp-understanding-security-risks-and-controls>
+
+<https://www.docker.com/blog/mcp-security-explained/>
+
+<https://www.paloaltonetworks.com/blog/cloud-security/model-context-protocol-mcp-a-security-overview/>
 
 ## Githubs
 
@@ -88,6 +130,14 @@ This page should evolve over time. It is NOT meant to be either comprehensive no
 
 <https://www.anthropic.com/research/small-samples-poison>
 
+## From Vendors
+
+### E.g. MCP
+
+<https://modelcontextprotocol.io/docs/getting-started/intro> (repeated, I know)
+
+<https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices>
+
 ### E.g. Cowork
 
 As stated here (as of end of Feb 2026) <https://claude.com/blog/cowork-research-preview>
@@ -98,13 +148,19 @@ You should also be aware of the risk of “[prompt injections](https://www.anthr
 
 These risks aren’t new with Cowork, but it might be the first time you’re using a more advanced tool that moves beyond a simple conversation. We recommend taking precautions, particularly while you learn how it works. We provide more detail in our [Help Center](https://support.claude.com/en/articles/13364135-using-cowork-safely)."
 
-### From Cursor
+### E.g. Cursor
 
 <https://cursor.com/blog/agent-sandboxing>
+
+### E.g. OpenClaw
+
+Dixit the vendor itself: [There is no “perfectly secure” setup.](https://docs.openclaw.ai/gateway/security)
 
 ## Other limits
 
 ![](images/clipboard-943520145.png)
+
+[Rock-Paper-Scissors](https://www.linkedin.com/posts/harleydavis_chatgpt-jeu-rocher-papier-ciseaux-activity-7422571009037299714-uXzE/)
 
 ## LinkedIn Profiles to follow
 
@@ -131,3 +187,13 @@ Unfortunately not sharing this until I gather authorization to share my collecti
 And still, a few on LI you can follow for some fun content with sometimes memes on the topic...
 
 E.g. Great for reasoning failures: <https://www.linkedin.com/in/vincent-conitzer-2563082/recent-activity/all/>
+
+## Only for myself
+
+Playing with MCP from code, in R, to get better acquainted:
+
+<https://modelcontextprotocol.io/docs/tools/inspector>
+
+(Will need a container (and spare time) for playing with these things...)
+
+<https://arman.aksoy.org/plumber2mcp/> & <https://github.com/armish/plumber2mcp>
