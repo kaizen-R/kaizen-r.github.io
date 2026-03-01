@@ -5178,5 +5178,166 @@
     "title": "Reducing Dimensions by selection of mix(es)",
     "section": "Resources",
     "text": "Resources\nI already mentioned these ideas somehow here:\nhttps://kaizen-r.github.io/posts/2025-01-26_About_Parallelizing_RLCS_Training/"
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html",
+    "href": "others/genAI_CYS_documentation.html",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "",
+    "text": "Let’s call it Machine Learning. As of today:\n\nMostly Neural networks, DNN, and that’s all black boxes\n\nThere are ways around that."
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html#an-issue-with-ai-explainability",
+    "href": "others/genAI_CYS_documentation.html#an-issue-with-ai-explainability",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "",
+    "text": "Let’s call it Machine Learning. As of today:\n\nMostly Neural networks, DNN, and that’s all black boxes\n\nThere are ways around that."
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html#an-issue-with-ai-explainability-1",
+    "href": "others/genAI_CYS_documentation.html#an-issue-with-ai-explainability-1",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "An issue with “AI”: explainability",
+    "text": "An issue with “AI”: explainability\nInterpretability/Explainability:\n\nModel-specific Methods (…)\nLocal Model-Agnostic Methods: Counterfactuals, Local Surrogate Model (LIME), Shapley Value, Shapley Additive exPlanation (SHAP)…\nGlobal Model-Agnostic Methods: Partial Dependence Plot (PDP), Accumulated Local Effects (ALE), H-Statistic, Surrogate Models…\nInterpretable Models: Trees, LM/GLM, KNN, and rule-based\n\nRecommended reading: Molnar C. (2022) “Interpretable Machine Learning”"
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html#a-new-r-package",
+    "href": "others/genAI_CYS_documentation.html#a-new-r-package",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "A new R package",
+    "text": "A new R package\n\n\n\n\n\nJohn H. Holland proposed an algorithm with the Cognitive System One program (1976). Later, people came up with variations… Today we focus on Michigan-style LCS."
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html#can-you-guess-the-rule",
+    "href": "others/genAI_CYS_documentation.html#can-you-guess-the-rule",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "Can you guess the “rule”?",
+    "text": "Can you guess the “rule”?\n\nA Data Mining Exercise with RLCS\n&gt; library(RLCS)\n&gt; demo_env1 &lt;- rlcs_example_secret1()\n&gt; sample_of_rows &lt;- sample(1:nrow(demo_env1), 10, replace=F)\n&gt; print(demo_env1[sample_of_rows,], row.names = F)\n state class\n 01010     0\n 00111     0\n 11010     0\n 10001     1\n 00010     0\n 00100     1\n 10100     1\n 01111     0\n 01100     1\n 00001     1"
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html#did-you-guess-right",
+    "href": "others/genAI_CYS_documentation.html#did-you-guess-right",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "Did you guess right?",
+    "text": "Did you guess right?\n&gt; demo_params &lt;- RLCS_hyperparameters(n_epochs = 280, deletion_trigger = 40, deletion_threshold = 0.9)\n&gt; rlcs_model1 &lt;- rlcs_train_sl(demo_env1, demo_params, NULL, F)\n[1] \"Epoch: 40 Progress Exposure: 1280 Classifiers Count: 14\"\n[1] \"Epoch: 80 Progress Exposure: 2560 Classifiers Count: 8\"\n(...)\n[1] \"Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2\"\n. . .\n Condition/Action is the rule (the rest are quality metrics)\n&gt; print(rlcs_model1)\n  condition action match_count correct_count accuracy numerosity reward first_seen\n1     ###1#      0        3560          3560        1        122      5       1843\n2     ###0#      1        2770          2770        1         94      5       3421\nThis model expresses: “Action/Class is Not bit 4”"
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html#learning-rules-as-models",
+    "href": "others/genAI_CYS_documentation.html#learning-rules-as-models",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "Learning rules as model(s)",
+    "text": "Learning rules as model(s)\n\nif A & NOT(B) then Class=X\nif D then Class=Y\n\n. . .\n“Human-readable”, “interpretable”, good for:\n\nMitigating bias(es) (in training data, at least)\nIncreased trust (justifying decisions)\n\n. . .\nLearning about the data (data mining), better decisions, regulatory compliance, ethical/legal matters, possible adversarial attack robustness…"
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html#download-and-install-rlcs",
+    "href": "others/genAI_CYS_documentation.html#download-and-install-rlcs",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "Download and install RLCS",
+    "text": "Download and install RLCS\nhttps://github.com/kaizen-R/RLCS\n\nTo get the package from GitHub:\nlibrary(devtools)\ninstall_github(\"kaizen-R/RLCS\")\n. . .\nRun your first test\nlibrary(RLCS)\ndemo_params &lt;- RLCS_hyperparameters(n_epochs = 400, deletion_trigger = 40, deletion_threshold = 0.9)\ndemo_env2 &lt;- rlcs_example_secret2()\nprint(demo_env2, row.names = F)\nrlcs_model2 &lt;- rlcs_train_sl(demo_env2, demo_params, NULL, F)\nprint(rlcs_model2)\nplot(rlcs_model2)"
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html#binary-input-example",
+    "href": "others/genAI_CYS_documentation.html#binary-input-example",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "Binary input: Example",
+    "text": "Binary input: Example\nNeural Networks accept numerical input. Currently, RLCS accepts Binary strings.\n\n\n\nRosetta Stone “binning” for numerical variables (2 bits explanation)"
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html#data-mining",
+    "href": "others/genAI_CYS_documentation.html#data-mining",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "Data Mining",
+    "text": "Data Mining\n\nWe’ve seen simple examples. A few more are included with the package, have a look at the demos."
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html#supervised-learning-iris",
+    "href": "others/genAI_CYS_documentation.html#supervised-learning-iris",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "Supervised Learning: Iris",
+    "text": "Supervised Learning: Iris\n\n\n\n\n\n\nIris Setosa (https://commons.wikimedia.org/w/index.php?curid=57593826)\n\n\n\n\n\n\n\nIris Sample Dataset\n\n\n\n\n\nTime difference of 13.13619 secs ## Training Runtime.\n            predicted\nclass        setosa versicolor virginica\n  setosa         13          0         0\n  versicolor      0          5         3\n  virginica       0          0         9"
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html#supervised-learning-iris-1",
+    "href": "others/genAI_CYS_documentation.html#supervised-learning-iris-1",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "Supervised Learning: Iris",
+    "text": "Supervised Learning: Iris\n\n\n\nvisualizing one classifier - iris"
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html#supervised-learning-images-classifier",
+    "href": "others/genAI_CYS_documentation.html#supervised-learning-images-classifier",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "Supervised Learning: Images Classifier",
+    "text": "Supervised Learning: Images Classifier\n[1] \"Accuracy: 0.98\"\n&gt; table(test_mnist_bin01_49b[, c(\"class\", \"predicted\")])\n     predicted\nclass    0    1 rlcs_no_match\n    0 1716   65             5\n    1    5 2008             0\n&gt;\n&gt; ## Training time on 800 samples:\n&gt; print(t_end - t_start)\nTime difference of 1.937979 mins\n. . .\n\n!! Magic Trick: Parallelism: By splitting training data, and then consolidating sub-models! (Take that, Neural network :D)"
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html#supervised-learning-images-classifier-1",
+    "href": "others/genAI_CYS_documentation.html#supervised-learning-images-classifier-1",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "Supervised Learning: Images Classifier",
+    "text": "Supervised Learning: Images Classifier"
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html#reinforcement-learning-too",
+    "href": "others/genAI_CYS_documentation.html#reinforcement-learning-too",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "Reinforcement Learning, TOO!",
+    "text": "Reinforcement Learning, TOO!\nThis example is in fact not learning probability distributions. And it uses reward-shaping. But it works!"
+  },
+  {
+    "objectID": "others/genAI_CYS_documentation.html#then-again",
+    "href": "others/genAI_CYS_documentation.html#then-again",
+    "title": "RLCS: A (shorter) Introduction",
+    "section": "Then again",
+    "text": "Then again\nHyperparameters tuning is not easy, and impacts performance. Large Populations of rules are in fact hard to interpret, in spite of being readable.\nThis is all work in progress. I plan to try and make it into a CRAN Package. (So: document more, write more tests, reorganize functions…) I will keep working on better mechanics (fitness sharing, deletion, etc.), parallel processing, help with encoding/decoding, etc."
+  },
+  {
+    "objectID": "others/GenAI_CYS_reviews.html",
+    "href": "others/GenAI_CYS_reviews.html",
+    "title": "GenAI Cybersecurity Review",
+    "section": "",
+    "text": "This is meant as an inventory/tracking on Cybersecurity-related information on the several aspects of GenAI.\nThis page should evolve over time."
+  },
+  {
+    "objectID": "others/GenAI_CYS_reviews.html#on-llms",
+    "href": "others/GenAI_CYS_reviews.html#on-llms",
+    "title": "GenAI Cybersecurity Review",
+    "section": "On LLMs",
+    "text": "On LLMs\nhttps://arxiv.org/pdf/2501.11223\n(not a paper, a presentation, but still) https://i.blackhat.com/BH-USA-25/Presentations/US-25-Lynch-From-Prompts-to-Pwns.pdf\nhttps://www.acpjournals.org/doi/10.7326/aimcc.2024.1260\n\nlimits\n&lt;TBC&gt;\nhttps://arxiv.org/pdf/2602.06176\n\n\nData Privacy\nThe Spanish DPA published the English version of its guidelines on processing personal data through Agentic AI"
+  },
+  {
+    "objectID": "others/GenAI_CYS_reviews.html#on-genai-agents",
+    "href": "others/GenAI_CYS_reviews.html#on-genai-agents",
+    "title": "GenAI Cybersecurity Review",
+    "section": "On (genAI) Agents",
+    "text": "On (genAI) Agents\n“Agents of Chaos”\nThreat Modelling AI-Agents Protocols\nGoogle’s Approach for Secure AI Agents: An Introduction"
+  },
+  {
+    "objectID": "others/GenAI_CYS_reviews.html#githubs",
+    "href": "others/GenAI_CYS_reviews.html#githubs",
+    "title": "GenAI Cybersecurity Review",
+    "section": "Githubs",
+    "text": "Githubs\nhttps://github.com/Stanford-Trinity/ARTEMIS"
+  },
+  {
+    "objectID": "others/GenAI_CYS_reviews.html#more-considerationscontext",
+    "href": "others/GenAI_CYS_reviews.html#more-considerationscontext",
+    "title": "GenAI Cybersecurity Review",
+    "section": "More considerations/context",
+    "text": "More considerations/context\nhttps://www.theverge.com/ai-artificial-intelligence/827820/large-language-models-ai-intelligence-neuroscience-problems\nhttps://www.gartner.com/en/documents/7211030\nhttps://msukhareva.substack.com/p/ai-agent-governance-a-bureaucracy\nhttps://www.zdnet.com/article/perplexity-computer-openclaw/\nhttps://www.technologyreview.com/2026/02/11/1132768/is-a-secure-ai-assistant-possible/amp/\nhttps://www.bleepingcomputer.com/news/microsoft/microsoft-says-bug-causes-copilot-to-summarize-confidential-emails/amp/\nhttps://adnanthekhan.com/posts/clinejection/\nhttps://www.linkedin.com/posts/mirandarid_aisecurity-ai-cyber-activity-7397400647060336640-AvGj/\nhttps://futurism.com/ai-browser-hackers-drain-bank-account-public-reddit-post\nhttps://www.linkedin.com/posts/eito-miyamura-157305121_perplexity-comets-ai-agent-just-bankrupted-ugcPost-7386434002011869185-KkQ-/\nhttps://deepmind.google/blog/advancing-geminis-security-safeguards/\nhttps://www.linkedin.com/posts/gianlucamauro_lets-go-through-a-scenario-imagine-john-activity-7383499847057948674-qaJk/\nhttps://www.404media.co/librarians-are-being-asked-to-find-ai-hallucinated-books/\nhttps://abovethelaw.com/2025/07/trial-court-decides-case-based-on-ai-hallucinated-caselaw/\n\nE.g. Cowork\nAs stated here (as of end of Feb 2026) https://claude.com/blog/cowork-research-preview\n“That said, there are still things to be aware of before you give Claude control. By default, the main thing to know is that Claude can take potentially destructive actions (such as deleting local files) if it’s instructed to. Since there’s always some chance that Claude might misinterpret your instructions, you should give Claude very clear guidance around things like this. \nYou should also be aware of the risk of “prompt injections”: attempts by attackers to alter Claude’s plans through content it might encounter on the internet. We’ve built sophisticated defenses against prompt injections, but agent safety—that is, the task of securing Claude’s real-world actions—is still an active area of development in the industry. \nThese risks aren’t new with Cowork, but it might be the first time you’re using a more advanced tool that moves beyond a simple conversation. We recommend taking precautions, particularly while you learn how it works. We provide more detail in our Help Center.”\n\n\nFrom Cursor\nhttps://cursor.com/blog/agent-sandboxing"
+  },
+  {
+    "objectID": "others/GenAI_CYS_reviews.html#other-limits",
+    "href": "others/GenAI_CYS_reviews.html#other-limits",
+    "title": "GenAI Cybersecurity Review",
+    "section": "Other limits",
+    "text": "Other limits"
+  },
+  {
+    "objectID": "others/GenAI_CYS_reviews.html#memes",
+    "href": "others/GenAI_CYS_reviews.html#memes",
+    "title": "GenAI Cybersecurity Review",
+    "section": "MEMEs",
+    "text": "MEMEs\nUnfortunately not sharing until I gather authorization to share my collection of screenshots, although all of them are from public Internet (LinkedIn screenshots mostly)."
   }
 ]
