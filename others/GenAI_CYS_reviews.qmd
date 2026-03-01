@@ -10,11 +10,13 @@ format:
 
 This is meant as an inventory/tracking on Cybersecurity-related information on the several aspects of GenAI.
 
-This page should evolve over time.
+This page should evolve over time. It is NOT meant to be either comprehensive nor perfect in any way or fashion, but instead helps me keep a bit of tracking.
 
 # Papers
 
 ## On LLMs 
+
+\<TBC\>
 
 <https://arxiv.org/pdf/2501.11223>
 
@@ -30,9 +32,13 @@ This page should evolve over time.
 
 ### Data Privacy
 
+\<TBC\>
+
 [The Spanish DPA published the English version of its guidelines on processing personal data through Agentic AI](https://www.linkedin.com/posts/luisalbertomontezuma_ai-activity-7433533829488963584-DoB1/)
 
 ## On (genAI) Agents
+
+\<TBC\>
 
 ["Agents of Chaos"](https://www.researchgate.net/publication/401123335_Agents_of_Chaos)
 
@@ -43,6 +49,8 @@ This page should evolve over time.
 # Other
 
 ## Githubs
+
+\<TBC\>
 
 <https://github.com/Stanford-Trinity/ARTEMIS>
 
@@ -76,6 +84,10 @@ This page should evolve over time.
 
 <https://abovethelaw.com/2025/07/trial-court-decides-case-based-on-ai-hallucinated-caselaw/>
 
+<https://www.wsj.com/tech/ai/anthropic-claude-ai-vending-machine-agent-b7e84e34>
+
+<https://www.anthropic.com/research/small-samples-poison>
+
 ### E.g. Cowork
 
 As stated here (as of end of Feb 2026) <https://claude.com/blog/cowork-research-preview>
@@ -94,6 +106,28 @@ These risks aren’t new with Cowork, but it might be the first time you’re us
 
 ![](images/clipboard-943520145.png)
 
+## LinkedIn Profiles to follow
+
+Interesting perspectives:
+
+<https://www.linkedin.com/in/gary-marcus-b6384b4/recent-activity/all/>
+
+<https://www.linkedin.com/in/melanie-mitchell-08a04a6/recent-activity/all/>
+
+<https://www.linkedin.com/in/msukhareva/recent-activity/all/>
+
+<https://www.linkedin.com/in/gianlucamauro/recent-activity/all/>
+
+On Cyber, mostly:
+
+<https://www.linkedin.com/in/mirandarid/recent-activity/all/>
+
+<https://www.linkedin.com/in/eito-miyamura-157305121/recent-activity/all/>
+
 ## MEMEs
 
-Unfortunately not sharing until I gather authorization to share my collection of screenshots, although all of them are from public Internet (LinkedIn screenshots mostly).
+Unfortunately not sharing this until I gather authorization to share my collection of screenshots, although all of them are from public Internet (LinkedIn screenshots mostly). And it's a pity because I have quite the collection of (gen-or-not)AI failures, etc. but that's not for sharing until I can check whether it's OK for me to do so... I insist: Even though ALL of it came from Internet-"freely-available" content.
+
+And still, a few on LI you can follow for some fun content with sometimes memes on the topic...
+
+E.g. Great for reasoning failures: <https://www.linkedin.com/in/vincent-conitzer-2563082/recent-activity/all/>

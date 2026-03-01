@@ -5296,35 +5296,35 @@
     "href": "others/GenAI_CYS_reviews.html",
     "title": "GenAI Cybersecurity Review",
     "section": "",
-    "text": "This is meant as an inventory/tracking on Cybersecurity-related information on the several aspects of GenAI.\nThis page should evolve over time."
+    "text": "This is meant as an inventory/tracking on Cybersecurity-related information on the several aspects of GenAI.\nThis page should evolve over time. It is NOT meant to be either comprehensive nor perfect in any way or fashion, but instead helps me keep a bit of tracking."
   },
   {
     "objectID": "others/GenAI_CYS_reviews.html#on-llms",
     "href": "others/GenAI_CYS_reviews.html#on-llms",
     "title": "GenAI Cybersecurity Review",
     "section": "On LLMs",
-    "text": "On LLMs\nhttps://arxiv.org/pdf/2501.11223\n(not a paper, a presentation, but still) https://i.blackhat.com/BH-USA-25/Presentations/US-25-Lynch-From-Prompts-to-Pwns.pdf\nhttps://www.acpjournals.org/doi/10.7326/aimcc.2024.1260\n\nlimits\n&lt;TBC&gt;\nhttps://arxiv.org/pdf/2602.06176\n\n\nData Privacy\nThe Spanish DPA published the English version of its guidelines on processing personal data through Agentic AI"
+    "text": "On LLMs\n&lt;TBC&gt;\nhttps://arxiv.org/pdf/2501.11223\n(not a paper, a presentation, but still) https://i.blackhat.com/BH-USA-25/Presentations/US-25-Lynch-From-Prompts-to-Pwns.pdf\nhttps://www.acpjournals.org/doi/10.7326/aimcc.2024.1260\n\nlimits\n&lt;TBC&gt;\nhttps://arxiv.org/pdf/2602.06176\n\n\nData Privacy\n&lt;TBC&gt;\nThe Spanish DPA published the English version of its guidelines on processing personal data through Agentic AI"
   },
   {
     "objectID": "others/GenAI_CYS_reviews.html#on-genai-agents",
     "href": "others/GenAI_CYS_reviews.html#on-genai-agents",
     "title": "GenAI Cybersecurity Review",
     "section": "On (genAI) Agents",
-    "text": "On (genAI) Agents\n“Agents of Chaos”\nThreat Modelling AI-Agents Protocols\nGoogle’s Approach for Secure AI Agents: An Introduction"
+    "text": "On (genAI) Agents\n&lt;TBC&gt;\n“Agents of Chaos”\nThreat Modelling AI-Agents Protocols\nGoogle’s Approach for Secure AI Agents: An Introduction"
   },
   {
     "objectID": "others/GenAI_CYS_reviews.html#githubs",
     "href": "others/GenAI_CYS_reviews.html#githubs",
     "title": "GenAI Cybersecurity Review",
     "section": "Githubs",
-    "text": "Githubs\nhttps://github.com/Stanford-Trinity/ARTEMIS"
+    "text": "Githubs\n&lt;TBC&gt;\nhttps://github.com/Stanford-Trinity/ARTEMIS"
   },
   {
     "objectID": "others/GenAI_CYS_reviews.html#more-considerationscontext",
     "href": "others/GenAI_CYS_reviews.html#more-considerationscontext",
     "title": "GenAI Cybersecurity Review",
     "section": "More considerations/context",
-    "text": "More considerations/context\nhttps://www.theverge.com/ai-artificial-intelligence/827820/large-language-models-ai-intelligence-neuroscience-problems\nhttps://www.gartner.com/en/documents/7211030\nhttps://msukhareva.substack.com/p/ai-agent-governance-a-bureaucracy\nhttps://www.zdnet.com/article/perplexity-computer-openclaw/\nhttps://www.technologyreview.com/2026/02/11/1132768/is-a-secure-ai-assistant-possible/amp/\nhttps://www.bleepingcomputer.com/news/microsoft/microsoft-says-bug-causes-copilot-to-summarize-confidential-emails/amp/\nhttps://adnanthekhan.com/posts/clinejection/\nhttps://www.linkedin.com/posts/mirandarid_aisecurity-ai-cyber-activity-7397400647060336640-AvGj/\nhttps://futurism.com/ai-browser-hackers-drain-bank-account-public-reddit-post\nhttps://www.linkedin.com/posts/eito-miyamura-157305121_perplexity-comets-ai-agent-just-bankrupted-ugcPost-7386434002011869185-KkQ-/\nhttps://deepmind.google/blog/advancing-geminis-security-safeguards/\nhttps://www.linkedin.com/posts/gianlucamauro_lets-go-through-a-scenario-imagine-john-activity-7383499847057948674-qaJk/\nhttps://www.404media.co/librarians-are-being-asked-to-find-ai-hallucinated-books/\nhttps://abovethelaw.com/2025/07/trial-court-decides-case-based-on-ai-hallucinated-caselaw/\n\nE.g. Cowork\nAs stated here (as of end of Feb 2026) https://claude.com/blog/cowork-research-preview\n“That said, there are still things to be aware of before you give Claude control. By default, the main thing to know is that Claude can take potentially destructive actions (such as deleting local files) if it’s instructed to. Since there’s always some chance that Claude might misinterpret your instructions, you should give Claude very clear guidance around things like this. \nYou should also be aware of the risk of “prompt injections”: attempts by attackers to alter Claude’s plans through content it might encounter on the internet. We’ve built sophisticated defenses against prompt injections, but agent safety—that is, the task of securing Claude’s real-world actions—is still an active area of development in the industry. \nThese risks aren’t new with Cowork, but it might be the first time you’re using a more advanced tool that moves beyond a simple conversation. We recommend taking precautions, particularly while you learn how it works. We provide more detail in our Help Center.”\n\n\nFrom Cursor\nhttps://cursor.com/blog/agent-sandboxing"
+    "text": "More considerations/context\nhttps://www.theverge.com/ai-artificial-intelligence/827820/large-language-models-ai-intelligence-neuroscience-problems\nhttps://www.gartner.com/en/documents/7211030\nhttps://msukhareva.substack.com/p/ai-agent-governance-a-bureaucracy\nhttps://www.zdnet.com/article/perplexity-computer-openclaw/\nhttps://www.technologyreview.com/2026/02/11/1132768/is-a-secure-ai-assistant-possible/amp/\nhttps://www.bleepingcomputer.com/news/microsoft/microsoft-says-bug-causes-copilot-to-summarize-confidential-emails/amp/\nhttps://adnanthekhan.com/posts/clinejection/\nhttps://www.linkedin.com/posts/mirandarid_aisecurity-ai-cyber-activity-7397400647060336640-AvGj/\nhttps://futurism.com/ai-browser-hackers-drain-bank-account-public-reddit-post\nhttps://www.linkedin.com/posts/eito-miyamura-157305121_perplexity-comets-ai-agent-just-bankrupted-ugcPost-7386434002011869185-KkQ-/\nhttps://deepmind.google/blog/advancing-geminis-security-safeguards/\nhttps://www.linkedin.com/posts/gianlucamauro_lets-go-through-a-scenario-imagine-john-activity-7383499847057948674-qaJk/\nhttps://www.404media.co/librarians-are-being-asked-to-find-ai-hallucinated-books/\nhttps://abovethelaw.com/2025/07/trial-court-decides-case-based-on-ai-hallucinated-caselaw/\nhttps://www.wsj.com/tech/ai/anthropic-claude-ai-vending-machine-agent-b7e84e34\nhttps://www.anthropic.com/research/small-samples-poison\n\nE.g. Cowork\nAs stated here (as of end of Feb 2026) https://claude.com/blog/cowork-research-preview\n“That said, there are still things to be aware of before you give Claude control. By default, the main thing to know is that Claude can take potentially destructive actions (such as deleting local files) if it’s instructed to. Since there’s always some chance that Claude might misinterpret your instructions, you should give Claude very clear guidance around things like this. \nYou should also be aware of the risk of “prompt injections”: attempts by attackers to alter Claude’s plans through content it might encounter on the internet. We’ve built sophisticated defenses against prompt injections, but agent safety—that is, the task of securing Claude’s real-world actions—is still an active area of development in the industry. \nThese risks aren’t new with Cowork, but it might be the first time you’re using a more advanced tool that moves beyond a simple conversation. We recommend taking precautions, particularly while you learn how it works. We provide more detail in our Help Center.”\n\n\nFrom Cursor\nhttps://cursor.com/blog/agent-sandboxing"
   },
   {
     "objectID": "others/GenAI_CYS_reviews.html#other-limits",
@@ -5338,6 +5338,13 @@
     "href": "others/GenAI_CYS_reviews.html#memes",
     "title": "GenAI Cybersecurity Review",
     "section": "MEMEs",
-    "text": "MEMEs\nUnfortunately not sharing until I gather authorization to share my collection of screenshots, although all of them are from public Internet (LinkedIn screenshots mostly)."
+    "text": "MEMEs\nUnfortunately not sharing this until I gather authorization to share my collection of screenshots, although all of them are from public Internet (LinkedIn screenshots mostly). And it’s a pity because I have quite the collection of (gen-or-not)AI failures, etc. but that’s not for sharing until I can check whether it’s OK for me to do so… I insist: Even though ALL of it came from Internet-“freely-available” content.\nAnd still, a few on LI you can follow for some fun content with sometimes memes on the topic…\nE.g. Great for reasoning failures: https://www.linkedin.com/in/vincent-conitzer-2563082/recent-activity/all/"
+  },
+  {
+    "objectID": "others/GenAI_CYS_reviews.html#linkedin-profiles-to-follow",
+    "href": "others/GenAI_CYS_reviews.html#linkedin-profiles-to-follow",
+    "title": "GenAI Cybersecurity Review",
+    "section": "LinkedIn Profiles to follow",
+    "text": "LinkedIn Profiles to follow\nInteresting perspectives:\nhttps://www.linkedin.com/in/gary-marcus-b6384b4/recent-activity/all/\nhttps://www.linkedin.com/in/melanie-mitchell-08a04a6/recent-activity/all/\nhttps://www.linkedin.com/in/msukhareva/recent-activity/all/\nhttps://www.linkedin.com/in/gianlucamauro/recent-activity/all/\nOn Cyber, mostly:\nhttps://www.linkedin.com/in/mirandarid/recent-activity/all/\nhttps://www.linkedin.com/in/eito-miyamura-157305121/recent-activity/all/"
   }
 ]
