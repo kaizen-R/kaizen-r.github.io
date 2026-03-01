@@ -3878,19 +3878,19 @@ vertical-align: -.125em;
   <ul>
   <li><a href="#intro" id="toc-intro" class="nav-link active" data-scroll-target="#intro">Intro</a>
   <ul class="collapse">
-  <li><a href="#some-random-thoughts-here" id="toc-some-random-thoughts-here" class="nav-link" data-scroll-target="#some-random-thoughts-here">Some random thoughts here:</a></li>
+  <li><a href="#some-random-weekend-thoughts-here" id="toc-some-random-weekend-thoughts-here" class="nav-link" data-scroll-target="#some-random-weekend-thoughts-here">Some random weekend thoughts here:</a></li>
   </ul></li>
   <li><a href="#papers" id="toc-papers" class="nav-link" data-scroll-target="#papers">Papers</a>
   <ul class="collapse">
   <li><a href="#on-llms" id="toc-on-llms" class="nav-link" data-scroll-target="#on-llms">On LLMs</a>
   <ul class="collapse">
   <li><a href="#limits" id="toc-limits" class="nav-link" data-scroll-target="#limits">limits</a></li>
-  <li><a href="#data-privacy" id="toc-data-privacy" class="nav-link" data-scroll-target="#data-privacy">Data Privacy</a></li>
   </ul></li>
   <li><a href="#on-genai-agents" id="toc-on-genai-agents" class="nav-link" data-scroll-target="#on-genai-agents">On (genAI) Agents</a></li>
   </ul></li>
   <li><a href="#other" id="toc-other" class="nav-link" data-scroll-target="#other">Other</a>
   <ul class="collapse">
+  <li><a href="#data-privacy" id="toc-data-privacy" class="nav-link" data-scroll-target="#data-privacy">Data Privacy</a></li>
   <li><a href="#on-mcp" id="toc-on-mcp" class="nav-link" data-scroll-target="#on-mcp">On MCP</a></li>
   <li><a href="#githubs" id="toc-githubs" class="nav-link" data-scroll-target="#githubs">Githubs</a></li>
   <li><a href="#more-considerationscontext" id="toc-more-considerationscontext" class="nav-link" data-scroll-target="#more-considerationscontext">More considerations/context</a></li>
@@ -3935,10 +3935,10 @@ vertical-align: -.125em;
 <h1>Intro</h1>
 <p>This is meant as an inventory/tracking on Cybersecurity-related information on the several aspects of GenAI.</p>
 <p>This page should evolve over time. It is NOT meant to be either comprehensive nor perfect (or even orderly) in any way or fashion, but instead helps me keep a bit of tracking.</p>
-<section id="some-random-thoughts-here" class="level2">
-<h2 class="anchored" data-anchor-id="some-random-thoughts-here">Some random thoughts here:</h2>
+<section id="some-random-weekend-thoughts-here" class="level2">
+<h2 class="anchored" data-anchor-id="some-random-weekend-thoughts-here">Some random weekend thoughts here:</h2>
 <ul>
-<li><p>LLM-based “autonomy” is generally a bad idea. Even in perfect settings, the LLM can misbehave and skip its mandate(s), it has happened. Or hallucinate. Now consider any possibility for prompt injection (we’re talking single-channel here, remember) and you see where things can go wrong…</p></li>
+<li><p>LLM-based “autonomy” is generally a bad idea. Even in perfect settings, the LLM can misbehave and skip its mandate(s), it has happened. Or hallucinate. LLM reasoning failures (lack of world model, theory of mind, …) make it different (yes, humans fail too, but not necessarily in the same way). Now consider any possibility for prompt injection (we’re talking single-channel here, remember) and you see where things can go wrong…</p></li>
 <li><p>Guardrails on Free-text are for obvious reason imperfect. i.e. Red-Teaming an LLM for injection seems unnecessary: Prompt injection is inevitable?</p></li>
 <li><p>For privacy &amp; security controls, somehow put a Man-In-The-Middle, deterministic (NER, etc.) control to anonymize data you send to an LLM inference step.</p></li>
 <li><p>Be granular in what the MCP, A2A, skills, what-not can and cannot do.</p></li>
@@ -3962,17 +3962,14 @@ vertical-align: -.125em;
 <h3 class="anchored" data-anchor-id="limits">limits</h3>
 <p>&lt;TBC&gt;</p>
 <p><a href="https://arxiv.org/pdf/2602.06176">LLM Reasoning Failures</a></p>
-</section>
-<section id="data-privacy" class="level3">
-<h3 class="anchored" data-anchor-id="data-privacy">Data Privacy</h3>
-<p>&lt;TBC&gt;</p>
-<p><a href="https://www.linkedin.com/posts/luisalbertomontezuma_ai-activity-7433533829488963584-DoB1/">The Spanish DPA published the English version of its guidelines on processing personal data through Agentic AI</a></p>
+<p><a href="https://arxiv.org/pdf/2506.06941">The illusion of thinking</a></p>
+<p><a href="https://arxiv.org/pdf/2410.05229">… Limitation Mathematical Reasoning</a></p>
 </section>
 </section>
 <section id="on-genai-agents" class="level2">
 <h2 class="anchored" data-anchor-id="on-genai-agents">On (genAI) Agents</h2>
 <p>&lt;TBC&gt;</p>
-<p><a href="https://www.researchgate.net/publication/401123335_Agents_of_Chaos">“Agents of Chaos”</a></p>
+<p><a href="https://www.researchgate.net/publication/401123335_Agents_of_Chaos">“Agents of Chaos”</a> Lovely examples all of ’em</p>
 <p><a href="https://arxiv.org/abs/2602.11327">Threat Modelling AI-Agents Protocols</a></p>
 <p>(Not a paper, but still) <a href="https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/">OWASP on Agentic AI</a></p>
 <p><a href="https://storage.googleapis.com/gweb-research2023-media/pubtools/1018686.pdf">Google’s Approach for Secure AI Agents: An Introduction</a></p>
@@ -3981,6 +3978,12 @@ vertical-align: -.125em;
 </section>
 <section id="other" class="level1">
 <h1>Other</h1>
+<section id="data-privacy" class="level2">
+<h2 class="anchored" data-anchor-id="data-privacy">Data Privacy</h2>
+<p>&lt;TBC&gt;</p>
+<p><a href="https://www.linkedin.com/posts/luisalbertomontezuma_ai-activity-7433533829488963584-DoB1/">The Spanish DPA published the English version of its guidelines on processing personal data through Agentic AI</a></p>
+<p>(Not read yet :S) <a href="https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf" class="uri">https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf</a></p>
+</section>
 <section id="on-mcp" class="level2">
 <h2 class="anchored" data-anchor-id="on-mcp">On MCP</h2>
 <p>This one is currently of particular interest, so it gets its own section.</p>
@@ -4049,6 +4052,7 @@ vertical-align: -.125em;
 <p>Interesting perspectives:</p>
 <p><a href="https://www.linkedin.com/in/gary-marcus-b6384b4/recent-activity/all/" class="uri">https://www.linkedin.com/in/gary-marcus-b6384b4/recent-activity/all/</a></p>
 <p><a href="https://www.linkedin.com/in/melanie-mitchell-08a04a6/recent-activity/all/" class="uri">https://www.linkedin.com/in/melanie-mitchell-08a04a6/recent-activity/all/</a></p>
+<p>M. Mitchell has great content elsewhere too: <a href="https://aiguide.substack.com/p/llms-and-world-models-part-1" class="uri">https://aiguide.substack.com/p/llms-and-world-models-part-1</a></p>
 <p><a href="https://www.linkedin.com/in/msukhareva/recent-activity/all/" class="uri">https://www.linkedin.com/in/msukhareva/recent-activity/all/</a></p>
 <p><a href="https://www.linkedin.com/in/gianlucamauro/recent-activity/all/" class="uri">https://www.linkedin.com/in/gianlucamauro/recent-activity/all/</a></p>
 <p>On Cyber, mostly:</p>

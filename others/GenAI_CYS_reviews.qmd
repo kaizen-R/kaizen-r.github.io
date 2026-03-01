@@ -12,9 +12,9 @@ This is meant as an inventory/tracking on Cybersecurity-related information on t
 
 This page should evolve over time. It is NOT meant to be either comprehensive nor perfect (or even orderly) in any way or fashion, but instead helps me keep a bit of tracking.
 
-## Some random thoughts here:
+## Some random weekend thoughts here:
 
--   LLM-based "autonomy" is generally a bad idea. Even in perfect settings, the LLM can misbehave and skip its mandate(s), it has happened. Or hallucinate. Now consider any possibility for prompt injection (we're talking single-channel here, remember) and you see where things can go wrong...
+-   LLM-based "autonomy" is generally a bad idea. Even in perfect settings, the LLM can misbehave and skip its mandate(s), it has happened. Or hallucinate. LLM reasoning failures (lack of world model, theory of mind, ...) make it different (yes, humans fail too, but not necessarily in the same way). Now consider any possibility for prompt injection (we're talking single-channel here, remember) and you see where things can go wrong...
 
 -   Guardrails on Free-text are for obvious reason imperfect. i.e. Red-Teaming an LLM for injection seems unnecessary: Prompt injection is inevitable?
 
@@ -50,17 +50,15 @@ This page should evolve over time. It is NOT meant to be either comprehensive no
 
 [LLM Reasoning Failures](https://arxiv.org/pdf/2602.06176)
 
-### Data Privacy
+[The illusion of thinking](https://arxiv.org/pdf/2506.06941)
 
-\<TBC\>
-
-[The Spanish DPA published the English version of its guidelines on processing personal data through Agentic AI](https://www.linkedin.com/posts/luisalbertomontezuma_ai-activity-7433533829488963584-DoB1/)
+[... Limitation Mathematical Reasoning](https://arxiv.org/pdf/2410.05229)
 
 ## On (genAI) Agents
 
 \<TBC\>
 
-["Agents of Chaos"](https://www.researchgate.net/publication/401123335_Agents_of_Chaos)
+["Agents of Chaos"](https://www.researchgate.net/publication/401123335_Agents_of_Chaos) Lovely examples all of 'em
 
 [Threat Modelling AI-Agents Protocols](https://arxiv.org/abs/2602.11327)
 
@@ -71,6 +69,14 @@ This page should evolve over time. It is NOT meant to be either comprehensive no
 (Not a paper, but still) [NIST on AI Agents Standards](https://www.nist.gov/news-events/news/2026/02/announcing-ai-agent-standards-initiative-interoperable-and-secure)
 
 # Other
+
+## Data Privacy
+
+\<TBC\>
+
+[The Spanish DPA published the English version of its guidelines on processing personal data through Agentic AI](https://www.linkedin.com/posts/luisalbertomontezuma_ai-activity-7433533829488963584-DoB1/)
+
+(Not read yet :S) <https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf>
 
 ## On MCP
 
@@ -169,6 +175,8 @@ Interesting perspectives:
 <https://www.linkedin.com/in/gary-marcus-b6384b4/recent-activity/all/>
 
 <https://www.linkedin.com/in/melanie-mitchell-08a04a6/recent-activity/all/>
+
+M. Mitchell has great content elsewhere too: <https://aiguide.substack.com/p/llms-and-world-models-part-1>
 
 <https://www.linkedin.com/in/msukhareva/recent-activity/all/>
 

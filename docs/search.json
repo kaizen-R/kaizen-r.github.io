@@ -5296,21 +5296,21 @@
     "href": "others/GenAI_CYS_reviews.html",
     "title": "GenAI Cybersecurity Review - DRAFT version",
     "section": "",
-    "text": "This is meant as an inventory/tracking on Cybersecurity-related information on the several aspects of GenAI.\nThis page should evolve over time. It is NOT meant to be either comprehensive nor perfect (or even orderly) in any way or fashion, but instead helps me keep a bit of tracking.\n\n\n\nLLM-based “autonomy” is generally a bad idea. Even in perfect settings, the LLM can misbehave and skip its mandate(s), it has happened. Or hallucinate. Now consider any possibility for prompt injection (we’re talking single-channel here, remember) and you see where things can go wrong…\nGuardrails on Free-text are for obvious reason imperfect. i.e. Red-Teaming an LLM for injection seems unnecessary: Prompt injection is inevitable?\nFor privacy & security controls, somehow put a Man-In-The-Middle, deterministic (NER, etc.) control to anonymize data you send to an LLM inference step.\nBe granular in what the MCP, A2A, skills, what-not can and cannot do.\nDo not give an “agent” (concept that could be discussed in itself) any permission it doesn’t absolutely NEED to do its job. If you don’t want an Agent to “rm -rf”, don’t rely on trusting the LLM. Give it a RBAC that ensures it simply CAN’T do that.\nRe-authenticate often.\nInventory MCP. Audit stuff. It won’t protect you, but it will help Incident Response.\nFrankly: Cybersecurity is one-step-behind. Particularly in “Agentic” stuff. Even if theory is being worked on, vendors sell products, etc.\n…"
+    "text": "This is meant as an inventory/tracking on Cybersecurity-related information on the several aspects of GenAI.\nThis page should evolve over time. It is NOT meant to be either comprehensive nor perfect (or even orderly) in any way or fashion, but instead helps me keep a bit of tracking.\n\n\n\nLLM-based “autonomy” is generally a bad idea. Even in perfect settings, the LLM can misbehave and skip its mandate(s), it has happened. Or hallucinate. LLM reasoning failures (lack of world model, theory of mind, …) make it different (yes, humans fail too, but not necessarily in the same way). Now consider any possibility for prompt injection (we’re talking single-channel here, remember) and you see where things can go wrong…\nGuardrails on Free-text are for obvious reason imperfect. i.e. Red-Teaming an LLM for injection seems unnecessary: Prompt injection is inevitable?\nFor privacy & security controls, somehow put a Man-In-The-Middle, deterministic (NER, etc.) control to anonymize data you send to an LLM inference step.\nBe granular in what the MCP, A2A, skills, what-not can and cannot do.\nDo not give an “agent” (concept that could be discussed in itself) any permission it doesn’t absolutely NEED to do its job. If you don’t want an Agent to “rm -rf”, don’t rely on trusting the LLM. Give it a RBAC that ensures it simply CAN’T do that.\nRe-authenticate often.\nInventory MCP. Audit stuff. It won’t protect you, but it will help Incident Response.\nFrankly: Cybersecurity is one-step-behind. Particularly in “Agentic” stuff. Even if theory is being worked on, vendors sell products, etc.\n…"
   },
   {
     "objectID": "others/GenAI_CYS_reviews.html#on-llms",
     "href": "others/GenAI_CYS_reviews.html#on-llms",
     "title": "GenAI Cybersecurity Review - DRAFT version",
     "section": "On LLMs",
-    "text": "On LLMs\n&lt;TBC&gt;\nOn “Reasoning Language Models”\n(not a paper, a presentation, but still) https://i.blackhat.com/BH-USA-25/Presentations/US-25-Lynch-From-Prompts-to-Pwns.pdf\nA Case of Bromism Influenced by Use of Artificial Intelligence\n\nlimits\n&lt;TBC&gt;\nLLM Reasoning Failures\n\n\nData Privacy\n&lt;TBC&gt;\nThe Spanish DPA published the English version of its guidelines on processing personal data through Agentic AI"
+    "text": "On LLMs\n&lt;TBC&gt;\nOn “Reasoning Language Models”\n(not a paper, a presentation, but still) https://i.blackhat.com/BH-USA-25/Presentations/US-25-Lynch-From-Prompts-to-Pwns.pdf\nA Case of Bromism Influenced by Use of Artificial Intelligence\n\nlimits\n&lt;TBC&gt;\nLLM Reasoning Failures\nThe illusion of thinking\n… Limitation Mathematical Reasoning"
   },
   {
     "objectID": "others/GenAI_CYS_reviews.html#on-genai-agents",
     "href": "others/GenAI_CYS_reviews.html#on-genai-agents",
     "title": "GenAI Cybersecurity Review - DRAFT version",
     "section": "On (genAI) Agents",
-    "text": "On (genAI) Agents\n&lt;TBC&gt;\n“Agents of Chaos”\nThreat Modelling AI-Agents Protocols\n(Not a paper, but still) OWASP on Agentic AI\nGoogle’s Approach for Secure AI Agents: An Introduction\n(Not a paper, but still) NIST on AI Agents Standards"
+    "text": "On (genAI) Agents\n&lt;TBC&gt;\n“Agents of Chaos” Lovely examples all of ’em\nThreat Modelling AI-Agents Protocols\n(Not a paper, but still) OWASP on Agentic AI\nGoogle’s Approach for Secure AI Agents: An Introduction\n(Not a paper, but still) NIST on AI Agents Standards"
   },
   {
     "objectID": "others/GenAI_CYS_reviews.html#githubs",
@@ -5345,7 +5345,7 @@
     "href": "others/GenAI_CYS_reviews.html#linkedin-profiles-to-follow",
     "title": "GenAI Cybersecurity Review - DRAFT version",
     "section": "LinkedIn Profiles to follow",
-    "text": "LinkedIn Profiles to follow\nInteresting perspectives:\nhttps://www.linkedin.com/in/gary-marcus-b6384b4/recent-activity/all/\nhttps://www.linkedin.com/in/melanie-mitchell-08a04a6/recent-activity/all/\nhttps://www.linkedin.com/in/msukhareva/recent-activity/all/\nhttps://www.linkedin.com/in/gianlucamauro/recent-activity/all/\nOn Cyber, mostly:\nhttps://www.linkedin.com/in/mirandarid/recent-activity/all/\nhttps://www.linkedin.com/in/eito-miyamura-157305121/recent-activity/all/"
+    "text": "LinkedIn Profiles to follow\nInteresting perspectives:\nhttps://www.linkedin.com/in/gary-marcus-b6384b4/recent-activity/all/\nhttps://www.linkedin.com/in/melanie-mitchell-08a04a6/recent-activity/all/\nM. Mitchell has great content elsewhere too: https://aiguide.substack.com/p/llms-and-world-models-part-1\nhttps://www.linkedin.com/in/msukhareva/recent-activity/all/\nhttps://www.linkedin.com/in/gianlucamauro/recent-activity/all/\nOn Cyber, mostly:\nhttps://www.linkedin.com/in/mirandarid/recent-activity/all/\nhttps://www.linkedin.com/in/eito-miyamura-157305121/recent-activity/all/"
   },
   {
     "objectID": "others/GenAI_CYS_reviews.html#from-vendors",
@@ -5374,5 +5374,19 @@
     "title": "GenAI Cybersecurity Review - DRAFT version",
     "section": "Only for myself",
     "text": "Only for myself\nPlaying with MCP from code, in R, to get better acquainted:\nhttps://modelcontextprotocol.io/docs/tools/inspector\n(Will need a container (and spare time) for playing with these things…)\nhttps://arman.aksoy.org/plumber2mcp/ & https://github.com/armish/plumber2mcp"
+  },
+  {
+    "objectID": "others/GenAI_CYS_reviews.html#some-random-weekend-thoughts-here",
+    "href": "others/GenAI_CYS_reviews.html#some-random-weekend-thoughts-here",
+    "title": "GenAI Cybersecurity Review - DRAFT version",
+    "section": "",
+    "text": "LLM-based “autonomy” is generally a bad idea. Even in perfect settings, the LLM can misbehave and skip its mandate(s), it has happened. Or hallucinate. LLM reasoning failures (lack of world model, theory of mind, …) make it different (yes, humans fail too, but not necessarily in the same way). Now consider any possibility for prompt injection (we’re talking single-channel here, remember) and you see where things can go wrong…\nGuardrails on Free-text are for obvious reason imperfect. i.e. Red-Teaming an LLM for injection seems unnecessary: Prompt injection is inevitable?\nFor privacy & security controls, somehow put a Man-In-The-Middle, deterministic (NER, etc.) control to anonymize data you send to an LLM inference step.\nBe granular in what the MCP, A2A, skills, what-not can and cannot do.\nDo not give an “agent” (concept that could be discussed in itself) any permission it doesn’t absolutely NEED to do its job. If you don’t want an Agent to “rm -rf”, don’t rely on trusting the LLM. Give it a RBAC that ensures it simply CAN’T do that.\nRe-authenticate often.\nInventory MCP. Audit stuff. It won’t protect you, but it will help Incident Response.\nFrankly: Cybersecurity is one-step-behind. Particularly in “Agentic” stuff. Even if theory is being worked on, vendors sell products, etc.\n…"
+  },
+  {
+    "objectID": "others/GenAI_CYS_reviews.html#data-privacy",
+    "href": "others/GenAI_CYS_reviews.html#data-privacy",
+    "title": "GenAI Cybersecurity Review - DRAFT version",
+    "section": "Data Privacy",
+    "text": "Data Privacy\n&lt;TBC&gt;\nThe Spanish DPA published the English version of its guidelines on processing personal data through Agentic AI\n(Not read yet :S) https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf"
   }
 ]
