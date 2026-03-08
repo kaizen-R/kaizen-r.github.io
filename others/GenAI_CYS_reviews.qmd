@@ -34,7 +34,7 @@ This page should evolve over time. It is NOT meant to be either comprehensive no
 
 # Papers
 
-## On LLMs 
+## On LLMs
 
 \<TBC\>
 

@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nico">
+<meta name="dcterms.date" content="2026-03-08">
+
+<title>RLCS: Speed Improvements Update and the Question of Credit Assignment – Kaizen-R.com new home</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Kaizen-R.com new home</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/kaizen-R"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">RLCS: Speed Improvements Update and the Question of Credit Assignment</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">RLCS</div>
+                <div class="quarto-category">Information</div>
+                <div class="quarto-category">ML</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Nico </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 8, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="intro" class="level2">
+<h2 class="anchored" data-anchor-id="intro"><strong>Intro</strong></h2>
+<p>So I had some time this weekend and I thought I could spend a bit on RLCS and some performance matters.</p>
+<p>But this post has two parts:</p>
+<ul>
+<li><p>One is said performance gains and how I went about it (a short summary).</p></li>
+<li><p>The other is related to a recent post on distributing processing in more than one layer. And some potential implications for Reinforcement Learning.</p></li>
+</ul>
+</section>
+<section id="part-1-speed-gains" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-speed-gains">Part 1: Speed gains</h2>
+<p>I did <a href="https://kaizen-r.github.io/posts/2026-02-07_UsingEnvsInsteadOfVariables/">mention not that long ago</a> that using environments, saving the processing cost of passing variables around (say a whole LCS population, which can grow big) several times across several functions, even with the create-on-modify trick of R, can have an impact.</p>
+<p>Today I can confirm that using that trick and reviewing a few other details (migrating a couple of slower functions to C++ with RCpp) proved in fact useful to the RLCS package. Here goes, for the iris classification problem, run times the new way are half as long as the old way:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="New_is_faster.png" class="img-fluid figure-img"></p>
+<figcaption>a few coding tricks put together make a difference</figcaption>
+</figure>
+</div>
+<p>Obviously it’s more noticeable for larger projects. And smaller states (shorter binary strings) or smaller environments don’t get either such an improvement.</p>
+<p>Still.</p>
+</section>
+<section id="part-1.5-multi-layer-rlcs-and-iris" class="level2">
+<h2 class="anchored" data-anchor-id="part-1.5-multi-layer-rlcs-and-iris">Part 1.5: Multi-Layer RLCS and Iris</h2>
+<p>I also considered the <a href="https://kaizen-r.github.io/posts/2026-02-21_MixingVariables/">ideas from this other recent post</a>. Last time I left it as a little experiment but without getting it to its full consequence, i.e.&nbsp;applying it to a real classification exercise, hinting at the “hierarchy of models” but not implementing it.</p>
+<p>Well, now it’s done, and yes, it works.</p>
+<p>First, the code, which more or less goes like so:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>t_start <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Now to the "trick": We will train separate sub-models, each mixing 2 out of 4 variables</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Let's call this L1 RLCS.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## After testing, I keep only 3 of the 6 subsets, those which are most promising. Loss of information implied, of course.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># model1 &lt;- multi_models_train(full_dataset, "rlcs_Sepal.Length", "rlcs_Sepal.Width", train_set, iris_hyperparameters)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># model2 &lt;- multi_models_train(full_dataset, "rlcs_Sepal.Length", "rlcs_Petal.Length", train_set, iris_hyperparameters)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">multi_models_train</span>(full_dataset, <span class="st">"rlcs_Sepal.Length"</span>, <span class="st">"rlcs_Petal.Width"</span> , train_set, iris_hyperparameters)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># model4 &lt;- multi_models_train(full_dataset, "rlcs_Sepal.Width", "rlcs_Petal.Length", train_set, iris_hyperparameters)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>model5 <span class="ot">&lt;-</span> <span class="fu">multi_models_train</span>(full_dataset, <span class="st">"rlcs_Sepal.Width"</span>, <span class="st">"rlcs_Petal.Width"</span> , train_set, iris_hyperparameters)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>model6 <span class="ot">&lt;-</span> <span class="fu">multi_models_train</span>(full_dataset, <span class="st">"rlcs_Petal.Length"</span>, <span class="st">"rlcs_Petal.Width"</span> , train_set, iris_hyperparameters)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="do">### Encode L1 classification choices</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>train_environment<span class="sc">$</span>new_predicted3 <span class="ot">&lt;-</span> <span class="fu">multi_models_predict</span>(train_environment, </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                                                         <span class="st">"rlcs_Sepal.Length"</span>, <span class="st">"rlcs_Petal.Width"</span>, </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                                                         model3)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>train_environment<span class="sc">$</span>new_predicted5 <span class="ot">&lt;-</span> <span class="fu">multi_models_predict</span>(train_environment, </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                                                         <span class="st">"rlcs_Sepal.Width"</span>, <span class="st">"rlcs_Petal.Width"</span>, </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                                                         model5)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>train_environment<span class="sc">$</span>new_predicted6 <span class="ot">&lt;-</span> <span class="fu">multi_models_predict</span>(train_environment, </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                                                         <span class="st">"rlcs_Petal.Length"</span>, <span class="st">"rlcs_Petal.Width"</span>, </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                                                         model6)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="do">## Now let's create an L2 model, that uses the encoded L1 classifiers choices as input, and in turn learns from that compacted signal:</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>train_environment2 <span class="ot">&lt;-</span> train_environment</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>train_environment2<span class="sc">$</span>state <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(train_environment2), \(x)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">paste</span>(train_environment2[x, <span class="fu">c</span>(<span class="st">"new_predicted3"</span>,</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>                                                                 <span class="st">"new_predicted5"</span>,</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>                                                                 <span class="st">"new_predicted6"</span>)], <span class="at">collapse=</span><span class="st">""</span>))</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>train_environment2 <span class="ot">&lt;-</span> train_environment2[<span class="fu">which</span>(train_environment2<span class="sc">$</span>state <span class="sc">!=</span> <span class="st">"######"</span>),]</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="do">## Now we train the L2 model with the L2 training dataset:</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>iris_classifier <span class="ot">&lt;-</span> <span class="fu">rlcs_train_sl</span>(train_environment2,</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>                              iris_hyperparameters,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                              <span class="at">pre_trained_lcs =</span> <span class="cn">NULL</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="do">## And here we'd have a trained, 2-layers hierarchy "meta-model" based on RLCS:</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>t_end <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Run time:"</span>)</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(t_end <span class="sc">-</span> t_start) <span class="do">## Training Runtime.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>One key part of the value of breaking the model in sub-models is that we can use better hyperparameters.</p>
+<p>Here, the hyperparameters I usually take for the iris classifier:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Hyperparameters are key for performance of RLCS:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>iris_hyperparameters <span class="ot">&lt;-</span> <span class="fu">RLCS_hyperparameters</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">wildcard_prob =</span> <span class="fl">0.3</span>, <span class="do">## Probability that covering will choose a wildcard char</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">rd_trigger =</span> <span class="dv">20</span>, <span class="do">## Smaller means more rules generated through GA tournament</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mutation_probability =</span> <span class="fl">0.1</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  parents_selection_mode <span class="ot">&lt;-</span> <span class="st">"tournament"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">tournament_pressure =</span> <span class="dv">6</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Most important parameters to vary so far:</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_epochs =</span> <span class="dv">800</span>, <span class="do">## Epochs to repeat process on train set</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">deletion_trigger =</span> <span class="dv">80</span>, <span class="do">## Number of epochs in between subsumption &amp; deletion</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">deletion_threshold =</span> <span class="fl">0.95</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>And here the hyperparameters I use for this broken down approach:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Hyperparameters are key for performance of RLCS:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>iris_hyperparameters <span class="ot">&lt;-</span> <span class="fu">RLCS_hyperparameters</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">wildcard_prob =</span> <span class="fl">0.2</span>, <span class="do">## Probability that covering will choose a wildcard char</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">rd_trigger =</span> <span class="dv">10</span>, <span class="do">## Smaller means more rules generated through GA tournament</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mutation_probability =</span> <span class="fl">0.2</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  parents_selection_mode <span class="ot">&lt;-</span> <span class="st">"tournament"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">tournament_pressure =</span> <span class="dv">6</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Most important parameters to vary so far:</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_epochs =</span> <span class="dv">90</span>, <span class="do">## Epochs to repeat process on train set</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">deletion_trigger =</span> <span class="dv">30</span>, <span class="do">## Number of epochs in between subsumption &amp; deletion</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">deletion_threshold =</span> <span class="fl">0.98</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_pop_size =</span> <span class="dv">150</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You might notice in particular the number of epochs. With as many samples, but much shorter binary strings, searching the space is <strong>much</strong> faster and so this becomes acceptable. There is only so much information encoded in one pair of variables (instead of 4 variables at once).</p>
+<p>You might wonder about performance. Here the screenshots:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2_Layers_Full_training_time.png" class="img-fluid figure-img"></p>
+<figcaption>From 15 seconds to 5 (and that’s without parallelizing L1 training)</figcaption>
+</figure>
+</div>
+<p>So runtimes are divided by 3 here. And I could have parallelized the training of the 3 L1 sub-models, which in longer runtimes might make sense, whereby we would be talking in practice of going from 15 seconds to 3 seconds, 1/5 of the execution time.</p>
+<p>Training a stochastic model with iris returns notably variable accuracy, depending on what’s held-out, but regardless, I got a 97% accuracy with the hierarchical approach (incidently, only 90% accuracy with the simpler approach, but that’s perfectly irrelevant: it varies with each execution!).</p>
+<p>But what’s also noticeable is that, given the L1 essentially compresses information for L2 to leverage, the L2 model is much smaller:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L2_shorter.png" class="img-fluid figure-img"></p>
+<figcaption>Only 15 rules!</figcaption>
+</figure>
+</div>
+<p>Actually rule number one is basically saying that IF the 3rd sub-model of L1, the one that was trained on “rlcs_Petal.Length”, “rlcs_Petal.Width”, chooses to return versicolor, then the decision of the overall hierarchical model is sufficiently determined (100% accuracy), and you can disregard the other L1 sub-models.</p>
+<p>Is that very interpretable? Maybe not precisely so. But look again at the L2 rules above, considering that they represent 3 pairs of bits, one pair per L1 sub-model output, and you’ll quickly notice that often, with the choices of only one of the sub-models, the choices are made. Which means, you can explain the choices of each of such L2 rules with the rules of the corresponding L1 sub-model. Which, in turn, let’s remember was working on a mix of only 2 of the four initial variables. So it’s in fact simpler to explain the choice!</p>
+<p>And all with an OK accuracy. For comparison, the simple RLCS model training approach for the iris dataset with the parameters mentioned above returns a population of 735 rules! Hardly “easy” to interpret.</p>
+<p>So what do we have thus far?</p>
+<ul>
+<li><p>The simpler approach can be, as per our first test, 3 to 5 times slower</p></li>
+<li><p>In spite of loss of information, in this particular instance, accuracy seems unaffected (I’ve run the thing quite a few times, not just the once ;))</p></li>
+<li><p>The setup is much more complex for sure, but the resulting compounded rules in this instance were in fact not more difficult to interpret, if you understand the setup.</p></li>
+</ul>
+<p>So yes, setting things up was a pain (compared to one call to RLCS, and for that input encoding was already not easy).</p>
+<p>But it seems like a valuable approach to be investigated further!</p>
+</section>
+<section id="part-2-credit-assignment" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-credit-assignment">Part 2: Credit Assignment</h2>
+<p>Ok, now this other thing is actually potentially very cool, I think.</p>
+<p>Here goes. <strong>With the exercise above, I was separating signals and then merging them in a second layer of classification</strong>.</p>
+<p>Now let’s bring that idea to a Reinforcement Learning setup!</p>
+<p>More or less, <a href="https://kaizen-r.github.io/posts/2025-02-16_RLCS_World_Explorer_v001/">my “agent moving in a simulated world”</a> works just about fine.</p>
+<p>But it receives all it’s information as <strong>one feedback</strong>: The world, after each agent movement, tells the agent, in one encoded binary string, all the information of the cells (positions) immediately around it.</p>
+<p>Then the agent makes a choice of movement, and gets a reward (positive or negative) and a new binary string of its new position’s immediate environment.</p>
+<p>And that’s it.</p>
+<p>But see, the RLCS in that case uses the whole feedback signal, positional information, as one string.</p>
+<p>I was thinking, what if I gave the agent say… 2 input filters? One for food, one for enemies?</p>
+<p>OK, the agent doesn’t upfront know which is which (nor after training, it never knows what rewards positively I call food, but that’s irrelevant). The agent, after it’s trained, does act <strong>as if it understood</strong> that “green is good, red is bad”. I’ve shown that enough. Then again, <strong>it doesn’t understand of course</strong>.</p>
+<p>But as per what you could call a model of its world, well, the agent has only one perception channel, all at once.</p>
+<p>I want to see if I can separate then, using a <strong>filter</strong> (or a few filters), <strong>two channels</strong>, one for green, one for red. Maybe one for empty, too.</p>
+<p>So from my perspective, consider it like so: I’m giving it a <strong>stomach, motivating it</strong> (to be hungry and look for food), and <strong>fear of being hurt,</strong> motivating it to avoid red-cells. But my goal is to get the agent to learn these things <strong>separately</strong>.</p>
+<p>OK, but although to me (as the person who creates that simulated world) it’s very obvious, IF I separate both perceptions (let’s call them L1 sub-models), and merge them in a consolidation layer (L2, as per sections above today), then I come across an important issue:</p>
+<p><strong>Credit assignment</strong></p>
+<p>So <strong>if I don’t separate anything, the LCS algorithm will learn on the un-segregated signal where to put some attention to make a choice.</strong> That’s the very nature of the LCS algorithm which I hope I have explained enough.</p>
+<p>Now suppose a two layers hierarchy. The second layer is the one in fact consolidating the choices made by the L1 sub-models to take an action. And the L1 sub-models receive the input. But the L2 receives the reward signal. How to get past that disconnect? <strong>I can’t simply train the L1 sub-models in this scenario</strong>, because without my help, the algorithm will not be able to distinguish how to distribute the reward the <strong>L2 model gets</strong> to the afferent L1 models. And unless I can do that, I can’t know <strong>from L1</strong> what movement (up, down, right, left) I should propose to L2, for L2 to integrate.</p>
+<p>(I hope I’m making sense to the (very few) that will have read thus far).</p>
+<p>This is actually a <strong>very fundamental intellectual process</strong>.</p>
+<p>A bad example by yours truly (I should recue the example from a book by an expert…): If you knew <strong>nothing</strong> of the world, and at the same time heard a loud noise and felt a mild electric shock each time you were then-immediately given food, but only one of the two signals was responsible for the reward (the food), how would you know which sense to attend to next time? Ok, it’s not a great example, but hopefully the concept stands: <strong>you need to know to which signal to assign reward</strong>.</p>
+<p><em>Believe it or not I understand myself here :D</em></p>
+<p>OK, so now, I’m faced with an algorithm that is not meant to distribute rewards… But wanting to teach an agent with more senses than just the one it had thus far.</p>
+</section>
+<section id="an-idea-two-brains" class="level2">
+<h2 class="anchored" data-anchor-id="an-idea-two-brains">An idea: Two brains</h2>
+<p>Well, I think I’m going to give the agent… <strong>Two “brains”.</strong></p>
+<p>See, the <strong>RL example I’ve used in the past works OK</strong>. So I can use that to train a first model, <strong>the “first brain”.</strong></p>
+<p>But then, I <strong>can pass the world feedback AND THE RULES of the RL model,</strong> through the same <strong>filter</strong> for an hypothetical perception channel dedicated to food:</p>
+<p>If a <strong>position</strong> in the <strong>world</strong> feedback is <strong>green</strong>, I can somehow encode that as input for the second brain, to it’s “green input” filtered, L1 sub-model, it’s “food perception channel” if you will. It’s stomach.</p>
+<p>But this next bit is cool. Remember that rules in al RLCS population are simplified world input; simplified with the # character for “i don’t care about that signal for this rule”. What’s relevant for a rule’s choice is still encoded as a 0 or a 1. So the real world input that derived in the rule, the relevant information of it, is in the rule. It isn’t encoded in some matrix of numbers.</p>
+<p>If a <strong>position</strong> in the <strong>first brain population</strong> <strong>rule</strong> (yes, yes, it’s correct: An RLCS rule) <strong>corresponds to a Green cell</strong>, I can <strong>also</strong> pass it to the <strong>second brain’s food perception channel</strong> <strong>along with the</strong> <strong>accumulated reward for that rule</strong>.</p>
+<p><strong>Because the RLCS model is interpretable, I can in fact use it to feed another model!</strong></p>
+<p><strong>And now the magic:</strong></p>
+<p>I train the first brain, the RL Model first, and <strong>every now and then, I take say it’s best rules, and using the filters, I train</strong> the green (and respectively the red) <strong>L1 sub-models of the second brain plus the L2 sub-model of the second brain,</strong> as if it were a <strong>supervised</strong>, <strong>hierarchical</strong> RLCS model <strong>as the one described in part 1.5 above.</strong></p>
+<p>Because the first brain keeps track of rewards per rules, I can use that to feed the second brain.</p>
+<p>I would hope that <strong>after a while the second brain could take over the first brain</strong>, a bit as if the agent had <strong>internalized some rules, but now separated as per its new perception “channels”</strong>.</p>
+</section>
+<section id="part-2.5-conceptual-parallel" class="level2">
+<h2 class="anchored" data-anchor-id="part-2.5-conceptual-parallel">Part 2.5: Conceptual parallel</h2>
+<p>OK, so that all sounds a bit crazy. It kinda is. But now think about it this way.</p>
+<p>Are you born knowing what the light coming into your eyes means? What salty, sweet, means? (Surely, a lot of the baby’s perception is genetically encoded, fair enough). At first, not really, you experiment, and you learn. You encode information. That’s the RL part, I guess. But you and I we have different signals coming from different sensory input.</p>
+<p>Much later, you learn with experience to do certain things automatically, say driving to the office or closing your home upon leaving. So much so, sometimes you kind of forget whether you did in fact close the door (or is it just me?).</p>
+<p>Well, here, I’m talking of two processes too: one that learns from experience, and a second one that learns to make the choices without direct interactions.</p>
+<p>Now I’m no “AI Researcher”, but I think it’s actually pretty cool: I’m talking of assigning credit to the right signals.</p>
+<p>The second brain soon enough will recommend actions for an input even when not interacting with its world; and if proven right, could potentially take over from the first brain, or maybe in parallel of it, but with much smaller information channels: If I learn green is good and red is bad, and when to follow each advice, clearly separating both signals, <strong>I will have improved the encoding of the relevant world information</strong>.</p>
+<p>Although… This is all theory here, I haven’t put it to the test. But even the idea itself I feel is actually pretty cool.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p><strong>Did I just invent an RL+SL algorithm to create a World Model?</strong> (an explainable one, at that :D)</p>
+<p><strong>You know what? I DO NOT KNOW</strong>. I mean I’m pretty sure these ideas are all somehow mainstream in some circles. And yet, come to think of it, my approach wouldn’t work if you can’t “read” the RL model output to feed the second brain. So <strong>as-is, it couldn’t work for Deep Learning Neural Networks approaches</strong>. So I might in fact have come up with something a bit original.</p>
+<p>I guess if I keep looking for information, I’ll find a reference to that. Well, never-mind that, I came up with this idea independently.</p>
+<p>Maybe it’s an awful idea, time will tell. But I’m thinking maybe not… <strong>Maybe I am onto something here</strong>.</p>
+<p>Also, the ideas for today are based on:</p>
+<ul>
+<li><p>Incessant necessity to better encode and reduce input bit-strings, which is a problem I have known and thought about for a while, only because the RLCS algorithm, as I have it implemented, is so computationally costly, that I am forced to look for solutions. Part 1.5 of today was just that.</p></li>
+<li><p>But then, in working through that problem, and merging that with some ideas from a book I read recently (as <a href="https://kaizen-r.github.io/posts/2025-11-29_RLCS_NewResearchIdeas/">I mentioned here</a> for example), where credit assignement was mentioned (it’s mentioned in many places when you study Reinforcement Learning) is how I came up with today’s idea.</p></li>
+</ul>
+<p>Well, even though I’m pretty sure my idea of these past couple of days wasn’t all that original, <strong>I wouldn’t have thought of it if I had vibe-coded my way</strong> to work on Part 1 today (making code faster).</p>
+<p>So, just a reminder: <strong>The pain of working through problems is, I often find, valuable</strong>. One needs to <strong>keep thinking for themselves</strong>. My two cents on that.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
