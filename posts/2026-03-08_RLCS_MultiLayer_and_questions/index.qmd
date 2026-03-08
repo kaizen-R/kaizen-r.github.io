@@ -2,7 +2,7 @@
 title: "RLCS: Speed Improvements Update and the Question of Credit Assignment"
 author: "Nico"
 date: "2026-03-08"
-categories: [RLCS, Information, ML]
+categories: [RLCS, Information, ML, RL]
 ---
 
 ## **Intro**
