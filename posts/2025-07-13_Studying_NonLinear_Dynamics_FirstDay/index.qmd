@@ -23,7 +23,7 @@ I have done exercises about ODE in the past, but being able to follow the math, 
 
 After reading some comments online, I came across this book, highly recommended in its approach to the topic:
 
-![The reference book that I hope will change things](IMG_6595.jpg)
+![The reference book that I hope will change things](images/IMG_6595.jpg)
 
 ## "Day 1"
 
