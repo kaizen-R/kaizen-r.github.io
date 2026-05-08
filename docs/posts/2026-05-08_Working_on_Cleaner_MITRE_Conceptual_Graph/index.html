@@ -224,10 +224,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>BUT keep their neighborhood linked</p></li>
 </ul>
 <p>And it turns out, I couldn’t find that functionality within igraph!</p>
-<p>Not, at least, as I just simply described right above. You can generate subgraphs for instance, removing nodes for instance, but that removes as well the corresponding edges.</p>
+<p>Not, at least, as I just simply described right above. You can generate subgraphs for instance, removing nodes, but that removes as well the corresponding edges.</p>
 <p>However, what I aim for is, e.g.&nbsp;in the above screenshot: keep the relation between “pre-compromise” and “search closed sources”, just remove the node in between.</p>
 <p>Well, AFAIK right now, that wasn’t a native functionality.</p>
-<p>So I coded me-self a short function, really really simplistic (for now, as long as it works…):</p>
+<p>So I coded “me-self” a short function, really really simplistic (for now, as long as it works…):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>remove_vertex_keep_neighborhood <span class="ot">&lt;-</span> <span class="cf">function</span>(g, vid) {</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## ASSUMING igraph is loaded, of course...</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  t_neighbors <span class="ot">&lt;-</span> <span class="fu">neighbors</span>(g, vid)</span>
@@ -254,7 +254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>I don’t care about the TXXXX nodes here</figcaption>
 </figure>
 </div>
-<p>Here you can see how there are too many nodes that I wouldn’t quite know how to use.</p>
+<p>Here you can see how there are too many nodes that I wouldn’t quite know how to use directly with cybersecurity news.</p>
 <p>But after calling my little removal function on all TXXXX(.XXX) nodes, for instance, things get slightly cleaner:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -262,7 +262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Removing nodes while keeping relations…</figcaption>
 </figure>
 </div>
-<p>Now “Domains” and “Servers”, both that were linked to “Pre-compromise” through TT identifiers, are directly linked to the node as I wished.</p>
+<p>Now “Domains” and “Servers”, both that were linked to “Pre-compromise” through techniques identifiers, are directly linked to the node, as I wished.</p>
 </section>
 <section id="resulting-graph" class="level2">
 <h2 class="anchored" data-anchor-id="resulting-graph">Resulting graph</h2>
