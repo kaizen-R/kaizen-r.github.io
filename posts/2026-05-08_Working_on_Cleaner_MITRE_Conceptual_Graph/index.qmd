@@ -39,7 +39,7 @@ I want to do one thing:
 
 And it turns out, I couldn't find that functionality within igraph!
 
-Not, at least, as simply describe right above. You can generate subgraphs for instance, removing nodes for instance, but that removes as well the corresponding edges.
+Not, at least, as I just simply described right above. You can generate subgraphs for instance, removing nodes for instance, but that removes as well the corresponding edges.
 
 However, what I aim for is, e.g. in the above screenshot: keep the relation between "pre-compromise" and "search closed sources", just remove the node in between.
 
