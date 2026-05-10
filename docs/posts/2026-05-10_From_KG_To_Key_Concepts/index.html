@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nico">
-<meta name="dcterms.date" content="2026-05-08">
+<meta name="dcterms.date" content="2026-05-10">
 
-<title>Cleaner MITRE Conceptual Graph – Kaizen-R.com new home</title>
+<title>From Knowledge Graph to Key Concepts – Kaizen-R.com new home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,41 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -149,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Cleaner MITRE Conceptual Graph</h1>
+      <h1 class="title">From Knowledge Graph to Key Concepts</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">NLP</div>
                 <div class="quarto-category">cyber</div>
@@ -171,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">May 8, 2026</p>
+        <p class="date">May 10, 2026</p>
       </div>
     </div>
     
@@ -190,100 +155,126 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="continuing" class="level2">
-<h2 class="anchored" data-anchor-id="continuing">Continuing…</h2>
-<p>A few weeks back, I showed real quick what the R “mitre” package could do. See <a href="https://kaizen-r.github.io/posts/2026-04-25_OnMitre/">here</a>.</p>
-<p>Now that visual from the package is impressive, but not readable as-is, and also, not very useful if I mean to try and somehow “link it” to real Cybersecurity news.</p>
-<p>So I thought I’d give it another spin, as I still very much think a knowledge graph of sorts, taxonomy (with alt-text) and/or (ideally in some more distant future) an actual Ontology, any of it would help with adding semantics to free-text cyber-news. And then these semantic concepts in turn would help control dimensionality, with minimal loss of relevant information (in an ideal world).</p>
-<p>To be clear: This is quite exactly what people do when they do “Graph RAG” in an LLM context. But ontologies and NER and taxonomies and all that have been around for quite some time. Definitely more than ChatGPT…</p>
+<section id="and-it-goes-on" class="level2">
+<h2 class="anchored" data-anchor-id="and-it-goes-on">And it goes on…</h2>
+<p>I’ve shown a couple of days back how one could go from Mitre ATT&amp;CK data to a <strong>knowledge graph</strong> (“KG” from here on) of sorts.</p>
+<p>But there was a reason for it: I’d like to use such a KG to identify key concepts out of free texts on the same cybersecurity overall topic.</p>
+<p>So <strong>how to you go from one KG to its key concepts?</strong></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="graphing_mitre_still.png" class="img-fluid figure-img"></p>
-<figcaption>still working on graphs &amp; Mitre ATT&amp;CK</figcaption>
+<p><img src="capec_louvain_modularity_betw_clus13.png" class="img-fluid figure-img"></p>
+<figcaption>Finding the Relevant Node of a Network…</figcaption>
 </figure>
 </div>
 </section>
-<section id="ok-so-mitre-attck-take-2" class="level2">
-<h2 class="anchored" data-anchor-id="ok-so-mitre-attck-take-2">OK so: Mitre ATT&amp;CK, take 2</h2>
-<p>In the last post on the topic, the visuals, coming from the original <strong>mitre package</strong>, used codes and identifiers for nodes names. That’s not ideal for what I have in mind.</p>
-<p>So I thought, I would try to replicate the work, but use the nodes names. In many a case, it seems better (you’ll see as we go).</p>
-</section>
-<section id="missing-graph-operation" class="level2">
-<h2 class="anchored" data-anchor-id="missing-graph-operation">Missing Graph operation?</h2>
-<p>Now the mitre package includes all relevant data but links nodes by identifiers. If I use my little package “DF2GRAPH” directly on these tables, I face a rather obvious problem. Something like so:</p>
+<section id="graph-theory-to-the-rescue" class="level2">
+<h2 class="anchored" data-anchor-id="graph-theory-to-the-rescue">Graph Theory to the rescue</h2>
+<section id="step-1-community-detection" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-community-detection">Step 1: Community Detection</h3>
+<p>I’ve done it a couple of times, but it’s worth remembering here.</p>
+<p>Community Detection in graph theory is “simply” about identifying groups of nodes that, based on structural properties, essentially “clump together” (or “cluster”) more than with other nodes. This is in essence what the name implies: Find communities of nodes.</p>
+<p>If the above reminds you of k-means clustering, say, well, it’s because… It is about doing something similar after all.</p>
+<p>And there are a few algorithms out there for just that. I’ve been using Louvain for coloring nodes in graphs in recent posts.</p>
+<p>I will not go into details here, although one concept is worth mentioning about it, called “modularity”, if you fancy studying the theory further.</p>
+<p>In clustering things, you get different subgroups of nodes, each group a cluster or community, as extracted from the network own structure.</p>
+<p>In a perfect world, you big network of nodes can then be broken into smaller sub-networks, one per community, and if all goes as planned, each community loosely will correspond to some key topics and related nodes.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="IDs for linking nodes.png" class="img-fluid figure-img"></p>
-<figcaption>IDs as merging/joining datapoints</figcaption>
+<p><img src="capec_louvain_layout_fr.png" class="img-fluid figure-img"></p>
+<figcaption>Clustering on MITRE CAPEC Using Louvain (and igraph FR Layout)</figcaption>
 </figure>
 </div>
-<p>But see, for linking concepts to free text, I don’t expect many Bleeping Computer news to contain “T1597” in them… So that’s not very useful.</p>
-<p>I want to do one thing:</p>
+<p>Next, we need to extract the key topic of each community…</p>
+</section>
+<section id="step-2-vertex-centrality" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-vertex-centrality">Step 2: Vertex Centrality</h3>
+<p>Well, again, Graphs theory.</p>
+<p>We’re now focusing on one <strong>sub-graph</strong>, as induced by all nodes tagged as belonging to one community (and all edges among them that existed in the original bigger graph).</p>
+<p>You have a list of vertices (aka nodes). Each one in you graph, linked to one or more other vertices (unless the induced subgraph is in fact an isolated node, but these are of less interest…), each one with some properties.</p>
+<p>One easy one to understand is the vertex “degree”: Simply count the number of edges connecting to the vertex (and if the graph is directed, there are outbound and inbound edges… And multi-edges could make things more interesting. But that’s beyond the point).</p>
+<p>What if you sorted your list of vertices by decreasing degree? So the first vertex would be the one with most connections, the last with the fewest connections.</p>
+<p>In a graph, would you say a node that is connecting to all other nodes (for example) is more central than a node that only connects the first one? That’s one measure of centrality.</p>
+<p>There are a few other measures.</p>
 <ul>
-<li><p>Remove nodes</p></li>
-<li><p>BUT keep their neighborhood linked</p></li>
+<li><p>Betweenness centrality leverages shortest paths on the network (how to best connect any two nodes), and then considers the impact of removing a node on said paths. The more important the node as per that information, the higher its betweenness.</p></li>
+<li><p>Eigenvector-centrality uses properties of the adjacency matrix representing the graph.</p></li>
+<li><p>…</p></li>
 </ul>
-<p>And it turns out, I couldn’t find that functionality within igraph!</p>
-<p>Not, at least, as I just simply described right above. You can generate subgraphs for instance, removing nodes, but that removes as well the corresponding edges.</p>
-<p>However, what I aim for is, e.g.&nbsp;in the above screenshot: keep the relation between “pre-compromise” and “search closed sources”, just remove the node in between.</p>
-<p>Well, AFAIK right now, that wasn’t a native functionality.</p>
-<p>So I coded “me-self” a short function, really really simplistic (for now, as long as it works…):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>remove_vertex_keep_neighborhood <span class="ot">&lt;-</span> <span class="cf">function</span>(g, vid) {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## ASSUMING igraph is loaded, of course...</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  t_neighbors <span class="ot">&lt;-</span> <span class="fu">neighbors</span>(g, vid)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span>(<span class="fu">length</span>(t_neighbors) <span class="sc">&gt;</span> <span class="dv">1</span>) {</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(t_neighbors)<span class="sc">-</span><span class="dv">1</span>)) {</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      g <span class="ot">&lt;-</span> <span class="fu">add_edges</span>(g, <span class="fu">c</span>(t_neighbors[i]<span class="sc">$</span>id, t_neighbors[i<span class="sc">+</span><span class="dv">1</span>]<span class="sc">$</span>id))</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    t_neighbors <span class="ot">&lt;-</span> t_neighbors[<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(t_neighbors)]</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  g <span class="ot">&lt;-</span> <span class="fu">delete_vertices</span>(g, vid)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  g</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Pretty straightforward, I guess. Anyhow, that helps, let’s see how.</p>
-<p>(One issue here remains: You can easily end-up with duplicate edges, I’ll get to that next, but it’s not an awful problem for understanding the concept.)</p>
+<p>History bit: In case you were not aware, one now well known algorithm, actually derived from Eigenvector centrality, is Google’s “PageRank”, which powered (at least back in the day) Google’s search engine at the beginning and was at the origin of that company’s success in competing in the search engine industry…</p>
 </section>
-<section id="output-for-this-session" class="level2">
-<h2 class="anchored" data-anchor-id="output-for-this-session">Output for this session</h2>
-<p>So before my little exercise for today, I could “df-to-graph” my way from Mitre ATT&amp;CK data quite nicely, using relations of different things and concepts, but it would keep all identifiers of things.</p>
-<p>And so it would look a bit like so:</p>
+</section>
+<section id="results-putting-it-all-together" class="level2">
+<h2 class="anchored" data-anchor-id="results-putting-it-all-together">Results: Putting it all together</h2>
+<p>Let’s just see a few options of different clustering algorithms and different centrality measures, and how it actually seems to kind-a work correctly…</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="before_cleaning_function.png" class="img-fluid figure-img"></p>
-<figcaption>I don’t care about the TXXXX nodes here</figcaption>
+<p><img src="attack_louvainres2_betw_clus10.png" class="img-fluid figure-img"></p>
+<figcaption>Remember last post? Pre-Compromise sounded like the right choice. Well… :)</figcaption>
 </figure>
 </div>
-<p>Here you can see how there are too many nodes that I wouldn’t quite know how to use directly with cybersecurity news.</p>
-<p>But after calling my little removal function on all TXXXX(.XXX) nodes, for instance, things get slightly cleaner:</p>
+<p>For the above for instance, I used Louvain with a resolution modifier (identified more clusters), and then betweenness centrality, out of my ATT&amp;CK graph.</p>
+<p>But there are other datasets to be used, the next few entries are derived from the exact same exercise from the Mitre CAPEC dataset (simplified):</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="after_some_clean_up.png" class="img-fluid figure-img"></p>
-<figcaption>Removing nodes while keeping relations…</figcaption>
+<p><img src="capec_louvain_modularity_betw_clus11.png" class="img-fluid figure-img"></p>
+<figcaption>Louvain &amp; Betweenness work nicely: Locks stuff</figcaption>
 </figure>
 </div>
-<p>Now “Domains” and “Servers”, both that were linked to “Pre-compromise” through techniques identifiers, are directly linked to the node, as I wished.</p>
-</section>
-<section id="resulting-graph" class="level2">
-<h2 class="anchored" data-anchor-id="resulting-graph">Resulting graph</h2>
-<p>Iterating over all such nodes that I don’t like, removing them one-by-one, things look muuuuuch better:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="looking_good.png" class="img-fluid figure-img"></p>
-<figcaption>This is more like it</figcaption>
+<p><img src="capec_louvain_modularity_betw_clus12.png" class="img-fluid figure-img"></p>
+<figcaption>Louvain &amp; Betweenness work nicely: Host Discovery</figcaption>
 </figure>
 </div>
-<p>(You’ll notice the colours, don’t worry about them, they are coming from a Louvain clustering (community detection) algorithm, as I’ve already used in the past.)</p>
+<p>And one can test various combinations of clustering and centrality, why not:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="capec_walkrap_pgrank_clus5.png" class="img-fluid figure-img"></p>
+<figcaption>Walktrap &amp; Page Rank: Can also work, although maybe here it isn’t all that clear?</figcaption>
+</figure>
+</div>
+<section id="side-note-mitre-capec" class="level3">
+<h3 class="anchored" data-anchor-id="side-note-mitre-capec">Side note: Mitre CAPEC</h3>
+<p>You keep hearing about ATT&amp;CK, but there are other data sets from Mitre than come bundled with the R package “mitre”.</p>
+<p>The “Common Attack Pattern Enumerations and Classifications” is one of them, and by the way in the R package, relations are included to the related “Common Weakness Enumeration” entries, but also some OWASP Attacks, and CVE examples. I took for today only a subset of said CAPEC data.</p>
+<p>And yet another dataset from Mitre is included, one derived from the SHIELD knowledge base, although to be honest, I haven’t dug into that just yet. Maybe some other time.</p>
 </section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>Does Mitre ATT&amp;CK data not look a bit better now?</p>
-<p>What if, say, I could find mentions of “Email Addresses” (or some alternate name for that concept, using a taxonomy say), in a news article? Would that not link (potentially!) to a pre-compromise concept in the attached graph?</p>
-<p>What if I find things like mentions of some APT group or bad actor…? The same could apply. (See first screenshot for today :))</p>
-<p>Could I gather such (few) key <strong>meta-concepts of sorts</strong>, and try to find references to these in texts (with, definitely, <strong>some effort</strong>)?</p>
-<p>Well, if I could, I would use that to give some simpler concept to the texts, that I could use (on top of other approaches, I think “stacking” will be very necessary still…). And I would use that information to help train my model(s).</p>
-<p>Just as a Graph RAG approach would do for an LLM. But with no hallucination (I’m not using an LLM or thinking much about using any). If anything, I’m thinking of this whole thing as an alternative, supplementary check alongside LLMs… As a separate check of sorts.</p>
-<p>On the other hand… It does feel like <strong>creating a relevant Cybersecurity Ontology will require a lot of effort</strong>. And before I even consider that (assuming, which surely is wrong, there isn’t something already done out there), I need to test a bit the ideas I just mentioned. But, <strong>if it works</strong>, then it might be valuable for me to invest a bit of time with this whole ontology thing.</p>
+</section>
+<section id="why-it-matters" class="level2">
+<h2 class="anchored" data-anchor-id="why-it-matters">Why it matters?</h2>
+<p>Well, as a “domain expert” one would choose the key topics, probably, and then walk from there.</p>
+<p>With Mitre information for instance, I compiled a graph of mitigations, softwares, techniques &amp; tactics (I chose to exclude Groups, although they are very important, but all would be… “Groups”) out of ATT&amp;CK data.</p>
+<p>Well, but then without help, how do I choose what is important? What is key?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="manually identifying key nodes.png" class="img-fluid figure-img"></p>
+<figcaption>Manually identifying key nodes is costly</figcaption>
+</figure>
+</div>
+<p>But in some other instances, I might <strong>not be</strong> a domain expert.</p>
+<p>And what if the graph has (IDK) say 1000 nodes? 10000? <strong>Would I review it manually?</strong> (Maybe instead of Mitre ATT&amp;CK, I’m mixing datasets of Mitre but also NIST, OWASP…)</p>
+<p>Or I might want to be able to automate the identification of key concepts, if nothing else, to <strong>help me</strong> do the work of choosing <strong>what deserves to be a key concept</strong>.</p>
+</section>
+<section id="and-why-do-this-in-the-first-place" class="level2">
+<h2 class="anchored" data-anchor-id="and-why-do-this-in-the-first-place">And why do this in the first place?</h2>
+<p>I’ve explained the background a few times now, but let’s repeat one last time: I want to help a classification model (ML, in fact, my RLCS package for instance) work with free text.</p>
+<p>And as RLCS doesn’t like high dimensional data, like free text is, well, I mean to identify key topics and concepts out of the free text, and then classify texts using said key concepts, instead of the whole texts.</p>
+<p>With cybersecurity news, for instance, I’d happily identify that a news article mentions one or more CVE, and that’s straight forward. But it’s not usually as simple as that. And that’s why this (hobby, weekends) work has potential value.</p>
+<p>So instead, if a node of my hypothetical “Mitre Knowledge graph” as per the above is mentioned, e.g.&nbsp;some substring in the news article that matches (exactly, but that’s a different discussion, on taxonomies, thesaurus…), say, “lock picking”, I would add a note that the article relates to “Bypassing Electronic Locks &amp; Access Control”, the central node for the cluster where lock picking is a node.</p>
+<p>And if the text contains “influence via incentives”, I would tag the text with “Manipulate Human Behaviour” (see first picture in this post).</p>
+<p>And you know what? …</p>
+</section>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>Well, as it turns out, this was an important piece of my little puzzle to help classify texts.</p>
+<p>And it seems, <strong>it works. Nicely, too!</strong></p>
+<p>To be fair though, the chosen graphs shown above were <strong>cherry picked</strong>. <strong>I wish it was that simple!</strong></p>
+<p>But it almost is! In fact, for my purposes, my end goal as explained above, I don’t even need to actually agree with the clusters or the central vertex choices. <strong>As long as it makes at least a bit of sense.</strong></p>
+<p>Also, with reasonably few clusters, I could get a proposal of a set of nodes, and choose myself a better suited key concept.</p>
+<p>With little work (compared to potential graph sizes), I could settle on a few key concepts.</p>
+<p>And if that works, then, I shall be able eventually to encode news articles into lists of key concepts (present or not) and use that as binary strings for RLCS input…</p>
+<p>(RLCS, for instance, as a supervised learner for classification, would be doing data mining on the training set and then tell me, for a given classification, which key concepts correspond to which text class, maybe…)</p>
+<p>Alright. Enough for today.</p>
 
 
 </section>

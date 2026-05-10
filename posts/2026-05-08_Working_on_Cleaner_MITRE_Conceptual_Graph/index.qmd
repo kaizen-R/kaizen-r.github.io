@@ -2,7 +2,7 @@
 title: "Cleaner MITRE Conceptual Graph"
 author: "Nico"
 date: "2026-05-08"
-categories: [NLP, Cyber, Visualization]
+categories: [NLP, cyber, visualization]
 ---
 
 ## Continuing...
@@ -27,7 +27,7 @@ So I thought, I would try to replicate the work, but use the nodes names. In man
 
 Now the mitre package includes all relevant data but links nodes by identifiers. If I use my little package "DF2GRAPH" directly on these tables, I face a rather obvious problem. Something like so:
 
-![IDs as merging/joining datapoints](IDs for linking nodes.png)
+![IDs as merging/joining datapoints](IDs%20for%20linking%20nodes.png)
 
 But see, for linking concepts to free text, I don't expect many Bleeping Computer news to contain "T1597" in them... So that's not very useful.
 
