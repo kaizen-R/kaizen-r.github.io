@@ -65,7 +65,7 @@ History bit: In case you were not aware, one now well known algorithm, actually 
 
 Let's just see a few options of different clustering algorithms and different centrality measures, and how it actually seems to kind-a work correctly...
 
-![Remember last post? Pre-Compromise sounded like the right choice. Well... :)](attack_louvainres2_betw_clus10.png)
+![Remember [last post](https://kaizen-r.github.io/posts/2026-05-08_Working_on_Cleaner_MITRE_Conceptual_Graph/)? Pre-Compromise sounded like the right choice. Well... :)](attack_louvainres2_betw_clus10.png)
 
 For the above for instance, I used Louvain with a resolution modifier (identified more clusters), and then betweenness centrality, out of my ATT&CK graph.
 
