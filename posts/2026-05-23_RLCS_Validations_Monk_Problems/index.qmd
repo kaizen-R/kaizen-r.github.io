@@ -53,6 +53,8 @@ Which I found here: <https://link.springer.com/book/10.1007/3-540-45027-0>
 
 Original Dataset copy (AFAIK), but with bad certificate: <https://archive.ics.uci.edu/dataset/70/monk+s+problems>
 
+Official citation: Wnek, J. (1993). MONK's Problems \[Dataset\]. UCI Machine Learning Repository. <https://doi.org/10.24432/C5R30R.>
+
 Same dataset on Kaggle: <https://www.kaggle.com/datasets/lavagod/monk-problem>
 
 ## 

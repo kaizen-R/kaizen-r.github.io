@@ -5961,6 +5961,6 @@
     "href": "posts/2026-05-23_RLCS_Validations_Monk_Problems/index.html#references",
     "title": "RLCS: The Monks problems",
     "section": "References",
-    "text": "References\nThe Paper that motivated this entry: https://link.springer.com/chapter/10.1007/3-540-45027-0_12\nWhich I found here: https://link.springer.com/book/10.1007/3-540-45027-0\nOriginal Dataset copy (AFAIK), but with bad certificate: https://archive.ics.uci.edu/dataset/70/monk+s+problems\nSame dataset on Kaggle: https://www.kaggle.com/datasets/lavagod/monk-problem"
+    "text": "References\nThe Paper that motivated this entry: https://link.springer.com/chapter/10.1007/3-540-45027-0_12\nWhich I found here: https://link.springer.com/book/10.1007/3-540-45027-0\nOriginal Dataset copy (AFAIK), but with bad certificate: https://archive.ics.uci.edu/dataset/70/monk+s+problems\nOfficial citation: Wnek, J. (1993). MONK’s Problems [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5R30R.\nSame dataset on Kaggle: https://www.kaggle.com/datasets/lavagod/monk-problem"
   }
 ]
