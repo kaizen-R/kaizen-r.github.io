@@ -186,7 +186,7 @@ ul.task-list li input[type="checkbox"] {
 <p>See a few things happen:</p>
 <ul>
 <li><p>copying of data to the GPU. Now I thought, at least on my MacBook Air M1, that would be marginally worse, as supposedly CPU and GPU share the memory on the SoC. Apparently, lucky me, it does, <strong>but it actually gets better with M2 and onward</strong>… I purposefully avoid buying new hardware for now (waiting for M6, hopefully, the 2nm transistor thing…), so of course on M1 it’s well, not great…</p></li>
-<li><p>But clearly soooo much more relevant: copying back a forth onto the GPU is bad, but using a GPU to simply multiply one (or maybe a few) rather not gigantic (what, 50*5000) matrices with small (50) vectors… That’s almost idiotic, apparently. It turns out, my assumption was incomplete at best: <strong>yes</strong>, GPUs are great to multiply matrices,<strong>but only if</strong> you multiply very large matrices or do many parallel matrices operations<strong>!!!!</strong></p></li>
+<li><p>But clearly soooo much more relevant: copying back a forth onto the GPU is bad, but using a GPU to simply multiply one (or maybe a few) rather not gigantic (what, 50*5000) matrices with small (50) vectors… That’s almost idiotic, apparently. It turns out, my assumption was incomplete at best: <strong>yes</strong>, GPUs are great to multiply matrices, <strong>but only if</strong> you multiply very large matrices or do many parallel matrices operations<strong>!!!!</strong></p></li>
 </ul>
 <p>So, this has been thus far a rather loss of time, aside from <strong>my new learning on the topic (which, it just so happens, to me is just as important as the results!).</strong></p>
 <p><strong>If you want numbers</strong>, one exercise was quite literally <strong>twice as slow</strong> with multi-CPU+GPU, vs multi-CPU…</p>
@@ -207,7 +207,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
 <p>This took, in the end, the best part of a Sunday afternoon <strong>and</strong> a Saturday afternoon (yes, an LLM would have been faster, but I DO NOT CARE!).</p>
 <p>However, I finish the exercise (for now) on a positive note: It works, I know why it’s not helping with runtimes, and I have hints about where it might actually make a difference some day.</p>
-<p>On the negative side: Well, it kinda failed, as in things on M1 are in fact (quite a bit) slower than with pure GPU, and it shows I have a lot left to learn about GPU and their use…</p>
+<p>On the negative side: Well, it kinda failed, as in things on M1 are in fact (quite a bit) slower than with pure CPU, and it shows I have a lot left to learn about GPU and their use…</p>
 <p>Then again: Learning is a net positive… So in spite of the poor “results”, I’m actually quite happy!</p>
 
 
