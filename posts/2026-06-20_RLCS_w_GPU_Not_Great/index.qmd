@@ -41,7 +41,7 @@ But of course, that's simplistic.
 
 See a few things happen:
 
--   copying of data to the GPU. Now I thought, at least on my Macbook Air M1, that would be marginally worse, as supposedly CPU and GPU share the memore on the SoC. Apparently, lucky me, it does, **but it actually gets better with M2 and onwards**... I purposefully avoid buying new hardware for now (waiting for M6, hopefully, the 2nm thing...), so of course on M1 it's well, not great...
+-   copying of data to the GPU. Now I thought, at least on my MacBook Air M1, that would be marginally worse, as supposedly CPU and GPU share the memory on the SoC. Apparently, lucky me, it does, **but it actually gets better with M2 and onward**... I purposefully avoid buying new hardware for now (waiting for M6, hopefully, the 2nm transistor thing...), so of course on M1 it's well, not great...
 
 -   But clearly soooo much more relevant: copying back a forth onto the GPU is bad, but using a GPU to simply multiply one (or maybe a few) rather not gigantic (what, 50\*5000) matrices with small (50) vectors... That's almost idiotic, apparently. It turns out, my assumption was incomplete at best: **yes**, GPUs are great to multiply matrices,**but only if** you multiply very large matrices or do many parallel matrices operations**!!!!**
 
