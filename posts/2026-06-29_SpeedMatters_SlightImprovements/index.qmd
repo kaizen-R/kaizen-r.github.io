@@ -71,6 +71,12 @@ And here is a picture taken from [here](https://kaizen-r.github.io/posts/2025-05
 
 ![A year ago I was proud to go from 4' to 2.3"](not_bit_4_10_a_year_ago.png)
 
+And how about with Iris dataset?
+
+Here the trick is still very much related to choosing the right hyper-parameters, **and yet** here a screenshot which you can compare with last year:
+
+![larger population, better accuracy, more iterations, and more than twice as fast](iris_also_much_faster.png)
+
 There could be a miriad of factors influencing here, granted, but heck... It does seem to work better, right? :)
 
 ## Interlude
