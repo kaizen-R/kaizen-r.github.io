@@ -13,6 +13,8 @@ Over time, from the basic functionality, and using lists mostly, I have (today f
 
 -   Vectorized most operations where I could
 
+-   RCpp for compiled code where I thought it'd make a difference
+
 -   Prepared versions for parallelizing processing, by either:
 
     -   cutting datasets in subsets (which necessarily is often affecting models output quality)
@@ -23,7 +25,7 @@ Over time, from the basic functionality, and using lists mostly, I have (today f
 
 -   Used R environments to reduce copy-on-modify effects
 
--   And probably a few other things.
+-   And probably a few other things I'm forgetting right now...
 
 I've tried even to use the GPU. It "worked" but I'll need to keep thinking about how to leverage those matrices multiplications at scale if I want that to get anywhere.
 
@@ -95,13 +97,13 @@ But then look:
 
 -   Do I "need" a new Macbook? Objectively no, although I'm curious about what effect on GPU use this could have, but that's secondary to my library.
 
--   Could I get 100% faster run-times of all my simulations? Yes, that's what benchmarks say anyway, and actually quite a bit more if I considered M5 Pro with 18 CPU cores, of course... 4 times faster run-times, that sounds **nice**... But instead of depending on better hardware, **I should keep working on improving the code** (aside from clean, as you see I keep thinking about reducing run-times somehow).
+-   Could I get 100% better (e.g. 2x faster) run-times of all my simulations? Yes, that's what benchmarks say anyway, and actually quite a bit more if I considered M5 Pro with 18 CPU cores, of course... Say 4 times faster run-times overall, that sounds **nice**... But instead of depending on better hardware, **I should keep working on improving the code** (aside from clean, as you see I keep thinking about reducing run-times somehow).
 
 -   I kinda promised myself I'd wait for the next generation, the M6 chips, the 2nm transistors, and whatever magical improvements I'm hoping to see there. I've been waiting for a while, I should wait some more... (Although I truly don't care about the touch screen and whatever other stuff, just the CPU/GPU)
 
--   Look, my MacBook Air M1 is working **just fine**, I got it in November 2021, so I should definitely wait, if for nothing else, because I believe in this here: if you hadn't noticed, buying new computers is adding contamination to the World, and you might have noticed, that's bad. A lot of contamination by the way. So I should be sure I **truly** need a new device before I move forward.
+-   Look, my MacBook Air M1 is working **just fine**, I got it in November 2021, so I should definitely wait, if for nothing else, because I believe in this here: if you hadn't noticed, buying new computers is adding contamination to the World, and you might know, but if not I'll tell you: that's bad. A **lot of contamination, by the way**. Per device, and mostly upon fabrication. So I should be sure I **truly** need a new device before I move forward.
 
-Anyhow, these are some key reasons I held back. I don't know, but actually thinking about making the code better instead of moving to faster hardware, I'm actually quite happy about that.
+Anyhow, these are some key reasons I held back. I don't know, but thinking about **making the code better instead of moving to faster hardware**, I'm actually quite happy about that.
 
 Would I "like" a 4-5 times faster CPU? Look, if you've read my blog or if you know me a little, for sure you'll know: Yes, obviously.
 
@@ -109,7 +111,7 @@ But I'll save it for the future, for now.
 
 ## Conclusions
 
-With time, the code is getting more... Involved. Less easy to follow somehow. Messier, support for GPU (useless as it is), pre-calculating certain things, using environments instead of passing values, mixing matrices with lists comprehensions, vectorized operations, and parallelizing stuff in different manner, all add to the already not too easy algorithm (what with its several hyper-parameters).
+With time, the code is getting more... Involved. Less easy to follow somehow. Messier, support for GPU (useless-as-it-is), pre-calculating certain things, using R environments instead of passing values, mixing matrices with lists comprehensions, vectorized operations, and parallelizing stuff in different manner, all add to the already not too easy algorithm (what with its several hyper-parameters).
 
 But overtime, too, I've managed to profile run-times, and get substantial speed gains. So it's not gone to waste, at least.
 

@@ -160,6 +160,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Over time, from the basic functionality, and using lists mostly, I have (today focus is on speed, not other things):</p>
 <ul>
 <li><p>Vectorized most operations where I could</p></li>
+<li><p>RCpp for compiled code where I thought it’d make a difference</p></li>
 <li><p>Prepared versions for parallelizing processing, by either:</p>
 <ul>
 <li><p>cutting datasets in subsets (which necessarily is often affecting models output quality)</p></li>
@@ -167,7 +168,7 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 <li><p>Created matrices to calculate matches</p></li>
 <li><p>Used R environments to reduce copy-on-modify effects</p></li>
-<li><p>And probably a few other things.</p></li>
+<li><p>And probably a few other things I’m forgetting right now…</p></li>
 </ul>
 <p>I’ve tried even to use the GPU. It “worked” but I’ll need to keep thinking about how to leverage those matrices multiplications at scale if I want that to get anywhere.</p>
 <p>But that gave me an idea…</p>
@@ -233,17 +234,17 @@ ul.task-list li input[type="checkbox"] {
 <p>But then look:</p>
 <ul>
 <li><p>Do I “need” a new Macbook? Objectively no, although I’m curious about what effect on GPU use this could have, but that’s secondary to my library.</p></li>
-<li><p>Could I get 100% faster run-times of all my simulations? Yes, that’s what benchmarks say anyway, and actually quite a bit more if I considered M5 Pro with 18 CPU cores, of course… 4 times faster run-times, that sounds <strong>nice</strong>… But instead of depending on better hardware, <strong>I should keep working on improving the code</strong> (aside from clean, as you see I keep thinking about reducing run-times somehow).</p></li>
+<li><p>Could I get 100% better (e.g.&nbsp;2x faster) run-times of all my simulations? Yes, that’s what benchmarks say anyway, and actually quite a bit more if I considered M5 Pro with 18 CPU cores, of course… Say 4 times faster run-times overall, that sounds <strong>nice</strong>… But instead of depending on better hardware, <strong>I should keep working on improving the code</strong> (aside from clean, as you see I keep thinking about reducing run-times somehow).</p></li>
 <li><p>I kinda promised myself I’d wait for the next generation, the M6 chips, the 2nm transistors, and whatever magical improvements I’m hoping to see there. I’ve been waiting for a while, I should wait some more… (Although I truly don’t care about the touch screen and whatever other stuff, just the CPU/GPU)</p></li>
-<li><p>Look, my MacBook Air M1 is working <strong>just fine</strong>, I got it in November 2021, so I should definitely wait, if for nothing else, because I believe in this here: if you hadn’t noticed, buying new computers is adding contamination to the World, and you might have noticed, that’s bad. A lot of contamination by the way. So I should be sure I <strong>truly</strong> need a new device before I move forward.</p></li>
+<li><p>Look, my MacBook Air M1 is working <strong>just fine</strong>, I got it in November 2021, so I should definitely wait, if for nothing else, because I believe in this here: if you hadn’t noticed, buying new computers is adding contamination to the World, and you might know, but if not I’ll tell you: that’s bad. A <strong>lot of contamination, by the way</strong>. Per device, and mostly upon fabrication. So I should be sure I <strong>truly</strong> need a new device before I move forward.</p></li>
 </ul>
-<p>Anyhow, these are some key reasons I held back. I don’t know, but actually thinking about making the code better instead of moving to faster hardware, I’m actually quite happy about that.</p>
+<p>Anyhow, these are some key reasons I held back. I don’t know, but thinking about <strong>making the code better instead of moving to faster hardware</strong>, I’m actually quite happy about that.</p>
 <p>Would I “like” a 4-5 times faster CPU? Look, if you’ve read my blog or if you know me a little, for sure you’ll know: Yes, obviously.</p>
 <p>But I’ll save it for the future, for now.</p>
 </section>
 <section id="conclusions" class="level2">
 <h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>With time, the code is getting more… Involved. Less easy to follow somehow. Messier, support for GPU (useless as it is), pre-calculating certain things, using environments instead of passing values, mixing matrices with lists comprehensions, vectorized operations, and parallelizing stuff in different manner, all add to the already not too easy algorithm (what with its several hyper-parameters).</p>
+<p>With time, the code is getting more… Involved. Less easy to follow somehow. Messier, support for GPU (useless-as-it-is), pre-calculating certain things, using R environments instead of passing values, mixing matrices with lists comprehensions, vectorized operations, and parallelizing stuff in different manner, all add to the already not too easy algorithm (what with its several hyper-parameters).</p>
 <p>But overtime, too, I’ve managed to profile run-times, and get substantial speed gains. So it’s not gone to waste, at least.</p>
 <p>Will I manage to keep improving, more than marginally? At this point, it’s less and less clear, and yet…</p>
 <p><strong>I’ll keep trying.</strong></p>
