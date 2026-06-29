@@ -61,6 +61,18 @@ It turns out, I ran an operation a few times that is only needed once per enviro
 
 In supervised learning or data mining scenarios (not so much in RL setups), we could do that calculation for the full environment dataset in one go before proceeding with the algorithm, and call these values (from the R environment, it gets confusing sorry), instead of recalculating them.
 
+You might ask, all these "tricks", are they getting anywhere?
+
+Well, here is a runtime of the "not bit 4, 10 bits string" today, on the very same laptop (but about one year older if anything):
+
+![Twice as fast today](same_exercise_one_year_later.png)
+
+And here is a picture taken from [here](https://kaizen-r.github.io/posts/2025-05-25_RLCS_overall_faster/index.html#what-about-iris), a year or so ago:
+
+![A year ago I was proud to go from 4' to 2.3"](not_bit_4_10_a_year_ago.png)
+
+There could be a miriad of factors influencing here, granted, but heck... It does seem to work better, right? :)
+
 ## Interlude
 
 Yesterday I came across a 20% discount offer on new Macbooks. That's... A lot of money if you consider the high end devices. Plus, Apple is expected to rise prices (because of increase in chip/RAM costs because of GenAI craze and datacenters... It's better I didn't comment on that).

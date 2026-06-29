@@ -193,6 +193,22 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="meanwhile-minor-update">Meanwhile, minor update</h2>
 <p>It turns out, I ran an operation a few times that is only needed once per environment sample, namely to take an input string and transform it into a vector of bits. It’s a minor thing, but if I do it 2 or 3 times per sample, for each sample, and repeat that each epoch, I could easily have a few hundred thousand operations right there…</p>
 <p>In supervised learning or data mining scenarios (not so much in RL setups), we could do that calculation for the full environment dataset in one go before proceeding with the algorithm, and call these values (from the R environment, it gets confusing sorry), instead of recalculating them.</p>
+<p>You might ask, all these “tricks”, are they getting anywhere?</p>
+<p>Well, here is a runtime of the “not bit 4, 10 bits string” today, on the very same laptop (but about one year older if anything):</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="same_exercise_one_year_later.png" class="img-fluid figure-img"></p>
+<figcaption>Twice as fast today</figcaption>
+</figure>
+</div>
+<p>And here is a picture taken from <a href="https://kaizen-r.github.io/posts/2025-05-25_RLCS_overall_faster/index.html#what-about-iris">here</a>, a year or so ago:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="not_bit_4_10_a_year_ago.png" class="img-fluid figure-img"></p>
+<figcaption>A year ago I was proud to go from 4’ to 2.3”</figcaption>
+</figure>
+</div>
+<p>There could be a miriad of factors influencing here, granted, but heck… It does seem to work better, right? :)</p>
 </section>
 <section id="interlude" class="level2">
 <h2 class="anchored" data-anchor-id="interlude">Interlude</h2>
