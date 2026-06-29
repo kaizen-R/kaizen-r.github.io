@@ -77,7 +77,13 @@ Here the trick is still very much related to choosing the right hyper-parameters
 
 ![larger population, better accuracy, more iterations, and more than twice as fast](iris_also_much_faster.png)
 
-There could be a miriad of factors influencing here, granted, but heck... It does seem to work better, right? :)
+**Oh and for pictures?** I had already gone from 7 minutes to 1.5 minutes... Now I'm at 16 seconds!! (And that's without parallelizing or any of that). And that's with better accuracy!
+
+![Pictures Classification is also much faster...](from_7_to_1.5_min_to_16sec.png)
+
+Yes, I've taken my sweet time to get here, I'll agree to that. But I've learnt a bit along the way!
+
+And yes, there could be a myriad of factors influencing here, granted, but heck... It does seem to work better, right? :)
 
 ## Interlude
 
@@ -103,7 +109,7 @@ But I'll save it for the future, for now.
 
 ## Conclusions
 
-With time, the code is getting more... Involved. Less easy to follow somehow. Messier, support for GPU (useless as it is), pre-calculating certain things, using environments instead of passing values, mixing matrices with lists comprehensions, vectorized operations, and parallelizing stuff in different manner, all add to the already not too easy algorithm (what with its several hyperparameters).
+With time, the code is getting more... Involved. Less easy to follow somehow. Messier, support for GPU (useless as it is), pre-calculating certain things, using environments instead of passing values, mixing matrices with lists comprehensions, vectorized operations, and parallelizing stuff in different manner, all add to the already not too easy algorithm (what with its several hyper-parameters).
 
 But overtime, too, I've managed to profile run-times, and get substantial speed gains. So it's not gone to waste, at least.
 
