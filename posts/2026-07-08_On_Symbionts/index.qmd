@@ -1,0 +1,84 @@
+---
+title: "Using the concept of symbiosis?"
+author: "Nico"
+date: "2026-07-08"
+categories: [RLCS,ML,systems,complexity]
+---
+
+## Yet another book, new ideas...
+
+A quick post to write down some ideas from yesterday night...
+
+I was looking recently for more reading on "intelligence" to feed my interests about concepts potentially applicable to "artificial intelligence", and in my case that means mostly Machine Learning.
+
+I found "What is Intelligence?" by Blaise Agüera y Arcas (the one linked in Resources at the end of this post).
+
+And while still in the first part, I was going through "Virality" this morning and it inspired a new idea...
+
+## It goes like so
+
+"Evolution via symbiogenesis can encompass classical Darwinian theory as a special case".
+
+![So far, a rather interesting read!](whatisintelligence_book.png)
+
+Well, that's a rather bold (to me, with my incomplete background) yet interesting statement.
+
+More importantly, it just gave me an idea!
+
+## The idea of viruses
+
+Here goes:
+
+I can train an agent the "normal way". That's... Easy.
+
+What if, on top of (in parallel of) training an agent to live in an environment, I trained **much simpler/smaller agents** that **you could call viruses** on **much smaller subsets of the environment** (that could work in data mining and/or supervised learning setups at least), such that a virus would only survive if it has a non-empty correct set in its own small niche at least one in (say) 10 samples (environment exposures). When it doesn't, let's call it dormant. We keep the virus code (population) **strictly and extremely small** (say 10 rules max.).
+
+Now, the **goal of such viruses would be to survive** with at least one rule for (say) 2 generations. **If it does, then it is allowed to "infect" a full-blown agent** (that, remember, is itself evolving in the larger "world" complete environment).
+
+Therefore **successful viruses infect agents (their goal), while unsuccessful don't**.
+
+And **each virus can be trained very fast!** Now in a second processor core/thread, while the original agent separately is living its own life, **I could train tens or (potentially) hundreds of such viruses, many of which might not survive...**
+
+The **successful infections** of the main agent ("host") **would add to the search space**/innovation in its genetic code, as it would be quite **independently generated**.
+
+Would that help? I'm just talking additional search space in parallel, so **more innovation in genetic setups**, but at the same time, I'm really going for somewhat complex setups that **might in fact make things not much better**... Or maybe they work for large search spaces, I simply do not know.
+
+And I also am unsure about whether the added complexity would help with faster processing (paradoxically :D)...
+
+**And yet: It sounds like a cool idea to explore!**
+
+## Past idea too and refactoring of code
+
+So I had this one function that would do 3 different potential things, which made it more complicated than I liked.
+
+"rlcs_train_sl()" could train one agent on one processor core, of several with at least 2 different parallel processing schemes.
+
+That's... Not good. Also, I repeated code (because heck, each parallel process would in fact be training with the core simple process...).
+
+Anyhow, that's done, I have 3 functions instead of one, and you can choose your processing scheme.
+
+But this also will help with coding the viruses model above **and** a past idea of second layer of genetic algorithm, whereby instead of parallel agents and taking the best ones, I could train them basically as populations of agents.
+
+More importantly each agent could evolve (learn) in a subset of the environment. Each subset could be partially overlapping with the other agent(s) subsets of the environments, so that each agent (or sets of agents) "lives on its own country" with conditions that partially are the same as "neighboring countries". Then we can suppose agents sometimes reproduce with agents from different countries.
+
+Each agent separately might learn things that are good for their environment, but that upon mixing and moving to a new subset environment might be useless. That could become "dead genetic code" for a few generations and then become useful again when a new generation moves to an environment that does require that code (subset of rules).
+
+Now I'd be effectively doing a GA again. Tournament, crossing, mutation...
+
+But each agent would "live" in a slightly different environment, say maybe each covering 60% of the original "world" (complete environment). Also, each agent might need less iterations. And each agent can run in parallel.
+
+That would allow for a more complex version of the original parallel processing scheme, hopefully mixing subsetting of environments with better covering.
+
+Whether I can make that process faster with similar or better results than current parallel (or simple single-core) schemes is yet to be seen!
+
+## Conclusions
+
+I'm ready to test out some new more complex processing schemes that would leverage parallel processing and hopefully would allow for real fast processing while keeping good coverage of the environment so as to do faster processing of (large) datasets for Data Mining / Supervised Learning exercises.
+
+With somewhat cleaner code, I can "add" these new schemes to the original package if they prove useful in any scenario...
+
+Which again, I don't know will prove true for now. But I shall try!
+
+## Resources
+
+Open access to the book: <https://whatisintelligence.antikythera.org/>
