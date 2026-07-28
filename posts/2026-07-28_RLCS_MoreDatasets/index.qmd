@@ -71,6 +71,10 @@ Alright, that's **all fair: there are limitations**. It's definitely **not a per
 
 But there is value, too, and the interpretability and approach (metaheuristic, GA), it is all very interesting. To me, that is :)
 
+For the next couple of weeks though, I'll hold off testing/coding more stuff, and try to get on top of my reading list (which keeps growing). The balance is difficult for me, but I do like to read, and coding/writing is only ever about what I already know, I guess. If nothing else, I got a few papers on my todo, plus a few books...
+
+So a "pause of coding anything" for two weeks it is.
+
 ## References
 
 <https://archive.ics.uci.edu/dataset/73/mushroom>
