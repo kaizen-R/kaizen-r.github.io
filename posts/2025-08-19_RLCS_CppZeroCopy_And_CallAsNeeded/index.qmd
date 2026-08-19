@@ -41,4 +41,4 @@ In one speed test, we're talking 10% processing time reduction. (That does depen
 
 Well, I still try my best. Small improvements.
 
-But improvements, non-the-less.
+But improvements, nonetheless.
