@@ -1,0 +1,26 @@
+---
+title: "RLCS: Should I be going Full Matrix?"
+author: "Nico"
+date: "2026-08-19"
+categories: [RLCS,code]
+---
+
+## This whole time...
+
+I've been using lists. Then, lists alongside matrices. But...
+
+## This might be the shortest post thus far
+
+Why not simply always use matrices, get rid of the lists of rules, and decode when showing them but otherwise **rely solely on the matrices**?
+
+There is something about matrices, that is [memory reservation](https://computing.stat.berkeley.edu/tutorial-efficient-R/efficiency.html), that I should worry about a bit (because of objects being created/copied too much...).
+
+But that might be just it!
+
+Wouldn't operations on matrices (**indexed directly**) be **better than list comprehensions** (all these loops and vapply() calls...)?
+
+## Conclusions
+
+Well I'm already using matrices for matching. And updating them. But only sometimes, after rules are inserted as list in a population, itself an object (list) alongside the numeric matrices... Why not "just" use matrices in the first place?
+
+This will be my next focus: Trying and validating whether that makes sense. I think it just might!
