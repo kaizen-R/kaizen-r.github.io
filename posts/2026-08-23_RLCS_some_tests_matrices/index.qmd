@@ -17,26 +17,38 @@ But changing all the code in the package to stop relying on lists to move to a m
 
 So first I want to see **if** there will be a difference!
 
-After some tests, yes, but less than I had hoped.
+After some tests, yes, but **depending on how you measure things,** less than I had hoped.
 
-As it turns out, sub-setting rows of a matrix is costly. While updating a column is not. Oh well.
+As it turns out, sub-setting rows of a matrix is costly. While updating a column is not. And yes, using C++ seems more than promising again...
 
 ## Some results, visually
 
-Here the full test:
+Here the first full test, was done with profvis():
 
 ![We're talking about a 40% runtime reduction...](lists_v_matrices.png)
 
+But that's very little, so I kept going and I tried to run a version of the matrix approach but with C++ a bit.
+
+And then I ran a few tests with profvis and I was not... impressed, actually things were sometimes incoherent...
+
+So I switched to microbenchmark, which would hopefully be more helpful, and heck...
+
+![Now we're cookin'!](microbenchmarking_alternatives.png)
+
 ## Conclusions
 
-Well, if I don't subset, updating a column seems to be almost instantaneous compared to updating a list.
+In all cases now I'm using "zero-copy".
 
-But the moment I subset the matrix, well, it slows things down.
+If I don't subset, updating a column seems to be almost instantaneous compared to updating a list.
 
-In both cases I'm using "zero-copy".
+Still, 40% runtime reduction was good news up front, and that would apply to 30% of my overall RLCS runtime (if I do everything perfectly, that is), which would add up to \~12% overall runtime gain...
 
-Still, 40% runtime reduction is good news, and that out of 30% of my runtime (if I do everything perfectly, that is), that adds up to \~12% overall runtime gain...
+I'm talking about many many changes of the code, almost a complete overhaul here, so for a 10% improvement, I'm weary of it...
 
-I'm talking about many many changes of the code, almost a complete overhaul here, so for a 10% improvement, I'm weary of it... But I will keep looking into this, because the change of approach might just make a difference in other places too. And this was a rather easy/fast/basic test, but maybe there is something to be done differently still. IDK.
+(EDITED)
 
-To be continued...
+Now however other tests and further investigation into runtimes are showing (much) more promise.
+
+And all of the sudden the whole thing starts to make more sense, i.e. the cost of refactoring most of the code vs the positive impact I'm expecting to gain overall (now more like 20%, and with potentially more space for improvement)...
+
+To be continued!

@@ -161,27 +161,38 @@ ul.task-list li input[type="checkbox"] {
 <p>Of course I do it in bulk, and yes I’m using C++ for that even, but still it’s the slowest function (or maybe simply the one most called).</p>
 <p>But changing all the code in the package to stop relying on lists to move to a matrix-only setup is going to be a bit of a challenge (and the current code does work, so breaking it is not a fun idea).</p>
 <p>So first I want to see <strong>if</strong> there will be a difference!</p>
-<p>After some tests, yes, but less than I had hoped.</p>
-<p>As it turns out, sub-setting rows of a matrix is costly. While updating a column is not. Oh well.</p>
+<p>After some tests, yes, but <strong>depending on how you measure things,</strong> less than I had hoped.</p>
+<p>As it turns out, sub-setting rows of a matrix is costly. While updating a column is not. And yes, using C++ seems more than promising again…</p>
 </section>
 <section id="some-results-visually" class="level2">
 <h2 class="anchored" data-anchor-id="some-results-visually">Some results, visually</h2>
-<p>Here the full test:</p>
+<p>Here the first full test, was done with profvis():</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="lists_v_matrices.png" class="img-fluid figure-img"></p>
 <figcaption>We’re talking about a 40% runtime reduction…</figcaption>
 </figure>
 </div>
+<p>But that’s very little, so I kept going and I tried to run a version of the matrix approach but with C++ a bit.</p>
+<p>And then I ran a few tests with profvis and I was not… impressed, actually things were sometimes incoherent…</p>
+<p>So I switched to microbenchmark, which would hopefully be more helpful, and heck…</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="microbenchmarking_alternatives.png" class="img-fluid figure-img"></p>
+<figcaption>Now we’re cookin’!</figcaption>
+</figure>
+</div>
 </section>
 <section id="conclusions" class="level2">
 <h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>Well, if I don’t subset, updating a column seems to be almost instantaneous compared to updating a list.</p>
-<p>But the moment I subset the matrix, well, it slows things down.</p>
-<p>In both cases I’m using “zero-copy”.</p>
-<p>Still, 40% runtime reduction is good news, and that out of 30% of my runtime (if I do everything perfectly, that is), that adds up to ~12% overall runtime gain…</p>
-<p>I’m talking about many many changes of the code, almost a complete overhaul here, so for a 10% improvement, I’m weary of it… But I will keep looking into this, because the change of approach might just make a difference in other places too. And this was a rather easy/fast/basic test, but maybe there is something to be done differently still. IDK.</p>
-<p>To be continued…</p>
+<p>In all cases now I’m using “zero-copy”.</p>
+<p>If I don’t subset, updating a column seems to be almost instantaneous compared to updating a list.</p>
+<p>Still, 40% runtime reduction was good news up front, and that would apply to 30% of my overall RLCS runtime (if I do everything perfectly, that is), which would add up to ~12% overall runtime gain…</p>
+<p>I’m talking about many many changes of the code, almost a complete overhaul here, so for a 10% improvement, I’m weary of it…</p>
+<p>(EDITED)</p>
+<p>Now however other tests and further investigation into runtimes are showing (much) more promise.</p>
+<p>And all of the sudden the whole thing starts to make more sense, i.e.&nbsp;the cost of refactoring most of the code vs the positive impact I’m expecting to gain overall (now more like 20%, and with potentially more space for improvement)…</p>
+<p>To be continued!</p>
 
 
 </section>
