@@ -61,7 +61,7 @@ Actually, yet newer improvements (this afternoon), not based on C++ (which prove
 
 From 2.9s to 2.5s with MUX6:
 
-![Some simplifications and voilà!](mux6_new_benchmark.png){alt="Some simplifications and voilà!"}
+![Some simplifications and voilà!](mux6_new_benchmark.png)
 
 And another 1.4s was shaved out of Iris processing times, and another second for the MNIST49b exercise (6.7s down from almost 20!). And rule-set simplification for MNIST populations went from the recent 79s down to 72s. (meh...)
 
@@ -79,7 +79,7 @@ Still, it's useful. After simplifying further some checks (thanks to better choi
 
 ![Less checks, even on vectors, make things faster](details_last_update.png)
 
-Anyhow this is on top of past refactoring, [for instance 1.5s gains](http://localhost:5499/posts/2026-08-19_RLCS_CppZeroCopy_And_CallAsNeeded/) about 2 weeks ago.
+Anyhow this is on top of past refactoring, for instance [1.5s gains about 2 weeks ago](https://kaizen-r.github.io/posts/2026-08-19_RLCS_CppZeroCopy_And_CallAsNeeded/).
 
 ## It's far from finished
 
