@@ -1,0 +1,46 @@
+---
+title: "RLCS: v0.2.1, the big clean-up!"
+author: "Nico"
+date: "2026-09-06"
+categories: [RLCS,code]
+---
+
+## It's actually 00h47...
+
+This post is only a quick update on status with the last code improvements. Not yet published, mind you, I need to do another review, that'll come next weekend.
+
+But...
+
+## Cleaner, Faster... (Meaner?)
+
+The new version of the code as explained in the most recent posts is faster.
+
+But it was messy, a real bother for anyone who would want to look at it (nobody, I know, I know...). Well, it bothered me. Also, there were too many versions of the code commented out.
+
+One thing was, I had broken so many things along the way of "re-factoring", I also spent most of this weekend (past 2 days) re-working the RL side of things (it's similar, but not quite the same as, the Supervised Learning code...).
+
+Anyhow, to the conclusions for today...
+
+## Conclusions
+
+Code is now mostly cleaned-up, Reinforcement Learning is back to working status.
+
+And also, because now the thing is quite a bit faster, I can run the RL scenario for twice (or 3-times or whatever) as many iterations, letting my agent learn along many more experience steps, and... Well, see, it works fine, and it's fast enough now that the experience is not all that bad in fact!
+
+So all in all: The past two week-ends required many hours of coding (the RL thing should have been faster but I made a couple of mistakes during refactoring, and debugging those was, in that case, to me, well super-hard...).
+
+But it's done. I haven't pushed the latest code version to GH yet, but I'm spent for now. I just want to double-check & remove any unnecessary debug/past-version pieces... Nothing complicated now, it just requires a bit of time and caring... And I won't have much time this week, so the new code will be pushed next weekend, most probably.
+
+And then, I'll have to start looking into more use-cases (datasets) & make sure I use more quality metrics (I keep looking only at Accuracy, but there are others, F1, ROC-AUC, etc.).
+
+And from there, I'll want to look more into things such as:
+
+-   data complexity,
+
+-   knowledge engineering,
+
+-   or active learning
+
+-   and quite a few more like that...
+
+But enough for now :)
