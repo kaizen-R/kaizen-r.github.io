@@ -15,15 +15,13 @@ Inspired by some work of some new acquaintances at the University Rey Juan Carlo
 
 But there are other ways to measure the quality of a classification model.
 
-So I implemented two functions to evaluate the F1 score (and precision and recall) and the Matthew correlation coefficient.
+So I implemented two functions to evaluate the **F1 score** (and precision and recall) and the **Matthew correlation coefficient**.
 
 As these focus on positives/negatives, whenever there are two or more classes, one needs to decide which one is the positive. For now, I just calculate them for each class in turn.
 
 ## More datasets
 
-I have played a lot with demo datasets for data mining, with the Iris dataset, and also more recently with the "monk problems" and "mushrooms" (from UC Irvine).
-
-All classics for training Supervised Learning models.
+I have played a lot with demo datasets for data mining, with the Iris dataset, and also more recently with the "monk problems" and "mushrooms" (from UC Irvine). All classics for training Supervised Learning models.
 
 I now have thrown into the mix as well:
 
@@ -35,7 +33,7 @@ I now have thrown into the mix as well:
 
 -   UCI Adult (48842 samples, 14 variables)
 
-The interesting thing with these (alongside Iris and Mushrooms), as it turns out, a mix of number of samples and/or number of variables, most of which are numeric, by the way (far away from my demos of binary strings...).
+The interesting thing with these (alongside Iris and Mushrooms), as it turns out, a **mix of number of samples and/or number of variables**, most of which are numeric, by the way (far away from my demos of binary strings...).
 
 For instance, this has had an enormous impact when it came to choosing the "right" hyperparameters, including the length of bit strings for encoding.
 
@@ -47,11 +45,11 @@ It **shouldn't** have been a surprise, really.
 
 Alright so here goes:
 
-My "Rosetta Stone" encoding function can go as high as 6 bits per variable, meaning I can encode up to 64 "bins" for a given variable. But if there are in fact 64 of more unique values, then having more bins means **adding granularity** and bits to the bit string.
+My "Rosetta Stone" encoding function can go as high as 6 bits per variable, meaning I can encode up to 64 "bins" for a given variable. But if there are in fact 64 or more unique values, then having more bins means **adding granularity** and bits to the bit string (aka "state", the basic input alongside the "class", for the RLCS training).
 
-What's interesting is, as it turns out, it might actually help the RLCS algorithm to use **fewer, larger bins**: that means a smaller bit string, smaller search space, and faster processing. But also (and that was **"a thinker"**), that means **one bit might encode more information**.
+What's interesting is, as it turns out, it might actually **help the RLCS algorithm** to use **fewer, larger bins**: that means a smaller bit string, smaller search space, and faster processing. But also (and that was **"a thinker"**), that means **one bit might encode more information**.
 
-See: If I split one variable in **two** bins, I can **separate high from low values with one bit**. That bit then becomes *potentially* very important for the classification effort.
+See: If I split one variable in **two** bins, I can **separate high from low values with one bit**. That bit then becomes *potentially* very important for the classification effort.\*
 
 For instance, for the Heart Disease dataset, using a maximum of two bits per variable (up to 4 bins, then), and so going from, with 238 samples for training:
 
@@ -66,6 +64,8 @@ On the negative side, fewer bits mean possibly more input **information loss** o
 But after quite a few tests in the past couple of days with more datasets, it would appear **there is a balance to be found!**
 
 What I'm saying is: It appears **this might warrant some deeper investigation** right there.
+
+\*There is a second aspect to this: A future version of my Rosetta Stone encoder might be a little more clever: Instead of using "simple" medians, maybe I can use entropy? If I have three categories, but "one is more important" than the other two, I could then use two bits, one of which might suffice to encode information for the more important category/value. So RLCS could single out that one bit for classification choices. This is inspired by information theory and data compression schemes, really. So it makes perfect sense from a theoretical standpoint. Though in practice, I am unsure how much of an impact this might have... I guess we'll have to wait and see! To the "to-do" list then.
 
 ## Stratified sampling
 

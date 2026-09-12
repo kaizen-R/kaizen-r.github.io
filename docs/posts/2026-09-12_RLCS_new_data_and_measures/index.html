@@ -162,13 +162,12 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="new-measures">New measures</h2>
 <p>Inspired by some work of some new acquaintances at the University Rey Juan Carlos (URJC), I am focusing a bit now on better evaluating my implementation. One thing is, up until now, I have focused solely on accuracy.</p>
 <p>But there are other ways to measure the quality of a classification model.</p>
-<p>So I implemented two functions to evaluate the F1 score (and precision and recall) and the Matthew correlation coefficient.</p>
+<p>So I implemented two functions to evaluate the <strong>F1 score</strong> (and precision and recall) and the <strong>Matthew correlation coefficient</strong>.</p>
 <p>As these focus on positives/negatives, whenever there are two or more classes, one needs to decide which one is the positive. For now, I just calculate them for each class in turn.</p>
 </section>
 <section id="more-datasets" class="level2">
 <h2 class="anchored" data-anchor-id="more-datasets">More datasets</h2>
-<p>I have played a lot with demo datasets for data mining, with the Iris dataset, and also more recently with the “monk problems” and “mushrooms” (from UC Irvine).</p>
-<p>All classics for training Supervised Learning models.</p>
+<p>I have played a lot with demo datasets for data mining, with the Iris dataset, and also more recently with the “monk problems” and “mushrooms” (from UC Irvine). All classics for training Supervised Learning models.</p>
 <p>I now have thrown into the mix as well:</p>
 <ul>
 <li><p>UCI Hear Disease (297 samples, 13 variables)</p></li>
@@ -176,7 +175,7 @@ ul.task-list li input[type="checkbox"] {
 <li><p>UCI Breast Cancer (569 samples, 30 variables)</p></li>
 <li><p>UCI Adult (48842 samples, 14 variables)</p></li>
 </ul>
-<p>The interesting thing with these (alongside Iris and Mushrooms), as it turns out, a mix of number of samples and/or number of variables, most of which are numeric, by the way (far away from my demos of binary strings…).</p>
+<p>The interesting thing with these (alongside Iris and Mushrooms), as it turns out, a <strong>mix of number of samples and/or number of variables</strong>, most of which are numeric, by the way (far away from my demos of binary strings…).</p>
 <p>For instance, this has had an enormous impact when it came to choosing the “right” hyperparameters, including the length of bit strings for encoding.</p>
 <p>Actually…</p>
 </section>
@@ -184,9 +183,9 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="an-unexpected-lesson">An unexpected lesson</h2>
 <p>It <strong>shouldn’t</strong> have been a surprise, really.</p>
 <p>Alright so here goes:</p>
-<p>My “Rosetta Stone” encoding function can go as high as 6 bits per variable, meaning I can encode up to 64 “bins” for a given variable. But if there are in fact 64 of more unique values, then having more bins means <strong>adding granularity</strong> and bits to the bit string.</p>
-<p>What’s interesting is, as it turns out, it might actually help the RLCS algorithm to use <strong>fewer, larger bins</strong>: that means a smaller bit string, smaller search space, and faster processing. But also (and that was <strong>“a thinker”</strong>), that means <strong>one bit might encode more information</strong>.</p>
-<p>See: If I split one variable in <strong>two</strong> bins, I can <strong>separate high from low values with one bit</strong>. That bit then becomes <em>potentially</em> very important for the classification effort.</p>
+<p>My “Rosetta Stone” encoding function can go as high as 6 bits per variable, meaning I can encode up to 64 “bins” for a given variable. But if there are in fact 64 or more unique values, then having more bins means <strong>adding granularity</strong> and bits to the bit string (aka “state”, the basic input alongside the “class”, for the RLCS training).</p>
+<p>What’s interesting is, as it turns out, it might actually <strong>help the RLCS algorithm</strong> to use <strong>fewer, larger bins</strong>: that means a smaller bit string, smaller search space, and faster processing. But also (and that was <strong>“a thinker”</strong>), that means <strong>one bit might encode more information</strong>.</p>
+<p>See: If I split one variable in <strong>two</strong> bins, I can <strong>separate high from low values with one bit</strong>. That bit then becomes <em>potentially</em> very important for the classification effort.*</p>
 <p>For instance, for the Heart Disease dataset, using a maximum of two bits per variable (up to 4 bins, then), and so going from, with 238 samples for training:</p>
 <ul>
 <li><p>the default <strong>43 bits</strong>, <strong>~1 minute</strong>, <strong>73% accuracy</strong>, and for detected heart attack class: <strong>F1=0.65, MCC=0.46</strong></p></li>
@@ -196,6 +195,7 @@ ul.task-list li input[type="checkbox"] {
 <p>On the negative side, fewer bits mean possibly more input <strong>information loss</strong> of course.</p>
 <p>But after quite a few tests in the past couple of days with more datasets, it would appear <strong>there is a balance to be found!</strong></p>
 <p>What I’m saying is: It appears <strong>this might warrant some deeper investigation</strong> right there.</p>
+<p>*There is a second aspect to this: A future version of my Rosetta Stone encoder might be a little more clever: Instead of using “simple” medians, maybe I can use entropy? If I have three categories, but “one is more important” than the other two, I could then use two bits, one of which might suffice to encode information for the more important category/value. So RLCS could single out that one bit for classification choices. This is inspired by information theory and data compression schemes, really. So it makes perfect sense from a theoretical standpoint. Though in practice, I am unsure how much of an impact this might have… I guess we’ll have to wait and see! To the “to-do” list then.</p>
 </section>
 <section id="stratified-sampling" class="level2">
 <h2 class="anchored" data-anchor-id="stratified-sampling">Stratified sampling</h2>
