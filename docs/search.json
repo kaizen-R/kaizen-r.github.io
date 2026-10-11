@@ -6690,5 +6690,222 @@
     "title": "RLCS: A walk in the ‘woods’",
     "section": "Resources",
     "text": "Resources\nThe author of the XCS algorithm\nThe paper where woods1 was introduced (AFAIK)\nThe paper where woods2 was introduced\nThe paper with the introduction of the mazef1-4 worlds\nSomeone else had some such different worlds prepared, alongside their own XCSF algorithm implementation, in fact."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#day-0-the-book-the-hobby",
+    "href": "others/FromHobbyToPhDwR.html#day-0-the-book-the-hobby",
+    "title": "From Hobby to PhD, with R",
+    "section": "Day 0: the book, the hobby",
+    "text": "Day 0: the book, the hobby\nAfter reading about J.H. Holland’s LCS algorithm in Melanie Mitchell’s book on Complexity…\n\nHow it started"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#day-29-the-functional-version",
+    "href": "others/FromHobbyToPhDwR.html#day-29-the-functional-version",
+    "title": "From Hobby to PhD, with R",
+    "section": "Day 29: the functional version",
+    "text": "Day 29: the functional version\nAlready there the thing worked. But I already had some first simplifications that today, 2 years later, persist and make it wrong (and better at the same time!) A few month later it was my first R package."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#day-720-the-phd",
+    "href": "others/FromHobbyToPhDwR.html#day-720-the-phd",
+    "title": "From Hobby to PhD, with R",
+    "section": "Day 720 (?): the PhD",
+    "text": "Day 720 (?): the PhD\nI was officially accepted October 8th, 2026. Joyful time. I’ll come to why a PhD later."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#lists-everywhere",
+    "href": "others/FromHobbyToPhDwR.html#lists-everywhere",
+    "title": "From Hobby to PhD, with R",
+    "section": "Lists everywhere",
+    "text": "Lists everywhere\nFirst version. Worked. Dataframes are also lists, but I wanted to store vectors inside cells, which requires lists and so… Just lists! It made conceptual sense, where each rule in a population was a list itself."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#profvis",
+    "href": "others/FromHobbyToPhDwR.html#profvis",
+    "title": "From Hobby to PhD, with R",
+    "section": "Profvis",
+    "text": "Profvis\nBefore we continue, we’ll need to measure speed and find bottlenecks.\n\nprofvis is key to find bottlenecks"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#microbenchmark",
+    "href": "others/FromHobbyToPhDwR.html#microbenchmark",
+    "title": "From Hobby to PhD, with R",
+    "section": "Microbenchmark",
+    "text": "Microbenchmark\nTurns out when things get faster and into details, overall comparisons are better with this package"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#hyperparameters",
+    "href": "others/FromHobbyToPhDwR.html#hyperparameters",
+    "title": "From Hobby to PhD, with R",
+    "section": "Hyperparameters!!",
+    "text": "Hyperparameters!!\nThe crux of the algorithm. Actually, a conceptual issue with this: hyper parameters tuned per dataset means… We give meta information about the dataset, it’s then “less pure” than pure ml. That itches my brain…"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#rcpp",
+    "href": "others/FromHobbyToPhDwR.html#rcpp",
+    "title": "From Hobby to PhD, with R",
+    "section": "Rcpp",
+    "text": "Rcpp\nWhen R is slow, and AFTER trying anything you could… Particularly for loops, try C++…"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#matrices-matching",
+    "href": "others/FromHobbyToPhDwR.html#matrices-matching",
+    "title": "From Hobby to PhD, with R",
+    "section": "Matrices matching",
+    "text": "Matrices matching\nI thought about that all on my own. I might not be great at math but… %*%"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#parallel-processing",
+    "href": "others/FromHobbyToPhDwR.html#parallel-processing",
+    "title": "From Hobby to PhD, with R",
+    "section": "Parallel processing",
+    "text": "Parallel processing\nThat’s been an option for me since the time of long 37h simulation runs for my last MSc, and I’ve tried a few combinations. I settle on foreach-dopar.\n\nSave runtimes through parallel processing"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#environments-zero-copy",
+    "href": "others/FromHobbyToPhDwR.html#environments-zero-copy",
+    "title": "From Hobby to PhD, with R",
+    "section": "Environments & Zero Copy",
+    "text": "Environments & Zero Copy\nThis I tested a few months back in R, and then migrated all R functions to using that. Too many calls with too many slight modifications on large objects. It’s less clean, less “functional”, which I don’t like. But it is faster."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#skipping-steps",
+    "href": "others/FromHobbyToPhDwR.html#skipping-steps",
+    "title": "From Hobby to PhD, with R",
+    "section": "Skipping steps",
+    "text": "Skipping steps\nWho says you HAVE to follow the pseudo code to the letter? I never quite did the prescribed deletion steps, only after subsumption. And accuracy calculations are then needed much less often! (And only before actual deletion)"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#the-help",
+    "href": "others/FromHobbyToPhDwR.html#the-help",
+    "title": "From Hobby to PhD, with R",
+    "section": "The help",
+    "text": "The help\nMy very first few conversations with my then future thesis directors, two chats and (quite a few, I’m super verbose…) emails… And I already had new hints!"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#matrices-everywhere",
+    "href": "others/FromHobbyToPhDwR.html#matrices-everywhere",
+    "title": "From Hobby to PhD, with R",
+    "section": "Matrices everywhere",
+    "text": "Matrices everywhere\nI just got rid of the lists altogether. It was a bit of refactoring that was scary then but in the end took two weekends…"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#automating-tests-and-bit-string-length-regularization",
+    "href": "others/FromHobbyToPhDwR.html#automating-tests-and-bit-string-length-regularization",
+    "title": "From Hobby to PhD, with R",
+    "section": "Automating tests and Bit string length (regularization)",
+    "text": "Automating tests and Bit string length (regularization)\nAlready for images classification I used heavy compression.\nAs per my new directors’ directions, I now worked on validation of the algorithm. One thing was doing more involved tests on larger datasets. And one derived test was to vary granularity of continuous data encoding into bins… And it turned out I had re-discovered “regularization”. I just didn’t know the term."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#section",
+    "href": "others/FromHobbyToPhDwR.html#section",
+    "title": "From Hobby to PhD, with R",
+    "section": "",
+    "text": "Being (much) more formal, validation, state of the art Eg UCS and me skipping for two years a whole step of the SL algorithm (and incidentally, my version is ~faster and converges better! But uses more memory)\nNew datasets, stratified N fold validations, literature review, better ml metrics, repeatability…"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#section-1",
+    "href": "others/FromHobbyToPhDwR.html#section-1",
+    "title": "From Hobby to PhD, with R",
+    "section": "",
+    "text": "Better Encodings, regularization and its effects, improvements hopefully there And maybe use gini/entropy to change encoding length? Things like that, there is a lot to be considered! Trees encoding, etc."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#active-learning-data-complexity",
+    "href": "others/FromHobbyToPhDwR.html#active-learning-data-complexity",
+    "title": "From Hobby to PhD, with R",
+    "section": "Active learning & Data Complexity",
+    "text": "Active learning & Data Complexity\nThat’s how I came to know my then future directors. But because after discovering the concept, I thought I could come up with new data complexity measures, specific to RLCS. and then further improvements, because I could leverage those for active learning, exposing to fewer samples while maintaining classification quality, and hence reduce runtimes. Hopefully anyway."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#interpretability",
+    "href": "others/FromHobbyToPhDwR.html#interpretability",
+    "title": "From Hobby to PhD, with R",
+    "section": "Interpretability",
+    "text": "Interpretability\nWhile inherently interpretable, it gets complex quickly. I’m curious about whether I can improve on that aspect."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#plus-it-helps-me",
+    "href": "others/FromHobbyToPhDwR.html#plus-it-helps-me",
+    "title": "From Hobby to PhD, with R",
+    "section": "plus it helps me!",
+    "text": "plus it helps me!\nToday I value the setting of clear directions, the push, and above all super clever people to have interesting conversations with on the topic that somehow currently keeps me in love with computing, ML etc."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#section-2",
+    "href": "others/FromHobbyToPhDwR.html#section-2",
+    "title": "From Hobby to PhD, with R",
+    "section": "",
+    "text": "So… Did I use them? The chatbots? Not for any code of RLCS. Because I didn’t have a time pressure. So I take my time! And sweat a comma for hours, because I can. The satisfaction that comes with coding and finding that damn comma! Maybe not using AI is really a privilege?\nYes in my daily life I am very very much aware of AI, it’s part of my job to secure their use in a large corporation. And yes I do use chatbots to help me review literature (I don’t know how this was done before, search doesn’t cut it either!) and discuss my own ideas, as a sparring opponent."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#section-3",
+    "href": "others/FromHobbyToPhDwR.html#section-3",
+    "title": "From Hobby to PhD, with R",
+    "section": "",
+    "text": "So… Did I use them? The chatbots? Not for any code of RLCS. Because I didn’t have a time pressure. So I take my time! And sweat a comma for hours, because I can. The satisfaction that comes with coding and finding that damn comma! Maybe not using AI is really a privilege?\nYes in my daily life I am very very much aware of AI, it’s part of my job to secure their use in a large corporation. And yes I do use chatbots to help me review literature (I don’t know how this was done before, search doesn’t cut it either!) and discuss my own ideas, as a sparring opponent."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#and-why-a-phd",
+    "href": "others/FromHobbyToPhDwR.html#and-why-a-phd",
+    "title": "From Hobby to PhD, with R",
+    "section": "And why a PhD?",
+    "text": "And why a PhD?\nI jumped in my seat, 2 years ago, at these very conferences, to the tune of “AI could write my thesis”. Well, Ai can write papers, indeed! But why do a PhD then?\nI KNOW, I realize I am naive and idealistic and romantic here. A PhD is supposed to be about making a scientific progress, something not existing yet. Critically, I also understand that maybe a speck of dust in the grand scheme of things, something tiny, minor, minuscule. But something new, nevertheless. A new conclusion, a new approach, a never documented before combination of techniques.\nI am fortunate enough that I don’t need to do a PhD. I am not an academic, barely an engineer at this point. Nobody requires it from me, I won’t get a promotion for it (3-5 years from now when I’m done…) I just like to learn and understand things. I love the idea of coming up with something that will be a bit better. A grain of sand at best, but I will make the smallest of difference.\nThat, and my wife wouldn’t let me study another MSc.!"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#section-4",
+    "href": "others/FromHobbyToPhDwR.html#section-4",
+    "title": "From Hobby to PhD, with R",
+    "section": "",
+    "text": "So… Did I use them? The chatbots? Not for any code of RLCS. Because I didn’t have a time pressure. So I take my time! And sweat a comma for hours, because I can. The satisfaction that comes with coding and finding that damn comma! Maybe not using AI is really a privilege?\nYes in my daily life I am very very much aware of AI, it’s part of my job to secure their use in a large corporation. And yes I do use chatbots to help me review literature (I don’t know how this was done before, search doesn’t cut it either!) and discuss my own ideas, as a sparring opponent."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#what-taking-time-means",
+    "href": "others/FromHobbyToPhDwR.html#what-taking-time-means",
+    "title": "From Hobby to PhD, with R",
+    "section": "What taking time means",
+    "text": "What taking time means\nhtmltools::"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#what-taking-time-entails",
+    "href": "others/FromHobbyToPhDwR.html#what-taking-time-entails",
+    "title": "From Hobby to PhD, with R",
+    "section": "What taking time entails…",
+    "text": "What taking time entails…\nValue of coding as pounder time, testing approaches, coming up with alternatives… reading as digesting time, finding new ideas…\n\n\n\n\n\n\nFinal graph (visNetwork colored by node type for books ideas papers code…), showing all concepts I’ve worked through, myself, my improved understanding, that I wouldn’t have gone through with the use of delegation to an LLM. All topics of speed above but also papers, UCS XCS, Dawkins evolution, data encoding, images and compression and kernels, agents and environments and reward shaping and explore exploit, regularization, topology, rl Sutton and Barto, multi agent, history of intelligence, complex systems, graphs theory, numerical methods matrices operations, pattern recognition from degree, holland ga, data complexity, ontology kg nlp, ml metrics, active learning …"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#llms-for-code",
+    "href": "others/FromHobbyToPhDwR.html#llms-for-code",
+    "title": "From Hobby to PhD, with R",
+    "section": "LLMs for Code",
+    "text": "LLMs for Code\n\nWell yes, they’re here.\nAnd yes they’re incredible at code.\nBetter than I am, no contest.\nThat does not mean we have to use them. At least not for a hobby."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#day-0-the-book-the-hobby-1",
+    "href": "others/FromHobbyToPhDwR.html#day-0-the-book-the-hobby-1",
+    "title": "From Hobby to PhD, with R",
+    "section": "Day 0: the book, the hobby",
+    "text": "Day 0: the book, the hobby\n\nnot great at math.\na bit better at algorithms\ninformation as foundational of all things, the “bit” as the elemental component\ngenetic algorithms make sense to me (survival, pressured randomness, search & optimization)\nsuper slow though\n\nTHE BEST INTRO to the LCS Algorithm out-there (hands down!) (12’ video)"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#day-21-the-functional-version",
+    "href": "others/FromHobbyToPhDwR.html#day-21-the-functional-version",
+    "title": "From Hobby to PhD, with R",
+    "section": "Day 21: the functional version",
+    "text": "Day 21: the functional version\nAlready there the thing worked. But I already had some first simplifications that today, 2 years later, persist and make it wrong (and better at the same time!) A few month later it was my first R package."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#day-670-the-phd",
+    "href": "others/FromHobbyToPhDwR.html#day-670-the-phd",
+    "title": "From Hobby to PhD, with R",
+    "section": "Day ~670: the PhD",
+    "text": "Day ~670: the PhD\nI was officially accepted October 8th, 2026. Joyful time. I’ll come to why a PhD later."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#what-happened-in-between-focus-on-speed.",
+    "href": "others/FromHobbyToPhDwR.html#what-happened-in-between-focus-on-speed.",
+    "title": "From Hobby to PhD, with R",
+    "section": "What happened in between? Focus on speed.",
+    "text": "What happened in between? Focus on speed.\nI didn’t buy a fresher Mac (I could have..)\n\nHere I’ll go rather super fast, I need to put maybe one line (package, difference, blog source… super short!) This is the part that is indeed about R, so it’s relevant, but the next part is important too, on the reason for coding."
   }
 ]

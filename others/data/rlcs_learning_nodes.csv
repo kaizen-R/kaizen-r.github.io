@@ -1,0 +1,11 @@
+id,name,group
+1, R, code
+2, RLCS, code
+3, XCS, code
+4, XCS.PDF, paper
+5, Reinforcement Learning, theory
+6, UCS, code
+7, Supervised Learning, theory
+8, The Selfish Gene, book
+9, Sutton & Barto's RL, book
+
