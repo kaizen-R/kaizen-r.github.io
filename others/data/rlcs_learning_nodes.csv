@@ -8,4 +8,65 @@ id,name,group
 7, Supervised Learning, theory
 8, The Selfish Gene, book
 9, Sutton & Barto's RL, book
-
+10, Reward Shaping, theory
+11, Sample Average, theory
+12, TD, theory
+13, Introduction to LCS, book
+14, Learning Classifier Systems, book
+15, Minsky & Papert's Perceptrons, book
+16, A brief history of Intelligence, book
+17, Rcpp, code
+18, Advanced R, code
+19, R Packages, code
+20, The Infinity Machine, book
+21, Code, book
+22, What is intelligence, book
+23, LCS, theory
+24, What is a Learning Classifier System, paper
+25, A complete description of UCS, paper
+26, Interpretable Machine Learning (Molnar), book
+27, Complexity (Mitchell), book
+28, Modern Optimization with R, book
+29, The Information, book
+30, The road to conscious machines, book
+31, Active Learning, theory
+32, Data Complexity, theory
+33, The art of doing science and engineering, book
+34, The origins of efficiency, book
+35, Environments, code
+36, matrices multiplication, theory
+37, Numerical Methods, theory
+38, An Introduction to Anticipatory Classifier Systems, paper
+39, Revisiting UCS: Description Fitness sharing ..., paper
+40, Investigating Scaling of an Abstracted LCS utilizing Ternary and S-Expression Alphabets, paper
+41, Classifier Conditions using Gene Expression programming, paper
+42, partitioning trees, theory
+43, random forests, theory
+44, neural networks, theory
+45, Gray Encoding, theory
+46, binary encoding, theory
+47, parallel processing, theory
+48, TF-IDF, theory
+49, NLP, theory
+50, Graphs Theory, theory
+51, Machine Learning, theory
+52, Iris, code
+53, Breast Cancer, code
+54, Mushrooms, code
+55, Adults, code
+56, Accuracy, theory
+57, F1 Score, theory
+58, Mathew Correlation Coef, theory
+59, Genetic Algorithms, theory
+60, Genetic Programming, theory
+61, Fundamentos de la computación evolutiva, book
+62, Interpretable ML with Python (Masis), book
+63, Ontology Pipelines (Talisman), book
+64, Search Space, theory
+65, Feature Engineering, theory
+66, Regularization, theory
+67, A guided Tour of Artificial Intelligence Research (Vols 1 & 2), book
+68, Surfaces & Essences (Hofstadter), book
+69, Genius Makers (Metz), book
+70, Minimally overfitted learners, paper
+71, Hostility measure for multi-level study of data complexity, paper

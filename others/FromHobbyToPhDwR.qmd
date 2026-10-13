@@ -142,6 +142,19 @@ Today I value the setting of clear directions, the push, and above all super cle
 -   *Better than I am, no contest*.
 -   That does **not** mean we **have** to use them. At least not for a hobby.
 
+## RLCS with LLM
+
+
+```{r, echo=FALSE}
+library(visNetwork)
+library(igraph)
+g1 <- igraph::graph_from_data_frame(read.csv('./data/rlcs_llm_graph.csv'), vertices = read.csv('./data/rlcs_llm_nodes.csv'), directed = FALSE)
+
+# vis_g <- 
+    visNetwork::visIgraph(g1)
+# visNetwork::visSave(g, './others/data/rlcs_learning_graph.html')
+```
+
 ## What taking time entails...
 
 Value of coding as pounder time, testing approaches, coming up with alternatives… reading as digesting time, finding new ideas…
