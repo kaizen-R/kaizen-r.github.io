@@ -47,7 +47,9 @@ I was officially accepted October 8th, 2026. Joyful time. I’ll come to why a P
 
 ## What happened in between? Focus on speed.
 
-I didn’t buy a fresher Mac (I could have..)
+I didn’t buy a fresher Mac (Maybe I should have..)
+
+![Long running multi-Core process in passive cooled Macbook Air M1](images/passive_active_cooling.jpeg)
 
 ::: notes
 Here I’ll go rather super fast, I need to put maybe one line (package, difference, blog source… super short!) This is the part that is indeed about R, so it’s relevant, but the next part is important too, on the reason for coding.
@@ -142,8 +144,9 @@ Today I value the setting of clear directions, the push, and above all super cle
 -   *Better than I am, no contest*.
 -   That does **not** mean we **have** to use them. At least not for a hobby.
 
-## RLCS with LLM
+![LLM can model proteins](images/llm_fold.jpeg)
 
+## RLCS with LLM
 
 ```{r, echo=FALSE}
 library(visNetwork)

@@ -6878,7 +6878,7 @@
     "href": "others/FromHobbyToPhDwR.html#llms-for-code",
     "title": "From Hobby to PhD, with R",
     "section": "LLMs for Code",
-    "text": "LLMs for Code\n\nWell yes, they’re here.\nAnd yes they’re incredible at code.\nBetter than I am, no contest.\nThat does not mean we have to use them. At least not for a hobby."
+    "text": "LLMs for Code\n\nWell yes, they’re here.\nAnd yes they’re incredible at code.\nBetter than I am, no contest.\nThat does not mean we have to use them. At least not for a hobby.\n\n\nLLM can model proteins"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#day-0-the-book-the-hobby-1",
@@ -6906,7 +6906,7 @@
     "href": "others/FromHobbyToPhDwR.html#what-happened-in-between-focus-on-speed.",
     "title": "From Hobby to PhD, with R",
     "section": "What happened in between? Focus on speed.",
-    "text": "What happened in between? Focus on speed.\nI didn’t buy a fresher Mac (I could have..)\n\nHere I’ll go rather super fast, I need to put maybe one line (package, difference, blog source… super short!) This is the part that is indeed about R, so it’s relevant, but the next part is important too, on the reason for coding."
+    "text": "What happened in between? Focus on speed.\nI didn’t buy a fresher Mac (Maybe I should have..)\n\nLong running multi-Core process in passive cooled Macbook Air M1\nHere I’ll go rather super fast, I need to put maybe one line (package, difference, blog source… super short!) This is the part that is indeed about R, so it’s relevant, but the next part is important too, on the reason for coding."
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#rlcs-with-llm",
