@@ -45,7 +45,11 @@ Already there the thing worked. But I already had some first simplifications tha
 
 I was officially accepted October 8th, 2026. Joyful time. I’ll come to why a PhD later.
 
-## What happened in between? Focus on speed.
+# What happened in between?
+
+Let's talk about R a bit
+
+## Focus on speed
 
 I didn’t buy a fresher Mac (Maybe I should have..)
 
@@ -57,23 +61,35 @@ Here I’ll go rather super fast, I need to put maybe one line (package, differe
 
 ## Lists everywhere
 
-First version. Worked. Dataframes are also lists, but I wanted to store vectors inside cells, which requires lists and so… Just lists! It made conceptual sense, where each rule in a population was a list itself.
+-   First version. Worked.
 
-## Profvis
+-   Dataframes are also lists, but I wanted to store vectors inside cells, which requires lists and so… Just lists!
 
-Before we continue, we’ll need to measure speed and find bottlenecks.
+-   It made conceptual sense, where each rule in a population was a list itself.
+
+## {profvis}
+
+Before we continue, we’ll need to measure speed and **find bottlenecks**.
 
 ![profvis is key to find bottlenecks](images/profiling_monothread_runtimes.jpg)
 
-## Microbenchmark
+## {microbenchmark}
 
-Turns out when things get faster and into details, overall comparisons are better with this package
+Compare two versions.
+
+Turns out when things get faster and into details, overall comparisons are better with this package.
+
+![comparing code versions to check for speed](images/microbenchmark_new_is_faster.png)
 
 ## Hyperparameters!!
 
-The crux of the algorithm. Actually, a conceptual issue with this: hyper parameters tuned per dataset means… We give meta information about the dataset, it’s then “less pure” than pure ml. That itches my brain…
+The key of the **algorithm speed/accuracy balance**.
 
-## Rcpp
+Actually, a conceptual issue with this: hyper-parameters tuned per dataset means… We give meta information about the dataset, it’s then “less pure” than pure ml. That itches my brain…
+
+But "grid search" and "random search" (or templated annealing, genetic-algorithm, etc.) can make it more "fully machine-learnt".
+
+## {Rcpp}
 
 When R is slow, and AFTER trying anything you could… Particularly for loops, try C++…
 
@@ -81,19 +97,33 @@ When R is slow, and AFTER trying anything you could… Particularly for loops, t
 
 I thought about that all on my own. I might not be great at math but… %\*%
 
+![Instead of comparing vectors of characters... I multiply matrices](images/rlcs_matrices_matching.png)
+
 ## Parallel processing
 
-That’s been an option for me since the time of long 37h simulation runs for my last MSc, and I’ve tried a few combinations. I settle on foreach-dopar.
+When you run several simulations for 37h, parallel execution sounds great. And I’ve tried a few combinations. I settle on **{foreach}-{doParallel}**.
+
+You could use {future.apply} or {mirai}
 
 ![Save runtimes through parallel processing](images/running_parallel-v001.jpg)
 
-## Environments & Zero Copy
+## Parallel Processing
+
+I've tried different combinations of breaking down the input set... Some of which is bad practice!
+
+![Bad idea, per Papert & Minsky's "Perceptrons"...](images/mix_of_models.png)
+
+## environment() & Zero Copy
 
 This I tested a few months back in R, and then migrated all R functions to using that. Too many calls with too many slight modifications on large objects. It’s less clean, less “functional”, which I don’t like. But it is faster.
+
+![Passing references instead of large variables...](images/env_microbenchmark.png)
 
 ## Skipping steps
 
 Who says you HAVE to follow the pseudo code to the letter? I never quite did the prescribed deletion steps, only after subsumption. And accuracy calculations are then needed much less often! (And only before actual deletion)
+
+![Moving calls around for speed](images/before_after_moving_call.png)
 
 ## The help
 
@@ -103,37 +133,65 @@ My very first few conversations with my then future thesis directors, two chats 
 
 I just got rid of the lists altogether. It was a bit of refactoring that was scary then but in the end took two weekends…
 
-## Automating tests and Bit string length (regularization)
+## Bit string length & regularization
 
-Already for images classification I used heavy compression.
+![Basic numerical encoding](images/demo_encoding_two_bits.jpg)
 
-As per my new directors’ directions, I now worked on validation of the algorithm. One thing was doing more involved tests on larger datasets. And one derived test was to vary granularity of continuous data encoding into bins… And it turned out I had re-discovered “regularization”. I just didn’t know the term.
+## Input compression
+
+![Images data compression before training](images/mnist_example_visu_explained.jpg)
 
 # The future: the PhD
 
 General lines…
 
-## 
+## Validation
 
-Being (much) more formal, validation, state of the art Eg UCS and me skipping for two years a whole step of the SL algorithm (and incidentally, my version is \~faster and converges better! But uses more memory)
+Being (much) more formal with implementation validation
 
-New datasets, stratified N fold validations, literature review, better ml metrics, repeatability…
+-   Review state of the art (e.g. UCS, and me skipping for two years a whole step of the SL algorithm (and incidentally, my version is \~faster and converges better! But uses more memory))
 
-## 
+-   New datasets,
 
-Better Encodings, regularization and its effects, improvements hopefully there And maybe use gini/entropy to change encoding length? Things like that, there is a lot to be considered! Trees encoding, etc.
+-   stratified N-fold
+
+-   literature review,
+
+-   better ml metrics,
+
+-   repeatability…
+
+## Encoding improvements
+
+Better Encodings, regularization and its effects, improvements hopefully there
+
+Don't encode data points, encode information!
+
+Maybe use gini/entropy to change encoding length? Things like that, there is a lot to be considered! Trees encoding, etc.
 
 ## Active learning & Data Complexity
 
-That’s how I came to know my then future directors. But because after discovering the concept, I thought I could come up with *new* data complexity measures, specific to RLCS. and then further improvements, because I could leverage those for active learning, exposing to fewer samples while maintaining classification quality, and hence reduce runtimes. Hopefully anyway.
+That’s how I came to know my then future directors.
 
-## Interpretability
+-   After discovering the concept, I thought I could come up with *new* data complexity measures, specific to RLCS.
 
-While inherently interpretable, it gets complex quickly. I’m curious about whether I can improve on that aspect.
+-   Then I could leverage those metrics for "active learning"
 
-## plus it helps me!
+    -   exposing to fewer samples
 
-Today I value the setting of clear directions, the push, and above all super clever people to have interesting conversations with on the topic that somehow currently keeps me in love with computing, ML etc.
+    -   while maintaining classification quality
+
+    -   and hence reduce runtimes
+
+Hopefully anyway.
+
+## Interpretability & Credit Assignment
+
+While inherently interpretable, the rule-set gets complex quickly.
+
+I’m curious about whether I can improve on that aspect.
+
+And for **Reinforcement Learning** settings, I believe there is a way to leverage subsumption steps during training to **distill information** ("consolidate") into a separate hierarchy of RLCS models for shorter input strings while maintaining learning.
 
 # Elephant in the room: LLMs
 
@@ -160,7 +218,7 @@ g1 <- igraph::graph_from_data_frame(read.csv('./data/rlcs_llm_graph.csv'), verti
 
 ## What taking time entails...
 
-Value of coding as pounder time, testing approaches, coming up with alternatives… reading as digesting time, finding new ideas…
+Value of coding (and reading) as "additional ponder time", testing approaches, coming up with alternatives…
 
 ```{r, echo=FALSE}
 library(visNetwork)
@@ -172,34 +230,52 @@ g <- igraph::graph_from_data_frame(read.csv('./data/rlcs_learning_graph.csv'), v
 # visNetwork::visSave(g, './others/data/rlcs_learning_graph.html')
 ```
 
-Final graph (visNetwork colored by node type for books ideas papers code…), showing all concepts I’ve worked through, myself, my improved understanding, that I wouldn’t have gone through with the use of delegation to an LLM. All topics of speed above but also papers, UCS XCS, Dawkins evolution, data encoding, images and compression and kernels, agents and environments and reward shaping and explore exploit, regularization, topology, rl Sutton and Barto, multi agent, history of intelligence, complex systems, graphs theory, numerical methods matrices operations, pattern recognition from degree, holland ga, data complexity, ontology kg nlp, ml metrics, active learning …
-
 ## And why a PhD?
 
-I jumped in my seat, 2 years ago, at these very conferences, to the tune of “AI could write my thesis”. Well, Ai can write papers, indeed! But *why do a PhD then?*
+I jumped in my seat, 2 years ago, at these very conferences, to the tune of “AI could write my thesis”. Well, "AI" can write papers, indeed! But *why do a PhD then?*
+
+. . .
+
+Naive and idealistic and romantic take: it is supposed to be about making a scientific progress (even something tiny, minor, minuscule). And maybe it's one way to direct learning efforts.
+
+. . .
+
+<br/>**And my wife wouldn’t let me study another MSc.!**
+
+::: notes
+Today I value the setting of clear directions, the push, and above all super clever people to have interesting conversations with on the topic that somehow currently keeps me in love with computing, ML etc.
 
 I KNOW, I realize I am naive and idealistic and romantic here. A PhD is supposed to be about making a scientific progress, something not existing yet. Critically, I also understand that maybe a speck of dust in the grand scheme of things, something tiny, minor, minuscule. But something new, nevertheless. A new conclusion, a new approach, a never documented before combination of techniques.
 
 I am fortunate enough that I don’t need to do a PhD. I am not an academic, barely an engineer at this point. Nobody requires it from me, I won’t get a promotion for it (3-5 years from now when I’m done…) I just like to learn and understand things. I love the idea of coming up with something that will be a bit better. A grain of sand at best, but I will make the smallest of difference.
+:::
 
-That, and my wife wouldn’t let me study another MSc.!
+## Did I use LLMs then?
 
-## 
+Not for any code of RLCS. **Because I didn’t have a time pressure**. The *satisfaction that comes when something finally works!*
 
-So… Did I use them? The chatbots? Not for any code of RLCS. Because I didn’t have a time pressure. So I take my time! And sweat a comma for hours, because I can. The *satisfaction that comes with coding and finding that damn comma!* Maybe *not* using AI is really a privilege?
+**Maybe *not* using AI is really a privilege?**
 
-Yes in my daily life I am very very much aware of AI, it’s part of my job to secure their use in a large corporation. And yes I do use chatbots to help me review literature (I don’t know how this was done before, search doesn’t cut it either!) and discuss my own ideas, as a sparring opponent.
+-   Do I use them? Yes (LLM security is even part of my job). Sometimes for code at work, sure.
+-   To help me review literature, semantic capabilities are super helpful!
+-   and discuss my own ideas, as a "sparring opponent"
 
 # Conclusions
 
-Just keep learning, you never know what’s around the corner. And R is just as good an option as any other.
+Just keep learning, you never know what’s around the corner.
+
+Taking our time to learn and understand is becoming a luxury.
+
+And R is just as good an option as any other.
 
 # More Resources
+
+-   [The Package per-se (github for now)](https://github.com/kaizen-R/RLCS) (and some more info!)
+
+-   [Advanced R is ALWAYS great](https://adv-r.hadley.nz/function-factories.html)
 
 -   [THE BEST INTRO to the LCS Algorithm out-there (hands down!)](https://youtu.be/CRge_cZ2cJc?feature=shared) (12' video)
 
 -   [Wikipedia on LCS](https://en.wikipedia.org/wiki/Learning_classifier_system)
-
--   [Advanced R is ALWAYS great](https://adv-r.hadley.nz/function-factories.html)
 
 # Thank you!
