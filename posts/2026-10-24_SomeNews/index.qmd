@@ -1,0 +1,56 @@
+---
+title: "Various news"
+author: "Nico"
+date: "2026-10-26"
+categories: [news]
+---
+
+## I know I've been less active here...
+
+In recent weeks, some things have been happening, and I haven't been publishing much on the Blog.
+
+I'm not forgetting about it, I just have been somewhat busy...
+
+## I'll do a PhD!
+
+That's the biggest thing really, and it was official a couple of weeks back maybe, but I had to finalize the paperwork to be 100% sure.
+
+Now it's a done deal: I've gained the right to study some more, part time, for the next 3 to 5 years. And it makes me super happy!
+
+Some other time I'll dig deeper into the topics. But long story short, I'm motivated. While not necessarily directly, it will the work with RLCS.
+
+But more on that some other time.
+
+## I'm presenting in November at an R conference, too
+
+That's another one thing that happened, I submitted an abstract to present RLCS (but framed quite differently from the presentation of last year), and it got accepted.
+
+It'll only be probably like 10-15', but still, I'm enthused about that too!
+
+## So, new project(s)...
+
+One thing derived from the PhD is I will work on things somewhat more in private.
+
+While I'll keep RLCS fully public of course (and I'll keep evolving it for SURE!), the efforts that will go into more serious work (e.g. evaluation, validation, comparisons) will be done in private repos, at least until something is officially published.
+
+There are at least 3 such projects planned for the next \~2 to 3 years... So if I'm sharing less code, well, I'll still be busy. I will try to make sure I keep publishing with whatever relevant lessons I learn along the way though, I like this little blog of mine, even with no audience (I wouldn't know, I don't track visits :D).
+
+## Meanwhile at work
+
+Well, it's a bad time to start a PhD while working in a cybersecurity day to day job...
+
+The Php2Shell happened this last week, followed by a bunch more vulnerabilities; and the worse part is, it looks like it will not get any better in upcoming months.
+
+So no lack of work, at work, either...
+
+## Conclusions
+
+I'm excited about the news above.
+
+And only *slightly* worried about the vulnerabilities being published these days: in the past few years there were other important cybersecurity things to react to, and I was just as busy back then. And we survived at work.
+
+The flexibility offered by a part-time PhD program will be welcomed, yet I will make sure both work and studies are tended to.
+
+Anyhow.
+
+Interesting times!
