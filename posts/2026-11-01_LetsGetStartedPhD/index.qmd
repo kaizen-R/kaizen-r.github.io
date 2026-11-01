@@ -7,11 +7,19 @@ categories: [PhD, RLCS]
 
 ## This is going to be fun, and challenging
 
-Things are already becoming quite interesting...
+Things are already becoming quite interesting... And I have **plenty of work ahead**. In fact, now that I am starting in a more organized manner (I mean, this is no more just a hobby), I'm already finding "cracks" in my RLCS implementation...
 
 ## First, the plan
 
-More or less my PhD will revolve around RLCS, which has me quite excited, I'll admit. Overall, I plan to make progress around the LCS algorithm
+More or less my PhD will revolve around RLCS, which has me quite excited, I'll admit. Overall, I plan to make progress around the LCS algorithm, somehow.
+
+And it's off to the races! To begin with, thanks to my new university account I'm getting access to **all these papers on the topic**, of which I barely scratched the surface in the past (with a few books and open papers... But there is more, of course!)
+
+Heck this screenshot is from a few days back, from a quick and dirty search in the Online Library:
+
+![Literature review will be fun, too!](literature_review.png)
+
+And since then I'm already looking forward to digging into more references of references... What a **"rabbit hole"** this is going to be!
 
 ### Phase I: Validation
 
@@ -37,6 +45,12 @@ I know because I tried to test my implementation and compare it to the paper's g
 
 More on this in a moment.
 
+#### But also, encoding
+
+Well, I stick to the ternary alphabet, which makes my "Rosetta Stone" function much more relevant for the RLCS performance (speed and classification power, both).
+
+And that will require attention, so that's part of Phase I too. And there are plenty of options to look into, as it turns out...
+
 ### Quick review of the future
 
 Phase I will take most of my focus in the shorter term. But that's just the beginning.
@@ -61,7 +75,7 @@ Upfront, I got it to work on my Mac (it was not thought for ARM, but that was a 
 
 And two conclusions for now: it seems MUX6 is faster in this "LCSOR" implementation, and at least for my choice of parameters (I mean, fewer iterations in my version) I am running at comparable runtimes for Iris for comparable accuracy. And that's R vs pure C++, right there, so it's an interesting result, too.
 
-![13 seconds for Iris in low power mode on Macbook M1](LCSOR.png){alt="13 seconds for Iris in low power mode on Macbook M1"}
+![13 seconds for Iris in low power mode on Macbook M1](LCSOR.png)
 
 Speed is always going to be a thing I want to improve on for RLCS, but not necessarily through code tricks, and rather through the methodological approaches mentioned in passing earlier...
 
