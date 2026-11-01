@@ -2,7 +2,7 @@
 title: "Various news"
 author: "Nico"
 date: "2026-10-26"
-categories: [news]
+categories: [news, PhD]
 ---
 
 ## I know I've been less active here...
