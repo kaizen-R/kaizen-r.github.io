@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,16 @@
 
 <title>Simulating a SOC (part II): GUI – Kaizen-R.com new home</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -34,15 +40,14 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-445b8638c3d06994fee0907d791121c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../../site_libs/quarto-contrib/videojs/video.min.js"></script>
 <link href="../../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -84,8 +89,6 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Kaizen-R.com new home</span>
     </a>
@@ -161,7 +164,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Last week I started a small program to <a href="https://www.kaizen-r.com/2021/09/simulating-a-soc-just-for-fun/">simulate a SOC</a>.</p>
 <p>This week, I wanted to see if I could make it more… Visual.</p>
 <p>This here is the “final” result working with the simulator from last week:</p>
-<div class="quarto-video"><video id="video_shortcode_videojs_video1" width="500" height="350" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="A Shiny R interactive dashboard for SOC simulation"><source src="soc_simulator_shiny_v5.mp4"></video></div>
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" width="500" height="350" class="video-js vjs-default-skin vjs-big-play-centered " controls="" preload="auto" data-setup="{}" title="A Shiny R interactive dashboard for SOC simulation"><source src="soc_simulator_shiny_v5.mp4"></video></div>
 <p>But it wasn’t easy…</p>
 <p>So here is the long-story-short about that.</p>
 <p>(No code, as I am not happy with my code right now, I have done so many tests I myself have a hard time following it right now… And it was meant to be a “quick &amp; dirty” exercise, well, dirty it is, that’s for sure. So maybe when I settle on a cleaner version, I’ll share that instead.)&nbsp;</p>
@@ -170,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="enters-shiny">Enters Shiny</h2>
 <p>So as now usual, I went the way of Shiny to create a Dashboard.</p>
 <p>The very first version of that was simple, and it worked at the first try:</p>
-<div class="quarto-video"><video id="video_shortcode_videojs_video2" width="500" height="350" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="first version of a SOC sim with Shiny"><source src="interactive_soc_v001.mp4"></video></div>
+<div class="quarto-video"><video id="video_shortcode_videojs_video2" width="500" height="350" class="video-js vjs-default-skin vjs-big-play-centered " controls="" preload="auto" data-setup="{}" title="first version of a SOC sim with Shiny"><source src="interactive_soc_v001.mp4"></video></div>
 <p>I did have to learn how to work with a reactiveTimer() in Shiny, and it took some testing, but it wasn’t horrible.</p>
 <p>Then came the complications…</p>
 </section>
