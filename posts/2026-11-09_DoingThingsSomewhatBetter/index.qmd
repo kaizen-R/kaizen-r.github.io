@@ -1,0 +1,52 @@
+---
+title: "On ML, RLCS: Doing things a bit better, and doing more"
+author: "Nico"
+date: "2026-11-09"
+categories: [PhD, RLCS]
+---
+
+## It wasn't great
+
+So for the past 2 years or so, I've been making somewhat voluntarily some simplifications about what it means to train a model.
+
+That won't cut it anymore...
+
+## Train, Validation, Test
+
+If you look at the RLCS package demos, you will see that I separate a Train/Test set for supervised learning.
+
+The better way (right way?) to do this is train, validation, test.
+
+In train, you learn, in validation you do exercise exams, in test you do real world testing.
+
+In theory, validation can be used for further tuning.
+
+## More configurations, more sets
+
+After the above, and considering stratified cross-validation, one ends up training with "a few datasets out of each dataset". You do machine learning for Iris, but you try different separations of samples.
+
+And then, each algorithm has potentially several more-or-less optional parameters. The famous hyperparameters. For example, Tree depth in Partitioning Trees, or number of trees for Random Forest, number of layers in Neural Networks, etc..
+
+And then some algorithms have some stochastic property, RLCS being a good example. So to make sure it was a realistic result, for these you might want to run several times the training, even on the exact same datasets! You just use different seeds for your RNG.
+
+What do you end up with?
+
+Hundreds, **maybe thousands** of trainings/validations/testings for one dataset. That is, if you want serious results.
+
+And now with the PhD, I've got to be serious alright.
+
+## So...
+
+Processing power and parallel evaluations are going to be helpful. Thank goodness I have access to good resources, now with the University too!
+
+## Meanwhile
+
+RLCS v0.2.4 is out, it's really... Well it's work-in-progress, at best. But some stuff is in there that will be useful.
+
+Also, I have quite a bit of more work to do on it. But I also have to set things up and run other models to establish baselines and benchmarks of sorts... So it will take some time.
+
+## Conclusions
+
+I haven't written anything an ML Engineer wouldn't know here today, I realize that, but I just had to make a note about what is happening in the new (private) Repos I'm setting up.
+
+There is a big difference between a hobby and a PhD. I'm trying to be up to the task, that's all.
