@@ -1,0 +1,56 @@
+---
+title: "On Data Leakage"
+author: "Nico"
+date: "2026-11-15"
+categories: [PhD, ML, RLCS]
+---
+
+## I need to do better
+
+Once again, I was doing things... Wrong. Encoding first, with my Rosetta Stone function, on the complete dataset was easier, but incorrect.
+
+## Data Leakage
+
+In Supervised Learning in particular, if somehow you "get information" from the validation or test environment into your train environment, you're actually using information you shouldn't have. This is an issue because when you train your model, it will know something it shouldn't that might help it generalize, and that's not good.
+
+A couple of examples:
+
+- If your numerical variable (real numbers) is encoded using all the data you have and not only the training set, you will know of the complete range of values. In the case of the current RLCS Rosetta Stone, that means that I use median of the whole dataset, and it **could be** that some data point is not included later in the training set. These medians are then calculated using information they shouldn't consider!
+
+- The same issue applies with factor data, and it's a thornier problem:
+
+  - If I know from the whole dataset that there are say 5 different possible values for a given variable, I will need 3 bits to encode the 5 levels.
+
+  - But if in the training subset only 4 variables show, I would (up until now) use 2 bits. When the 5th value shows up in the test set for example, I wouldn't know how to encode it!
+
+  - I then have to consider only the values in the training set, and leave at least one empty "slot" in my encoding to make space for "unseen value in the train set"!
+
+So for numerical data, the separation (in the current approach) will have possibly different medians, but otherwise won't change the encoding.
+
+However for categorical data, if I have 4 values, I **must** leave space for one more "unknown" slot, forcing me to use instead 3 bits instead of two!
+
+## Why this matters?
+
+Well for one, my encoding approach was wrong (still is, but I'm "on it"), because I knew too much of the real underlying data for the training step.
+
+But also because I need to modify my encoding to make space for the unknown value, and then I need to encode validation and test with the encoding created for train.
+
+## Conclusions
+
+This is just one of the many things I'm working on to make RLCS a "good" implementation to do real/serious Machine Learning.
+
+I already have fixed the train/validation/test thing (in code not shared, the demos won't change, while the issue is known, the examples "kinda work" still today).
+
+Also, the Rosetta functions are taking more of a central role in the overall algorithm implementation, speed of training/validating/hyper-parameters-tuning/testing, namely because I also need to consider how much information I can afford to loose in doing "shorter encoding" ("is using two bits sufficient or should I use 4 to provide the required information to improve the classification power of the algorithm?).
+
+As we know (for the few that might have followed along), longer strings of bits are an expensive choice, as they make RLCS potentially exponentially slower with every bit added to the encoded input.
+
+The bit strings lengths and information content also have a direct impact on which hyperparameters to choose, making them a compounding factor and a sort of hyperparameter in-and-of themselves, adding to the already long list of hyperparameters to tune, for each dataset, to find the right balance between classification power (F1, MCC or Accuracy) and runtimes!
+
+I'm already looking at multiple iterations, for each configuration of a hyperparameters "grid" to optimize RLCS as it is stochastic in many aspects. I knew I would need to run such grid for different algorithms for benchmarking. I will now need to also consider different encodings, and add a supplementary and separate encoding step for validation/test sets.
+
+So the number of configurations I need to consider for evaluations of training, if I want to do it right, keeps increasing, in a compounding form.
+
+This is good because it's the right way to do it and will make the models evaluations more realistic. But as per the time I will need to spend training, this is quite bad...
+
+More CPUs, please!!
