@@ -6465,42 +6465,42 @@
     "href": "others/FromHobbyToPhDwR.html#day-0-the-book-the-hobby",
     "title": "From Hobby to PhD, with R",
     "section": "Day 0: the book, the hobby",
-    "text": "Day 0: the book, the hobby\nAfter reading about J.H. Holland’s LCS algorithm in Melanie Mitchell’s book on Complexity…\n\nHow it started"
+    "text": "Day 0: the book, the hobby\nAfter reading about J.H. Holland’s LCS algorithm in Melanie Mitchell’s book on “Complexity”…\n\nHow it started"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#day-0-the-book-the-hobby-1",
     "href": "others/FromHobbyToPhDwR.html#day-0-the-book-the-hobby-1",
     "title": "From Hobby to PhD, with R",
     "section": "Day 0: the book, the hobby",
-    "text": "Day 0: the book, the hobby\n\nnot great at math.\na bit better at algorithms\ninformation as foundational of all things, the “bit” as the elemental component\ngenetic algorithms make sense to me (survival, pressured randomness, search & optimization)\nsuper slow though\n\nTHE BEST INTRO to the LCS Algorithm out-there (hands down!) (12’ video)"
+    "text": "Day 0: the book, the hobby\n\nI’m not great at math.\nMaybe a bit better at algorithms\nI do think of information as foundational of all things, and the “bit” as the elemental component.\nGenetic Algorithms (for some reason) make sense to me (survival, pressured randomness, search & optimization)\nIt’s all super slow though\n\nTHE BEST INTRO to the LCS Algorithm out-there (hands down!) (12’ video)"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#day-21-the-functional-version",
     "href": "others/FromHobbyToPhDwR.html#day-21-the-functional-version",
     "title": "From Hobby to PhD, with R",
     "section": "Day 21: the functional version",
-    "text": "Day 21: the functional version\nAlready there the thing worked. But I already had some first simplifications that today, 2 years later, persist and make it wrong (and better at the same time!) A few month later it was my first R package."
+    "text": "Day 21: the functional version\nAlready, the thing “worked”.\nA few months later, it was my first R package. The first LCS implementation in R (AFAICT, anyway…)\nIt’s all here: https://github.com/kaizen-R/RLCS.\nIt had some simplifications. 2 years later, some of these persist and make it wrong (and in some ways better at the same time!)."
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#day-670-the-phd",
     "href": "others/FromHobbyToPhDwR.html#day-670-the-phd",
     "title": "From Hobby to PhD, with R",
     "section": "Day ~670: the PhD",
-    "text": "Day ~670: the PhD\nI was officially accepted October 8th, 2026. Joyful time. I’ll come to why a PhD later."
+    "text": "Day ~670: the PhD\nI was officially accepted October 8th, 2026.\nJoyful time.\n\nIf you fancy having even less spare time.\nBut we’ll get back to this later."
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#focus-on-speed",
     "href": "others/FromHobbyToPhDwR.html#focus-on-speed",
     "title": "From Hobby to PhD, with R",
     "section": "Focus on speed",
-    "text": "Focus on speed\nI didn’t buy a fresher Mac (Maybe I should have..)\n\nLong running multi-Core process in passive cooled Macbook Air M1\nHere I’ll go rather super fast, I need to put maybe one line (package, difference, blog source… super short!) This is the part that is indeed about R, so it’s relevant, but the next part is important too, on the reason for coding."
+    "text": "Focus on speed\nI didn’t buy a fresher Mac (Maybe I should have..)\n\nLong running multi-Core process in passive cooled Macbook Air M1\n(EDIT: Now this is false, but that changed literally two weeks ago…)\n\nHere I’ll go rather super fast, I need to put maybe one line (package, difference, blog source… super short!) This is the part that is indeed about R, so it’s relevant, but the next part is important too, on the reason for coding."
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#lists-everywhere",
     "href": "others/FromHobbyToPhDwR.html#lists-everywhere",
     "title": "From Hobby to PhD, with R",
     "section": "Lists everywhere",
-    "text": "Lists everywhere\n\nFirst version. Worked.\nDataframes are also lists, but I wanted to store vectors inside cells, which requires lists and so… Just lists!\nIt made conceptual sense, where each rule in a population was a list itself."
+    "text": "Lists everywhere\n\nFirst version. Worked.\nDataframes are also lists, but I wanted to store vectors inside cells, which requires lists and so… Just lists!\nIt made conceptual sense, where each rule in a population was a list itself.\nYet it was… Well, slow."
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#profvis",
@@ -6514,7 +6514,7 @@
     "href": "others/FromHobbyToPhDwR.html#microbenchmark",
     "title": "From Hobby to PhD, with R",
     "section": "{microbenchmark}",
-    "text": "{microbenchmark}\nCompare two versions.\nTurns out when things get faster and into details, overall comparisons are better with this package.\n\ncomparing code versions to check for speed"
+    "text": "{microbenchmark}\nCompare two versions. Profvis isn’t good enough for that.\nTurns out when things get faster and into details, overall comparisons are better with this package.\n\ncomparing code versions to check for speed"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#hyperparameters",
@@ -6535,14 +6535,14 @@
     "href": "others/FromHobbyToPhDwR.html#matrices-matching",
     "title": "From Hobby to PhD, with R",
     "section": "Matrices matching",
-    "text": "Matrices matching\nI thought about that all on my own. I might not be great at math but… %*%\n\nInstead of comparing vectors of characters… I multiply matrices"
+    "text": "Matrices matching\nSecret Sauce! This is quite possibly my first original (as far as I can tell) contribution.\nMore on this when (if? Nah, when!) I publish my first PhD Paper ;)\nIt’s not a secret either & I can show I have “priority” ;) (Until proven wrong, of course…)"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#parallel-processing",
     "href": "others/FromHobbyToPhDwR.html#parallel-processing",
     "title": "From Hobby to PhD, with R",
     "section": "Parallel processing",
-    "text": "Parallel processing\nWhen you run several simulations for 37h, parallel execution sounds great. And I’ve tried a few combinations. I settle on {foreach}-{doParallel}.\nYou could use {future.apply} or {mirai}\n\nSave runtimes through parallel processing"
+    "text": "Parallel processing\nWhen you run several simulations (37h+…)\nParallel execution becomes a great ally. And I’ve tried a few combinations. I currently settle on {foreach}-{doParallel}. Sometimes, even {plumbeR}!\nYou could use {future.apply} or {mirai}. I also want to look into {mizu}, the new kid in town.\n\nSave runtimes through parallel processing. On M6, it’s even more beautiful!"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#parallel-processing-1",
@@ -6556,14 +6556,14 @@
     "href": "others/FromHobbyToPhDwR.html#environment-zero-copy",
     "title": "From Hobby to PhD, with R",
     "section": "environment() & Zero Copy",
-    "text": "environment() & Zero Copy\nThis I tested a few months back in R, and then migrated all R functions to using that. Too many calls with too many slight modifications on large objects. It’s less clean, less “functional”, which I don’t like. But it is faster.\n\nPassing references instead of large variables…"
+    "text": "environment() & Zero Copy\nNot as “functional”, but, like it or not, in some cases, faster. Much.\n\nPassing references (environment()) instead of large variables…"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#skipping-steps",
     "href": "others/FromHobbyToPhDwR.html#skipping-steps",
     "title": "From Hobby to PhD, with R",
     "section": "Skipping steps",
-    "text": "Skipping steps\nWho says you HAVE to follow the pseudo code to the letter? I never quite did the prescribed deletion steps, only after subsumption. And accuracy calculations are then needed much less often! (And only before actual deletion)\n\nMoving calls around for speed"
+    "text": "Skipping steps\nWho says you HAVE to follow the pseudo code to the letter?\n\nMoving calls around for speed"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#the-help",
@@ -6626,7 +6626,7 @@
     "href": "others/FromHobbyToPhDwR.html#llms-for-code",
     "title": "From Hobby to PhD, with R",
     "section": "LLMs for Code",
-    "text": "LLMs for Code\n\nWell yes, they’re here.\nAnd yes they’re incredible at code.\nBetter than I am, no contest.\nThat does not mean we have to use them. At least not for a hobby.\n\n\nLLM can model proteins"
+    "text": "LLMs for Code\n\nWell yes, they’re here. They are incredible at code. Better than I am, no contest.\nThat does not mean we have to use them. At least not for a hobby.\nMaybe learning is not better when efficient?\n\n\nLLM can model proteins"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#rlcs-with-llm",
@@ -6647,14 +6647,14 @@
     "href": "others/FromHobbyToPhDwR.html#and-why-a-phd",
     "title": "From Hobby to PhD, with R",
     "section": "And why a PhD?",
-    "text": "And why a PhD?\nI jumped in my seat, 2 years ago, at these very conferences, to the tune of “AI could write my thesis”. Well, “AI” can write papers, indeed! But why do a PhD then?\n\nNaive and idealistic and romantic take: it is supposed to be about making a scientific progress (even something tiny, minor, minuscule). And maybe it’s one way to direct learning efforts.\n\n\nAnd my wife wouldn’t let me study another MSc.!\n\nToday I value the setting of clear directions, the push, and above all super clever people to have interesting conversations with on the topic that somehow currently keeps me in love with computing, ML etc.\nI KNOW, I realize I am naive and idealistic and romantic here. A PhD is supposed to be about making a scientific progress, something not existing yet. Critically, I also understand that maybe a speck of dust in the grand scheme of things, something tiny, minor, minuscule. But something new, nevertheless. A new conclusion, a new approach, a never documented before combination of techniques.\nI am fortunate enough that I don’t need to do a PhD. I am not an academic, barely an engineer at this point. Nobody requires it from me, I won’t get a promotion for it (3-5 years from now when I’m done…) I just like to learn and understand things. I love the idea of coming up with something that will be a bit better. A grain of sand at best, but I will make the smallest of difference."
+    "text": "And why a PhD?\nAt these very conferences: “AI could write my thesis”.\nWell, “AI” can write papers, indeed! But why do a PhD then?\n\nNaive (and idealistic, and romantic) take:\nIt is about becoming an expert & making some scientific progress (even something minuscule). And maybe it’s one way to direct learning efforts.\n\n\nAnd my wife wouldn’t let me study another MSc.! :D\n\nI jumped in my seat, 2 years ago, with these declaration, AI can write my thesis. Of course, but then why are we here?\nToday I value the setting of clear directions, the push, and above all super clever people to have interesting conversations with on the topic that somehow currently keeps me in love with computing, ML etc.\nI KNOW, I realize I am naive and idealistic and romantic here. A PhD is supposed to be about making a scientific progress, something not existing yet. Critically, I also understand that maybe a speck of dust in the grand scheme of things, something tiny, minor, minuscule. But something new, nevertheless. A new conclusion, a new approach, a never documented before combination of techniques.\nI am fortunate enough that I don’t need to do a PhD. I am not an academic, barely an engineer at this point. Nobody requires it from me, I won’t get a promotion for it (3-5 years from now when I’m done…) I just like to learn and understand things. I love the idea of coming up with something that will be a bit better. A grain of sand at best, but I will make the smallest of difference."
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#did-i-use-llms-then",
     "href": "others/FromHobbyToPhDwR.html#did-i-use-llms-then",
     "title": "From Hobby to PhD, with R",
     "section": "Did I use LLMs then?",
-    "text": "Did I use LLMs then?\nNot for any code of RLCS. Because I didn’t have a time pressure. The satisfaction that comes when something finally works!\nMaybe not using AI is really a privilege?\n\nDo I use them? Yes (LLM security is even part of my job). Sometimes for code at work, sure.\nTo help me review literature, semantic capabilities are super helpful!\nand discuss my own ideas, as a “sparring opponent”"
+    "text": "Did I use LLMs then?\nNot for any code of RLCS. Because I didn’t have a time pressure. Coding is a satisfying experience.\nMaybe not using AI is really a privilege?\n\nDo I use them? Yes (Much more so at work.)\nTo help me review literature, semantic capabilities are super helpful!\nand discuss my own ideas, as a “sparring opponent”"
   },
   {
     "objectID": "index.html",
@@ -6697,5 +6697,110 @@
     "title": "On Data Leakage",
     "section": "Conclusions",
     "text": "Conclusions\nThis is just one of the many things I’m working on to make RLCS a “good” implementation to do real/serious Machine Learning.\nI already have fixed the train/validation/test thing (in code not shared, the demos won’t change, while the issue is known, the examples “kinda work” still today).\nAlso, the Rosetta functions are taking more of a central role in the overall algorithm implementation, speed of training/validating/hyper-parameters-tuning/testing, namely because I also need to consider how much information I can afford to loose in doing “shorter encoding” (“is using two bits sufficient or should I use 4 to provide the required information to improve the classification power of the algorithm?).\nAs we know (for the few that might have followed along), longer strings of bits are an expensive choice, as they make RLCS potentially exponentially slower with every bit added to the encoded input.\nThe bit strings lengths and information content also have a direct impact on which hyperparameters to choose, making them a compounding factor and a sort of hyperparameter in-and-of themselves, adding to the already long list of hyperparameters to tune, for each dataset, to find the right balance between classification power (F1, MCC or Accuracy) and runtimes!\nI’m already looking at multiple iterations, for each configuration of a hyperparameters “grid” to optimize RLCS as it is stochastic in many aspects. I knew I would need to run such grid for different algorithms for benchmarking. I will now need to also consider different encodings, and add a supplementary and separate encoding step for validation/test sets.\nSo the number of configurations I need to consider for evaluations of training, if I want to do it right, keeps increasing, in a compounding form.\nThis is good because it’s the right way to do it and will make the models evaluations more realistic. But as per the time I will need to spend training, this is quite bad…\nMore CPUs, please!!"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#profvis-microbenchmark",
+    "href": "others/FromHobbyToPhDwR.html#profvis-microbenchmark",
+    "title": "From Hobby to PhD, with R",
+    "section": "{profvis} & {microbenchmark}",
+    "text": "{profvis} & {microbenchmark}\n\n\n\nBottlenecks? {profvis}\n\n\n\n\n\nCompare Runtimes? {microbenchmark}"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#key-details",
+    "href": "others/FromHobbyToPhDwR.html#key-details",
+    "title": "From Hobby to PhD, with R",
+    "section": "Key details",
+    "text": "Key details\n\nFirst version used all lists. It made conceptual sense, where each rule in a population was a list itself. It worked. It was (especially) slow.\nHyper-parameters. The key of the algorithm speed/accuracy balance. I learnt the hard way.\nWhen R is slow, and AFTER trying anything you could… Try C++… Turns out, I have (recent) data to show sometimes Rcpp behaves better when used out of an R package!\nIn the end I just got rid of the lists altogether. It was a bit of refactoring that was scary then but in the end took two weekends…"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#some-ideas-upfront",
+    "href": "others/FromHobbyToPhDwR.html#some-ideas-upfront",
+    "title": "From Hobby to PhD, with R",
+    "section": "Some ideas upfront",
+    "text": "Some ideas upfront\n\nHyper-parameters. The key of the algorithm speed/accuracy balance. I learnt the hard way.\n\n\n\nFirst version used all lists. It made conceptual sense. It worked. It was (especially) slow.\nIn the end I got rid of the lists altogether. Scary refactoring, but it worked out ok…\n\n\n\n\nAFTER trying everything else… Try C++ (Rcpp)…\nbrowser() is your best friend in the whole-wide-world\n\n\nBonus: It turns out, I have (recent) data to show sometimes Rcpp behaves better when used out of an R package!"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#other-ideas",
+    "href": "others/FromHobbyToPhDwR.html#other-ideas",
+    "title": "From Hobby to PhD, with R",
+    "section": "Other ideas",
+    "text": "Other ideas\nBreaking the input data. Kinda works. Much faster. Not a great idea.\n\nBad idea, per Papert & Minsky’s “Perceptrons”…Skipping steps"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#bit-string-length-regularization-input-compression",
+    "href": "others/FromHobbyToPhDwR.html#bit-string-length-regularization-input-compression",
+    "title": "From Hobby to PhD, with R",
+    "section": "Bit string length & regularization, Input compression",
+    "text": "Bit string length & regularization, Input compression\n\n\n\nBasic numerical encoding\n\n\n\n\n\nImages data compression before training"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#phase-1-validation",
+    "href": "others/FromHobbyToPhDwR.html#phase-1-validation",
+    "title": "From Hobby to PhD, with R",
+    "section": "Phase 1: Validation",
+    "text": "Phase 1: Validation\n\n\n\n\n\n\n\nWorking on…\nStatus\n\n\n\n\nState of the art (my code doesn’t respect preceding algorithms…), literature review\nOngoing\n\n\ntrain/validation/test, stratified 5-fold\nCoded\n\n\nFix issues (data leakage in encoding…)\nDone\n\n\nBetter ML metrics for (SL) evaluations\nDone\n\n\nRepeatability (datasets, seeds, etc.)\nDone\n\n\nRun (thousands?) configs & iterations in grid search of several algorithms?\nNext up."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#phase-1-encoding-improvements",
+    "href": "others/FromHobbyToPhDwR.html#phase-1-encoding-improvements",
+    "title": "From Hobby to PhD, with R",
+    "section": "Phase 1: Encoding improvements",
+    "text": "Phase 1: Encoding improvements\nDon’t encode data points, encode information!\nBetter Encodings, regularization and its effects…\nE.g. Gini/entropy to change encoding length? Things like that, there is a lot to be considered! Trees encoding, etc."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#phase-2-active-learning-data-complexity",
+    "href": "others/FromHobbyToPhDwR.html#phase-2-active-learning-data-complexity",
+    "title": "From Hobby to PhD, with R",
+    "section": "Phase 2: Active learning & Data Complexity",
+    "text": "Phase 2: Active learning & Data Complexity\nThat’s how I came to know my then-future-Thesis-Supervisors.\n\nAfter discovering the concept, I thought I could come up with new data complexity measures, specific to RLCS.\nThen I could leverage those metrics for “active learning”\n\nexposing (in training) to fewer overall samples\nwhile maintaining classification quality\nand hence reduce runtimes\n\n\nHopefully anyway :D"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#phase-3-interpretability-credit-assignment",
+    "href": "others/FromHobbyToPhDwR.html#phase-3-interpretability-credit-assignment",
+    "title": "From Hobby to PhD, with R",
+    "section": "Phase 3: Interpretability & Credit Assignment",
+    "text": "Phase 3: Interpretability & Credit Assignment\nWhile inherently interpretable, the rule-set (RLCS Model) gets complex quickly.\nFor Reinforcement Learning settings, I believe there is a way to leverage subsumption steps during training to distill information (“consolidate”) into a separate hierarchy of RLCS models, for shorter input strings (faster training/inference) while maintaining learning capacity.\nTBC."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#phase-1-on-encoding-bit-string-length-input-compression",
+    "href": "others/FromHobbyToPhDwR.html#phase-1-on-encoding-bit-string-length-input-compression",
+    "title": "From Hobby to PhD, with R",
+    "section": "Phase 1: On Encoding: Bit string length & Input compression",
+    "text": "Phase 1: On Encoding: Bit string length & Input compression\n\n\n\nBasic numerical encoding\n\n\n\n\n\nImages data compression before training"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#phase-1-matrices-matching",
+    "href": "others/FromHobbyToPhDwR.html#phase-1-matrices-matching",
+    "title": "From Hobby to PhD, with R",
+    "section": "Phase 1: Matrices matching",
+    "text": "Phase 1: Matrices matching\nSecret Sauce! This is quite possibly my first original (as far as I can tell) contribution.\nMore on this when (if? Nah, when!) I publish my first PhD Paper ;)\nIt’s not a secret either & I can show I have “priority” ;) (Until proven wrong, of course…)"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#on-friction-learning",
+    "href": "others/FromHobbyToPhDwR.html#on-friction-learning",
+    "title": "From Hobby to PhD, with R",
+    "section": "On Friction & Learning",
+    "text": "On Friction & Learning\n\n\n\n\n\n\nCoding (and reading) ~ “additional ponder time”, testing alternatives, understanding the papers & equations…"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#who-says-you-have-to-follow-the-pseudo-code-to-the-letter",
+    "href": "others/FromHobbyToPhDwR.html#who-says-you-have-to-follow-the-pseudo-code-to-the-letter",
+    "title": "From Hobby to PhD, with R",
+    "section": "Who says you HAVE to follow the pseudo code to the letter?",
+    "text": "Who says you HAVE to follow the pseudo code to the letter?\n\nMoving calls around for speed"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#phase-1-bit-string-length-input-compression",
+    "href": "others/FromHobbyToPhDwR.html#phase-1-bit-string-length-input-compression",
+    "title": "From Hobby to PhD, with R",
+    "section": "Phase 1: Bit string length & Input compression",
+    "text": "Phase 1: Bit string length & Input compression\n\n\n\nBasic numerical encoding\n\n\n\n\n\nImages data compression before training"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#bit-string-length-input-compression",
+    "href": "others/FromHobbyToPhDwR.html#bit-string-length-input-compression",
+    "title": "From Hobby to PhD, with R",
+    "section": "Bit string length & Input compression",
+    "text": "Bit string length & Input compression\n\n\n\nBasic numerical encoding\n\n\n\n\n\nImages data compression before training"
   }
 ]

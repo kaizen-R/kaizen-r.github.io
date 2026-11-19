@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.10.18">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.19">
 
   <title>Kaizen-R.com new home – From Hobby to PhD, with R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -140,7 +140,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">From Hobby to PhD, with R</h1>
-  <p class="subtitle">A story of 2 years of making (many) mistakes, and about <em>learning</em> along the way</p>
+  <p class="subtitle">A story of 2 years of making (many) mistakes, and about <em>learning</em> (some)</p>
 
 <div class="quarto-title-authors">
 </div>
@@ -149,32 +149,46 @@
 <section>
 <section id="intro" class="title-slide slide level1 center">
 <h1>Intro</h1>
-<p>Today we will talk a lot about speed of execution, for a slow algorithm, with a slow language (yes, I said it).</p>
-<p>We will talk about S shapes, iterating, running at night, mixing languages, wrong approximations, and repeating again and again and again…</p>
+<p><br>Take a slow ML algorithm, with a (rather) slow language (yes, I said it).</p>
+<p>Think about S shapes of technological progress, iterating, hundreds of configurations, running at night, passive cooling, mixing languages, (way too many) wrong approximations, and repeating again, and again, and again…</p>
+<div class="fragment">
+<p>Today is a bit about… Being obsessive.</p>
+</div>
+<div class="fragment">
+<p><br>For no good reason.</p>
+</div>
 </section>
 <section id="day-0-the-book-the-hobby" class="slide level2">
 <h2>Day 0: the book, the hobby</h2>
-<p>After reading about J.H. Holland’s LCS algorithm in Melanie Mitchell’s book on Complexity…</p>
+<p>After reading about J.H. Holland’s LCS algorithm in Melanie Mitchell’s book on “Complexity”…</p>
 
 <img data-src="images/books.jpeg" class="r-stretch quarto-figure-center"><p class="caption">How it started</p></section>
 <section id="day-0-the-book-the-hobby-1" class="slide level2">
 <h2>Day 0: the book, the hobby</h2>
 <ul>
-<li><strong>not</strong> great at math.</li>
-<li>a bit better at algorithms</li>
-<li><strong>information</strong> as foundational of all things, <strong>the “bit”</strong> as the elemental component</li>
-<li>genetic algorithms <strong>make sense</strong> to me (survival, pressured randomness, search &amp; optimization)</li>
-<li><strong>super slow</strong> though</li>
+<li><strong>I’m not</strong> great at math.</li>
+<li>Maybe a bit better at algorithms</li>
+<li><strong>I do think of information</strong> as foundational of all things, and <strong>the “bit”</strong> as the elemental component.</li>
+<li>Genetic Algorithms (for some reason) <strong>make sense</strong> to me (survival, pressured randomness, search &amp; optimization)</li>
+<li><strong>It’s all super slow</strong> though</li>
 </ul>
 <p><a href="https://youtu.be/CRge_cZ2cJc?feature=shared">THE BEST INTRO to the LCS Algorithm out-there (hands down!)</a> (12’ video)</p>
 </section>
 <section id="day-21-the-functional-version" class="slide level2">
 <h2>Day 21: the functional version</h2>
-<p>Already there the thing worked. But I already had some first simplifications that today, 2 years later, persist and make it wrong (and better at the same time!) A few month later it was my first R package.</p>
+<p>Already, the thing “worked”.</p>
+<p><br>A few months later, it was my first R package. The <strong>first LCS implementation in R</strong> <em>(AFAICT, anyway…)</em></p>
+<p><br>It’s all here: <a href="https://github.com/kaizen-R/RLCS" class="uri">https://github.com/kaizen-R/RLCS</a>.</p>
+<p><br>It had some simplifications. 2 years later, some of these persist and make it wrong (and in some ways better at the same time!).</p>
 </section>
 <section id="day-670-the-phd" class="slide level2">
 <h2>Day ~670: the PhD</h2>
-<p>I was officially accepted October 8th, 2026. Joyful time. I’ll come to why a PhD later.</p>
+<p>I was officially accepted October 8th, 2026.</p>
+<p><br>Joyful time.</p>
+<div class="fragment">
+<p><br>If you fancy having even less spare time.</p>
+<p>But we’ll get back to this later.</p>
+</div>
 </section></section>
 <section>
 <section id="what-happened-in-between" class="title-slide slide level1 center">
@@ -185,7 +199,9 @@
 <h2>Focus on speed</h2>
 <p>I didn’t buy a fresher Mac (Maybe I should have..)</p>
 
-<img data-src="images/passive_active_cooling.jpeg" class="r-stretch quarto-figure-center"><p class="caption">Long running multi-Core process in passive cooled Macbook Air M1</p><aside class="notes">
+<img data-src="images/passive_active_cooling.jpeg" class="r-stretch quarto-figure-center"><p class="caption">Long running multi-Core process in passive cooled Macbook Air M1</p><div class="fragment">
+<p>(EDIT: Now this is false, but that changed literally two weeks ago…)</p>
+<aside class="notes">
 <p>Here I’ll go rather super fast, I need to put maybe one line (package, difference, blog source… super short!) This is the part that is indeed about R, so it’s relevant, but the next part is important too, on the reason for coding.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -198,121 +214,75 @@
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</div>
 </section>
-<section id="lists-everywhere" class="slide level2">
-<h2>Lists everywhere</h2>
+<section id="some-ideas-upfront" class="slide level2">
+<h2>Some ideas upfront</h2>
 <ul>
-<li><p>First version. Worked.</p></li>
-<li><p>Dataframes are also lists, but I wanted to store vectors inside cells, which requires lists and so… Just lists!</p></li>
-<li><p>It made conceptual sense, where each rule in a population was a list itself.</p></li>
+<li>Hyper-parameters. The key of the <strong>algorithm speed/accuracy balance</strong>. I learnt the hard way.</li>
 </ul>
+<div class="fragment">
+<ul>
+<li><p>First version used all lists. It made conceptual sense. <strong>It worked. It was (especially) slow.</strong></p></li>
+<li><p>In the end I got rid of the lists altogether. Scary refactoring, but it worked out ok…</p></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><p>AFTER trying everything else… Try C++ (Rcpp)…</p></li>
+<li><p><em>browser()</em> is your best friend in the whole-wide-world</p></li>
+</ul>
+<aside class="notes">
+<p>Bonus: It turns out, I have (recent) data to show sometimes Rcpp behaves better when used out of an R package!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
 </section>
-<section id="profvis" class="slide level2">
-<h2>{profvis}</h2>
-<p>Before we continue, we’ll need to measure speed and <strong>find bottlenecks</strong>.</p>
-
-<img data-src="images/profiling_monothread_runtimes.jpg" class="r-stretch quarto-figure-center"><p class="caption">profvis is key to find bottlenecks</p></section>
-<section id="microbenchmark" class="slide level2">
-<h2>{microbenchmark}</h2>
-<p>Compare two versions.</p>
-<p>Turns out when things get faster and into details, overall comparisons are better with this package.</p>
-
-<img data-src="images/microbenchmark_new_is_faster.png" class="r-stretch quarto-figure-center"><p class="caption">comparing code versions to check for speed</p></section>
-<section id="hyperparameters" class="slide level2">
-<h2>Hyperparameters!!</h2>
-<p>The key of the <strong>algorithm speed/accuracy balance</strong>.</p>
-<p>Actually, a conceptual issue with this: hyper-parameters tuned per dataset means… We give meta information about the dataset, it’s then “less pure” than pure ml. That itches my brain…</p>
-<p>But “grid search” and “random search” (or templated annealing, genetic-algorithm, etc.) can make it more “fully machine-learnt”.</p>
+<section id="profvis-microbenchmark" class="slide level2">
+<h2>{profvis} &amp; {microbenchmark}</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/profiling_monothread_runtimes.jpg" width="632"></p>
+<figcaption>Bottlenecks? {profvis}</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/microbenchmark_new_is_faster.png" width="1115"></p>
+<figcaption>Compare Runtimes? {microbenchmark}</figcaption>
+</figure>
+</div>
 </section>
-<section id="rcpp" class="slide level2">
-<h2>{Rcpp}</h2>
-<p>When R is slow, and AFTER trying anything you could… Particularly for loops, try C++…</p>
-</section>
-<section id="matrices-matching" class="slide level2">
-<h2>Matrices matching</h2>
-<p>I thought about that all on my own. I might not be great at math but… %*%</p>
-
-<img data-src="images/rlcs_matrices_matching.png" class="r-stretch quarto-figure-center"><p class="caption">Instead of comparing vectors of characters… I multiply matrices</p></section>
 <section id="parallel-processing" class="slide level2">
 <h2>Parallel processing</h2>
-<p>When you run several simulations for 37h, parallel execution sounds great. And I’ve tried a few combinations. I settle on <strong>{foreach}-{doParallel}</strong>.</p>
-<p>You could use {future.apply} or {mirai}</p>
+<p>When you run several simulations (37h+…)</p>
+<p><strong>Parallel execution</strong> becomes a great ally. And I’ve tried a few combinations. I currently settle on <strong>{foreach}-{doParallel}</strong>. Sometimes, even {plumbeR}!</p>
+<p>You could use {future.apply} or {mirai}. I also want to look into {mizu}, the new kid in town.</p>
 
-<img data-src="images/running_parallel-v001.jpg" class="r-stretch quarto-figure-center"><p class="caption">Save runtimes through parallel processing</p></section>
-<section id="parallel-processing-1" class="slide level2">
-<h2>Parallel Processing</h2>
-<p>I’ve tried different combinations of breaking down the input set… Some of which is bad practice!</p>
-
-<img data-src="images/mix_of_models.png" class="r-stretch quarto-figure-center"><p class="caption">Bad idea, per Papert &amp; Minsky’s “Perceptrons”…</p></section>
+<img data-src="images/running_parallel-v001.jpg" width="686" class="r-stretch quarto-figure-center"><p class="caption">Save runtimes through parallel processing. On M6, it’s even more beautiful!</p></section>
 <section id="environment-zero-copy" class="slide level2">
 <h2>environment() &amp; Zero Copy</h2>
-<p>This I tested a few months back in R, and then migrated all R functions to using that. Too many calls with too many slight modifications on large objects. It’s less clean, less “functional”, which I don’t like. But it is faster.</p>
+<p>Not as “functional”, but, like it or not, in some cases, faster. Much.</p>
 
-<img data-src="images/env_microbenchmark.png" class="r-stretch quarto-figure-center"><p class="caption">Passing references instead of large variables…</p></section>
-<section id="skipping-steps" class="slide level2">
-<h2>Skipping steps</h2>
-<p>Who says you HAVE to follow the pseudo code to the letter? I never quite did the prescribed deletion steps, only after subsumption. And accuracy calculations are then needed much less often! (And only before actual deletion)</p>
+<img data-src="images/env_microbenchmark.png" class="r-stretch quarto-figure-center"><p class="caption">Passing references (environment()) instead of large variables…</p></section>
+<section id="other-ideas" class="slide level2">
+<h2>Other ideas</h2>
+<p>Breaking the input data. Kinda works. Much faster. Not a great idea.</p>
 
-<img data-src="images/before_after_moving_call.png" class="r-stretch quarto-figure-center"><p class="caption">Moving calls around for speed</p></section>
-<section id="the-help" class="slide level2">
-<h2>The help</h2>
-<p>My very first few conversations with my then future thesis directors, two chats and (quite a few, I’m super verbose…) emails… And I already had new hints!</p>
-</section>
-<section id="matrices-everywhere" class="slide level2">
-<h2>Matrices everywhere</h2>
-<p>I just got rid of the lists altogether. It was a bit of refactoring that was scary then but in the end took two weekends…</p>
-</section>
-<section id="bit-string-length-regularization" class="slide level2">
-<h2>Bit string length &amp; regularization</h2>
+<img data-src="images/mix_of_models.png" width="392" class="r-stretch quarto-figure-center"><p class="caption">Bad idea, per Papert &amp; Minsky’s “Perceptrons”…Skipping steps</p></section>
+<section id="who-says-you-have-to-follow-the-pseudo-code-to-the-letter" class="slide level2">
+<h2>Who says you HAVE to follow the pseudo code to the letter?</h2>
 
-<img data-src="images/demo_encoding_two_bits.jpg" class="r-stretch quarto-figure-center"><p class="caption">Basic numerical encoding</p></section>
-<section id="input-compression" class="slide level2">
-<h2>Input compression</h2>
-
-<img data-src="images/mnist_example_visu_explained.jpg" class="r-stretch quarto-figure-center"><p class="caption">Images data compression before training</p></section></section>
-<section>
-<section id="the-future-the-phd" class="title-slide slide level1 center">
-<h1>The future: the PhD</h1>
-<p>General lines…</p>
-</section>
-<section id="validation" class="slide level2">
-<h2>Validation</h2>
-<p>Being (much) more formal with implementation validation</p>
-<ul>
-<li><p>Review state of the art (e.g.&nbsp;UCS, and me skipping for two years a whole step of the SL algorithm (and incidentally, my version is ~faster and converges better! But uses more memory))</p></li>
-<li><p>New datasets,</p></li>
-<li><p>stratified N-fold</p></li>
-<li><p>literature review,</p></li>
-<li><p>better ml metrics,</p></li>
-<li><p>repeatability…</p></li>
-</ul>
-</section>
-<section id="encoding-improvements" class="slide level2">
-<h2>Encoding improvements</h2>
-<p>Better Encodings, regularization and its effects, improvements hopefully there</p>
-<p>Don’t encode data points, encode information!</p>
-<p>Maybe use gini/entropy to change encoding length? Things like that, there is a lot to be considered! Trees encoding, etc.</p>
-</section>
-<section id="active-learning-data-complexity" class="slide level2">
-<h2>Active learning &amp; Data Complexity</h2>
-<p>That’s how I came to know my then future directors.</p>
-<ul>
-<li><p>After discovering the concept, I thought I could come up with <em>new</em> data complexity measures, specific to RLCS.</p></li>
-<li><p>Then I could leverage those metrics for “active learning”</p>
-<ul>
-<li><p>exposing to fewer samples</p></li>
-<li><p>while maintaining classification quality</p></li>
-<li><p>and hence reduce runtimes</p></li>
-</ul></li>
-</ul>
-<p>Hopefully anyway.</p>
-</section>
-<section id="interpretability-credit-assignment" class="slide level2">
-<h2>Interpretability &amp; Credit Assignment</h2>
-<p>While inherently interpretable, the rule-set gets complex quickly.</p>
-<p>I’m curious about whether I can improve on that aspect.</p>
-<p>And for <strong>Reinforcement Learning</strong> settings, I believe there is a way to leverage subsumption steps during training to <strong>distill information</strong> (“consolidate”) into a separate hierarchy of RLCS models for shorter input strings while maintaining learning.</p>
-</section></section>
+<img data-src="images/before_after_moving_call.png" class="r-stretch quarto-figure-center"><p class="caption">Moving calls around for speed</p></section></section>
 <section>
 <section id="elephant-in-the-room-llms" class="title-slide slide level1 center">
 <h1>Elephant in the room: LLMs</h1>
@@ -321,10 +291,9 @@
 <section id="llms-for-code" class="slide level2">
 <h2>LLMs for Code</h2>
 <ul>
-<li>Well yes, they’re here.</li>
-<li>And yes they’re incredible at code.</li>
-<li><em>Better than I am, no contest</em>.</li>
+<li>Well yes, they’re here. They are <strong>incredible at code</strong>. <em>Better than I am, no contest</em>.</li>
 <li>That does <strong>not</strong> mean we <strong>have</strong> to use them. At least not for a hobby.</li>
+<li><em>Maybe learning is <strong>not better when efficient?</strong></em></li>
 </ul>
 
 <img data-src="images/llm_fold.jpeg" class="r-stretch quarto-figure-center"><p class="caption">LLM can model proteins</p></section>
@@ -332,33 +301,36 @@
 <h2>RLCS with LLM</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="visNetwork html-widget html-fill-item" id="htmlwidget-638b552e11ddb3215c53" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-638b552e11ddb3215c53">{"x":{"nodes":{"id":[" R"," RLCS"," Claude/Codex/Copilot"],"group":[" code"," code"," ai"],"label":[" R"," RLCS"," Claude/Codex/Copilot"],"x":[1,-1,-5.561443527923871e-10],"y":[0.9999999977754228,1,-1]},"edges":{"from":[" R"," RLCS"," R"],"to":[" RLCS"," Claude/Codex/Copilot"," Claude/Codex/Copilot"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":[" code"," ai"],"width":null,"height":null,"idselection":{"enabled":false},"byselection":{"enabled":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
+<div class="visNetwork html-widget html-fill-item" id="htmlwidget-449cbf5e875b8e69e2d9" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-449cbf5e875b8e69e2d9">{"x":{"nodes":{"id":[" R"," RLCS"," Claude/Codex/Copilot"],"group":[" code"," code"," ai"],"label":[" R"," RLCS"," Claude/Codex/Copilot"],"x":[1,-1,3.598454867415057e-11],"y":[-1,-0.9999999998560618,1]},"edges":{"from":[" R"," RLCS"," R"],"to":[" RLCS"," Claude/Codex/Copilot"," Claude/Codex/Copilot"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":[" code"," ai"],"width":null,"height":null,"idselection":{"enabled":false},"byselection":{"enabled":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
-<section id="what-taking-time-entails" class="slide level2">
-<h2>What taking time entails…</h2>
-<p>Value of coding (and reading) as “additional ponder time”, testing approaches, coming up with alternatives…</p>
+<section id="on-friction-learning" class="slide level2">
+<h2>On Friction &amp; Learning</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="visNetwork html-widget html-fill-item" id="htmlwidget-aa40659f637be43a40a7" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-aa40659f637be43a40a7">{"x":{"nodes":{"id":[" R"," RLCS"," XCS"," XCS.PDF"," Reinforcement Learning"," UCS"," Supervised Learning"," The Selfish Gene"," Sutton & Barto's RL"," Reward Shaping"," Sample Average"," TD"," Introduction to LCS"," Learning Classifier Systems"," Minsky & Papert's Perceptrons"," A brief history of Intelligence"," Rcpp"," Advanced R"," R Packages"," The Infinity Machine"," Code"," What is intelligence"," LCS"," What is a Learning Classifier System"," A complete description of UCS"," Interpretable Machine Learning (Molnar)"," Complexity (Mitchell)"," Modern Optimization with R"," The Information"," The road to conscious machines"," Active Learning"," Data Complexity"," The art of doing science and engineering"," The origins of efficiency"," Environments"," matrices multiplication"," Numerical Methods"," An Introduction to Anticipatory Classifier Systems"," Revisiting UCS: Description Fitness sharing ..."," Investigating Scaling of an Abstracted LCS utilizing Ternary and S-Expression Alphabets"," Classifier Conditions using Gene Expression programming"," partitioning trees"," random forests"," neural networks"," Gray Encoding"," binary encoding"," parallel processing"," TF-IDF"," NLP"," Graphs Theory"," Machine Learning"," Iris"," Breast Cancer"," Mushrooms"," Adults"," Accuracy"," F1 Score"," Mathew Correlation Coef"," Genetic Algorithms"," Genetic Programming"," Fundamentos de la computación evolutiva"," Interpretable ML with Python (Masis)"," Ontology Pipelines (Talisman)"," Search Space"," Feature Engineering"," Regularization"," A guided Tour of Artificial Intelligence Research (Vols 1 & 2)"," Surfaces & Essences (Hofstadter)"," Genius Makers (Metz)"," Minimally overfitted learners"," Hostility measure for multi-level study of data complexity"],"group":[" code"," code"," code"," paper"," theory"," code"," theory"," book"," book"," theory"," theory"," theory"," book"," book"," book"," book"," code"," code"," code"," book"," book"," book"," theory"," paper"," paper"," book"," book"," book"," book"," book"," theory"," theory"," book"," book"," code"," theory"," theory"," paper"," paper"," paper"," paper"," theory"," theory"," theory"," theory"," theory"," theory"," theory"," theory"," theory"," theory"," code"," code"," code"," code"," theory"," theory"," theory"," theory"," theory"," book"," book"," book"," theory"," theory"," theory"," book"," book"," book"," paper"," paper"],"label":[" R"," RLCS"," XCS"," XCS.PDF"," Reinforcement Learning"," UCS"," Supervised Learning"," The Selfish Gene"," Sutton & Barto's RL"," Reward Shaping"," Sample Average"," TD"," Introduction to LCS"," Learning Classifier Systems"," Minsky & Papert's Perceptrons"," A brief history of Intelligence"," Rcpp"," Advanced R"," R Packages"," The Infinity Machine"," Code"," What is intelligence"," LCS"," What is a Learning Classifier System"," A complete description of UCS"," Interpretable Machine Learning (Molnar)"," Complexity (Mitchell)"," Modern Optimization with R"," The Information"," The road to conscious machines"," Active Learning"," Data Complexity"," The art of doing science and engineering"," The origins of efficiency"," Environments"," matrices multiplication"," Numerical Methods"," An Introduction to Anticipatory Classifier Systems"," Revisiting UCS: Description Fitness sharing ..."," Investigating Scaling of an Abstracted LCS utilizing Ternary and S-Expression Alphabets"," Classifier Conditions using Gene Expression programming"," partitioning trees"," random forests"," neural networks"," Gray Encoding"," binary encoding"," parallel processing"," TF-IDF"," NLP"," Graphs Theory"," Machine Learning"," Iris"," Breast Cancer"," Mushrooms"," Adults"," Accuracy"," F1 Score"," Mathew Correlation Coef"," Genetic Algorithms"," Genetic Programming"," Fundamentos de la computación evolutiva"," Interpretable ML with Python (Masis)"," Ontology Pipelines (Talisman)"," Search Space"," Feature Engineering"," Regularization"," A guided Tour of Artificial Intelligence Research (Vols 1 & 2)"," Surfaces & Essences (Hofstadter)"," Genius Makers (Metz)"," Minimally overfitted learners"," Hostility measure for multi-level study of data complexity"],"x":[0.1652705978680669,0.3843962442910689,0.4912275099333592,0.5114685770066483,0.5179294813020472,-0.08923611313860691,-0.503291277257192,0.350079787195674,0.6215278451269366,0.5416912912324539,0.7676078372831627,0.7049747796197783,0.3110471366883381,0.1223307898130626,0.27238167675136,0.2023795591676247,0.2779451115082028,0.4703280457041894,0.2345877329765389,0.6084828182133759,0.5489706121709068,0.477622586057598,0.7037612000233588,0.8834629067556015,-0.2577514653275146,0.01448671959186254,0.8987521664155982,0.7218542447972018,0.9244034269576675,0.1786412558860764,-0.6687867409071383,-0.8135149941015539,0.4465308581595908,0.521252948741195,0.547647409588875,0.6462367632427177,0.8347824876770256,0.8126953207490997,-0.05857938015152631,0.05495422255496707,-0.01905471120951763,0.5125291747589229,0.4726283982677792,0.5225372061319655,0.3205142888067705,0.3543379302707339,0.4772152328795858,-0.6288880780476199,-0.5119641480903397,-0.4913144131423224,0.7824885635962087,0.8012129425035517,0.9343838429382401,0.9511769755199289,0.8693726591082864,0.8597989539985829,1,0.9821761013659427,0.139312098710596,0.01184157372099648,-0.02689157974694045,-0.1564781644492591,-0.3109571810423284,0.9174201271520201,0.3895925031337466,0.4052287877196497,0.4225794594397341,0.02519025272641939,0.1098302899857879,-0.9808389538227883,-1],"y":[0.364800430393587,0.3131244006155514,-0.3155921567313884,-0.4973095128814735,-0.7654140557525013,0.2053565526470118,0.2022772543723275,0.4603447783335552,-0.6514450987420399,-0.9741559759806341,-0.794773103889412,-0.8514114092957324,0.1064308313966933,0.02794282326145803,0.3800360842190691,0.6347609547707773,0.1818739833003606,0.6835738562566542,0.2536493882512609,-0.981106987585921,0.2599549369307723,-1,0.05108088767371655,-0.09056603674086616,0.1133247485296156,0.4207763898243957,-0.009087700380813302,0.2752081491709435,0.3032570026105539,0.8614008382671574,0.1152663445486293,0.1577114081477917,0.4780644974881296,0.178892894091107,0.887676859123242,0.4103144583323501,0.4711315215845928,-0.1279895897640565,0.03850277312142758,-0.181097495751216,-0.1376226251375132,0.3400711123682085,0.1109996768672115,0.4341289653204925,0.8742503210613208,0.6270857167055031,0.9257309581152162,0.2986279943934096,0.3701244401300117,0.4901719974783478,0.7641967651609365,0.9966868427551931,0.9769162771419884,0.9074757196527439,1,0.8608058853344747,0.8595565428863117,0.7786039317974518,0.6054430849678634,0.8142786499132983,0.7630589084285451,0.5019826930571496,0.4401815145257175,0.2151145473259726,0.08125479952826797,0.1766724590781645,-0.9391404786511749,0.5955083569408606,0.8403337886102373,0.08121178015119113,0.1825016370858932]},"edges":{"from":[" R"," RLCS"," RLCS"," XCS"," XCS"," XCS"," RLCS"," UCS"," Sutton & Barto's RL"," Sutton & Barto's RL"," RLCS"," RLCS"," RLCS"," RLCS"," RLCS"," RLCS"," RLCS"," Reinforcement Learning"," RLCS"," Reinforcement Learning"," Reinforcement Learning"," RLCS"," LCS"," Reinforcement Learning"," UCS"," R"," RLCS"," LCS"," RLCS"," Modern Optimization with R"," A brief history of Intelligence"," Supervised Learning"," Supervised Learning"," RLCS"," RLCS"," matrices multiplication"," RLCS"," Advanced R"," UCS"," Learning Classifier Systems"," Learning Classifier Systems"," Learning Classifier Systems"," RLCS"," RLCS"," RLCS"," RLCS"," Gray Encoding"," Advanced R"," Supervised Learning"," Supervised Learning"," NLP"," TF-IDF"," Graphs Theory"," RLCS"," Machine Learning"," Machine Learning"," Machine Learning"," Machine Learning"," Machine Learning"," Machine Learning"," Machine Learning"," Machine Learning"," RLCS"," Genetic Algorithms"," Genetic Algorithms"," Genetic Programming"," Interpretable Machine Learning (Molnar)"," NLP"," Interpretable Machine Learning (Molnar)"," Modern Optimization with R"," RLCS"," RLCS"," LCS"," Data Complexity"," Data Complexity"," A brief history of Intelligence"," Interpretable Machine Learning (Molnar)"," A brief history of Intelligence"," Reinforcement Learning"],"to":[" RLCS"," XCS"," The Selfish Gene"," XCS.PDF"," Reinforcement Learning"," Sutton & Barto's RL"," UCS"," Supervised Learning"," Sample Average"," TD"," Introduction to LCS"," Learning Classifier Systems"," Minsky & Papert's Perceptrons"," A brief history of Intelligence"," Rcpp"," Advanced R"," R Packages"," The Infinity Machine"," Code"," What is intelligence"," Reward Shaping"," LCS"," What is a Learning Classifier System"," Sutton & Barto's RL"," A complete description of UCS"," Interpretable Machine Learning (Molnar)"," Interpretable Machine Learning (Molnar)"," Complexity (Mitchell)"," Modern Optimization with R"," The Information"," The road to conscious machines"," Active Learning"," Data Complexity"," The art of doing science and engineering"," The origins of efficiency"," Numerical Methods"," matrices multiplication"," Environments"," Revisiting UCS: Description Fitness sharing ..."," Revisiting UCS: Description Fitness sharing ..."," Investigating Scaling of an Abstracted LCS utilizing Ternary and S-Expression Alphabets"," Classifier Conditions using Gene Expression programming"," partitioning trees"," random forests"," neural networks"," binary encoding"," binary encoding"," parallel processing"," NLP"," TF-IDF"," Graphs Theory"," NLP"," Ontology Pipelines (Talisman)"," Machine Learning"," Iris"," Breast Cancer"," Mushrooms"," Adults"," Accuracy"," Accuracy"," F1 Score"," Mathew Correlation Coef"," Genetic Algorithms"," Genetic Programming"," Fundamentos de la computación evolutiva"," Fundamentos de la computación evolutiva"," Interpretable ML with Python (Masis)"," Ontology Pipelines (Talisman)"," Ontology Pipelines (Talisman)"," Search Space"," Feature Engineering"," Regularization"," An Introduction to Anticipatory Classifier Systems"," Minimally overfitted learners"," Hostility measure for multi-level study of data complexity"," Surfaces & Essences (Hofstadter)"," Surfaces & Essences (Hofstadter)"," Genius Makers (Metz)"," A guided Tour of Artificial Intelligence Research (Vols 1 & 2)"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":[" code"," paper"," theory"," book"],"width":null,"height":null,"idselection":{"enabled":false},"byselection":{"enabled":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
+<div class="visNetwork html-widget html-fill-item" id="htmlwidget-76e85ecd99a20cb516ea" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-76e85ecd99a20cb516ea">{"x":{"nodes":{"id":[" R"," RLCS"," XCS"," XCS.PDF"," Reinforcement Learning"," UCS"," Supervised Learning"," The Selfish Gene"," Sutton & Barto's RL"," Reward Shaping"," Sample Average"," TD"," Introduction to LCS"," Learning Classifier Systems"," Minsky & Papert's Perceptrons"," A brief history of Intelligence"," Rcpp"," Advanced R"," R Packages"," The Infinity Machine"," Code"," What is intelligence"," LCS"," What is a Learning Classifier System"," A complete description of UCS"," Interpretable Machine Learning (Molnar)"," Complexity (Mitchell)"," Modern Optimization with R"," The Information"," The road to conscious machines"," Active Learning"," Data Complexity"," The art of doing science and engineering"," The origins of efficiency"," Environments"," matrices multiplication"," Numerical Methods"," An Introduction to Anticipatory Classifier Systems"," Revisiting UCS: Description Fitness sharing ..."," Investigating Scaling of an Abstracted LCS utilizing Ternary and S-Expression Alphabets"," Classifier Conditions using Gene Expression programming"," partitioning trees"," random forests"," neural networks"," Gray Encoding"," binary encoding"," parallel processing"," TF-IDF"," NLP"," Graphs Theory"," Machine Learning"," Iris"," Breast Cancer"," Mushrooms"," Adults"," Accuracy"," F1 Score"," Mathew Correlation Coef"," Genetic Algorithms"," Genetic Programming"," Fundamentos de la computación evolutiva"," Interpretable ML with Python (Masis)"," Ontology Pipelines (Talisman)"," Search Space"," Feature Engineering"," Regularization"," A guided Tour of Artificial Intelligence Research (Vols 1 & 2)"," Surfaces & Essences (Hofstadter)"," Genius Makers (Metz)"," Minimally overfitted learners"," Hostility measure for multi-level study of data complexity"],"group":[" code"," code"," code"," paper"," theory"," code"," theory"," book"," book"," theory"," theory"," theory"," book"," book"," book"," book"," code"," code"," code"," book"," book"," book"," theory"," paper"," paper"," book"," book"," book"," book"," book"," theory"," theory"," book"," book"," code"," theory"," theory"," paper"," paper"," paper"," paper"," theory"," theory"," theory"," theory"," theory"," theory"," theory"," theory"," theory"," theory"," code"," code"," code"," code"," theory"," theory"," theory"," theory"," theory"," book"," book"," book"," theory"," theory"," theory"," book"," book"," book"," paper"," paper"],"label":[" R"," RLCS"," XCS"," XCS.PDF"," Reinforcement Learning"," UCS"," Supervised Learning"," The Selfish Gene"," Sutton & Barto's RL"," Reward Shaping"," Sample Average"," TD"," Introduction to LCS"," Learning Classifier Systems"," Minsky & Papert's Perceptrons"," A brief history of Intelligence"," Rcpp"," Advanced R"," R Packages"," The Infinity Machine"," Code"," What is intelligence"," LCS"," What is a Learning Classifier System"," A complete description of UCS"," Interpretable Machine Learning (Molnar)"," Complexity (Mitchell)"," Modern Optimization with R"," The Information"," The road to conscious machines"," Active Learning"," Data Complexity"," The art of doing science and engineering"," The origins of efficiency"," Environments"," matrices multiplication"," Numerical Methods"," An Introduction to Anticipatory Classifier Systems"," Revisiting UCS: Description Fitness sharing ..."," Investigating Scaling of an Abstracted LCS utilizing Ternary and S-Expression Alphabets"," Classifier Conditions using Gene Expression programming"," partitioning trees"," random forests"," neural networks"," Gray Encoding"," binary encoding"," parallel processing"," TF-IDF"," NLP"," Graphs Theory"," Machine Learning"," Iris"," Breast Cancer"," Mushrooms"," Adults"," Accuracy"," F1 Score"," Mathew Correlation Coef"," Genetic Algorithms"," Genetic Programming"," Fundamentos de la computación evolutiva"," Interpretable ML with Python (Masis)"," Ontology Pipelines (Talisman)"," Search Space"," Feature Engineering"," Regularization"," A guided Tour of Artificial Intelligence Research (Vols 1 & 2)"," Surfaces & Essences (Hofstadter)"," Genius Makers (Metz)"," Minimally overfitted learners"," Hostility measure for multi-level study of data complexity"],"x":[0.08779955319941313,0.3192669912654922,0.6049022368488299,0.6938694933465948,0.8175199392174193,-0.1256572724196569,-0.5255279390877186,0.2787217000902524,0.7516089048112982,0.8293050539239115,0.7431736505937891,0.9144240718994816,0.3470645788658904,0.09281627320303731,0.4296642296187398,0.02793568664783486,0.2762469592901191,0.3267195374898357,0.3494773526741901,0.9377036823476281,0.4230537327833568,1,0.1962997408656966,0.1251450700394858,-0.2789528189495677,-0.07002555048958736,0.07123152260947885,0.6186128305227945,0.8176616462637198,-0.1427287180966778,-0.6692509943410347,-0.8150522079581208,0.2156029838809479,0.411297501653239,0.2840976844672154,0.5797740466099643,0.7721053545916818,0.1974480899558091,-0.08032011773018755,0.04180438155349875,-0.02874237954746128,0.4619929281867812,0.182491229679407,0.1901769164809539,0.6563210015295105,0.5089122683425691,0.366803211400065,-0.6713821447281367,-0.5731158597687827,-0.5788496518792514,0.5432087527044243,0.6392709778727805,0.7240489292145786,0.4928942533507399,0.5643608546325645,0.5538671869867013,0.7164813827086123,0.6467404750584924,0.6668434631712967,0.8715315361623777,0.8708123699441315,-0.2527724797921319,-0.3917730377291406,0.7761198914711085,0.4819247418219252,0.2183344819028388,0.90836491831521,-0.1233578372236311,-0.08645584165021991,-0.9660583460532602,-1],"y":[-0.1801171551367837,-0.1602650516448655,0.3790687054248272,0.5319831446036041,0.7706940899829389,0.0408269377678836,0.15045304702896,0.03143677031154168,0.6713274468195021,1,0.8778212354314587,0.7517835890927564,-0.3569910367318061,0.1598286378144629,-0.2222799184618879,-0.3981635610929607,-0.361562629906606,0.2059638041956917,-0.002950837457133093,0.9300664619699783,0.01293852229308223,0.8808005350122337,-0.5827061394119506,-0.8110467686840486,0.15448433607096,-0.1964987205884375,-0.7601840559513955,0.008096118849116429,0.05947234941726576,-0.5286864512741904,0.2719998161714339,0.2852361528748606,-0.02655217000479804,-0.3156467354815383,0.4199972925590205,-0.2855973793447435,-0.3806734478135484,-0.8072041580124042,0.1891522818308793,0.3818264864024032,0.3421287478287158,-0.06428422118727206,-0.1085582728945369,-0.2231551676800637,-0.5151527797309308,-0.3786793290680915,0.4182993397734438,0.08894785576212128,-0.01507026520326682,-0.142188591366289,-0.7431852754868472,-0.9955240090866661,-0.8369245400724786,-0.9753353958441424,-1,-0.875275160015565,-0.923549559620605,-0.9186849118870437,-0.177238058907181,-0.2251027426253959,-0.1552787078450057,-0.2546954118375718,-0.1381561525844015,0.1388075807097986,-0.1522752692749578,-0.30720935481629,0.9973225971783617,-0.3568104469049609,-0.589274259624361,0.4081057857268995,0.3113879008653455]},"edges":{"from":[" R"," RLCS"," RLCS"," XCS"," XCS"," XCS"," RLCS"," UCS"," Sutton & Barto's RL"," Sutton & Barto's RL"," RLCS"," RLCS"," RLCS"," RLCS"," RLCS"," RLCS"," RLCS"," Reinforcement Learning"," RLCS"," Reinforcement Learning"," Reinforcement Learning"," RLCS"," LCS"," Reinforcement Learning"," UCS"," R"," RLCS"," LCS"," RLCS"," Modern Optimization with R"," A brief history of Intelligence"," Supervised Learning"," Supervised Learning"," RLCS"," RLCS"," matrices multiplication"," RLCS"," Advanced R"," UCS"," Learning Classifier Systems"," Learning Classifier Systems"," Learning Classifier Systems"," RLCS"," RLCS"," RLCS"," RLCS"," Gray Encoding"," Advanced R"," Supervised Learning"," Supervised Learning"," NLP"," TF-IDF"," Graphs Theory"," RLCS"," Machine Learning"," Machine Learning"," Machine Learning"," Machine Learning"," Machine Learning"," Machine Learning"," Machine Learning"," Machine Learning"," RLCS"," Genetic Algorithms"," Genetic Algorithms"," Genetic Programming"," Interpretable Machine Learning (Molnar)"," NLP"," Interpretable Machine Learning (Molnar)"," Modern Optimization with R"," RLCS"," RLCS"," LCS"," Data Complexity"," Data Complexity"," A brief history of Intelligence"," Interpretable Machine Learning (Molnar)"," A brief history of Intelligence"," Reinforcement Learning"],"to":[" RLCS"," XCS"," The Selfish Gene"," XCS.PDF"," Reinforcement Learning"," Sutton & Barto's RL"," UCS"," Supervised Learning"," Sample Average"," TD"," Introduction to LCS"," Learning Classifier Systems"," Minsky & Papert's Perceptrons"," A brief history of Intelligence"," Rcpp"," Advanced R"," R Packages"," The Infinity Machine"," Code"," What is intelligence"," Reward Shaping"," LCS"," What is a Learning Classifier System"," Sutton & Barto's RL"," A complete description of UCS"," Interpretable Machine Learning (Molnar)"," Interpretable Machine Learning (Molnar)"," Complexity (Mitchell)"," Modern Optimization with R"," The Information"," The road to conscious machines"," Active Learning"," Data Complexity"," The art of doing science and engineering"," The origins of efficiency"," Numerical Methods"," matrices multiplication"," Environments"," Revisiting UCS: Description Fitness sharing ..."," Revisiting UCS: Description Fitness sharing ..."," Investigating Scaling of an Abstracted LCS utilizing Ternary and S-Expression Alphabets"," Classifier Conditions using Gene Expression programming"," partitioning trees"," random forests"," neural networks"," binary encoding"," binary encoding"," parallel processing"," NLP"," TF-IDF"," Graphs Theory"," NLP"," Ontology Pipelines (Talisman)"," Machine Learning"," Iris"," Breast Cancer"," Mushrooms"," Adults"," Accuracy"," Accuracy"," F1 Score"," Mathew Correlation Coef"," Genetic Algorithms"," Genetic Programming"," Fundamentos de la computación evolutiva"," Fundamentos de la computación evolutiva"," Interpretable ML with Python (Masis)"," Ontology Pipelines (Talisman)"," Ontology Pipelines (Talisman)"," Search Space"," Feature Engineering"," Regularization"," An Introduction to Anticipatory Classifier Systems"," Minimally overfitted learners"," Hostility measure for multi-level study of data complexity"," Surfaces & Essences (Hofstadter)"," Surfaces & Essences (Hofstadter)"," Genius Makers (Metz)"," A guided Tour of Artificial Intelligence Research (Vols 1 & 2)"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":false},"physics":{"stabilization":false}},"groups":[" code"," paper"," theory"," book"],"width":null,"height":null,"idselection":{"enabled":false},"byselection":{"enabled":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","igraphlayout":{"type":"square"}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
+<p><strong>Coding</strong> (and reading) ~ “additional ponder time”, testing alternatives, <strong>understanding</strong> the papers &amp; equations…</p>
 </section>
 <section id="and-why-a-phd" class="slide level2">
 <h2>And why a PhD?</h2>
-<p>I jumped in my seat, 2 years ago, at these very conferences, to the tune of “AI could write my thesis”. Well, “AI” can write papers, indeed! But <em>why do a PhD then?</em></p>
+<p>At these very conferences: “AI could write my thesis”.</p>
+<p>Well, “AI” can write papers, indeed! But <strong><em>why do a PhD then?</em></strong></p>
 <div class="fragment">
-<p>Naive and idealistic and romantic take: it is supposed to be about making a scientific progress (even something tiny, minor, minuscule). And maybe it’s one way to direct learning efforts.</p>
+<p><br>Naive <em>(and idealistic, and romantic)</em> take:</p>
+<p><br>It is about becoming an <strong>expert</strong> &amp; making some <strong>scientific progress</strong> (even something minuscule). And maybe it’s one way to <strong>direct learning efforts</strong>.</p>
 </div>
 <div class="fragment">
-<p><br><strong>And my wife wouldn’t let me study another MSc.!</strong></p>
+<p><br>And <strong>my wife</strong> wouldn’t let me study <strong>another MSc.! :D</strong></p>
 <aside class="notes">
+<p>I jumped in my seat, 2 years ago, with these declaration, AI can write my thesis. Of course, but then why are we here?</p>
 <p>Today I value the setting of clear directions, the push, and above all super clever people to have interesting conversations with on the topic that somehow currently keeps me in love with computing, ML etc.</p>
 <p>I KNOW, I realize I am naive and idealistic and romantic here. A PhD is supposed to be about making a scientific progress, something not existing yet. Critically, I also understand that maybe a speck of dust in the grand scheme of things, something tiny, minor, minuscule. But something new, nevertheless. A new conclusion, a new approach, a never documented before combination of techniques.</p>
-<p>I am fortunate enough that I don’t need to do a PhD. I am not an academic, barely an engineer at this point. Nobody requires it from me, I won’t get a promotion for it (3-5 years from now when I’m done…) I just like to learn and understand things. I love the idea of coming up with something that will be a bit better. A grain of sand at best, but I will make the smallest of difference.</p>
+<p>I am fortunate enough that I <strong>don’t need</strong> to do a PhD. I am not an academic, barely an engineer at this point. Nobody requires it from me, I won’t get a promotion for it (3-5 years from now when I’m done…) I just like to learn and understand things. I love the idea of coming up with something that will be a bit better. A grain of sand at best, but I will make the smallest of difference.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -374,19 +346,19 @@
 </section>
 <section id="did-i-use-llms-then" class="slide level2">
 <h2>Did I use LLMs then?</h2>
-<p>Not for any code of RLCS. <strong>Because I didn’t have a time pressure</strong>. The <em>satisfaction that comes when something finally works!</em></p>
+<p>Not for any code of RLCS. <strong>Because I didn’t have a time pressure</strong>. Coding is a satisfying experience.</p>
 <p><strong>Maybe <em>not</em> using AI is really a privilege?</strong></p>
 <ul>
-<li>Do I use them? Yes (LLM security is even part of my job). Sometimes for code at work, sure.</li>
-<li>To help me review literature, semantic capabilities are super helpful!</li>
+<li>Do I use them? Yes (Much more so at work.)</li>
+<li>To help me <strong>review literature</strong>, <strong>semantic capabilities</strong> are super helpful!</li>
 <li>and discuss my own ideas, as a “sparring opponent”</li>
 </ul>
 </section></section>
 <section id="conclusions" class="title-slide slide level1 center">
 <h1>Conclusions</h1>
 <p>Just keep learning, you never know what’s around the corner.</p>
-<p>Taking our time to learn and understand is becoming a luxury.</p>
-<p>And R is just as good an option as any other.</p>
+<p><strong>Taking our time to learn and understand is becoming a luxury.</strong></p>
+<p>And coding in R is just as good an option as any other for that.</p>
 </section>
 
 <section id="more-resources" class="title-slide slide level1 center">
@@ -402,8 +374,108 @@
 <section id="thank-you" class="title-slide slide level1 center">
 <h1>Thank you!</h1>
 
+</section>
+
+<section id="bonus" class="title-slide slide level1 center">
+<h1>Bonus</h1>
 
 </section>
+
+<section>
+<section id="the-future-the-phd" class="title-slide slide level1 center">
+<h1>The future: the PhD</h1>
+<p>General lines…</p>
+</section>
+<section id="phase-1-validation" class="slide level2">
+<h2>Phase 1: Validation</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 77%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Working on…</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>State of the art (my code doesn’t respect preceding algorithms…), literature review</td>
+<td>Ongoing</td>
+</tr>
+<tr class="even">
+<td>train/validation/test, stratified 5-fold</td>
+<td>Coded</td>
+</tr>
+<tr class="odd">
+<td>Fix issues (data leakage in encoding…)</td>
+<td>Done</td>
+</tr>
+<tr class="even">
+<td>Better ML metrics for (SL) evaluations</td>
+<td>Done</td>
+</tr>
+<tr class="odd">
+<td>Repeatability (datasets, seeds, etc.)</td>
+<td>Done</td>
+</tr>
+<tr class="even">
+<td>Run (thousands?) configs &amp; iterations in grid search of several algorithms?</td>
+<td>Next up.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="phase-1-matrices-matching" class="slide level2">
+<h2>Phase 1: Matrices matching</h2>
+<p>Secret Sauce! This is quite possibly my first original (as far as I can tell) contribution.</p>
+<p><br>More on this when <em>(if? Nah, when!)</em> I publish my first PhD Paper ;)</p>
+<p><br>It’s not a secret either &amp; I can show I have “priority” ;) (Until proven wrong, of course…)</p>
+</section>
+<section id="phase-1-encoding-improvements" class="slide level2">
+<h2>Phase 1: Encoding improvements</h2>
+<p><br><strong>Don’t encode data points, encode information!</strong></p>
+<p><br>Better Encodings, regularization and its effects…</p>
+<p>E.g. Gini/entropy to change encoding length? Things like that, there is a lot to be considered! Trees encoding, etc.</p>
+</section>
+<section id="bit-string-length-input-compression" class="slide level2">
+<h2>Bit string length &amp; Input compression</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/demo_encoding_two_bits.jpg" width="323"></p>
+<figcaption>Basic numerical encoding</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/mnist_example_visu_explained.jpg" width="224"></p>
+<figcaption>Images data compression before training</figcaption>
+</figure>
+</div>
+</section>
+<section id="phase-2-active-learning-data-complexity" class="slide level2">
+<h2>Phase 2: Active learning &amp; Data Complexity</h2>
+<p><em>That’s how I came to know my then-future-Thesis-Supervisors.</em></p>
+<ul>
+<li><p>After discovering the concept, I thought I could come up with <strong><em>new</em></strong> <strong>data complexity measures, specific to RLCS</strong>.</p></li>
+<li><p>Then I could leverage those metrics for “active learning”</p>
+<ul>
+<li><p>exposing (in training) to fewer overall samples</p></li>
+<li><p>while maintaining classification quality</p></li>
+<li><p>and hence reduce runtimes</p></li>
+</ul></li>
+</ul>
+<p>Hopefully anyway :D</p>
+</section>
+<section id="phase-3-interpretability-credit-assignment" class="slide level2">
+<h2>Phase 3: Interpretability &amp; Credit Assignment</h2>
+<p>While inherently interpretable, the rule-set (RLCS Model) gets complex quickly.</p>
+<p><br>For <strong>Reinforcement Learning</strong> settings, I believe there is a way to leverage subsumption steps during training to <strong>distill information</strong> (“consolidate”) into a separate hierarchy of RLCS models, for shorter input strings (faster training/inference) while maintaining learning capacity.</p>
+<p><br>TBC.</p>
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
