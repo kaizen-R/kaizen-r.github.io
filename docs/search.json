@@ -438,14 +438,14 @@
     "href": "others/RLCS_documentation_15.html#can-you-guess-the-rule",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Can you guess the “rule”?",
-    "text": "Can you guess the “rule”?\n\nA Data Mining Exercise with RLCS\n&gt; library(RLCS)\n&gt; demo_env1 &lt;- rlcs_example_secret1()\n&gt; sample_of_rows &lt;- sample(1:nrow(demo_env1), 10, replace=F)\n&gt; print(demo_env1[sample_of_rows,], row.names = F)\n state class\n 01010     0\n 00111     0\n 11010     0\n 10001     1\n 00010     0\n 00100     1\n 10100     1\n 01111     0\n 01100     1\n 00001     1"
+    "text": "Can you guess the “rule”?\n\nA Data Mining Exercise with RLCS. Give yourself a minute or two…\n&gt; library(RLCS)\n&gt; demo_env1 &lt;- rlcs_demo_secret1() ## Generate a demo dataset\n&gt; ## Have a look:\n&gt; print(demo_env1[sample(1:nrow(demo_env1), 10, replace=F),], row.names = F)\nstate class\n00001     1\n01010     0\n00010     0\n01110     0\n10011     0\n00111     0\n10001     1\n10101     1\n10111     0\n01011     0"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#did-you-guess-right",
     "href": "others/RLCS_documentation_15.html#did-you-guess-right",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Did you guess right?",
-    "text": "Did you guess right?\n&gt; demo_params &lt;- RLCS_hyperparameters(n_epochs = 280, deletion_trigger = 40, deletion_threshold = 0.9)\n&gt; rlcs_model1 &lt;- rlcs_train_sl(demo_env1, demo_params, NULL, F)\n[1] \"Epoch: 40 Progress Exposure: 1280 Classifiers Count: 14\"\n[1] \"Epoch: 80 Progress Exposure: 2560 Classifiers Count: 8\"\n(...)\n[1] \"Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2\"\n\n Condition/Action is the rule (the rest are quality metrics)\n&gt; print(rlcs_model1)\n  condition action match_count correct_count accuracy numerosity reward first_seen\n1     ###1#      0        3560          3560        1        122      5       1843\n2     ###0#      1        2770          2770        1         94      5       3421\nThis model expresses: “Action/Class is Not bit 4”"
+    "text": "Did you guess right?\n&gt; demo_params &lt;- demo_params &lt;- RLCS_hyperparameters(n_epochs = 100, deletion_trigger = 20, deletion_threshold = 0.9)\n&gt; rlcs_model1 &lt;- rlcs_train_sl(demo_env1, demo_params)\n[1] \"Running single-core/thread, sequential\"\nComplete: 100 % | Epoch: 100 Progress Exposure: 3200 Classifiers Count: 2    \n\n Condition/Action is the rule (the rest are quality metrics)\n&gt; print(rlcs_model1)\n  condition action accuracy fixed_bits match_count correct_count avg.correctsetsize numerosity first_seen\n1     ###0#      1        1          1         833           833           1.824894         39       1536\n2     ###1#      0        1          1         810           810           1.786349         47       1582\nThis model expresses: “Action/Class is Not bit 4”"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#learning-rules-as-models",
@@ -459,7 +459,7 @@
     "href": "others/RLCS_documentation_15.html#download-and-install-rlcs",
     "title": "RLCS: A (shorter) Introduction",
     "section": "Download and install RLCS",
-    "text": "Download and install RLCS\nhttps://github.com/kaizen-R/RLCS\n\nTo get the package from GitHub:\nlibrary(devtools)\ninstall_github(\"kaizen-R/RLCS\")\n\nRun your first test\nlibrary(RLCS)\ndemo_params &lt;- RLCS_hyperparameters(n_epochs = 400, deletion_trigger = 40, deletion_threshold = 0.9)\ndemo_env2 &lt;- rlcs_example_secret2()\nprint(demo_env2, row.names = F)\nrlcs_model2 &lt;- rlcs_train_sl(demo_env2, demo_params, NULL, F)\nprint(rlcs_model2)\nplot(rlcs_model2)"
+    "text": "Download and install RLCS\nhttps://github.com/kaizen-R/RLCS\n\nTo get the package from GitHub:\nlibrary(devtools)\ninstall_github(\"kaizen-R/RLCS\")\n\nRun your first test\nlibrary(RLCS)\ndemo_params &lt;- RLCS_hyperparameters(wildcard_prob = .5, rd_trigger = 20, mutation_probability = .08, n_epochs = 120, deletion_trigger = 30, deletion_threshold = 0.6)\ndemo_env2 &lt;- rlcs_demo_secret2()\nprint(demo_env2, row.names = F)\nrlcs_model2 &lt;- rlcs_train_sl(demo_env2, demo_params, NULL, F)\nprint(rlcs_model2)\nplot(rlcs_model2)"
   },
   {
     "objectID": "others/RLCS_documentation_15.html#binary-input-example",
@@ -6647,7 +6647,7 @@
     "href": "others/FromHobbyToPhDwR.html#and-why-a-phd",
     "title": "From Hobby to PhD, with R",
     "section": "And why a PhD?",
-    "text": "And why a PhD?\nAt these very conferences: “AI could write my thesis”.\nWell, “AI” can write papers, indeed! But why do a PhD then?\n\nNaive (and idealistic, and romantic) take:\nIt is about becoming an expert & making some scientific progress (even something minuscule). And maybe it’s one way to direct learning efforts.\n\n\nAnd my wife wouldn’t let me study another MSc.! :D\n\nI jumped in my seat, 2 years ago, with these declaration, AI can write my thesis. Of course, but then why are we here?\nToday I value the setting of clear directions, the push, and above all super clever people to have interesting conversations with on the topic that somehow currently keeps me in love with computing, ML etc.\nI KNOW, I realize I am naive and idealistic and romantic here. A PhD is supposed to be about making a scientific progress, something not existing yet. Critically, I also understand that maybe a speck of dust in the grand scheme of things, something tiny, minor, minuscule. But something new, nevertheless. A new conclusion, a new approach, a never documented before combination of techniques.\nI am fortunate enough that I don’t need to do a PhD. I am not an academic, barely an engineer at this point. Nobody requires it from me, I won’t get a promotion for it (3-5 years from now when I’m done…) I just like to learn and understand things. I love the idea of coming up with something that will be a bit better. A grain of sand at best, but I will make the smallest of difference."
+    "text": "And why a PhD?\nAt these very conferences: “AI could write my thesis”.\nWell, “AI” can write papers, indeed! But why do a PhD then?\n\nNaive (and idealistic, and romantic) take:\nIt is about becoming an expert through thinking & making some scientific progress (even something minuscule). And maybe it’s one way to direct learning efforts.\n\n\nAlso: my wife wouldn’t let me study another MSc.! :D\n\nI jumped in my seat, 2 years ago, with these declaration, AI can write my thesis. Of course, but then why are we here?\nToday I value the setting of clear directions, the push, and above all super clever people to have interesting conversations with on the topic that somehow currently keeps me in love with computing, ML etc.\nI KNOW, I realize I am naive and idealistic and romantic here. A PhD is supposed to be about making a scientific progress, something not existing yet. Critically, I also understand that maybe a speck of dust in the grand scheme of things, something tiny, minor, minuscule. But something new, nevertheless. A new conclusion, a new approach, a never documented before combination of techniques.\nI am fortunate enough that I don’t need to do a PhD. I am not an academic, barely an engineer at this point. Nobody requires it from me, I won’t get a promotion for it (3-5 years from now when I’m done…) I just like to learn and understand things. I love the idea of coming up with something that will be a bit better. A grain of sand at best, but I will make the smallest of difference."
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#did-i-use-llms-then",
@@ -6724,7 +6724,7 @@
     "href": "others/FromHobbyToPhDwR.html#other-ideas",
     "title": "From Hobby to PhD, with R",
     "section": "Other ideas",
-    "text": "Other ideas\nBreaking the input data. Kinda works. Much faster. Not a great idea.\n\nBad idea, per Papert & Minsky’s “Perceptrons”…Skipping steps"
+    "text": "Other ideas\nBreaking the input data. Kinda works. Much faster. Not a great idea.\n\nBad idea, per Papert & Minsky’s “Perceptrons”…"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#bit-string-length-regularization-input-compression",

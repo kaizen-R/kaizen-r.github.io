@@ -131,7 +131,7 @@ Not as "functional", but, like it or not, in some cases, faster. Much.
 
 Breaking the input data. Kinda works. Much faster. Not a great idea.
 
-![Bad idea, per Papert & Minsky's "Perceptrons"...Skipping steps](images/mix_of_models.png){alt="Bad idea, per Papert & Minsky's \"Perceptrons\"..." fig-align="center" width="392"}
+![Bad idea, per Papert & Minsky's "Perceptrons"...](images/mix_of_models.png){fig-align="center" width="392"}
 
 ## Who says you HAVE to follow the pseudo code to the letter?
 
@@ -183,11 +183,11 @@ Well, "AI" can write papers, indeed! But ***why do a PhD then?***
 
 <br/>Naive *(and idealistic, and romantic)* take:
 
-<br/>It is about becoming an **expert** & making some **scientific progress** (even something minuscule). And maybe it's one way to **direct learning efforts**.
+<br/>It is about becoming an **expert** through **thinking** & making some **scientific progress** (even something minuscule). And maybe it's one way to **direct learning efforts**.
 
 . . .
 
-<br/>And **my wife** wouldn’t let me study **another MSc.! :D**
+<br/>Also: **my wife** wouldn’t let me study **another MSc.! :D**
 
 ::: notes
 I jumped in my seat, 2 years ago, with these declaration, AI can write my thesis. Of course, but then why are we here?
@@ -211,11 +211,13 @@ Not for any code of RLCS. **Because I didn’t have a time pressure**. Coding is
 
 # Conclusions
 
+It was never about the syntax.
+
+It was and still is about **thinking** through (programmatic) approaches to **solving problems**. And coding in R is just as good an option as any other for that.
+
 Just keep learning, you never know what’s around the corner.
 
 **Taking our time to learn and understand is becoming a luxury.**
-
-And coding in R is just as good an option as any other for that.
 
 # More Resources
 
@@ -223,9 +225,11 @@ And coding in R is just as good an option as any other for that.
 
 - [Advanced R is ALWAYS great](https://adv-r.hadley.nz/function-factories.html)
 
-- [THE BEST INTRO to the LCS Algorithm out-there (hands down!)](https://youtu.be/CRge_cZ2cJc?feature=shared) (12' video)
+- It turns out, others think *a bit* like me (but I'm just a student) about learning and genAI (published on Youtube Nov. 19th), from the recent "R+AI" conference!
 
-- [Wikipedia on LCS](https://en.wikipedia.org/wiki/Learning_classifier_system)
+  - ["Beyond the Prompt"](https://youtu.be/UuhXXIa7Ddg),
+
+  - ["Friction worth Keeping \[...\]"](https://www.youtube.com/watch?v=efwMAosu2-g)
 
 # Thank you!
 
@@ -238,7 +242,7 @@ General lines…
 ## Phase 1: Validation
 
 | Working on... | Status |
-|--------------------------------------------------------|----------------|
+|------------------------------------------------------|------------------|
 | State of the art (my code doesn't respect preceding algorithms...), literature review | Ongoing |
 | train/validation/test, stratified 5-fold | Coded |
 | Fix issues (data leakage in encoding...) | Done |

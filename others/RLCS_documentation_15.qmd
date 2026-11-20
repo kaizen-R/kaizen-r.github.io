@@ -19,7 +19,7 @@ execute:
 
 <br/>Let's call it Machine Learning. As of today:
 
--   Mostly Neural networks, DNN, and that's all **black boxes**
+- Mostly Neural networks, DNN, and that's all **black boxes**
 
 There are [ways around that](https://a.co/d/ba1J0oh "Interpretable Machine Learning: A Guide For Making Black Box Models Explainable").
 
@@ -27,13 +27,13 @@ There are [ways around that](https://a.co/d/ba1J0oh "Interpretable Machine Learn
 
 <br/>**Interpretability/Explainability:**
 
--   **Model-specific** Methods (...)
+- **Model-specific** Methods (...)
 
--   **Local Model-Agnostic** Methods: Counterfactuals, Local Surrogate Model (LIME), Shapley Value, Shapley Additive exPlanation (SHAP)...
+- **Local Model-Agnostic** Methods: Counterfactuals, Local Surrogate Model (LIME), Shapley Value, Shapley Additive exPlanation (SHAP)...
 
--   **Global Model-Agnostic** Methods: Partial Dependence Plot (PDP), Accumulated Local Effects (ALE), H-Statistic, Surrogate Models...
+- **Global Model-Agnostic** Methods: Partial Dependence Plot (PDP), Accumulated Local Effects (ALE), H-Statistic, Surrogate Models...
 
--   **Interpretable Models**: Trees, LM/GLM, KNN, and **rule-based**
+- **Interpretable Models**: Trees, LM/GLM, KNN, and **rule-based**
 
 <br/>Recommended reading: [Molnar C. (2022) "Interpretable Machine Learning"](https://a.co/d/ba1J0oh)
 
@@ -49,35 +49,33 @@ There are [ways around that](https://a.co/d/ba1J0oh "Interpretable Machine Learn
 
 <br/>
 
-A **Data Mining** Exercise with RLCS
+A **Data Mining** Exercise with RLCS. Give yourself a minute or two...
 
 ``` r
 > library(RLCS)
-> demo_env1 <- rlcs_example_secret1()
-> sample_of_rows <- sample(1:nrow(demo_env1), 10, replace=F)
-> print(demo_env1[sample_of_rows,], row.names = F)
- state class
- 01010     0
- 00111     0
- 11010     0
- 10001     1
- 00010     0
- 00100     1
- 10100     1
- 01111     0
- 01100     1
- 00001     1
+> demo_env1 <- rlcs_demo_secret1() ## Generate a demo dataset
+> ## Have a look:
+> print(demo_env1[sample(1:nrow(demo_env1), 10, replace=F),], row.names = F)
+state class
+00001     1
+01010     0
+00010     0
+01110     0
+10011     0
+00111     0
+10001     1
+10101     1
+10111     0
+01011     0
 ```
 
 ## Did you guess right?
 
 ``` r
-> demo_params <- RLCS_hyperparameters(n_epochs = 280, deletion_trigger = 40, deletion_threshold = 0.9)
-> rlcs_model1 <- rlcs_train_sl(demo_env1, demo_params, NULL, F)
-[1] "Epoch: 40 Progress Exposure: 1280 Classifiers Count: 14"
-[1] "Epoch: 80 Progress Exposure: 2560 Classifiers Count: 8"
-(...)
-[1] "Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2"
+> demo_params <- demo_params <- RLCS_hyperparameters(n_epochs = 100, deletion_trigger = 20, deletion_threshold = 0.9)
+> rlcs_model1 <- rlcs_train_sl(demo_env1, demo_params)
+[1] "Running single-core/thread, sequential"
+Complete: 100 % | Epoch: 100 Progress Exposure: 3200 Classifiers Count: 2    
 ```
 
 . . .
@@ -86,26 +84,26 @@ A **Data Mining** Exercise with RLCS
 
 ``` r
 > print(rlcs_model1)
-  condition action match_count correct_count accuracy numerosity reward first_seen
-1     ###1#      0        3560          3560        1        122      5       1843
-2     ###0#      1        2770          2770        1         94      5       3421
+  condition action accuracy fixed_bits match_count correct_count avg.correctsetsize numerosity first_seen
+1     ###0#      1        1          1         833           833           1.824894         39       1536
+2     ###1#      0        1          1         810           810           1.786349         47       1582
 ```
 
 This model expresses: "Action/Class is Not bit 4"
 
 ## Learning rules as model(s)
 
--   if **A & NOT(B)** then **Class=X**
+- if **A & NOT(B)** then **Class=X**
 
--   if **D** then **Class=Y**
+- if **D** then **Class=Y**
 
 . . .
 
 "Human-readable", "interpretable", **good for:**
 
--   **Mitigating bias**(es) (in training data, at least)
+- **Mitigating bias**(es) (in training data, at least)
 
--   Increased **trust** (justifying decisions)
+- Increased **trust** (justifying decisions)
 
 . . .
 
@@ -132,8 +130,8 @@ Run your first test
 
 ``` r
 library(RLCS)
-demo_params <- RLCS_hyperparameters(n_epochs = 400, deletion_trigger = 40, deletion_threshold = 0.9)
-demo_env2 <- rlcs_example_secret2()
+demo_params <- RLCS_hyperparameters(wildcard_prob = .5, rd_trigger = 20, mutation_probability = .08, n_epochs = 120, deletion_trigger = 30, deletion_threshold = 0.6)
+demo_env2 <- rlcs_demo_secret2()
 print(demo_env2, row.names = F)
 rlcs_model2 <- rlcs_train_sl(demo_env2, demo_params, NULL, F)
 print(rlcs_model2)
@@ -220,10 +218,10 @@ This example is in fact not learning probability distributions. And it uses rewa
 
 # More Resources
 
--   [THE BEST INTRO to the LCS Algorithm out-there (hands down!)](https://youtu.be/CRge_cZ2cJc?feature=shared) (12' video)
+- [THE BEST INTRO to the LCS Algorithm out-there (hands down!)](https://youtu.be/CRge_cZ2cJc?feature=shared) (12' video)
 
--   [Wikipedia on LCS](https://en.wikipedia.org/wiki/Learning_classifier_system)
+- [Wikipedia on LCS](https://en.wikipedia.org/wiki/Learning_classifier_system)
 
--   [Advanced R is ALWAYS great](https://adv-r.hadley.nz/function-factories.html)
+- [Advanced R is ALWAYS great](https://adv-r.hadley.nz/function-factories.html)
 
 # Thank you!
