@@ -19,9 +19,9 @@ execute:
 
 Let's call it Machine Learning. As of today:
 
--   Mostly Neural networks
+- Mostly Neural networks
 
--   And mostly, that means it's all **black boxes**
+- And mostly, that means it's all **black boxes**
 
 There are [ways around that](https://a.co/d/ba1J0oh "Interpretable Machine Learning: A Guide For Making Black Box Models Explainable"). (e.g. *Trees* and other "open book" algorithms...)
 
@@ -37,17 +37,17 @@ Today, we'll be discussing one such explainable Machine Learning algorithm.
 
 ## Learning rules as model(s)
 
--   if **A & NOT(B)** then **Class=X**
+- if **A & NOT(B)** then **Class=X**
 
--   if **D** then **Class=Y**
+- if **D** then **Class=Y**
 
 . . .
 
 "Human-readable", "interpretable", **good for:**
 
--   **Mitigating bias**(es) (in training data, at least)
+- **Mitigating bias**(es) (in training data, at least)
 
--   Increased **trust** (justifying decisions)
+- Increased **trust** (justifying decisions)
 
 . . .
 
@@ -69,50 +69,49 @@ I found such a thing last November 2024. But let's go back for a minute.
 
 ## Can you guess the "rule"?
 
+<br/>
+
+A **Data Mining** Exercise with RLCS. Give yourself a minute or two...
+
 ``` r
 > library(RLCS)
-> demo_env1 <- rlcs_example_secret1()
-> sample_of_rows <- sample(1:nrow(demo_env1), 10, replace=F)
-> print(demo_env1[sample_of_rows,], row.names = F)
- state class
- 01010     0
- 00111     0
- 11010     0
- 10001     1
- 00010     0
- 00100     1
- 10100     1
- 01111     0
- 01100     1
- 00001     1
+> demo_env1 <- rlcs_demo_secret1() ## Generate a demo dataset
+> ## Have a look:
+> print(demo_env1[sample(1:nrow(demo_env1), 10, replace=F),], row.names = F)
+state class
+00001     1
+01010     0
+00010     0
+01110     0
+10011     0
+00111     0
+10001     1
+10101     1
+10111     0
+01011     0
 ```
 
 ## Did you guess right?
 
 ``` r
-> demo_params <- RLCS_hyperparameters(n_epochs = 280, deletion_trigger = 40, deletion_threshold = 0.9)
-> rlcs_model1 <- rlcs_train_sl(demo_env1, demo_params, NULL, F)
-[1] "Epoch: 40 Progress Exposure: 1280 Classifiers Count: 14"
-[1] "Epoch: 80 Progress Exposure: 2560 Classifiers Count: 8"
-[1] "Epoch: 120 Progress Exposure: 3840 Classifiers Count: 2"
-[1] "Epoch: 160 Progress Exposure: 5120 Classifiers Count: 2"
-[1] "Epoch: 200 Progress Exposure: 6400 Classifiers Count: 2"
-[1] "Epoch: 240 Progress Exposure: 7680 Classifiers Count: 2"
-[1] "Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2"
+> demo_params <- RLCS_hyperparameters(n_epochs = 100, deletion_trigger = 20, deletion_threshold = 0.9)
+> rlcs_model1 <- rlcs_train_sl(demo_env1, demo_params)
+[1] "Running single-core/thread, sequential"
+Complete: 100 % | Epoch: 100 Progress Exposure: 3200 Classifiers Count: 2    
 ```
 
 . . .
 
-<br/>
+<br/> Condition/Action is the rule (the rest are quality metrics)
 
 ``` r
 > print(rlcs_model1)
-  condition action match_count correct_count accuracy numerosity reward first_seen
-1     ###1#      0        3560          3560        1        122      5       1843
-2     ###0#      1        2770          2770        1         94      5       3421
+  condition action accuracy fixed_bits match_count correct_count avg.correctsetsize numerosity first_seen
+1     ###0#      1        1          1         833           833           1.824894         39       1536
+2     ###1#      0        1          1         810           810           1.786349         47       1582
 ```
 
-The model expresses: "Not bit 4"
+This model expresses: "Action/Class is Not bit 4"
 
 ## The model: the Ternary Alphabet
 
@@ -169,7 +168,7 @@ Well...
 
 <br/>A (simplistic) function is actually provided to make this a bit more transparent. **Not necessarily the best approach!** Just an "illustration", really.
 
-(for numerical data, for now... work-in-progress :))
+It works for numerical and categorical data.
 
 ## Binary input: Example
 
@@ -208,10 +207,12 @@ install_github("kaizen-R/RLCS")
 
 ## Run your first tests of RLCS
 
+<br/>
+
 ``` r
 library(RLCS)
-demo_params <- RLCS_hyperparameters(n_epochs = 400, deletion_trigger = 40, deletion_threshold = 0.9)
-demo_env2 <- rlcs_example_secret2()
+demo_params <- RLCS_hyperparameters(wildcard_prob = .5, rd_trigger = 20, mutation_probability = .08, n_epochs = 120, deletion_trigger = 30, deletion_threshold = 0.6)
+demo_env2 <- rlcs_demo_secret2()
 print(demo_env2, row.names = F)
 rlcs_model2 <- rlcs_train_sl(demo_env2, demo_params, NULL, F)
 print(rlcs_model2)
@@ -249,13 +250,13 @@ The class here is defined already.
 
 ## 2 - Matching
 
--   When you see a new environment **instance** that **does not match any rule** in your population yet -\> generate a **new rule.**
+- When you see a new environment **instance** that **does not match any rule** in your population yet -\> generate a **new rule.**
 
 . . .
 
--   If one(+) rule(s) in your population **matches** your new instance **state** -\> increase the **match count of the corresponding classifier.**
+- If one(+) rule(s) in your population **matches** your new instance **state** -\> increase the **match count of the corresponding classifier.**
 
--   If one(+) rule(s) in your population matches your new instance **state && class/action** –\> increase the **correct count.**
+- If one(+) rule(s) in your population matches your new instance **state && class/action** –\> increase the **correct count.**
 
 including their corresponding actions
 
@@ -295,11 +296,11 @@ $$e.g. 1.000 * 5.000 * 1.000 = 5.000.000.000$$
 
 <br/>
 
--   **Subsumption**: A "perfect" classifier that has 100% accuracy might be simpler (more \# characters) than other classifiers in the population with same classification. Keep only the best classifiers. (Implemented: Accuracy-based subsumption)
+- **Subsumption**: A "perfect" classifier that has 100% accuracy might be simpler (more \# characters) than other classifiers in the population with same classification. Keep only the best classifiers. (Implemented: Accuracy-based subsumption)
 
--   **Compaction**: You can keep all classifiers that have e.g. 60%+ accuracy after a number of epochs.
+- **Compaction**: You can keep all classifiers that have e.g. 60%+ accuracy after a number of epochs.
 
--   **Deletion**: But you can also cap the population size, keeping only e.g. 10.000 best classifiers.
+- **Deletion**: But you can also cap the population size, keeping only e.g. 10.000 best classifiers.
 
 ## 5 - Prediction
 
@@ -308,6 +309,7 @@ Imagine a new sample/instance, never seen before. (Test environment)
 Prediction is about **returning the match set** for that new instance.
 
 ``` r
+## OLD CODE, do not run, but the concept stands! :)
 RLCS::get_match_set(sample_state, population_of_classifiers)
 ```
 
@@ -379,9 +381,9 @@ Time difference of 1.937979 mins
 
 Given that the rules are "expressive", sometimes you can **ask the LCS to find rules that appear in your data:**
 
--   Not necessarily to classify future samples
+- Not necessarily to classify future samples
 
--   To **identify what is important** for different classes of your data
+- To **identify what is important** for different classes of your data
 
 . . .
 
@@ -420,30 +422,30 @@ LCS can somehow recognize how **two different parts interact**. Aptly... The [te
 
 A package to implement a simple version of the Learning Classifier System algorithm:
 
--   Binary Alphabet, tournament/one-point crossover GA with mutation, accuracy based, Michigan-style LCS
+- Binary Alphabet, tournament/one-point crossover GA with mutation, accuracy based, Michigan-style LCS
 
--   With examples, demonstrating the implementation for:
+- With examples, demonstrating the implementation for:
 
-    -   Data Mining
+  - Data Mining
 
-    -   Supervised Learning
+  - Supervised Learning
 
-    -   Reinforcement Learning
+  - Reinforcement Learning
 
 ## How did I approach the thing?
 
 ::: incremental
--   Lists. Lists, everywhere. Which might have been a bad idea... (data.table?)
+- Originally: Lists. Lists, everywhere. Which might have been a bad idea... (data.table?). Today, mostly vectors and matrices
 
--   from there, lapply() & al. is then my best friend
+- from there, lapply() & al. was my best friend
 
--   "Start small, grow fast" ("fast"... for a hobby, that is)
+- "Start small, grow fast" ("fast"... for a hobby, that is)
 
--   then clean it (then clean it some more)
+- then clean it (then clean it some more)
 
--   Finally publishing on GitHub
+- Finally publishing on GitHub
 
--   Next steps? **CRAN**
+- Next steps? **CRAN**
 :::
 
 ## Examples
@@ -470,27 +472,8 @@ Too many parameters! (Uncle Bob wouldn't like it)
 After, using an object ([reference class, "R5"](http://adv-r.had.co.nz/R5.html), in this case)
 
 ``` r
-default_lcs_hyperparameters <- RLCS_hyperparameters()
-example_lcs <- rlcs_train_sl(train_environment, default_lcs_hyperparameters)
-```
-
-## Examples
-
-Or, you know...
-
-``` r
-source("run_params/datamining_examples_recommended_hyperparameters_v001.R")
-basic_hyperparameters <- RLCS_hyperparameters(
-  wildcard_prob = wildcard_prob,
-  ## defaults for rd_trigger, mutation_probability,
-  ## parents_selection_mode && tournament_pressure
-  n_epochs = n_epochs,
-  deletion_trigger = deletion_trigger,
-  deletion_threshold = deletion_threshold
-)
-
-## It makes it more readable here:
-example_lcs <- rlcs_train(train_environment, basic_hyperparameters)
+example_lcs <- rlcs_train_sl(train_environment)
+## Implies call to RLCS_hyperparameters(), an object.
 ```
 
 ## Examples
@@ -570,7 +553,7 @@ make_pop_printable <- function(classifier) {
 
 ## Examples
 
-After - S3 object
+After (outdated) - S3 object
 
 ``` r
 print.rlcs_population <- function(x, ...) {
@@ -610,13 +593,13 @@ So: document more, write more tests, reorganize functions...
 
 # More Resources
 
--   [THE BEST INTRO to the LCS Algorithm out-there (hands down!)](https://youtu.be/CRge_cZ2cJc?feature=shared) (12' video)
+- [THE BEST INTRO to the LCS Algorithm out-there (hands down!)](https://youtu.be/CRge_cZ2cJc?feature=shared) (12' video)
 
--   [Advanced R is ALWAYS great](https://adv-r.hadley.nz/function-factories.html)
+- [Advanced R is ALWAYS great](https://adv-r.hadley.nz/function-factories.html)
 
--   And for my first [RevealJS Quarto, this blog entry](https://meghan.rbind.io/blog/2022-07-12-making-slides-in-quarto-with-revealjs/#my-quarto-journey-begins) (not mine)
+- And for my first [RevealJS Quarto, this blog entry](https://meghan.rbind.io/blog/2022-07-12-making-slides-in-quarto-with-revealjs/#my-quarto-journey-begins) (not mine)
 
--   Probably quite a few more, including the two in the first picture.
+- Probably quite a few more, including the two in the first picture.
 
 # Follow the link at the bottom for more info!
 
@@ -629,9 +612,9 @@ So: document more, write more tests, reorganize functions...
 It's not fast
 
 ::: incremental
--   There are many sequential steps, rather unavoidable ones at that
+- There are many sequential steps, rather unavoidable ones at that
 
--   Not ideal to compete with a world of GPUs and parallel processing (yet ;))
+- Not ideal to compete with a world of GPUs and parallel processing (yet ;))
 :::
 
 . . .
@@ -639,9 +622,9 @@ It's not fast
 It's "complex"
 
 ::: incremental
--   Or so does the [Wikipedia entry](https://en.wikipedia.org/wiki/Learning_classifier_system#Disadvantages) say...
+- Or so does the [Wikipedia entry](https://en.wikipedia.org/wiki/Learning_classifier_system#Disadvantages) say...
 
--   When it comes to "alphabets", it does get messy, I'll admit
+- When it comes to "alphabets", it does get messy, I'll admit
 :::
 
 ## Execution Speed
@@ -655,16 +638,16 @@ For instance, this is a "slow" algorithm. Option: Rcpp for Matching
 Parallel computing? %dopar%, mirai were tested (it all works, but...)
 
 ::: incremental
--   vertical and horizontal partitioning
-    -   Break data set (vertical). Two options
+- vertical and horizontal partitioning
+  - Break data set (vertical). Two options
 
-        -   instances subsets (reduce population covered per thread/core)
+    - instances subsets (reduce population covered per thread/core)
 
-        -   Substrings of states (reduce search space)
+    - Substrings of states (reduce search space)
 
-        -   both are "risky"!
+    - both are "risky"!
 
-    -   run fewer iterations (epochs) on full dataset, but on several cores in parallel
+  - run fewer iterations (epochs) on full dataset, but on several cores in parallel
 :::
 
 ## Parallel Computing
@@ -682,9 +665,9 @@ We've seen it works, but... **How do you package an RL algorithm?**
 You must make assumptions about the "world" your agent is going to interact with. This makes things complicated:
 
 ::: incremental
--   What to include inside the package? What not?
+- What to include inside the package? What not?
 
--   What to expose from the package? What not?
+- What to expose from the package? What not?
 :::
 
 And a few other such questions slow me down a bit...

@@ -32,14 +32,14 @@
     "href": "others/RLCS_documentation.html#can-you-guess-the-rule",
     "title": "RLCS: An Introduction",
     "section": "Can you guess the “rule”?",
-    "text": "Can you guess the “rule”?\n&gt; library(RLCS)\n&gt; demo_env1 &lt;- rlcs_example_secret1()\n&gt; sample_of_rows &lt;- sample(1:nrow(demo_env1), 10, replace=F)\n&gt; print(demo_env1[sample_of_rows,], row.names = F)\n state class\n 01010     0\n 00111     0\n 11010     0\n 10001     1\n 00010     0\n 00100     1\n 10100     1\n 01111     0\n 01100     1\n 00001     1"
+    "text": "Can you guess the “rule”?\n\nA Data Mining Exercise with RLCS. Give yourself a minute or two…\n&gt; library(RLCS)\n&gt; demo_env1 &lt;- rlcs_demo_secret1() ## Generate a demo dataset\n&gt; ## Have a look:\n&gt; print(demo_env1[sample(1:nrow(demo_env1), 10, replace=F),], row.names = F)\nstate class\n00001     1\n01010     0\n00010     0\n01110     0\n10011     0\n00111     0\n10001     1\n10101     1\n10111     0\n01011     0"
   },
   {
     "objectID": "others/RLCS_documentation.html#did-you-guess-right",
     "href": "others/RLCS_documentation.html#did-you-guess-right",
     "title": "RLCS: An Introduction",
     "section": "Did you guess right?",
-    "text": "Did you guess right?\n&gt; demo_params &lt;- RLCS_hyperparameters(n_epochs = 280, deletion_trigger = 40, deletion_threshold = 0.9)\n&gt; rlcs_model1 &lt;- rlcs_train_sl(demo_env1, demo_params, NULL, F)\n[1] \"Epoch: 40 Progress Exposure: 1280 Classifiers Count: 14\"\n[1] \"Epoch: 80 Progress Exposure: 2560 Classifiers Count: 8\"\n[1] \"Epoch: 120 Progress Exposure: 3840 Classifiers Count: 2\"\n[1] \"Epoch: 160 Progress Exposure: 5120 Classifiers Count: 2\"\n[1] \"Epoch: 200 Progress Exposure: 6400 Classifiers Count: 2\"\n[1] \"Epoch: 240 Progress Exposure: 7680 Classifiers Count: 2\"\n[1] \"Epoch: 280 Progress Exposure: 8960 Classifiers Count: 2\"\n\n\n&gt; print(rlcs_model1)\n  condition action match_count correct_count accuracy numerosity reward first_seen\n1     ###1#      0        3560          3560        1        122      5       1843\n2     ###0#      1        2770          2770        1         94      5       3421\nThe model expresses: “Not bit 4”"
+    "text": "Did you guess right?\n&gt; demo_params &lt;- RLCS_hyperparameters(n_epochs = 100, deletion_trigger = 20, deletion_threshold = 0.9)\n&gt; rlcs_model1 &lt;- rlcs_train_sl(demo_env1, demo_params)\n[1] \"Running single-core/thread, sequential\"\nComplete: 100 % | Epoch: 100 Progress Exposure: 3200 Classifiers Count: 2    \n\n Condition/Action is the rule (the rest are quality metrics)\n&gt; print(rlcs_model1)\n  condition action accuracy fixed_bits match_count correct_count avg.correctsetsize numerosity first_seen\n1     ###0#      1        1          1         833           833           1.824894         39       1536\n2     ###1#      0        1          1         810           810           1.786349         47       1582\nThis model expresses: “Action/Class is Not bit 4”"
   },
   {
     "objectID": "others/RLCS_documentation.html#the-model-the-ternary-alphabet",
@@ -67,7 +67,7 @@
     "href": "others/RLCS_documentation.html#binary-input-do-not-worry",
     "title": "RLCS: An Introduction",
     "section": "Binary input?! DO NOT WORRY",
-    "text": "Binary input?! DO NOT WORRY\nAny data point can be encoded into binary strings.\n\n\nrlcs_rosetta_stone()\nA (simplistic) function is actually provided to make this a bit more transparent. Not necessarily the best approach! Just an “illustration”, really.\n(for numerical data, for now… work-in-progress :))"
+    "text": "Binary input?! DO NOT WORRY\nAny data point can be encoded into binary strings.\n\n\nrlcs_rosetta_stone()\nA (simplistic) function is actually provided to make this a bit more transparent. Not necessarily the best approach! Just an “illustration”, really.\nIt works for numerical and categorical data."
   },
   {
     "objectID": "others/RLCS_documentation.html#binary-input-example",
@@ -95,7 +95,7 @@
     "href": "others/RLCS_documentation.html#run-your-first-tests-of-rlcs",
     "title": "RLCS: An Introduction",
     "section": "Run your first tests of RLCS",
-    "text": "Run your first tests of RLCS\nlibrary(RLCS)\ndemo_params &lt;- RLCS_hyperparameters(n_epochs = 400, deletion_trigger = 40, deletion_threshold = 0.9)\ndemo_env2 &lt;- rlcs_example_secret2()\nprint(demo_env2, row.names = F)\nrlcs_model2 &lt;- rlcs_train_sl(demo_env2, demo_params, NULL, F)\nprint(rlcs_model2)\nplot(rlcs_model2)"
+    "text": "Run your first tests of RLCS\n\nlibrary(RLCS)\ndemo_params &lt;- RLCS_hyperparameters(wildcard_prob = .5, rd_trigger = 20, mutation_probability = .08, n_epochs = 120, deletion_trigger = 30, deletion_threshold = 0.6)\ndemo_env2 &lt;- rlcs_demo_secret2()\nprint(demo_env2, row.names = F)\nrlcs_model2 &lt;- rlcs_train_sl(demo_env2, demo_params, NULL, F)\nprint(rlcs_model2)\nplot(rlcs_model2)"
   },
   {
     "objectID": "others/RLCS_documentation.html#keywords",
@@ -151,7 +151,7 @@
     "href": "others/RLCS_documentation.html#prediction",
     "title": "RLCS: An Introduction",
     "section": "5 - Prediction",
-    "text": "5 - Prediction\nImagine a new sample/instance, never seen before. (Test environment)\nPrediction is about returning the match set for that new instance.\nRLCS::get_match_set(sample_state, population_of_classifiers)\n\nThe prediction will be the majority (possibly weighted by numerosity, accuracy…) of the proposed class/action. That’s it! It also means, this is natively an ensemble learning algorithm."
+    "text": "5 - Prediction\nImagine a new sample/instance, never seen before. (Test environment)\nPrediction is about returning the match set for that new instance.\n## OLD CODE, do not run, but the concept stands! :)\nRLCS::get_match_set(sample_state, population_of_classifiers)\n\nThe prediction will be the majority (possibly weighted by numerosity, accuracy…) of the proposed class/action. That’s it! It also means, this is natively an ensemble learning algorithm."
   },
   {
     "objectID": "others/RLCS_documentation.html#other-uses",
@@ -228,7 +228,7 @@
     "href": "others/RLCS_documentation.html#how-did-i-approach-the-thing",
     "title": "RLCS: An Introduction",
     "section": "How did I approach the thing?",
-    "text": "How did I approach the thing?\n\nLists. Lists, everywhere. Which might have been a bad idea… (data.table?)\nfrom there, lapply() & al. is then my best friend\n“Start small, grow fast” (“fast”… for a hobby, that is)\nthen clean it (then clean it some more)\nFinally publishing on GitHub\nNext steps? CRAN"
+    "text": "How did I approach the thing?\n\nOriginally: Lists. Lists, everywhere. Which might have been a bad idea… (data.table?). Today, mostly vectors and matrices\nfrom there, lapply() & al. was my best friend\n“Start small, grow fast” (“fast”… for a hobby, that is)\nthen clean it (then clean it some more)\nFinally publishing on GitHub\nNext steps? CRAN"
   },
   {
     "objectID": "others/RLCS_documentation.html#examples",
@@ -242,35 +242,35 @@
     "href": "others/RLCS_documentation.html#examples-1",
     "title": "RLCS: An Introduction",
     "section": "Examples",
-    "text": "Examples\nAfter, using an object (reference class, “R5”, in this case)\ndefault_lcs_hyperparameters &lt;- RLCS_hyperparameters()\nexample_lcs &lt;- rlcs_train_sl(train_environment, default_lcs_hyperparameters)"
+    "text": "Examples\nAfter, using an object (reference class, “R5”, in this case)\nexample_lcs &lt;- rlcs_train_sl(train_environment)\n## Implies call to RLCS_hyperparameters(), an object."
   },
   {
     "objectID": "others/RLCS_documentation.html#examples-2",
     "href": "others/RLCS_documentation.html#examples-2",
     "title": "RLCS: An Introduction",
     "section": "Examples",
-    "text": "Examples\nOr, you know…\nsource(\"run_params/datamining_examples_recommended_hyperparameters_v001.R\")\nbasic_hyperparameters &lt;- RLCS_hyperparameters(\n  wildcard_prob = wildcard_prob,\n  ## defaults for rd_trigger, mutation_probability,\n  ## parents_selection_mode && tournament_pressure\n  n_epochs = n_epochs,\n  deletion_trigger = deletion_trigger,\n  deletion_threshold = deletion_threshold\n)\n\n## It makes it more readable here:\nexample_lcs &lt;- rlcs_train(train_environment, basic_hyperparameters)"
+    "text": "Examples\nBefore\ninc_match_count &lt;- function(M_pop) { ## All versions\n  lapply(M_pop, \\(x) {\n    x$match_count &lt;- x$match_count + 1\n    x\n  })\n}\n\ninc_correct_count &lt;- function(C_pop) { ## SL Specific\n  lapply(C_pop, \\(x) {\n    x$correct_count &lt;- x$correct_count + 1\n    x\n  })\n}\n\ninc_action_count &lt;- function(A_pop) { ## RL Specific\n  lapply(A_pop, \\(x) {\n    x$action_count &lt;- x$action_count + 1\n    x\n  })\n}"
   },
   {
     "objectID": "others/RLCS_documentation.html#examples-3",
     "href": "others/RLCS_documentation.html#examples-3",
     "title": "RLCS: An Introduction",
     "section": "Examples",
-    "text": "Examples\nBefore\ninc_match_count &lt;- function(M_pop) { ## All versions\n  lapply(M_pop, \\(x) {\n    x$match_count &lt;- x$match_count + 1\n    x\n  })\n}\n\ninc_correct_count &lt;- function(C_pop) { ## SL Specific\n  lapply(C_pop, \\(x) {\n    x$correct_count &lt;- x$correct_count + 1\n    x\n  })\n}\n\ninc_action_count &lt;- function(A_pop) { ## RL Specific\n  lapply(A_pop, \\(x) {\n    x$action_count &lt;- x$action_count + 1\n    x\n  })\n}"
+    "text": "Examples\nAfter, using a function factory\n## Function factory to increase parameter counts\ninc_param_count &lt;- function(param) {\n  param &lt;- as.name(param)\n  function(pop) {\n    lapply(pop, \\(x) {\n      x[[param]] &lt;- x[[param]] + 1\n      x\n    })\n  }\n}\n\ninc_match_count &lt;- inc_param_count(\"match_count\")\ninc_correct_count &lt;- inc_param_count(\"correct_count\")\ninc_action_count &lt;- inc_param_count(\"action_count\")"
   },
   {
     "objectID": "others/RLCS_documentation.html#examples-4",
     "href": "others/RLCS_documentation.html#examples-4",
     "title": "RLCS: An Introduction",
     "section": "Examples",
-    "text": "Examples\nAfter, using a function factory\n## Function factory to increase parameter counts\ninc_param_count &lt;- function(param) {\n  param &lt;- as.name(param)\n  function(pop) {\n    lapply(pop, \\(x) {\n      x[[param]] &lt;- x[[param]] + 1\n      x\n    })\n  }\n}\n\ninc_match_count &lt;- inc_param_count(\"match_count\")\ninc_correct_count &lt;- inc_param_count(\"correct_count\")\ninc_action_count &lt;- inc_param_count(\"action_count\")"
+    "text": "Examples\nBefore\n## Support function for human-compatible printing:\nmake_pop_printable &lt;- function(classifier) {\n    \n    df &lt;- plyr::rbind.fill(lapply(1:length(classifier), \\(i) {\n        t_c &lt;- classifier[[i]]\n        data.frame(id = t_c$id,\n                   condition = t_c$condition_string,\n                   action = t_c$action,\n                   match_count = t_c$match_count,\n                   correct_count = t_c$correct_count,\n                   accuracy = t_c$accuracy,\n                   numerosity = t_c$numerosity,\n                   first_seen = t_c$first_seen)\n    }))\n    df[order(df$accuracy, df$numerosity, decreasing = T),]\n}\n\n(Even the parameter name is wrong…)"
   },
   {
     "objectID": "others/RLCS_documentation.html#examples-5",
     "href": "others/RLCS_documentation.html#examples-5",
     "title": "RLCS: An Introduction",
     "section": "Examples",
-    "text": "Examples\nBefore\n## Support function for human-compatible printing:\nmake_pop_printable &lt;- function(classifier) {\n    \n    df &lt;- plyr::rbind.fill(lapply(1:length(classifier), \\(i) {\n        t_c &lt;- classifier[[i]]\n        data.frame(id = t_c$id,\n                   condition = t_c$condition_string,\n                   action = t_c$action,\n                   match_count = t_c$match_count,\n                   correct_count = t_c$correct_count,\n                   accuracy = t_c$accuracy,\n                   numerosity = t_c$numerosity,\n                   first_seen = t_c$first_seen)\n    }))\n    df[order(df$accuracy, df$numerosity, decreasing = T),]\n}\n\n(Even the parameter name is wrong…)"
+    "text": "Examples\nAfter (outdated) - S3 object\nprint.rlcs_population &lt;- function(x, ...) {\n  if(length(x) == 0) return(NULL)\n  x &lt;- .lcs_best_sort_sl(x)\n  x &lt;- unclass(x)\n  l &lt;- lapply(1:length(x), \\(i) {\n    t_c &lt;- x[[i]]\n    data.frame(condition = t_c$condition_string, action = t_c$action,\n               match_count = t_c$match_count, correct_count = t_c$correct_count,\n               accuracy = t_c$accuracy, numerosity = t_c$numerosity,\n               reward = t_c$total_reward, first_seen = t_c$first_seen)\n  })\n  # plyr::rbind.fill(l) ## Faster, but adds plyr dependency :(\n  ## Slower, but no dependency:\n  df &lt;- data.frame(matrix(unlist(l), nrow=length(l), byrow=TRUE))\n  names(df) &lt;- c(\"condition\", \"action\", \"match_count\", \"correct_count\", \"accuracy\", \"numerosity\", \"reward\", \"first_seeen\")\n  df\n}\n\nprint(example_lcs_population)"
   },
   {
     "objectID": "others/RLCS_documentation.html#examples-6",
