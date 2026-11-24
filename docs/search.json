@@ -6647,14 +6647,14 @@
     "href": "others/FromHobbyToPhDwR.html#and-why-a-phd",
     "title": "From Hobby to PhD, with R",
     "section": "And why a PhD?",
-    "text": "And why a PhD?\nAt these very conferences: “AI could write my thesis”.\nWell, “AI” can write papers, indeed! But why do a PhD then?\n\nNaive (and idealistic, and romantic) take:\nIt is about becoming an expert through thinking & making some scientific progress (even something minuscule). And maybe it’s one way to direct learning efforts.\n\n\nAlso: my wife wouldn’t let me study another MSc.! :D\n\nI jumped in my seat, 2 years ago, with these declaration, AI can write my thesis. Of course, but then why are we here?\nToday I value the setting of clear directions, the push, and above all super clever people to have interesting conversations with on the topic that somehow currently keeps me in love with computing, ML etc.\nI KNOW, I realize I am naive and idealistic and romantic here. A PhD is supposed to be about making a scientific progress, something not existing yet. Critically, I also understand that maybe a speck of dust in the grand scheme of things, something tiny, minor, minuscule. But something new, nevertheless. A new conclusion, a new approach, a never documented before combination of techniques.\nI am fortunate enough that I don’t need to do a PhD. I am not an academic, barely an engineer at this point. Nobody requires it from me, I won’t get a promotion for it (3-5 years from now when I’m done…) I just like to learn and understand things. I love the idea of coming up with something that will be a bit better. A grain of sand at best, but I will make the smallest of difference."
+    "text": "And why a PhD?\nAt these very conferences: “AI could write my thesis”. Well, “AI” can write papers, indeed! But why do a PhD then?\n\nNaive (and idealistic, and romantic) take:\nIt is about becoming an expert through thinking & making some scientific progress (even something minuscule). And maybe it’s one way to direct learning efforts.\n Also I now get excellent feedback from experts (my Thesis Supervisors). I’m not alone anymore!\n\n\nAnd my wife wouldn’t let me study another MSc. 😅\n\nI jumped in my seat, 2 years ago, with these declaration, AI can write my thesis. Of course, but then why are we here?\nToday I value the setting of clear directions, the push, and above all super clever people to have interesting conversations with on the topic that somehow currently keeps me in love with computing, ML etc.\nI KNOW, I realize I am naive and idealistic and romantic here. A PhD is supposed to be about making a scientific progress, something not existing yet. Critically, I also understand that maybe a speck of dust in the grand scheme of things, something tiny, minor, minuscule. But something new, nevertheless. A new conclusion, a new approach, a never documented before combination of techniques.\nI am fortunate enough that I don’t need to do a PhD. I am not an academic, barely an engineer at this point. Nobody requires it from me, I won’t get a promotion for it (3-5 years from now when I’m done…) I just like to learn and understand things. I love the idea of coming up with something that will be a bit better. A grain of sand at best, but I will make the smallest of difference."
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#did-i-use-llms-then",
     "href": "others/FromHobbyToPhDwR.html#did-i-use-llms-then",
     "title": "From Hobby to PhD, with R",
     "section": "Did I use LLMs then?",
-    "text": "Did I use LLMs then?\nNot for any code of RLCS. Because I didn’t have a time pressure. Coding is a satisfying experience.\nMaybe not using AI is really a privilege?\n\nDo I use them? Yes (Much more so at work.)\nTo help me review literature, semantic capabilities are super helpful!\nand discuss my own ideas, as a “sparring opponent”"
+    "text": "Did I use LLMs then?\n\nNot for any code of RLCS. I didn’t have a time pressure. Coding is a satisfying experience.\nI did not use them that much for learning…\n\nI prioritized books. And (later) papers.\nWhich possibly was a mistake (as long as you check the sources)\n\n\n\nMaybe not using AI is really a privilege?\n\n\n\nDo I use them? Yes (more at work, day-to-day, for coding at times, but I focus mostly on understanding how to use agentic GenAI securely)\nTo help me review literature (semantic understanding is super helpful!)\nand indeed, sometimes, to discuss my own ideas, as a “sparring opponent” (being aware the vendor will have access and train on such conversations)\n\nNote: Ensure Authorship is clear. It’s a tool, yes, and you don’t need to mention Excel. But the code you push with an Agent, is not your thinking alone. So you’re not the (only) author of it."
   },
   {
     "objectID": "index.html",
@@ -6717,7 +6717,7 @@
     "href": "others/FromHobbyToPhDwR.html#some-ideas-upfront",
     "title": "From Hobby to PhD, with R",
     "section": "Some ideas upfront",
-    "text": "Some ideas upfront\n\nHyper-parameters. The key of the algorithm speed/accuracy balance. I learnt the hard way.\n\n\n\nFirst version used all lists. It made conceptual sense. It worked. It was (especially) slow.\nIn the end I got rid of the lists altogether. Scary refactoring, but it worked out ok…\n\n\n\n\nAFTER trying everything else… Try C++ (Rcpp)…\nbrowser() is your best friend in the whole-wide-world\n\n\nBonus: It turns out, I have (recent) data to show sometimes Rcpp behaves better when used out of an R package!"
+    "text": "Some ideas upfront\n\n\nHyper-parameters. The key of the algorithm speed/accuracy balance. I learnt the hard way.\n\n\n\nFirst version used all lists. It made conceptual sense. It worked. It was (especially) slow.\nIn the end I got rid of the lists altogether. Scary refactoring, but it worked out ok…\n\n\n\n\nAFTER trying everything else… Try C++ (Rcpp)…\nPackages: Run Cmd+Shift+T (testthat) often.\nbrowser() is your best friend in the whole-wide-world\n\n\nBonus: It turns out, I have (recent) data to show sometimes Rcpp behaves better when used out of an R package!"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#other-ideas",
@@ -6780,7 +6780,7 @@
     "href": "others/FromHobbyToPhDwR.html#on-friction-learning",
     "title": "From Hobby to PhD, with R",
     "section": "On Friction & Learning",
-    "text": "On Friction & Learning\n\n\n\n\n\n\nCoding (and reading) ~ “additional ponder time”, testing alternatives, understanding the papers & equations…"
+    "text": "On Friction & Learning\n\n\n\n\n\n\nCoding (and reading) ~ “additional ponder time”, testing alternatives, understanding the papers & equations… The journey is the point! (Ronny Chieng)\nAlso: Dopamine!"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#who-says-you-have-to-follow-the-pseudo-code-to-the-letter",
@@ -6802,5 +6802,19 @@
     "title": "From Hobby to PhD, with R",
     "section": "Bit string length & Input compression",
     "text": "Bit string length & Input compression\n\n\n\nBasic numerical encoding\n\n\n\n\n\nImages data compression before training"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#why-i-think-twice-about-using-llms",
+    "href": "others/FromHobbyToPhDwR.html#why-i-think-twice-about-using-llms",
+    "title": "From Hobby to PhD, with R",
+    "section": "Why I think twice about using LLMs",
+    "text": "Why I think twice about using LLMs\n\nGeopolitical (US/China) dependency, educational matters (how should we approach that), economical/societal (in 5 years, what happens if you can’t pay $200/month for a subscription? You own you calculator… You rent your thinking agent?), job market issue (who hires juniors and compete? Who will be the seniors in 5 years), philosophical questions (who decides what guardrails for a model? Mostly? Not you…), financial non-sense (RAM costs, subsidized at loss service…), zero-responsibility marketing stunt large-scale hacking (?!) and of course environmental impacts (water, forests, dirty energy\nLet’s not kid ourselves, agentic GenAI today has many trade-offs to be considered.\n\n\n\nIt’s not a calculator issue. It goes straight into the thinking process. Delegation of (most) of the reasoning effort. Delegation of how to solve problems, how to search for solutions."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#paradox",
+    "href": "others/FromHobbyToPhDwR.html#paradox",
+    "title": "From Hobby to PhD, with R",
+    "section": "Paradox?",
+    "text": "Paradox?\nI have a critical stand on the (incorrect) use of LLMs. Yet I study Machine Learning?\nYes. I think LLMs and agentic AI is extremly powerful. But I believe that they are over-used, for the wrong reasons, given the (mentioned) issues.\nOne big focus for me is how to use the machine to help me make choices/decisions.\n\nDeep Learning is (mostly) a black box. LLMs make the reasoning and decisions for us.\n\n\n\nI want ML and computers to help us. I want eXplainable/Interpretable AI. I chose the LCS algorithm in big part because of that, while I realize it’s no competition for a 200+ billion parameters neural network…\nWe shouldn’t aim to replace ourselves, but to improve & elevate ourselves.\n\nUse Agentic AI to make important progress. Fight cancer, climate change. Of course! Go right ahead.\nBut given the trade-offs, maybe hold off on generating “AI Slop” videos?"
   }
 ]
