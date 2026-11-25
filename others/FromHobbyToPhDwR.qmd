@@ -245,7 +245,7 @@ I am fortunate enough that I **don’t need** to do a PhD. I am not an academic,
 
 . . .
 
-- I want ML and computers to help us. I want eXplainable/**Interpretable** AI. I chose the **LCS algorithm** in big part because of that, while I realize *it's no competition* for a 200+ billion parameters neural network...
+- I want ML and computers to help us. I want eXplainable/**Interpretable** AI. I chose the **LCS algorithm** in big part because of that, while I realize *it's no competition* for a 200+ billion parameters transformer...
 
 - We **shouldn't aim to replace ourselves, but to improve & elevate ourselves**.
 
