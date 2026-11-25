@@ -6773,7 +6773,7 @@
     "href": "others/FromHobbyToPhDwR.html#phase-1-matrices-matching",
     "title": "From Hobby to PhD, with R",
     "section": "Phase 1: Matrices matching",
-    "text": "Phase 1: Matrices matching\nSecret Sauce! This is quite possibly my first original (as far as I can tell) contribution.\nMore on this when (if? Nah, when!) I publish my first PhD Paper ;)\nIt’s not a secret either & I can show I have “priority” ;) (Until proven wrong, of course…)"
+    "text": "Phase 1: Matrices matching\nSecret Sauce! This is quite possibly my first original (as far as I can tell) contribution. It’s not a secret either & I can show I have “priority” ;) (Until proven wrong, of course…)\nMore on this when (if? Nah, when!) I publish my first PhD Paper ;)\n\nDraft generated in R / Quarto :)"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#on-friction-learning",
@@ -6808,7 +6808,7 @@
     "href": "others/FromHobbyToPhDwR.html#why-i-think-twice-about-using-llms",
     "title": "From Hobby to PhD, with R",
     "section": "Why I think twice about using LLMs",
-    "text": "Why I think twice about using LLMs\n\nGeopolitical (US/China) dependency, educational matters (how should we approach that), economical/societal (in 5 years, what happens if you can’t pay $200/month for a subscription? You own you calculator… You rent your thinking agent?), job market issue (who hires juniors and compete? Who will be the seniors in 5 years), philosophical questions (who decides what guardrails for a model? Mostly? Not you…), financial non-sense (RAM costs, subsidized at loss service…), zero-responsibility marketing stunt large-scale hacking (?!) and of course environmental impacts (water, forests, dirty energy\nLet’s not kid ourselves, agentic GenAI today has many trade-offs to be considered.\n\n\n\nIt’s not a calculator issue. It goes straight into the thinking process. Delegation of (most) of the reasoning effort. Delegation of how to solve problems, how to search for solutions."
+    "text": "Why I think twice about using LLMs\n\nGeopolitical (US/China) dependency, educational matters (how should we approach that), economical/societal (in 5 years, what happens if you can’t pay $200/month for a subscription? You own you calculator… You rent your thinking agent?), job market issue (who hires juniors and compete? Who will be the seniors in 5 years), philosophical questions (who decides what guardrails for a model? Mostly? Not you…), financial non-sense (RAM costs, subsidized at loss service…), zero-responsibility marketing stunt large-scale hacking (?!) and of course environmental impacts (water, forests, energy)\nLet’s not kid ourselves, agentic GenAI today has many trade-offs to be considered.\n\n\n\nIt’s not a calculator issue. It goes straight into the thinking process. Delegation of (most) of the reasoning effort. Delegation of how to solve problems, how to search for solutions."
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#paradox",
@@ -6816,5 +6816,19 @@
     "title": "From Hobby to PhD, with R",
     "section": "Paradox?",
     "text": "Paradox?\nI have a critical stand on the (incorrect) use of LLMs. Yet I study Machine Learning?\nYes. I think LLMs and agentic AI is extremly powerful. But I believe that they are over-used, for the wrong reasons, given the (mentioned) issues.\nOne big focus for me is how to use the machine to help me make choices/decisions.\n\nDeep Learning is (mostly) a black box. LLMs make the reasoning and decisions for us.\n\n\n\nI want ML and computers to help us. I want eXplainable/Interpretable AI. I chose the LCS algorithm in big part because of that, while I realize it’s no competition for a 200+ billion parameters neural network…\nWe shouldn’t aim to replace ourselves, but to improve & elevate ourselves.\n\nUse Agentic AI to make important progress. Fight cancer, climate change. Of course! Go right ahead.\nBut given the trade-offs, maybe hold off on generating “AI Slop” videos?"
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#interlude-what-is-this-lcs-thing",
+    "href": "others/FromHobbyToPhDwR.html#interlude-what-is-this-lcs-thing",
+    "title": "From Hobby to PhD, with R",
+    "section": "Interlude: What is this LCS thing?",
+    "text": "Interlude: What is this LCS thing?\nIn the 80’s, “AI” was approached as “Expert Systems”. Humans would write rules to define some behaviour. The difficulty was how to choose the best rules, and how many rules one “model” would need. Around 1976, John H. Holland proposed the “Learning Classifier System”, leveraging his (very own) Genetic Algorithms.\nA population of rules could look a bit like this:\n\n\n\n\n\n\n\nRule\nInterpretation\n\n\n\n\n10## -&gt; X\nif A & NOT(B) (and C and D don’t matter) then Class=X\n\n\n###1 -&gt; Y\nif D then Class=Y\n\n\n\nAn LCS tries to evolve best possible rules using stochastic processes (hence the result is not always a guaranteed best). Using a mix of covering, genetic crossing & mutation, and selection with pressure towards general but accurate rules.\nAn LCS model is traditionally a population of “Human-readable” rules, which is good for mitigating bias(es) (in training data, at least) and increased trust (justifying decisions).\nVariants of LCS have been applied to Reinforcement (notably XCS) and Supervised Learning (e.g. UCS)."
+  },
+  {
+    "objectID": "others/FromHobbyToPhDwR.html#interlude-what-is-an-lcs",
+    "href": "others/FromHobbyToPhDwR.html#interlude-what-is-an-lcs",
+    "title": "From Hobby to PhD, with R",
+    "section": "Interlude: What is an “LCS”?",
+    "text": "Interlude: What is an “LCS”?\nIn the 80’s, “AI” was approached as “Expert Systems”: Humans would write rules to define some behaviour. A difficulty was how to come up with the best rules a good model would need. ~1976, John H. Holland proposed the “Learning Classifier System”, leveraging his Genetic Algorithms.\nA “model”, a population of rules could look a bit like this:\n\n\n\n\n\n\n\nRule\nInterpretation\n\n\n\n\n10## -&gt; X\nif A & NOT(B) (and C and D don’t matter) then Class=X\n\n\n###1 -&gt; Y\nif D then Class=Y\n\n\n\nAn LCS tries to evolve the best possible rules using stochastic processes (i.e. the result is not “the” guaranteed best), using a mix of covering, genetic crossing & mutation, and selection with pressure towards general but accurate rules. This is automated search of solutions, “ML”.\nAn LCS model is traditionally a population of “human-readable” rules, which is good for mitigating bias(es) (in training data, at least) and increased trust (justifying decisions).\nVariants of LCS have been applied to Reinforcement (notably XCS) and Supervised Learning (e.g. UCS)."
   }
 ]

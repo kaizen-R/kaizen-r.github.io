@@ -20,19 +20,15 @@ execute:
 
 <br/>Take a slow ML algorithm, with a (rather) slow language (yes, I said it).
 
-Think about S shapes of technological progress, iterating, hundreds of configurations, running at night, passive cooling, mixing languages, (way too many) wrong approximations, and repeating again, and again, and again…
+Then imagine, thinking (for \~2 years worth of week-ends) about S shapes of technological progress, iterating, hundreds of configurations, running at night, passive cooling, mixing languages, (way too many) wrong approximations, and repeating again, and again, and again…
 
 . . .
 
-Today is a bit about... Being obsessive.
+So... Being obsessive (for no good reason) over a hobby project. Yet somehow it led to studying a PhD.
 
 . . .
 
-For no good reason.
-
-. . .
-
-And a conversation on LLMs & learning.
+And given the times we live in, let's also have a conversation on R (coding), LLMs & learning.
 
 ## Day 0: the book, the hobby
 
@@ -59,6 +55,23 @@ Already, the thing "worked".
 <br/>It's all here: <https://github.com/kaizen-R/RLCS>.
 
 <br/>It had some simplifications. 2 years later, some of these persist and make it wrong (and in some ways better at the same time!).
+
+## Interlude: What is an "LCS"?
+
+In the 80's, "AI" was approached as "Expert Systems": **Humans would write rules** to define some behaviour. A difficulty was **how to come up with the best rules** a good model would need. \~1976, John H. Holland proposed the "Learning Classifier System", leveraging his Genetic Algorithms.
+
+<br/>A "model", a population of rules could look a bit like this:
+
+| Rule       | Interpretation                                                |
+|----------------|--------------------------------------------------------|
+| 10## -\> X | if **A & NOT(B)** (and C and D don't matter) then **Class=X** |
+| ###1 -\> Y | if **D** then **Class=Y**                                     |
+
+An LCS tries to evolve the best possible rules using **stochastic** processes (i.e. the result is not "the" guaranteed best), using a mix of covering, genetic crossing & mutation, and selection with pressure towards general but accurate rules. This is automated search of solutions, "ML".
+
+<br/>An LCS model is traditionally a population of "human-readable" rules, which is **good for** **mitigating bias**(es) (in training data, at least) and increased **trust** (justifying decisions).
+
+Variants of LCS have been applied to Reinforcement (notably XCS) and Supervised Learning (e.g. UCS).
 
 ## Day \~670: the PhD
 
@@ -151,14 +164,14 @@ Breaking the input data. Kinda works. Much faster. Not a great idea.
 ## LLMs for Code
 
 - Well yes, they’re here. They are **incredible at code**. *Better than I am, no contest*.
-- That does **not** mean we **have** to use them. At least not for a hobby.
+- That does **not** mean we **have** to use them. *At least not for a hobby*.
 - *Maybe learning is **not better when efficient?***
 
 ![LLM can model proteins](images/llm_fold.jpeg)
 
 ## Why I think twice about using LLMs
 
-- **Geopolitical** (US/China) dependency, **educational** matters (how should we approach that), **economical/societal** (in 5 years, what happens if you can't pay \$200/month for a subscription? You own you calculator... You rent your thinking agent?), **job** market issue (who hires juniors and compete? Who will be the seniors in 5 years), **philosophical** questions (who decides what guardrails for a model? Mostly? Not you...), financial non-sense (RAM costs, subsidized at loss service...), **zero-responsibility** marketing stunt large-scale **hacking** (?!) and of course **environmental** impacts (water, forests, dirty energy
+- **Geopolitical** (US/China) dependency, **educational** matters (how should we approach that), **economical/societal** (in 5 years, what happens if you can't pay \$200/month for a subscription? You own you calculator... You rent your thinking agent?), **job** market issue (who hires juniors and compete? Who will be the seniors in 5 years), **philosophical** questions (who decides what guardrails for a model? Mostly? Not you...), financial non-sense (RAM costs, subsidized at loss service...), **zero-responsibility** marketing stunt large-scale **hacking** (?!) and of course **environmental** impacts (water, forests, energy)
 
 - Let's not kid ourselves, agentic GenAI today has many trade-offs to be considered.
 
@@ -299,7 +312,7 @@ General lines…
 ## Phase 1: Validation
 
 | Working on... | Status |
-|---------------------------------------------------|---------------------|
+|--------------------------------------------------|----------------------|
 | State of the art (my code doesn't respect preceding algorithms...), literature review | Ongoing |
 | train/validation/test, stratified 5-fold | Coded |
 | Fix issues (data leakage in encoding...) | Done |
@@ -309,11 +322,11 @@ General lines…
 
 ## Phase 1: Matrices matching
 
-Secret Sauce! This is quite possibly my first original (as far as I can tell) contribution.
+Secret Sauce! This is quite possibly my first original (as far as I can tell) contribution. It's not a secret either & I can show I have "priority" ;) (Until proven wrong, of course...)
 
 <br/>More on this when *(if? Nah, when!)* I publish my first PhD Paper ;)
 
-<br/>It's not a secret either & I can show I have "priority" ;) (Until proven wrong, of course...)
+![Draft generated in R / Quarto :)](images/first_paper_draft.png){fig-align="center" width="683"}
 
 ## Phase 1: Encoding improvements
 
