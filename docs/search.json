@@ -6654,7 +6654,7 @@
     "href": "others/FromHobbyToPhDwR.html#did-i-use-llms-then",
     "title": "From Hobby to PhD, with R",
     "section": "Did I use LLMs then?",
-    "text": "Did I use LLMs then?\n\nNot for any code of RLCS. I didn’t have a time pressure. Coding is a satisfying experience.\nI did not use them that much for learning…\n\nI prioritized books. And (later) papers.\nWhich possibly was a mistake (as long as you check the sources)\n\n\n\nMaybe not using AI is really a privilege?\n\n\n\nDo I use them? Yes (more at work, day-to-day, for coding at times, but I focus mostly on understanding how to use agentic GenAI securely)\nTo help me review literature (semantic understanding is super helpful!)\nand indeed, sometimes, to discuss my own ideas, as a “sparring opponent” (being aware the vendor will have access and train on such conversations)\n\nNote: Ensure Authorship is clear. It’s a tool, yes, and you don’t need to mention Excel. But the code you push with an Agent, is not your thinking alone. So you’re not the (only) author of it."
+    "text": "Did I use LLMs then?\n\nNot for any code of RLCS. I didn’t have a time pressure. Coding is a satisfying experience.\nI did not use them that much for learning…\n\nI prioritized books. And (later) papers.\nWhich possibly was a mistake (as long as you check the sources)\n\n\n\nMaybe not using AI is really a privilege?\n\n\n\nDo I use them? Yes (more at work, day-to-day, for coding at times, but I focus mostly on understanding how to use agentic GenAI securely)\nHere, mostly to help me find literature (semantic understanding is super helpful!)\nand indeed, sometimes, to discuss my own ideas, as a “sparring opponent” (being aware the vendor will have access and train on such conversations)\n\nNote: Ensure Authorship is clear. It’s a tool, yes, and you don’t need to mention Excel. But the code you push with an Agent, is not your thinking alone. So you’re not the (only) author of it."
   },
   {
     "objectID": "index.html",
@@ -6759,7 +6759,7 @@
     "href": "others/FromHobbyToPhDwR.html#phase-3-interpretability-credit-assignment",
     "title": "From Hobby to PhD, with R",
     "section": "Phase 3: Interpretability & Credit Assignment",
-    "text": "Phase 3: Interpretability & Credit Assignment\nWhile inherently interpretable, the rule-set (RLCS Model) gets complex quickly.\nFor Reinforcement Learning settings, I believe there is a way to leverage subsumption steps during training to distill information (“consolidate”) into a separate hierarchy of RLCS models, for shorter input strings (faster training/inference) while maintaining learning capacity.\nTBC."
+    "text": "Phase 3: Interpretability & Credit Assignment\nWhile inherently interpretable, the rule-set (RLCS Model) gets complex quickly.\nFor Reinforcement Learning settings, I believe there is a way to leverage subsumption steps during training to distill information (“consolidate”) into a separate hierarchy of RLCS models, for shorter input strings (faster training/inference) while maintaining learning capacity.\nTo Be Continued…"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#phase-1-on-encoding-bit-string-length-input-compression",

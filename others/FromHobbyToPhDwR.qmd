@@ -270,7 +270,7 @@ But **given the trade-offs**, maybe hold off on generating "AI Slop" videos?
 . . .
 
 - Do I use them? Yes (more at work, day-to-day, for coding at times, but I focus mostly on understanding how to use agentic GenAI securely)
-- To help me **review literature** (**semantic understanding** is super helpful!)
+- Here, mostly to help me **find literature** (**semantic understanding** is super helpful!)
 - and indeed, sometimes, to discuss my own ideas, as a "sparring opponent" (being aware the vendor will have access and train on such conversations)
 
 Note: Ensure Authorship is clear. It's a tool, yes, and you don't need to mention Excel. But the code you push with an Agent, is **not your thinking alone. So you're not the (only) author of it.**
@@ -364,4 +364,4 @@ While inherently interpretable, the rule-set (RLCS Model) gets complex quickly.
 
 <br/>For **Reinforcement Learning** settings, I believe there is a way to leverage subsumption steps during training to **distill information** ("consolidate") into a separate hierarchy of RLCS models, for shorter input strings (faster training/inference) while maintaining learning capacity.
 
-<br/>TBC.
+<br/>To Be Continued...
