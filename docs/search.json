@@ -6465,7 +6465,7 @@
     "href": "others/FromHobbyToPhDwR.html#day-0-the-book-the-hobby",
     "title": "From Hobby to PhD, with R",
     "section": "Day 0: the book, the hobby",
-    "text": "Day 0: the book, the hobby\nAfter reading about J.H. Holland’s LCS algorithm in Melanie Mitchell’s book on “Complexity”…\n\nHow it started"
+    "text": "Day 0: the book, the hobby\nAfter reading about J.H. Holland’s LCS algorithm in Melanie Mitchell’s book on “Complexity”…\n\nI’m not great at math, maybe a bit better at algorithms\nI do think of information as foundational of all things, and the “bit” as the elemental component.\nGenetic Algorithms (for some reason) make sense to me (survival, pressured randomness, search & optimization)\nIt’s all super slow though\n\nTHE BEST INTRO to the LCS Algorithm out-there (hands down!) (12’ video)\n\nHow it started"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#day-0-the-book-the-hobby-1",
@@ -6479,14 +6479,14 @@
     "href": "others/FromHobbyToPhDwR.html#day-21-the-functional-version",
     "title": "From Hobby to PhD, with R",
     "section": "Day 21: the functional version",
-    "text": "Day 21: the functional version\nAlready, the thing “worked”.\nA few months later, it was my first R package. The first LCS implementation in R (AFAICT, anyway…)\nIt’s all here: https://github.com/kaizen-R/RLCS.\nIt had some simplifications. 2 years later, some of these persist and make it wrong (and in some ways better at the same time!)."
+    "text": "Day 21: the functional version\nAlready, the thing “worked”.\nA few months later, it was my first R package. The first LCS implementation in R (AFAICT, anyway…)\nIt’s all here: https://github.com/kaizen-R/RLCS\n\nVisualizing the model (iris - simplified)It had some simplifications. 2 years later, some of these persist and make it wrong (and in some ways better at the same time!)."
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#day-670-the-phd",
     "href": "others/FromHobbyToPhDwR.html#day-670-the-phd",
     "title": "From Hobby to PhD, with R",
     "section": "Day ~670: the PhD",
-    "text": "Day ~670: the PhD\nI was officially accepted October 8th, 2026.\nJoyful time.\n\nIf you fancy having even less spare time.\nBut we’ll get back to this later."
+    "text": "Day ~670: the PhD\nAnd I kept going, nights and weekends (mostly weekends :D)…\nNo particular objective in the beginning, and yet after almost 2 years of:\n\nworking on a slow ML algorithm, with a (rather) slow language (yes, I said it)\nthinking about S shapes of technological progress, different approaches, coming up with ideas\nmixing languages and HW (C++, Rust, but also Torch),\nand mostly (way too many) wrong approximations, and repeating again, and again, and again, night-long parallel-processing training runs… (a bit of an obsession…)\n\n\nI was officially accepted at URJC ~ October 8th, 2026.\nJoyful time.\n\n\nIf you fancy having even less spare time. But we’ll get back to this later."
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#focus-on-speed",
@@ -6542,7 +6542,7 @@
     "href": "others/FromHobbyToPhDwR.html#parallel-processing",
     "title": "From Hobby to PhD, with R",
     "section": "Parallel processing",
-    "text": "Parallel processing\nWhen you run several simulations (37h+…)\nParallel execution becomes a great ally. And I’ve tried a few combinations. I currently settle on {foreach}-{doParallel}. Sometimes, even {plumbeR}!\nYou could use {future.apply} or {mirai}. I also want to look into {mizu}, the new kid in town.\n\nSave runtimes through parallel processing. On M6, it’s even more beautiful!"
+    "text": "Parallel processing\nWhen you run several simulations (37h+…)\nParallel execution becomes a great ally. And I’ve tried a few combinations. I currently settle on {foreach}-{doParallel}. Sometimes, even {plumbeR}!\nYou could use {future.apply} or {mirai}. I also want to look into {mizu}, the new kid in town.\n\nSave runtimes through parallel processing (beautiful!)"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#parallel-processing-1",
@@ -6626,7 +6626,7 @@
     "href": "others/FromHobbyToPhDwR.html#llms-for-code",
     "title": "From Hobby to PhD, with R",
     "section": "LLMs for Code",
-    "text": "LLMs for Code\n\nWell yes, they’re here. They are incredible at code. Better than I am, no contest.\nThat does not mean we have to use them. At least not for a hobby.\nMaybe learning is not better when efficient?\n\n\nLLM can model proteins"
+    "text": "LLMs for Code\n\nWell yes, they’re here. They are incredible at code. Better than I am, no contest.\nThat does not mean we have to use them. At least not for a hobby.\nMaybe learning isnot better when efficient?\n\n\nLLM can model proteins"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#rlcs-with-llm",
@@ -6745,7 +6745,7 @@
     "href": "others/FromHobbyToPhDwR.html#phase-1-encoding-improvements",
     "title": "From Hobby to PhD, with R",
     "section": "Phase 1: Encoding improvements",
-    "text": "Phase 1: Encoding improvements\nDon’t encode data points, encode information!\nBetter Encodings, regularization and its effects…\nE.g. Gini/entropy to change encoding length? Things like that, there is a lot to be considered! Trees encoding, etc."
+    "text": "Phase 1: Encoding improvements\nDon’t encode data points, encode information!\nBetter Encodings, regularization and its effects…\nE.g. Gini/entropy to change encoding length? Things like that, there is a lot to be considered! Trees encoding, etc. Or maybe discard variables? Markov Blankets…\nNote: PCA & al. might make the model less interpretable"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#phase-2-active-learning-data-complexity",
@@ -6780,7 +6780,7 @@
     "href": "others/FromHobbyToPhDwR.html#on-friction-learning",
     "title": "From Hobby to PhD, with R",
     "section": "On Friction & Learning",
-    "text": "On Friction & Learning\n\n\n\n\n\n\nCoding (and reading) ~ “additional ponder time”, testing alternatives, understanding the papers & equations… The journey is the point! (Ronny Chieng)\nAlso: Dopamine!"
+    "text": "On Friction & Learning\n\n\n\n\n\n\nCoding (and reading) == “additional ponder time”\nE.g. I came up, over two years, independently, with many ideas that (doing things “right”) prove not crazy as others came up with them too! (Also: Dopamine!)\n\ntesting alternatives, understanding the papers & equations…"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#who-says-you-have-to-follow-the-pseudo-code-to-the-letter",
@@ -6808,14 +6808,14 @@
     "href": "others/FromHobbyToPhDwR.html#why-i-think-twice-about-using-llms",
     "title": "From Hobby to PhD, with R",
     "section": "Why I think twice about using LLMs",
-    "text": "Why I think twice about using LLMs\n\nGeopolitical (US/China) dependency, educational matters (how should we approach that), economical/societal (in 5 years, what happens if you can’t pay $200/month for a subscription? You own you calculator… You rent your thinking agent?), job market issue (who hires juniors and compete? Who will be the seniors in 5 years), philosophical questions (who decides what guardrails for a model? Mostly? Not you…), financial non-sense (RAM costs, subsidized at loss service…), zero-responsibility marketing stunt large-scale hacking (?!) and of course environmental impacts (water, forests, energy)\nLet’s not kid ourselves, agentic GenAI today has many trade-offs to be considered.\n\n\n\nIt’s not a calculator issue. It goes straight into the thinking process. Delegation of (most) of the reasoning effort. Delegation of how to solve problems, how to search for solutions."
+    "text": "Why I think twice about using LLMs\n\nGeopolitical (US/China) dependency,\neducational matters (how should we approach that),\neconomical/societal (in 5 years, what happens if you can’t pay $200/month for a subscription? You own you calculator… You rent your thinking agent?),\njob market issue (who hires juniors and compete? Who will be the seniors in 5 years),\nphilosophical questions (who decides what guardrails for a model? Mostly? Not you…),\nfinancial non-sense (RAM costs, subsidized at loss service…),\nzero-responsibility marketing stunt large-scale hacking (?!)\nand of course environmental impacts (water, forests, energy)\n\n\n\nIt’s not a calculator issue. It goes straight into the thinking process. Delegation of (most) of the reasoning effort. Delegation of how to solve problems, how to search for solutions."
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#paradox",
     "href": "others/FromHobbyToPhDwR.html#paradox",
     "title": "From Hobby to PhD, with R",
     "section": "Paradox?",
-    "text": "Paradox?\nI have a critical stand on the (incorrect) use of LLMs. Yet I study Machine Learning?\nYes. I think LLMs and agentic AI is extremly powerful. But I believe that they are over-used, for the wrong reasons, given the (mentioned) issues.\nOne big focus for me is how to use the machine to help me make choices/decisions.\n\nDeep Learning is (mostly) a black box. LLMs make the reasoning and decisions for us.\n\n\n\nI want ML and computers to help us. I want eXplainable/Interpretable AI. I chose the LCS algorithm in big part because of that, while I realize it’s no competition for a 200+ billion parameters transformer…\nWe shouldn’t aim to replace ourselves, but to improve & elevate ourselves.\n\nUse Agentic AI to make important progress. Fight cancer, climate change. Of course! Go right ahead.\nBut given the trade-offs, maybe hold off on generating “AI Slop” videos?"
+    "text": "Paradox?\nI have a critical stance on the (incorrect) use of LLMs. Yet I study Machine Learning?\nYes. I think LLMs and agentic AI is extremly powerful. But I believe that they are over-used, for the wrong reasons, given the (mentioned) issues.\nOne big focus for me is how to use the machine to help me make choices/decisions.\n\nDeep Learning is (mostly) a black box. LLMs make the reasoning and decisions for us.\n\n\n\nI want ML and computers to help us. I want eXplainable/Interpretable AI. I chose the LCS algorithm in big part because of that, while I realize it’s no competition for a 200+ billion parameters transformer…\nWe shouldn’t aim to replace ourselves, but to improve & elevate ourselves.\n\nUse Agentic AI to make important progress. Fight cancer, climate change. Of course! Go right ahead.\nBut given the trade-offs, maybe hold off on generating “AI Slop” videos?"
   },
   {
     "objectID": "others/FromHobbyToPhDwR.html#interlude-what-is-this-lcs-thing",

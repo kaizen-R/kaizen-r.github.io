@@ -1,7 +1,7 @@
 ---
 title: "From Hobby to PhD, with R"
 subtitle: "A story of 2 years of making (many) mistakes, and about *learning* (some)"
-    
+author: N. L. D., URJC
 format: 
   revealjs:
     footer: "[kaizen-r blog on RLCS](https://kaizen-r.github.io/#category=RLCS)&nbsp;"
@@ -18,41 +18,28 @@ execute:
 
 # Intro
 
-<br/>Take a slow ML algorithm, with a (rather) slow language (yes, I said it).
-
-Then imagine, thinking (for \~2 years worth of week-ends) about S shapes of technological progress, iterating, hundreds of configurations, running at night, passive cooling, mixing languages, (way too many) wrong approximations, and repeating again, and again, and again…
-
-. . .
-
-So... Being obsessive (for no good reason) over a hobby project. Yet somehow it led to studying a PhD.
-
-. . .
-
-And given the times we live in, let's also have a conversation on R (coding), LLMs & learning.
-
 ## Day 0: the book, the hobby
 
 After reading about J.H. Holland's LCS algorithm in Melanie Mitchell's book on "Complexity"...
 
-![How it started](images/books.jpeg)
-
-## Day 0: the book, the hobby
-
-- **I'm not** great at math.
-- Maybe a bit better at algorithms
+- **I'm not** great at math, maybe a bit better at algorithms
 - **I do think of information** as foundational of all things, and **the "bit"** as the elemental component.
 - Genetic Algorithms (for some reason) **make sense** to me (survival, pressured randomness, search & optimization)
 - **It's all super slow** though
 
 [THE BEST INTRO to the LCS Algorithm out-there (hands down!)](https://youtu.be/CRge_cZ2cJc?feature=shared) (12' video)
 
+![How it started](images/books.jpeg){fig-align="center" width="400"}
+
 ## Day 21: the functional version
 
 Already, the thing "worked".
 
-<br/>A few months later, it was my first R package. The **first LCS implementation in R** *(AFAICT, anyway...)*
+A few months later, it was my first R package. The [**first LCS implementation in R**](https://github.com/kaizen-R/RLCS) *(AFAICT, anyway...)*
 
-<br/>It's all here: <https://github.com/kaizen-R/RLCS>.
+It's all here: [**https://github.com/kaizen-R/RLCS**](https://github.com/kaizen-R/RLCS){.uri}
+
+![Visualizing the model (iris - simplified)](images/simplified_iris_pop.png){fig-align="center" width="318"}
 
 <br/>It had some simplifications. 2 years later, some of these persist and make it wrong (and in some ways better at the same time!).
 
@@ -63,7 +50,7 @@ In the 80's, "AI" was approached as "Expert Systems": **Humans would write rules
 <br/>A "model", a population of rules could look a bit like this:
 
 | Rule       | Interpretation                                                |
-|----------------|--------------------------------------------------------|
+|------------------|------------------------------------------------------|
 | 10## -\> X | if **A & NOT(B)** (and C and D don't matter) then **Class=X** |
 | ###1 -\> Y | if **D** then **Class=Y**                                     |
 
@@ -75,15 +62,27 @@ Variants of LCS have been applied to Reinforcement (notably XCS) and Supervised 
 
 ## Day \~670: the PhD
 
-I was officially accepted October 8th, 2026.
+And I kept going, nights and weekends (mostly weekends :D)...
+
+No particular objective in the beginning, and yet **after almost 2 years** of:
+
+- working on a **slow ML algorithm**, with a (rather) slow language (yes, I said it)
+
+- thinking about S shapes of technological progress, different approaches, coming up with ideas
+
+- mixing languages and HW (C++, Rust, but also Torch),
+
+- and mostly (way too many) wrong approximations, and repeating again, and again, and again, night-long parallel-processing training runs… (a bit of an obsession...)
+
+. . .
+
+<br/>I was officially accepted at URJC \~ October 8th, 2026.
 
 <br/>Joyful time.
 
 . . .
 
-<br/>If you fancy having even less spare time.
-
-But we'll get back to this later.
+<br/>If you fancy having even less spare time. But we'll get back to this later.
 
 # What happened in between?
 
@@ -141,7 +140,7 @@ When you run several simulations (37h+...)
 
 You could use {future.apply} or {mirai}. I also want to look into {mizu}, the new kid in town.
 
-![Save runtimes through parallel processing. On M6, it's even more beautiful!](images/running_parallel-v001.jpg){fig-align="center" width="686"}
+![Save runtimes through parallel processing (beautiful!)](images/running_parallel-v002.png){fig-align="center" width="768"}
 
 ## environment() & Zero Copy
 
@@ -165,15 +164,20 @@ Breaking the input data. Kinda works. Much faster. Not a great idea.
 
 - Well yes, they’re here. They are **incredible at code**. *Better than I am, no contest*.
 - That does **not** mean we **have** to use them. *At least not for a hobby*.
-- *Maybe learning is **not better when efficient?***
+- *Maybe **learning isnot better when efficient?***
 
 ![LLM can model proteins](images/llm_fold.jpeg)
 
 ## Why I think twice about using LLMs
 
-- **Geopolitical** (US/China) dependency, **educational** matters (how should we approach that), **economical/societal** (in 5 years, what happens if you can't pay \$200/month for a subscription? You own you calculator... You rent your thinking agent?), **job** market issue (who hires juniors and compete? Who will be the seniors in 5 years), **philosophical** questions (who decides what guardrails for a model? Mostly? Not you...), financial non-sense (RAM costs, subsidized at loss service...), **zero-responsibility** marketing stunt large-scale **hacking** (?!) and of course **environmental** impacts (water, forests, energy)
-
-- Let's not kid ourselves, agentic GenAI today has many trade-offs to be considered.
+- **Geopolitical** (US/China) dependency,
+- **educational** matters (how should we approach that),
+- **economical/societal** (in 5 years, what happens if you can't pay \$200/month for a subscription? You own you calculator... You rent your thinking agent?),
+- **job** market issue (who hires juniors and compete? Who will be the seniors in 5 years),
+- **philosophical** questions (who decides what guardrails for a model? Mostly? Not you...),
+- financial non-sense (RAM costs, subsidized at loss service...),
+- **zero-responsibility** marketing stunt large-scale **hacking** (?!)
+- and of course **environmental** impacts (water, forests, energy)
 
 . . .
 
@@ -203,9 +207,13 @@ g <- igraph::graph_from_data_frame(read.csv('./data/rlcs_learning_graph.csv'), v
 # visNetwork::visSave(g, './others/data/rlcs_learning_graph.html')
 ```
 
-**Coding** (and reading) \~ "additional ponder time", testing alternatives, **understanding** the papers & equations… The journey is the point! (Ronny Chieng)
+**Coding** (and reading) == "additional ponder time"
 
-Also: **Dopamine**!
+E.g. I came up, over two years, **independently**, with *many* ideas that (doing things "right") prove not crazy as others came up with them too! (Also: **Dopamine**!)
+
+::: notes
+testing alternatives, understanding the papers & equations…
+:::
 
 ## And why a PhD?
 
@@ -235,7 +243,7 @@ I am fortunate enough that I **don’t need** to do a PhD. I am not an academic,
 
 ## Paradox?
 
-<br/>I have a critical stand on the (incorrect) use of LLMs. Yet I study Machine Learning?
+<br/>I have a critical stance on the (incorrect) use of LLMs. Yet I study Machine Learning?
 
 <br/>Yes. I think LLMs and agentic AI is extremly powerful. But I believe that they are over-used, for the wrong reasons, given the (mentioned) issues.
 
@@ -312,7 +320,7 @@ General lines…
 ## Phase 1: Validation
 
 | Working on... | Status |
-|--------------------------------------------------|----------------------|
+|-------------------------------------------------|-----------------------|
 | State of the art (my code doesn't respect preceding algorithms...), literature review | Ongoing |
 | train/validation/test, stratified 5-fold | Coded |
 | Fix issues (data leakage in encoding...) | Done |
@@ -334,7 +342,9 @@ Secret Sauce! This is quite possibly my first original (as far as I can tell) co
 
 <br/>Better Encodings, regularization and its effects...
 
-E.g. Gini/entropy to change encoding length? Things like that, there is a lot to be considered! Trees encoding, etc.
+E.g. Gini/entropy to change encoding length? Things like that, there is a lot to be considered! Trees encoding, etc. Or maybe discard variables? Markov Blankets...
+
+Note: PCA & al. might make the model less interpretable
 
 ## Bit string length & Input compression
 
