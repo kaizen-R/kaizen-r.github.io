@@ -170,13 +170,14 @@ Breaking the input data. Kinda works. Much faster. Not a great idea.
 
 ## Why I think twice about using LLMs
 
-- **Geopolitical** (US/China) dependency,
+- **Geopolitical** (e.g. Europe vs US/China) dependency,
 - **educational** matters (how should we approach that),
-- **economical/societal** (in 5 years, what happens if you can't pay \$200/month for a subscription? You own you calculator... You rent your thinking agent?),
+- **economical/societal** (in \~5 years, what happens if you can't pay \$200/month for a subscription? You own you calculator... You rent your thinking agent?),
 - **job** market issue (who hires juniors and compete? Who will be the seniors in 5 years),
 - **philosophical** questions (who decides what guardrails for a model? Mostly? Not you...),
-- financial non-sense (RAM costs, subsidized at loss service...),
-- **zero-responsibility** marketing stunt large-scale **hacking** (?!)
+- **intelectual property** (of data used to feed the algorithms),
+- concerning **financials** (at loss service, circular feedback loops, RAM costs...),
+- **zero-responsibility** marketing stunt large-scale **hacking** (?!),
 - and of course **environmental** impacts (water, forests, energy)
 
 . . .
