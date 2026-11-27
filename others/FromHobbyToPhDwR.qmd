@@ -49,10 +49,10 @@ In the 80's, "AI" was approached as "Expert Systems": **Humans would write rules
 
 <br/>A "model", a population of rules could look a bit like this:
 
-| Rule       | Interpretation                                                |
-|------------------|------------------------------------------------------|
-| 10## -\> X | if **A & NOT(B)** (and C and D don't matter) then **Class=X** |
-| ###1 -\> Y | if **D** then **Class=Y**                                     |
+| Rule       | Interpretation                                          |
+|------------|---------------------------------------------------------|
+| ###1 -\> Y | if **D** (and the rest doesn't matter) then **Class=Y** |
+| 10## -\> X | if **A & NOT(B)** then **Class=X**                      |
 
 An LCS tries to evolve the best possible rules using **stochastic** processes (i.e. the result is not "the" guaranteed best), using a mix of covering, genetic crossing & mutation, and selection with pressure towards general but accurate rules. This is automated search of solutions, "ML".
 
